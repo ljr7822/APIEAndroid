@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Xiaoxun"
+rootProject.name = "APIEAndroid"
 include(":app")
 include(":feature_base")
 include(":feature")

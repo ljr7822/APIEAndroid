@@ -4,12 +4,18 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.example.xiaoxun.databinding.ActivityMainBinding
+import com.xiaoxun.apie.common.utils.APieLog
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,9 +32,12 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        binding?.shear?.setOnClickListener {
-            // 开始执行流水线
-            val input = 10
+        runOnUiThread {
+            ProcessLifecycleOwner.get().lifecycle.addObserver(object : LifecycleEventObserver {
+                override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+                    APieLog.d("ForegroundCallbacks-1", "onProcessLifecycleChanged: $event")
+                }
+            })
         }
     }
 }
