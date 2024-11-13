@@ -11,7 +11,7 @@ import androidx.viewbinding.ViewBinding
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.xiaoxun.apie.common.R
-import com.xiaoxun.apie.common.navbar.BottomBarLayout
+import com.xiaoxun.apie.common.navbar.APieNavBarLayout
 import com.xiaoxun.apie.common.navbar.TabData
 import com.xiaoxun.apie.common.navbar.fragment.TabFragment
 
@@ -24,23 +24,20 @@ abstract class APieViewPagerActivity : AppCompatActivity() {
 
     private lateinit var mVpContent: ViewPager2
 
-    protected var mNavBarLayout: BottomBarLayout? = null
+    protected var mNavBarLayout: APieNavBarLayout? = null
 
     private val mFragmentList = mutableListOf<TabFragment>()
 
     protected abstract fun getViewBinding(): ViewBinding
 
-    protected open fun getNavTabNames(): Array<String> {
-        return arrayOf("首页", "愿望墙", "我的")
-    }
+    protected open fun getNavTabNames(): Array<String> = arrayOf("tab1", "tab2", "tab3")
 
     protected open fun getNavTabData(): List<TabData> {
-        val tabData: MutableList<TabData> = ArrayList()
-        tabData.add(TabData(getNavTabNames()[0], "home.json"))
-        tabData.add(TabData(getNavTabNames()[1], "category.json"))
-        //tabData.add(TabData(getNavTabNames()[2], "cart.json"))
-        tabData.add(TabData(getNavTabNames()[2], "mine.json"))
-        return tabData
+        return ArrayList<TabData>().apply {
+            add(TabData(getNavTabNames()[0], "home.json"))
+            add(TabData(getNavTabNames()[1], "category.json"))
+            add(TabData(getNavTabNames()[2], "mine.json"))
+        }
     }
 
     open fun initView() {}
@@ -81,10 +78,6 @@ abstract class APieViewPagerActivity : AppCompatActivity() {
         mNavBarLayout?.setData(getNavTabData())
         mVpContent.adapter = ViewPagerAdapter(this)
         mNavBarLayout?.setViewPager(mVpContent)
-        mNavBarLayout?.setUnread(0, 8)
-        mNavBarLayout?.setUnread(1, 2)
-        //mNavBarLayout?.showNotify(2)
-        mNavBarLayout?.setMsg(2, "NEW")
     }
 
     inner class ViewPagerAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {
@@ -92,25 +85,4 @@ abstract class APieViewPagerActivity : AppCompatActivity() {
 
         override fun createFragment(position: Int): Fragment = mFragmentList[position]
     }
-
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        menuInflater.inflate(R.menu.menu_demo, menu)
-//        return true
-//    }
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        when (item.itemId) {
-//            R.id.action_clear_unread -> {
-//                mNavBarLayout?.setUnread(0, 0)
-//                mNavBarLayout?.setUnread(1, 0)
-//            }
-//            R.id.action_clear_notify -> {
-//                mNavBarLayout?.hideNotify(2)
-//            }
-//            R.id.action_clear_msg -> {
-//                mNavBarLayout?.hideMsg(3)
-//            }
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
 }

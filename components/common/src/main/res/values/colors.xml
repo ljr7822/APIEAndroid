@@ -6,6 +6,7 @@
     <color name="white">#ffffff</color>
     <color name="selector_grey">#DDDDDD</color>
     <color name="tab_gb">#F3F5F4</color>
+    <color name="home_gb">#F3F5F4</color>
 
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>

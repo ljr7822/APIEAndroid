@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="45dp" />
 
-    <com.xiaoxun.apie.common.navbar.BottomBarLayout
+    <com.xiaoxun.apie.common.navbar.APieNavBarLayout
         android:id="@+id/bbl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

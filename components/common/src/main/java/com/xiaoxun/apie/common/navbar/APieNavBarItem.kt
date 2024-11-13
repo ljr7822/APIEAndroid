@@ -17,8 +17,10 @@ import com.xiaoxun.apie.common.R
 import com.xiaoxun.apie.common.utils.UIUtils
 import java.util.Locale
 
-
-class BottomBarItem @JvmOverloads constructor(
+/**
+ * 底部导航栏的item
+ */
+class APieNavBarItem @JvmOverloads constructor(
     private val context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -192,7 +194,7 @@ class BottomBarItem @JvmOverloads constructor(
         tv?.visibility = View.VISIBLE
     }
 
-    fun create(builder: Builder): BottomBarItem {
+    fun create(builder: Builder): APieNavBarItem {
         mBuilder = builder
         checkValues()
         init()
@@ -332,16 +334,16 @@ class BottomBarItem @JvmOverloads constructor(
         /**
          * Create a BottomBarItem object
          */
-        fun build(normalIcon: Drawable?, selectedIcon: Drawable?, text: String): BottomBarItem {
+        fun build(normalIcon: Drawable?, selectedIcon: Drawable?, text: String): APieNavBarItem {
             this.normalIcon = normalIcon
             this.selectedIcon = selectedIcon
             title = text
 
-            val bottomBarItem = BottomBarItem(context)
-            return bottomBarItem.create(this)
+            val APieNavBarItem = APieNavBarItem(context)
+            return APieNavBarItem.create(this)
         }
 
-        fun build(normalIconId: Int, selectedIconId: Int, text: String): BottomBarItem {
+        fun build(normalIconId: Int, selectedIconId: Int, text: String): APieNavBarItem {
             return build(
                 UIUtils.getDrawable(context, normalIconId),
                 UIUtils.getDrawable(context, selectedIconId),

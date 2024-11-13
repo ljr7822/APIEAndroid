@@ -9,7 +9,6 @@ import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
@@ -19,11 +18,9 @@ import com.xiaoxun.apie.common.utils.APieLog.Companion.i
 import com.xiaoxun.apie.common.utils.UIUtils
 
 /**
- * @author ChayChan
- * @description: 底部页签根节点
- * @date 2017/6/23  11:02
+ * 底部导航栏根节点
  */
-class BottomBarLayout @JvmOverloads constructor(
+class APieNavBarLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -54,8 +51,7 @@ class BottomBarLayout @JvmOverloads constructor(
     private var floatIconWidth = 0 //凸起图标的宽度
     private var floatIconHeight = 0 //凸起图标的高度
 
-    private var mViewPager: ViewPager? = null
-    private val mItemViews: MutableList<BottomBarItem> = ArrayList()
+    private val mItemViews: MutableList<APieNavBarItem> = ArrayList()
     private var mCurrentItem = 0 //当前条目的索引
     private var mSmoothScroll = false
 
@@ -149,28 +145,6 @@ class BottomBarLayout @JvmOverloads constructor(
             ta.getInteger(R.styleable.BottomBarLayout_unreadThreshold, unreadNumThreshold)
     }
 
-//    fun setViewPager(viewPager: ViewPager?) {
-//        this.mViewPager = viewPager
-//
-//        if (mViewPager != null) {
-//            mViewPager!!.setOnPageChangeListener(object : OnPageChangeListener {
-//                override fun onPageScrolled(
-//                    position: Int,
-//                    positionOffset: Float,
-//                    positionOffsetPixels: Int
-//                ) {
-//                }
-//
-//                override fun onPageSelected(position: Int) {
-//                    handlePageSelected(position)
-//                }
-//
-//                override fun onPageScrollStateChanged(state: Int) {
-//                }
-//            })
-//        }
-//    }
-
     fun setViewPager(viewPager2: ViewPager2?) {
         this.mViewPager2 = viewPager2
 
@@ -198,8 +172,8 @@ class BottomBarLayout @JvmOverloads constructor(
         iconWidth: Int,
         iconHeight: Int,
         lottieJson: String
-    ): BottomBarItem {
-        return BottomBarItem.Builder(context)
+    ): APieNavBarItem {
+        return APieNavBarItem.Builder(context)
             .titleTextBold(titleTextBold)
             .titleTextSize(titleTextSize)
             .titleNormalColor(titleNormalColor)
@@ -260,7 +234,7 @@ class BottomBarLayout @JvmOverloads constructor(
     }
 
     @JvmOverloads
-    fun addItem(item: BottomBarItem, index: Int = -1, isFloatItem: Boolean = false) {
+    fun addItem(item: APieNavBarItem, index: Int = -1, isFloatItem: Boolean = false) {
         if (index == -1) {
             mItemViews.add(item)
         } else {
@@ -342,35 +316,26 @@ class BottomBarLayout @JvmOverloads constructor(
     private inner class MyOnClickListener(private val currentIndex: Int) : OnClickListener {
         override fun onClick(v: View) {
             //点击时判断是否需要拦截跳转
-            if (mOnPageChangeInterceptor != null
-                && mOnPageChangeInterceptor!!.onIntercepted(currentIndex)
+            if (mOnPageChangeInterceptor != null && mOnPageChangeInterceptor!!.onIntercepted(
+                    currentIndex
+                )
             ) {
                 return
             }
             if (currentIndex == mCurrentItem) {
                 //如果还是同个页签，判断是否要回调
-                if (onItemSelectedListener != null && mSameTabClickCallBack) {
-                    onItemSelectedListener!!.onItemSelected(
-                        getBottomItem(currentIndex),
-                        mCurrentItem,
-                        currentIndex
-                    )
+                onItemSelectedListener?.let {
+                    if (mSameTabClickCallBack) {
+                        it.onItemSelected(getBottomItem(currentIndex), mCurrentItem, currentIndex)
+                    }
                 }
             } else {
-                if (mViewPager != null || mViewPager2 != null) {
-                    if (mViewPager != null) {
-                        mViewPager!!.setCurrentItem(currentIndex, mSmoothScroll)
-                    } else {
-                        mViewPager2!!.setCurrentItem(currentIndex, mSmoothScroll)
-                    }
+                mViewPager2?.let {
+                    it.setCurrentItem(currentIndex, mSmoothScroll)
                     return
                 }
-                if (onItemSelectedListener != null) {
-                    onItemSelectedListener!!.onItemSelected(
-                        getBottomItem(currentIndex),
-                        mCurrentItem,
-                        currentIndex
-                    )
+                onItemSelectedListener?.let {
+                    it.onItemSelected(getBottomItem(currentIndex), mCurrentItem, currentIndex)
                 }
                 updateTabState(currentIndex)
             }
@@ -444,21 +409,12 @@ class BottomBarLayout @JvmOverloads constructor(
     var currentItem: Int
         get() = mCurrentItem
         set(currentItem) {
-            if (mViewPager != null || mViewPager2 != null) {
-                if (mViewPager != null) {
-                    mViewPager!!.setCurrentItem(currentItem, mSmoothScroll)
-                } else {
-                    mViewPager2!!.setCurrentItem(currentItem, mSmoothScroll)
-                }
-            } else {
-                if (onItemSelectedListener != null) {
-                    onItemSelectedListener!!.onItemSelected(
-                        getBottomItem(currentItem),
-                        mCurrentItem,
-                        currentItem
-                    )
-                }
-                updateTabState(currentItem)
+            mViewPager2?.setCurrentItem(currentItem, mSmoothScroll) ?: {
+                onItemSelectedListener?.onItemSelected(
+                    getBottomItem(currentItem),
+                    mCurrentItem,
+                    currentItem
+                )
             }
         }
 
@@ -466,7 +422,7 @@ class BottomBarLayout @JvmOverloads constructor(
         this.mSmoothScroll = smoothScroll
     }
 
-    fun getBottomItem(position: Int): BottomBarItem {
+    fun getBottomItem(position: Int): APieNavBarItem {
         return mItemViews[position]
     }
 
@@ -474,7 +430,7 @@ class BottomBarLayout @JvmOverloads constructor(
 
     interface OnItemSelectedListener {
         fun onItemSelected(
-            bottomBarItem: BottomBarItem?,
+            APieNavBarItem: APieNavBarItem?,
             previousPosition: Int,
             currentPosition: Int
         )
