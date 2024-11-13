@@ -1,11 +1,9 @@
 package com.example.xiaoxun
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.xiaoxun.databinding.LayoutApieHomeActivityBinding
 import com.example.xiaoxun.fragment.HomeFragment
+import com.gyf.immersionbar.ImmersionBar
 import com.xiaoxun.apie.common.base.activity.APieBaseViewPagerActivity
 
 /**
@@ -20,12 +18,10 @@ class APieHomeActivity : APieBaseViewPagerActivity<LayoutApieHomeActivityBinding
     }
 
     private fun initWindowsStyle() {
-        enableEdgeToEdge()
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root.findViewById(R.id.root_view)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        ImmersionBar.with(this)
+            .transparentStatusBar()
+            .statusBarDarkFont(true)
+            .init()
     }
 
     private fun initNavItemData() {
