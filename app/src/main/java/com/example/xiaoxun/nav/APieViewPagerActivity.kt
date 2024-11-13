@@ -11,6 +11,7 @@ import androidx.viewbinding.ViewBinding
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.xiaoxun.apie.common.R
+import com.xiaoxun.apie.common.config.APieConfig
 import com.xiaoxun.apie.common.navbar.APieNavBarLayout
 import com.xiaoxun.apie.common.navbar.TabData
 import com.xiaoxun.apie.common.navbar.fragment.TabFragment
@@ -30,15 +31,9 @@ abstract class APieViewPagerActivity : AppCompatActivity() {
 
     protected abstract fun getViewBinding(): ViewBinding
 
-    protected open fun getNavTabNames(): Array<String> = arrayOf("tab1", "tab2", "tab3")
+    protected open fun getNavTabNames(): MutableList<String> = APieConfig.getNavTabName()
 
-    protected open fun getNavTabData(): List<TabData> {
-        return ArrayList<TabData>().apply {
-            add(TabData(getNavTabNames()[0], "home.json"))
-            add(TabData(getNavTabNames()[1], "category.json"))
-            add(TabData(getNavTabNames()[2], "mine.json"))
-        }
-    }
+    protected open fun getNavTabData(): MutableList<TabData> = APieConfig.getNavTabData()
 
     open fun initView() {}
 
