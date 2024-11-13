@@ -7,6 +7,7 @@ import com.example.xiaoxun.fragment.HomeFragment
 import com.example.xiaoxun.fragment.MineFragment
 import com.gyf.immersionbar.ImmersionBar
 import com.xiaoxun.apie.common.base.activity.APieBaseViewPagerActivity
+import com.xiaoxun.apie.common.config.APieConfig
 
 /**
  * 首页Activity
@@ -29,7 +30,7 @@ class APieHomeActivity : APieBaseViewPagerActivity<LayoutApieHomeActivityBinding
     private fun initNavItemData() {
         getNavTabNames().forEachIndexed { index, tabName ->
             when (index) {
-                0 -> {
+                APieConfig.HOME_PAGE_INDEX -> {
                     val fragment = HomeFragment().apply {
                         arguments = Bundle().apply {
                             putString(HomeFragment.TEST_FLAG, tabName)
@@ -37,7 +38,7 @@ class APieHomeActivity : APieBaseViewPagerActivity<LayoutApieHomeActivityBinding
                     }
                     mFragmentList.add(fragment)
                 }
-                1 -> {
+                APieConfig.DESIRE_PAGE_INDEX -> {
                     val fragment = DesireFragment().apply {
                         arguments = Bundle().apply {
                             putString(DesireFragment.TEST_FLAG, tabName)
@@ -45,7 +46,7 @@ class APieHomeActivity : APieBaseViewPagerActivity<LayoutApieHomeActivityBinding
                     }
                     mFragmentList.add(fragment)
                 }
-                2 -> {
+                APieConfig.MINE_PAGE_INDEX -> {
                     val fragment = MineFragment().apply {
                         arguments = Bundle().apply {
                             putString(DesireFragment.TEST_FLAG, tabName)
