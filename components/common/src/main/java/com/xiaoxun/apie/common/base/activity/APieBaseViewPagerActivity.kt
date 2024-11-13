@@ -26,7 +26,7 @@ abstract class APieBaseViewPagerActivity<VB: ViewBinding>(private val inflate: (
 
     val mFragmentList: MutableList<Fragment> = mutableListOf<Fragment>()
 
-    protected open fun getNavTabNames(): MutableList<String> = APieConfig.getNavTabName().values.toMutableList()
+    protected open fun getNavTabNames(): MutableList<String> = APieConfig.getNavTabMap().values.toMutableList()
 
     protected open fun getNavTabData(): MutableList<TabData> = APieConfig.getNavTabData()
 

@@ -10,13 +10,21 @@ object APieConfig {
     const val DESIRE_PAGE_INDEX = 1
     const val MINE_PAGE_INDEX = 2
 
+    private const val HOME_TAB_NAME = "tab-1"
+    private const val DESIRE_TAB_NAME = "tab-2"
+    private const val MINE_TAB_NAME = "tab-3"
+
+    private const val HOME_TAB_LOTTIE_JSON = "home.json"
+    private const val DESIRE_TAB_LOTTIE_JSON = "category.json"
+    private const val MINE_TAB_LOTTIE_JSON = "mine.json"
+
     /**
      * tab的名称
      */
-    fun getNavTabName(): MutableMap<Int,String> = mutableMapOf(
-        Pair(HOME_PAGE_INDEX,"tab-1"),
-        Pair(DESIRE_PAGE_INDEX,"tab-2"),
-        Pair(MINE_PAGE_INDEX,"tab-3")
+    fun getNavTabMap(): MutableMap<Int, String> = mutableMapOf(
+        Pair(HOME_PAGE_INDEX, HOME_TAB_NAME),
+        Pair(DESIRE_PAGE_INDEX, DESIRE_TAB_NAME),
+        Pair(MINE_PAGE_INDEX, MINE_TAB_NAME)
     )
 
     /**
@@ -24,9 +32,24 @@ object APieConfig {
      */
     fun getNavTabData(): MutableList<TabData> {
         return mutableListOf<TabData>().apply {
-            add(TabData(getNavTabName().getValue(HOME_PAGE_INDEX), "home.json"))
-            add(TabData(getNavTabName().getValue(DESIRE_PAGE_INDEX), "category.json"))
-            add(TabData(getNavTabName().getValue(MINE_PAGE_INDEX), "mine.json"))
+            add(
+                TabData(
+                    title = getNavTabMap().getValue(HOME_PAGE_INDEX),
+                    lottieJson = HOME_TAB_LOTTIE_JSON
+                )
+            )
+            add(
+                TabData(
+                    title = getNavTabMap().getValue(DESIRE_PAGE_INDEX),
+                    lottieJson = DESIRE_TAB_LOTTIE_JSON
+                )
+            )
+            add(
+                TabData(
+                    title = getNavTabMap().getValue(MINE_PAGE_INDEX),
+                    lottieJson = MINE_TAB_LOTTIE_JSON
+                )
+            )
         }
     }
 }
