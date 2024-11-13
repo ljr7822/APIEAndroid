@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.google.android.material.tabs.TabLayout.TabGravity
+import com.xiaoxun.apie.common.utils.APieLog
 
 /**
  * 基础的页面Fragment
  */
 abstract class APieBaseTabFragment<VB : ViewBinding>(
     private val inflater: (LayoutInflater, ViewGroup?, Boolean) -> VB
-) : Fragment() {
+) : BaseLogFragment() {
 
     private var _binding: VB? = null
     val binding: VB get() = _binding!!
