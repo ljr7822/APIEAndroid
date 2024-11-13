@@ -9,7 +9,7 @@ object APieConfig {
     /**
      * tab的名称
      */
-    fun getNavTabName(): MutableList<String> = mutableListOf("tab1", "tab2", "tab3")
+    fun getNavTabName(): MutableList<String> = mutableListOf("tab-1", "tab-2", "tab-3")
 
     /**
      * tab的lottie动画json
