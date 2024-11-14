@@ -16,7 +16,7 @@ import com.xiaoxun.apie.common.navbar.TabData
 /**
  * viewPager + BottomBarLayout 实现的底部导航栏的基类
  */
-abstract class APieBaseViewPagerActivity<VB: ViewBinding>(private val inflate: (LayoutInflater) -> VB) : AppCompatActivity() {
+abstract class APieBaseViewPagerActivity<VB: ViewBinding>(private val inflate: (LayoutInflater) -> VB, private val maskModel: Boolean = false) : AppCompatActivity() {
 
     lateinit var binding: VB
 
@@ -34,7 +34,9 @@ abstract class APieBaseViewPagerActivity<VB: ViewBinding>(private val inflate: (
         super.onCreate(savedInstanceState)
         binding = inflate(layoutInflater)
         setContentView(binding.root)
-        initContentAndNavView()
+        if (!maskModel) {
+            initContentAndNavView()
+        }
     }
     
     private fun initContentAndNavView() {
