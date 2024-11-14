@@ -16,4 +16,7 @@ open class BaseResponse<T> {
     @SerializedName("message")
     var message: String? = null
 
+    override fun toString(): String {
+        return "BaseResponse: success=$success, code=$code, data=$data, message=$message"
+    }
 }
