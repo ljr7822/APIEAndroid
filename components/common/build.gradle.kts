@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.jetbrains.kotlin.kapt)
 }
 
 android {
@@ -37,11 +39,14 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.android.lottie)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.rxjava2)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.google.code.gson)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

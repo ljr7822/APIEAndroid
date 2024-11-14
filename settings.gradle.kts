@@ -21,6 +21,12 @@ dependencyResolutionManagement {
 
 rootProject.name = "APIEAndroid"
 include(":app")
-include(":feature_base")
 include(":feature")
+
 include(":components:common")
+include(":components:network")
+include(":components:common_model")
+include(":components:data_loader")
+
+include(":feature_base:apie_data_loader")
+include(":feature_base:apie_network")

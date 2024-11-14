@@ -1,6 +1,8 @@
 package com.example.xiaoxun
 
 import android.os.Bundle
+import android.view.WindowInsets
+import android.view.WindowInsetsAnimation
 import com.example.xiaoxun.databinding.LayoutApieHomeActivityBinding
 import com.example.xiaoxun.fragment.DesireFragment
 import com.example.xiaoxun.fragment.HomeFragment
@@ -8,6 +10,8 @@ import com.example.xiaoxun.fragment.MineFragment
 import com.gyf.immersionbar.ImmersionBar
 import com.xiaoxun.apie.common.base.activity.APieBaseViewPagerActivity
 import com.xiaoxun.apie.common.config.APieConfig
+import com.xiaoxun.apie.common.utils.APieLog
+import com.xiaoxun.apie.common.utils.StatusBarUtils
 
 /**
  * 首页Activity
@@ -18,6 +22,8 @@ class APieHomeActivity : APieBaseViewPagerActivity<LayoutApieHomeActivityBinding
         super.onCreate(savedInstanceState)
         initWindowsStyle()
         initNavItemData()
+        val statusBarHeight1 = StatusBarUtils.getStatusBarHeight(context = this)
+        APieLog.d("ljrxxx", "statusBarHeight1=$statusBarHeight1")
     }
 
     private fun initWindowsStyle() {

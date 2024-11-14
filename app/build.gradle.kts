@@ -1,8 +1,8 @@
-import org.jetbrains.kotlin.utils.addToStdlib.safeAs
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.jetbrains.kotlin.kapt)
 }
 
 android {
@@ -39,12 +39,22 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    configurations {
+        create("cleanedAnnotations")
+        implementation {
+            exclude(group = "org.jetbrains", module = "annotations")
+        }
+    }
 }
 
 dependencies {
 
     implementation(project(":feature"))
     implementation(project(":components:common"))
+    implementation(project(":components:common_model"))
+    implementation(project(":feature_base:apie_data_loader"))
+    implementation(project(":components:data_loader"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

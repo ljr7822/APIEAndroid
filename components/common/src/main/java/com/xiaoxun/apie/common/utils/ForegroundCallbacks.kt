@@ -3,7 +3,7 @@ package com.xiaoxun.apie.common.utils
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.xiaoxun.apie.common.utils.intf.OnAppStatusListener
+import com.xiaoxun.apie.common.intf.OnAppStatusListener
 
 /**
  * 实现方式1：前后台监听

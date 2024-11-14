@@ -17,6 +17,14 @@ constraintlayout = "2.1.4"
 androidxlifecycleprocessVersion = "2.2.0"
 lottieVersion = "3.7.0"
 immersionbarVersion = "3.2.2"
+adapterRetrofit2Version = "2.4.0"
+rxjava2RxandroidVersion = "2.1.1"
+rxjava2RxjavaVersion = "2.2.12"
+retrofit2Version = "2.5.0"
+loggingInterceptorVersion = "3.10.0"
+androidxRoomRuntimeVersion = "2.4.3"
+androidLifecycleExtensionsVersion = "1.1.1"
+gsonVersion = "2.8.6"
 
 # 需要注意的是，如果名称中有“-”，在Gradle构建脚本中引用时必须将其改成“.”，例如：androidx-core-ktx 调用时需要改成 androidx.core.ktx
 [libraries]
@@ -29,11 +37,26 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-lifecycle-process = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "androidxlifecycleprocessVersion" }
+android-lifecycle-extensions = { group = "android.arch.lifecycle", name = "extensions", version.ref = "androidLifecycleExtensionsVersion" }
 android-lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottieVersion" }
-geyifeng-immersionbar = { group ="com.geyifeng.immersionbar", name = "immersionbar", version.ref = "immersionbarVersion" }
+geyifeng-immersionbar = { group = "com.geyifeng.immersionbar", name = "immersionbar", version.ref = "immersionbarVersion" }
+squareup-retrofit2-rxjava2 = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version.ref = "adapterRetrofit2Version" }
+squareup-retrofit2-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit2Version" }
+squareup-retrofit2-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit2Version" }
+squareup-okhttp3-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptorVersion" }
+reactivex-rxjava2-rxandroid = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxjava2RxandroidVersion" }
+reactivex-rxjava2-rxjava = { group = "io.reactivex.rxjava2", name = "rxjava", version.ref = "rxjava2RxjavaVersion" }
+google-code-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gsonVersion" }
+
+# room数据库
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidxRoomRuntimeVersion" }
+androidx-room-rxjava2 = { group = "androidx.room", name = "room-rxjava2", version.ref = "androidxRoomRuntimeVersion" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidxRoomRuntimeVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 

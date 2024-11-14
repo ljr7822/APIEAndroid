@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.jetbrains.kotlin.kapt)
 }
 
 android {
@@ -33,10 +35,14 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":components:common"))
+    implementation(project(":components:data_loader"))
+    implementation(project(":feature_base:apie_data_loader"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.reactivex.rxjava2.rxandroid)
+    implementation(libs.reactivex.rxjava2.rxjava)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
