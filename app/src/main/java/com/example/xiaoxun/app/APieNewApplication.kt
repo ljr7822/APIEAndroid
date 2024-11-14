@@ -76,7 +76,7 @@ class APieNewApplication : APieBaseApplication() {
                 APieLog.v(tag, message)
             }
         })
-        DataLoaderConfig.setCacheType(CacheType.SP)
+        DataLoaderConfig.setCacheType(CacheType.DB)
         DataLoaderManager.instance.initWithContext(this)
     }
 }

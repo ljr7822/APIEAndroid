@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.jetbrains.kotlin.kapt)
 }
 
 android {
@@ -44,7 +45,7 @@ dependencies {
     implementation(libs.reactivex.rxjava2.rxjava)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.rxjava2)
-    implementation(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

@@ -48,7 +48,7 @@ dependencies {
     implementation(libs.reactivex.rxjava2.rxjava)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.rxjava2)
-    implementation(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
