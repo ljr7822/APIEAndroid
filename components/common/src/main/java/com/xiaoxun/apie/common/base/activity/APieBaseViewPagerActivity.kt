@@ -16,7 +16,10 @@ import com.xiaoxun.apie.common.navbar.TabData
 /**
  * viewPager + BottomBarLayout 实现的底部导航栏的基类
  */
-abstract class APieBaseViewPagerActivity<VB: ViewBinding>(private val inflate: (LayoutInflater) -> VB, private val maskModel: Boolean = false) : AppCompatActivity() {
+abstract class APieBaseViewPagerActivity<VB : ViewBinding>(
+    private val inflate: (LayoutInflater) -> VB,
+    private val maskModel: Boolean = false
+) : AppCompatActivity() {
 
     lateinit var binding: VB
 
@@ -26,7 +29,8 @@ abstract class APieBaseViewPagerActivity<VB: ViewBinding>(private val inflate: (
 
     val mFragmentList: MutableList<Fragment> = mutableListOf<Fragment>()
 
-    protected open fun getNavTabNames(): MutableList<String> = APieConfig.getNavTabMap().values.toMutableList()
+    protected open fun getNavTabNames(): MutableList<String> =
+        APieConfig.getNavTabMap().values.toMutableList()
 
     protected open fun getNavTabData(): MutableList<TabData> = APieConfig.getNavTabData()
 
@@ -38,7 +42,7 @@ abstract class APieBaseViewPagerActivity<VB: ViewBinding>(private val inflate: (
             initContentAndNavView()
         }
     }
-    
+
     private fun initContentAndNavView() {
         mVpContent = binding.root.findViewById(R.id.vp_content)
         mNavBarLayout = binding.root.findViewById(R.id.bbl)

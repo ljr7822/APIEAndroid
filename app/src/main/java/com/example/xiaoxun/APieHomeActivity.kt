@@ -16,7 +16,8 @@ import com.xiaoxun.apie.common.utils.StatusBarUtils
 /**
  * 首页Activity
  */
-class APieHomeActivity : APieBaseViewPagerActivity<LayoutApieHomeActivityBinding>(LayoutApieHomeActivityBinding::inflate) {
+class APieHomeActivity :
+    APieBaseViewPagerActivity<LayoutApieHomeActivityBinding>(LayoutApieHomeActivityBinding::inflate) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +45,7 @@ class APieHomeActivity : APieBaseViewPagerActivity<LayoutApieHomeActivityBinding
                     }
                     mFragmentList.add(fragment)
                 }
+
                 APieConfig.DESIRE_PAGE_INDEX -> {
                     val fragment = DesireFragment().apply {
                         arguments = Bundle().apply {
@@ -52,6 +54,7 @@ class APieHomeActivity : APieBaseViewPagerActivity<LayoutApieHomeActivityBinding
                     }
                     mFragmentList.add(fragment)
                 }
+
                 APieConfig.MINE_PAGE_INDEX -> {
                     val fragment = MineFragment().apply {
                         arguments = Bundle().apply {
