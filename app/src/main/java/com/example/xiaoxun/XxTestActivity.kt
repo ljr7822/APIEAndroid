@@ -2,11 +2,10 @@ package com.example.xiaoxun
 
 import android.os.Bundle
 import com.example.xiaoxun.databinding.LayoutXxTestActivityBinding
-import com.xiaoxun.apie.common.base.activity.APieBaseViewPagerActivity
+import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 
-class XxTestActivity : APieBaseViewPagerActivity<LayoutXxTestActivityBinding>(
-    LayoutXxTestActivityBinding::inflate,
-    true
+class XxTestActivity : APieBaseBindingActivity<LayoutXxTestActivityBinding>(
+    LayoutXxTestActivityBinding::inflate
 ) {
 
     override fun onCreate(savedInstanceState: Bundle?) {

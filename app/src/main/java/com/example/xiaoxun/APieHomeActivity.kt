@@ -3,6 +3,7 @@ package com.example.xiaoxun
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowInsetsAnimation
+import com.example.xiaoxun.adapter.ViewPagerAdapter
 import com.example.xiaoxun.databinding.LayoutApieHomeActivityBinding
 import com.example.xiaoxun.fragment.DesireFragment
 import com.example.xiaoxun.fragment.HomeFragment
@@ -17,7 +18,13 @@ import com.xiaoxun.apie.common.utils.StatusBarUtils
  * 首页Activity
  */
 class APieHomeActivity :
-    APieBaseViewPagerActivity<LayoutApieHomeActivityBinding>(LayoutApieHomeActivityBinding::inflate) {
+    APieBaseViewPagerActivity<LayoutApieHomeActivityBinding, ViewPagerAdapter>(
+        LayoutApieHomeActivityBinding::inflate
+    ) {
+
+    override fun createAdapter(): ViewPagerAdapter {
+        return ViewPagerAdapter(this, mFragmentList)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +73,6 @@ class APieHomeActivity :
             }
         }
         mNavBarLayout?.setData(getNavTabData())
-        mVpContent.adapter = ViewPagerAdapter(this)
         mNavBarLayout?.setViewPager(mVpContent)
     }
 }

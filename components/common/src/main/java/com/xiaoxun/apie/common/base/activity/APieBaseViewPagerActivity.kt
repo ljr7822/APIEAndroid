@@ -10,47 +10,54 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.xiaoxun.apie.common.R
 import com.xiaoxun.apie.common.config.APieConfig
+import com.xiaoxun.apie.common.intf.NavTabProvider
 import com.xiaoxun.apie.common.navbar.APieNavBarLayout
 import com.xiaoxun.apie.common.navbar.TabData
 
 /**
  * viewPager + BottomBarLayout 实现的底部导航栏的基类
  */
-abstract class APieBaseViewPagerActivity<VB : ViewBinding>(
-    private val inflate: (LayoutInflater) -> VB,
+abstract class APieBaseViewPagerActivity<VB : ViewBinding, FA : FragmentStateAdapter>(
+    inflate: (LayoutInflater) -> VB,
     private val maskModel: Boolean = false
-) : AppCompatActivity() {
+) : APieBaseBindingActivity<VB>(inflate), NavTabProvider {
 
-    lateinit var binding: VB
+    // 延迟初始化 ViewPager2 和 NavBar
+    val mVpContent: ViewPager2 by lazy { binding.root.findViewById(R.id.vp_content) }
+    val mNavBarLayout: APieNavBarLayout? by lazy { binding.root.findViewById(R.id.bbl) }
 
-    lateinit var mVpContent: ViewPager2
-
-    var mNavBarLayout: APieNavBarLayout? = null
-
+    // Fragment 列表
     val mFragmentList: MutableList<Fragment> = mutableListOf<Fragment>()
 
-    protected open fun getNavTabNames(): MutableList<String> =
+    // 抽象方法让子类提供适配器
+    protected abstract fun createAdapter(): FA
+
+    override fun getNavTabNames(): MutableList<String> =
         APieConfig.getNavTabMap().values.toMutableList()
 
-    protected open fun getNavTabData(): MutableList<TabData> = APieConfig.getNavTabData()
+    override fun getNavTabData(): MutableList<TabData> =
+        APieConfig.getNavTabData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = inflate(layoutInflater)
-        setContentView(binding.root)
         if (!maskModel) {
             initContentAndNavView()
+            mVpContent.adapter = createAdapter()
         }
     }
 
     private fun initContentAndNavView() {
-        mVpContent = binding.root.findViewById(R.id.vp_content)
-        mNavBarLayout = binding.root.findViewById(R.id.bbl)
+        setupViewPager()
+        setupNavBar()
     }
 
-    inner class ViewPagerAdapter(fm: FragmentActivity) : FragmentStateAdapter(fm) {
-        override fun getItemCount(): Int = mFragmentList.size
+    /**
+     * 提供可重写的 ViewPager 初始化，已通过 lazy 初始化，无需额外代码
+     */
+    protected open fun setupViewPager() {}
 
-        override fun createFragment(position: Int): Fragment = mFragmentList[position]
-    }
+    /**
+     * 提供可重写的 NavBar 初始化，已通过 lazy 初始化，无需额外代码
+     */
+    protected open fun setupNavBar() {}
 }

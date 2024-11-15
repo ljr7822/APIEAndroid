@@ -3,12 +3,12 @@ package com.example.xiaoxun.fragment
 import android.os.Bundle
 import android.view.View
 import com.example.xiaoxun.databinding.LayoutDesireFragmentBinding
-import com.xiaoxun.apie.common.base.fragment.APieBaseTabFragment
+import com.xiaoxun.apie.common.base.fragment.APieBaseBindingFragment
 
 /**
  * 心愿Fragment
  */
-class DesireFragment: APieBaseTabFragment<LayoutDesireFragmentBinding>(LayoutDesireFragmentBinding::inflate) {
+class DesireFragment: APieBaseBindingFragment<LayoutDesireFragmentBinding>(LayoutDesireFragmentBinding::inflate) {
     companion object {
         const val TEST_FLAG: String = "test_flag"
     }
