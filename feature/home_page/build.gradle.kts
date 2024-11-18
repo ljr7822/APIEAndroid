@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.xiaoxun.apie.common"
+    namespace = "com.xiaoxun.apie.home_page"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -32,24 +32,13 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.android.lottie)
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.rxjava2)
-    implementation(libs.reactivex.rxjava2.rxandroid)
-    implementation(libs.tencent.mmkv)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    kapt(libs.androidx.room.compiler)
-    implementation(libs.google.code.gson)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

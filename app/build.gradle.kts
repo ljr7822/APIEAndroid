@@ -50,7 +50,7 @@ android {
 
 dependencies {
 
-    implementation(project(":feature"))
+    implementation(project(":feature:account"))
     implementation(project(":components:common"))
     implementation(project(":components:common_model"))
     implementation(project(":feature_base:apie_data_loader"))
