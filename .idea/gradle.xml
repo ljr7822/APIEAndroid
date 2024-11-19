@@ -16,6 +16,8 @@
             <option value="$PROJECT_DIR$/components/data_loader" />
             <option value="$PROJECT_DIR$/components/network" />
             <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/account" />
+            <option value="$PROJECT_DIR$/feature/home_page" />
             <option value="$PROJECT_DIR$/feature_base" />
             <option value="$PROJECT_DIR$/feature_base/apie_data_loader" />
             <option value="$PROJECT_DIR$/feature_base/apie_network" />
