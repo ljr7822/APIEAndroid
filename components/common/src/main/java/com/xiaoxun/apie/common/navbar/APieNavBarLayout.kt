@@ -14,7 +14,6 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.xiaoxun.apie.common.R
 import com.xiaoxun.apie.common.utils.APieLog
-import com.xiaoxun.apie.common.utils.APieLog.Companion.i
 import com.xiaoxun.apie.common.utils.UIUtils
 
 /**
@@ -64,7 +63,7 @@ class APieNavBarLayout @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        i("bottomBarLayout", "width: $measuredWidth height: $barHeight")
+        APieLog.d("bottomBarLayout", "width: $measuredWidth height: $barHeight")
         val params = LayoutParams(measuredWidth, barHeight)
         params.gravity = Gravity.BOTTOM
         mLlTab.layoutParams = params
@@ -242,7 +241,7 @@ class APieNavBarLayout @JvmOverloads constructor(
         }
 
         val position = if (index != -1) index else mItemViews.size - 1
-        APieLog.e("bottomBarLayout", "position: $position")
+        APieLog.d("bottomBarLayout", "position: $position")
 
         var view: View = item
         val layoutParams = LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT)
