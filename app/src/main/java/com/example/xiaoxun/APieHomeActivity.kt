@@ -41,6 +41,11 @@ class APieHomeActivity :
             .init()
     }
 
+    override fun setupViewPager() {
+        super.setupViewPager()
+        setViewPagerSlideEnabled(false)
+    }
+
     private fun initNavItemData() {
         getNavTabNames().forEachIndexed { index, tabName ->
             when (index) {

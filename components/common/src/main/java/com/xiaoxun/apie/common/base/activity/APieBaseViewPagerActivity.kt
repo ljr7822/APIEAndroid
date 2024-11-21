@@ -51,13 +51,17 @@ abstract class APieBaseViewPagerActivity<VB : ViewBinding, FA : FragmentStateAda
         setupNavBar()
     }
 
+    fun setViewPagerSlideEnabled(enabled: Boolean) {
+        mVpContent.isUserInputEnabled = enabled
+    }
+
     /**
      * 提供可重写的 ViewPager 初始化，已通过 lazy 初始化，无需额外代码
      */
-    protected open fun setupViewPager() {}
+    open fun setupViewPager() {}
 
     /**
      * 提供可重写的 NavBar 初始化，已通过 lazy 初始化，无需额外代码
      */
-    protected open fun setupNavBar() {}
+    open fun setupNavBar() {}
 }
