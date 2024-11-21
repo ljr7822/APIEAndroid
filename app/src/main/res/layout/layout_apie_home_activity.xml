@@ -23,7 +23,7 @@
         app:iconHeight="25dp"
         app:itemTextSize="10sp"
         app:itemMarginTop="0dp"
-        app:textColorNormal="@color/tab_normal_color"
-        app:textColorSelected="@color/tab_selected_color" />
+        app:textColorNormal="@color/apie_tab_normal_color"
+        app:textColorSelected="@color/apie_tab_selected_color" />
 
 </LinearLayout>

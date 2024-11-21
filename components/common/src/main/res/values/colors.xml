@@ -3,7 +3,7 @@
     <color name="bbl_999999">#999999</color>
     <color name="bbl_ff0000">#ff0000</color>
 
-    <color name="white">#ffffff</color>
+    <color name="apie_color_white">#ffffff</color>
     <color name="selector_grey">#DDDDDD</color>
     <color name="tab_gb">#F3F5F4</color>
     <color name="home_gb">#F3F5F4</color>
@@ -12,9 +12,13 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="tab_normal_color">#515051</color>
-    <color name="tab_selected_color">#D33D3C</color>
+    <color name="apie_tab_normal_color">#515051</color>
+    <color name="apie_tab_selected_color">#D33D3C</color>
 
     <color name="unreadTextColor">#00ff00</color>
     <color name="msgTextColor">#00ff00</color>
+
+    <color name="apie_color_4770DC">#4770DC</color>
+    <color name="apie_color_6F94F4">#6F94F4</color>
+    <color name="apie_color_97B4FF">#97B4FF</color>
 </resources>

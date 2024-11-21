@@ -215,10 +215,10 @@ class APieNavBarItem @JvmOverloads constructor(
         var itemPadding: Int = 0 // BottomBarItem的padding
         var unreadTextSize: Int = UIUtils.sp2px(context, 10) // 未读数字体大小
         var unreadNumThreshold: Int = 99 // 未读数阈值
-        var unreadTextColor: Int = getColor(R.color.white) // 未读数字体颜色
+        var unreadTextColor: Int = getColor(R.color.apie_color_white) // 未读数字体颜色
         var unreadTextBg: Drawable? = null // 未读数文字背景
         var msgTextSize: Int = UIUtils.sp2px(context, 6) // 消息字体大小
-        var msgTextColor: Int = getColor(R.color.white) // 消息文字颜色
+        var msgTextColor: Int = getColor(R.color.apie_color_white) // 消息文字颜色
         var msgTextBg: Drawable? = null // 消息提醒背景颜色
         var notifyPointBg: Drawable? = null // 小红点背景颜色
         var lottieJson: String? = null // lottie文件名

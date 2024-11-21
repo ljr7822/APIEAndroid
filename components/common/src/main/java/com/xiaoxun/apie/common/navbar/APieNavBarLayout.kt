@@ -124,7 +124,7 @@ class APieNavBarLayout @JvmOverloads constructor(
         )
         unreadTextColor = ta.getColor(
             R.styleable.BottomBarLayout_unreadTextColor,
-            UIUtils.getColor(context, R.color.white)
+            UIUtils.getColor(context, R.color.apie_color_white)
         )
         unreadTextBg = ta.getDrawable(R.styleable.BottomBarLayout_unreadTextBg)
 
@@ -134,7 +134,7 @@ class APieNavBarLayout @JvmOverloads constructor(
         )
         msgTextColor = ta.getColor(
             R.styleable.BottomBarLayout_msgTextColor,
-            UIUtils.getColor(context, R.color.white)
+            UIUtils.getColor(context, R.color.apie_color_white)
         )
         msgTextBg = ta.getDrawable(R.styleable.BottomBarLayout_msgTextBg)
 

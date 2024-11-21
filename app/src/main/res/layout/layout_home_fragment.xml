@@ -7,7 +7,7 @@
 
     <View
         android:id="@+id/top_bar_view"
-        android:background="@color/tab_normal_color"
+        android:background="@color/apie_tab_normal_color"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:visibility="gone"
