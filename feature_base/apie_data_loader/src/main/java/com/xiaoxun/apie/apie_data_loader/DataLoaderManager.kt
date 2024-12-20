@@ -2,8 +2,11 @@ package com.xiaoxun.apie.apie_data_loader
 
 import android.content.Context
 import com.xiaoxun.apie.apie_data_loader.repository.APieDataLoaderRepository
-import com.xiaoxun.apie.apie_data_loader.request.account.login.LoginRequest
+import com.xiaoxun.apie.apie_data_loader.request.account.login.password.LoginByPasswordRequest
+import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySmsCodeRequest
+import com.xiaoxun.apie.apie_data_loader.request.account.sms.SendSmsCode
 import com.xiaoxun.apie.common_model.account.AccountModel
+import com.xiaoxun.apie.common_model.sms.SmsCodeModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
 import com.xiaoxun.apie.data_loader.loader.APieSimpleDataLoader
 import com.xiaoxun.apie.data_loader.loader.IDataLoader
@@ -37,18 +40,26 @@ class DataLoaderManager private constructor() {
     }
 
     /**
-     * 登录接口
+     * 密码登录接口
      */
-    fun login(loginRequestParams: LoginRequest, cacheStrategy: CacheStrategy): Observable<BaseResponse<AccountModel>> {
-        val loader = buildDataLoader<AccountModel>(APieUrl.ACCOUNT_LOGIN.name)
-        return loader?.getData(loginRequestParams, cacheStrategy) ?: Observable.error(Exception("loader is null"))
+    fun loginByPassword(loginByPasswordRequestParams: LoginByPasswordRequest, cacheStrategy: CacheStrategy): Observable<BaseResponse<AccountModel>> {
+        val loader = buildDataLoader<AccountModel>(APieUrl.ACCOUNT_LOGIN_PASSWORD.name)
+        return loader?.getData(loginByPasswordRequestParams, cacheStrategy) ?: Observable.error(Exception("loader is null"))
     }
 
-//    /**
-//     * 注册接口
-//     */
-//    fun register(registerRequestParams: RegisterRequest, cacheStrategy: CacheStrategy): Observable<BaseResponse<AccountModel>> {
-//        val loader = buildDataLoader<AccountModel>(APicUrl.ACCOUNT_REGISTER.name)
-//        return loader?.getData(registerRequestParams, cacheStrategy) ?: Observable.error(Exception("loader is null"))
-//    }
+    /**
+     * 验证码登录接口
+     */
+    fun loginBySmsCode(loginBySmsCodeRequestParams: LoginBySmsCodeRequest, cacheStrategy: CacheStrategy): Observable<BaseResponse<AccountModel>> {
+        val loader = buildDataLoader<AccountModel>(APieUrl.ACCOUNT_LOGIN_SMS_CODE.name)
+        return loader?.getData(loginBySmsCodeRequestParams, cacheStrategy) ?: Observable.error(Exception("loader is null"))
+    }
+
+    /**
+     * 发送验证码接口
+     */
+    fun sendSmsCode(sendSmsCode: SendSmsCode, cacheStrategy: CacheStrategy): Observable<BaseResponse<SmsCodeModel>> {
+        val loader = buildDataLoader<SmsCodeModel>(APieUrl.ACCOUNT_SEND_SMS_CODE.name)
+        return loader?.getData(sendSmsCode, cacheStrategy) ?: Observable.error(Exception("loader is null"))
+    }
 }

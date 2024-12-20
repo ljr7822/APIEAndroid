@@ -11,15 +11,20 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Keep
 data class AccountModel(
-    //@SerializedName("user")
-    //val userBean: UserBean,
-    // 当前登录的账号
-    @SerializedName("account")
-    var account: String? = null,
-    // 当前登录成功后获取的Token, 可以通过Token获取用户的所有信息
+    @SerializedName("userId")
+    var userId: String = "",
+    @SerializedName("userName")
+    val userName: String? = "",
+    @SerializedName("phoneNum")
+    var phoneNum: String = "",
     @SerializedName("token")
-    val token: String? = null,
-    @SerializedName("isBind")
-    // 标示是否已经绑定到了设备PushId
-    val isBind: Boolean? = false
+    var token: String? = "",
+    @SerializedName("desc")
+    val desc: String? = "",
+    @SerializedName("sex")
+    val sex: Int? = null,
+    @SerializedName("address")
+    var address: String = "",
+    @SerializedName("school")
+    val school: String? = ""
 ) : Parcelable

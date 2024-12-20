@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.apie_data_loader.request.account.login
+package com.xiaoxun.apie.apie_data_loader.request.account.login.password
 
 import android.os.Parcelable
 import androidx.annotation.Keep
@@ -9,8 +9,7 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 @Keep
-data class LoginRequestBody(
-    var account: String? = null,
+data class LoginByPasswordRequestBody(
+    var phoneNum: String? = null,
     var password: String? = null,
-    var pushId: String? = null
 ) : Parcelable

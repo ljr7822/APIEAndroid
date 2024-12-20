@@ -10,7 +10,7 @@ open class BaseResponse<T> {
     @SerializedName("code")
     var code: Int? = null
 
-    @SerializedName("result")
+    @SerializedName("data")
     var data: T? = null
 
     @SerializedName("message")
