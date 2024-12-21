@@ -6,6 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.xiaoxun.databinding.LayoutHomeFragmentBinding
 import com.xiaoxun.apie.account.vm.AccountViewModel
 import com.xiaoxun.apie.common.base.fragment.APieBaseBindingFragment
+import com.xiaoxun.apie.common.utils.toast.APieToast
 import kotlinx.coroutines.launch
 
 class HomeFragment: APieBaseBindingFragment<LayoutHomeFragmentBinding>(LayoutHomeFragmentBinding::inflate) {
@@ -21,15 +22,16 @@ class HomeFragment: APieBaseBindingFragment<LayoutHomeFragmentBinding>(LayoutHom
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.startPassword.setOnClickListener {
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.loginByPassword(phoneNum, "123456").also { res ->
-                    res.getOrNull()?.data?.let { data ->
-                        phoneNum = data.phoneNum
-                        userId = data.userId
-                        binding.tv.text = res.toString()
-                    }
-                }
-            }
+//            viewLifecycleOwner.lifecycleScope.launch {
+//                viewModel.loginByPassword(phoneNum, "123456").also { res ->
+//                    res.getOrNull()?.data?.let { data ->
+//                        phoneNum = data.phoneNum
+//                        userId = data.userId
+//                        binding.tv.text = res.toString()
+//                    }
+//                }
+//            }
+            APieToast.showDialog("这是一个toast")
         }
 
         binding.startCode.setOnClickListener {

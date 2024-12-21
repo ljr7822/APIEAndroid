@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ls="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toast_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_toast_black_bg"
+    android:gravity="left"
+    android:orientation="horizontal">
+    <!--@color/color_188ee5-->
+
+    <ImageView
+        android:visibility="gone"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/icon_toast_start"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="left"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/toast_title"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:textColor="@color/apie_color_white"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:layout_marginTop="5dp"
+            android:text="提示" />
+
+        <TextView
+            android:id="@+id/toast_text"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/apie_color_white"
+            android:textSize="14dp"
+            tools:text="toast" />
+
+    </LinearLayout>
+</LinearLayout>
