@@ -14,8 +14,12 @@ class AccountViewModel: APieBaseViewModel() {
     private var _sendSmsCodeStatus = MutableLiveData<SendSmsCodeStatus>()
     val sendSmsCodeStatus: MutableLiveData<SendSmsCodeStatus> get() = _sendSmsCodeStatus
 
+    private var _inputDoneStatus = MutableLiveData<Boolean>()
+    val inputDoneStatus: MutableLiveData<Boolean> get() = _inputDoneStatus
+
     init {
         _currentLoginWayType.value = LoginWayType.SMS_CODE
+        _inputDoneStatus.value = false
         _loadingStatus.value = LoadingState.Initialization
     }
 
@@ -54,6 +58,11 @@ class AccountViewModel: APieBaseViewModel() {
 
     fun onLoginSuccess() {
         _loadingStatus.value = LoadingState.Success
+    }
+
+    fun updateInputDoneStatus(isDone: Boolean) {
+        if (_inputDoneStatus.value == isDone) return
+        _inputDoneStatus.value = isDone
     }
 }
 

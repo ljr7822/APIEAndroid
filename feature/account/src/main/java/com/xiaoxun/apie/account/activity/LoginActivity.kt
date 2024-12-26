@@ -54,6 +54,18 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
         super.initializeView()
         initSwitchWayText()
         binding.phoneEdit.formatAsPhoneNumber()
+        binding.passwordOrCodeEdit.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: android.text.Editable?) {
+                val length = s?.length?:0
+                if (length > 0) {
+                    viewModel.updateInputDoneStatus(true)
+                } else {
+                    viewModel.updateInputDoneStatus(false)
+                }
+            }
+        })
         // 切换登录方式
         binding.switchWayLayout.setDebouncingClickListener {
             viewModel.switchLoginWay()
@@ -116,6 +128,16 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
             } else {
                 getString(com.xiaoxun.apie.common.R.string.apie_login_switch_sms_code_tip)
             }
+
+        observe(viewModel.inputDoneStatus) {
+            if (it) {
+                binding.submitLayout.background = getDrawable(R.drawable.apie_login_submit_btn_bg)
+                binding.submitLayout.isEnabled = true
+            } else {
+                binding.submitLayout.background = getDrawable(R.drawable.apie_login_submit_btn_disable_bg)
+                binding.submitLayout.isEnabled = false
+            }
+        }
 
         observe(viewModel.currentLoginWayType) {
             if (it == null) {
