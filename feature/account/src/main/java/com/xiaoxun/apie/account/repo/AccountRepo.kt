@@ -8,6 +8,13 @@ import com.xiaoxun.apie.apie_data_loader.request.account.login.password.LoginByP
 import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySmsCodeRequest
 import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySmsCodeRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.account.sms.SendSmsCode
+import com.xiaoxun.apie.common.utils.GsonUtils
+import com.xiaoxun.apie.common.utils.SharedPreferencesHelper
+import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_DATA_KEY
+import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_NAME_KEY
+import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_PHONE_KEY
+import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_TOKEN_KEY
+import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_USERID_KEY
 import com.xiaoxun.apie.common.utils.coroutine.singleSuspendCoroutine
 import com.xiaoxun.apie.common_model.account.AccountModel
 import com.xiaoxun.apie.common_model.sms.SmsCodeModel
@@ -19,9 +26,130 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlin.coroutines.resume
 
-class AccountRepo(private val activity: AppCompatActivity, private val viewModel: AccountViewModel): IAccountRepo {
+class AccountRepo(
+    private val activity: AppCompatActivity,
+    private val viewModel: AccountViewModel
+) : IAccountRepo {
 
     private val disposables = CompositeDisposable()
+
+    /**
+     * 在生命周期结束时清理订阅
+     */
+    override fun onCleared() {
+        disposables.clear()
+    }
+
+    override suspend fun startLoginByPassword(phoneNum: String, password: String) {
+        viewModel.markLoginLoading()
+        val result = loginByPassword(phoneNum, password)
+        result.fold(
+            onSuccess = {
+                val response = it
+                if (response.isSuccess()) {
+                    response.data?.let { accountModel ->
+                        viewModel.onLoginSuccess()
+                        saveAccountData2Sp(accountModel)
+                    } ?: let {
+                        viewModel.onLoginFailed("登录异常，用户数据为空")
+                    }
+                } else {
+                    viewModel.onLoginFailed(response.message ?: "登录异常，请稍后再试")
+                }
+            },
+            onFailure = {
+                viewModel.onLoginFailed(it.message ?: "登录异常，请稍后再试")
+            }
+        )
+    }
+
+    override suspend fun startLoginBySmsCode(phoneNum: String, smsCode: String) {
+        viewModel.markLoginLoading()
+        val result = loginBySmsCode(phoneNum, smsCode)
+        result.fold(
+            onSuccess = {
+                val response = it
+                if (response.isSuccess()) {
+                    response.data?.let { accountModel ->
+                        viewModel.onLoginSuccess()
+                        saveAccountData2Sp(accountModel)
+                    } ?: let {
+                        viewModel.onLoginFailed("登录异常，用户数据为空")
+                    }
+                } else {
+                    viewModel.onLoginFailed(response.message ?: "登录异常，请稍后再试")
+                }
+            },
+            onFailure = {
+                viewModel.onLoginFailed(it.message ?: "登录异常，请稍后再试")
+            }
+        )
+    }
+
+    override suspend fun getSmsCode(phoneNum: String, userId: String) {
+        val result = innerSmsCode(phoneNum, userId)
+        result.fold(
+            onSuccess = {
+                val response = it
+                if (response.isSuccess()) {
+                    response.data?.let {
+                        viewModel.sendSmsCodeSuccess()
+                    } ?: let {
+                        viewModel.sendSmsCodeFailed()
+                    }
+                } else {
+                    viewModel.sendSmsCodeFailed()
+                }
+            },
+            onFailure = {
+                viewModel.sendSmsCodeFailed()
+            }
+        )
+    }
+
+    private fun saveAccountData2Sp(accountModel: AccountModel) {
+        SharedPreferencesHelper.putString(SP_ACCOUNT_DATA_KEY, GsonUtils.toJson(accountModel))
+        SharedPreferencesHelper.putString(SP_ACCOUNT_TOKEN_KEY, accountModel.token ?: "")
+        SharedPreferencesHelper.putString(SP_ACCOUNT_NAME_KEY, accountModel.userName ?: "")
+        SharedPreferencesHelper.putString(SP_ACCOUNT_PHONE_KEY, accountModel.phoneNum)
+        SharedPreferencesHelper.putString(SP_ACCOUNT_USERID_KEY, accountModel.userId)
+    }
+
+    private suspend fun loginByPassword(
+        phoneNum: String,
+        password: String
+    ): Result<BaseResponse<AccountModel>> {
+        return executeResult {
+            DataLoaderManager.instance.loginByPassword(
+                LoginByPasswordRequest(LoginByPasswordRequestBody(phoneNum, password)),
+                CacheStrategy.FORCE_NET
+            )
+        }
+    }
+
+    private suspend fun loginBySmsCode(
+        phoneNum: String,
+        smsCode: String
+    ): Result<BaseResponse<AccountModel>> {
+        return executeResult {
+            DataLoaderManager.instance.loginBySmsCode(
+                LoginBySmsCodeRequest(LoginBySmsCodeRequestBody(phoneNum, smsCode)),
+                CacheStrategy.FORCE_NET
+            )
+        }
+    }
+
+    private suspend fun innerSmsCode(
+        phoneNum: String,
+        userId: String
+    ): Result<BaseResponse<SmsCodeModel>> {
+        return executeResult {
+            DataLoaderManager.instance.sendSmsCode(
+                SendSmsCode(phoneNum, userId),
+                CacheStrategy.FORCE_NET
+            )
+        }
+    }
 
     /**
      * 用于执行 RxJava 的网络请求并返回结果
@@ -61,104 +189,5 @@ class AccountRepo(private val activity: AppCompatActivity, private val viewModel
                 }
             )
         disposables.add(disposable)
-    }
-
-    /**
-     * 在生命周期结束时清理订阅
-     */
-    override fun onCleared() {
-        disposables.clear()
-    }
-
-    override suspend fun startLoginByPassword(phoneNum: String, password: String) {
-        viewModel.markLoginLoading()
-        val result = loginByPassword(phoneNum, password)
-        result.fold(
-            onSuccess = {
-                val response = it
-                if (response.isSuccess()) {
-                    response.data?.let {
-                        viewModel.onLoginSuccess()
-                    } ?: let {
-                        viewModel.onLoginFailed("登录异常，用户数据为空")
-                    }
-                } else {
-                    viewModel.onLoginFailed(response.message ?: "登录异常，请稍后再试")
-                }
-            },
-            onFailure = {
-                viewModel.onLoginFailed(it.message ?: "登录异常，请稍后再试")
-            }
-        )
-    }
-
-    override suspend fun startLoginBySmsCode(phoneNum: String, smsCode: String) {
-        viewModel.markLoginLoading()
-        val result = loginBySmsCode(phoneNum, smsCode)
-        result.fold(
-            onSuccess = {
-                val response = it
-                if (response.isSuccess()) {
-                    response.data?.let {
-                        viewModel.onLoginSuccess()
-                    } ?: let {
-                        viewModel.onLoginFailed("登录异常，用户数据为空")
-                    }
-                } else {
-                    viewModel.onLoginFailed(response.message ?: "登录异常，请稍后再试")
-                }
-            },
-            onFailure = {
-                viewModel.onLoginFailed(it.message ?: "登录异常，请稍后再试")
-            }
-        )
-    }
-
-    override suspend fun getSmsCode(phoneNum: String, userId: String)  {
-        val result = innerSmsCode(phoneNum, userId)
-        result.fold(
-            onSuccess = {
-                val response = it
-                if (response.isSuccess()) {
-                    response.data?.let {
-                        viewModel.sendSmsCodeSuccess()
-                    } ?: let {
-                        viewModel.sendSmsCodeFailed()
-                    }
-                } else {
-                    viewModel.sendSmsCodeFailed()
-                }
-            },
-            onFailure = {
-                viewModel.sendSmsCodeFailed()
-            }
-        )
-    }
-
-    private suspend fun loginByPassword(phoneNum: String, password: String): Result<BaseResponse<AccountModel>> {
-        return executeResult {
-            DataLoaderManager.instance.loginByPassword(
-                LoginByPasswordRequest(LoginByPasswordRequestBody(phoneNum, password)),
-                CacheStrategy.FORCE_NET
-            )
-        }
-    }
-
-    private suspend fun loginBySmsCode(phoneNum: String, smsCode: String): Result<BaseResponse<AccountModel>> {
-        return executeResult {
-            DataLoaderManager.instance.loginBySmsCode(
-                LoginBySmsCodeRequest(LoginBySmsCodeRequestBody(phoneNum, smsCode)),
-                CacheStrategy.FORCE_NET
-            )
-        }
-    }
-
-    private suspend fun innerSmsCode(phoneNum: String, userId: String): Result<BaseResponse<SmsCodeModel>> {
-        return executeResult {
-            DataLoaderManager.instance.sendSmsCode(
-                SendSmsCode(phoneNum, userId),
-                CacheStrategy.FORCE_NET
-            )
-        }
     }
 }

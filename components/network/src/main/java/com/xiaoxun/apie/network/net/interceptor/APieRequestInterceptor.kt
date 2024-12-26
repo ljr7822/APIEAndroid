@@ -1,5 +1,6 @@
 package com.xiaoxun.apie.network.net.interceptor
 
+import com.xiaoxun.apie.common.utils.account.AccountManager
 import com.xiaoxun.apie.network.net.intf.IAPieNetReqInfo
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -14,12 +15,10 @@ class APieRequestInterceptor(private val iNetworkRequiredInfo: IAPieNetReqInfo) 
         //val nowDateTime = DateUtil.getDateTime()
         // Build a new request
         val builder = chain.request().newBuilder()
-//        APicAccount.token?.let { token ->
-//            if (token.isNotEmpty()) {
-//                // Inject the token
-//                builder.addHeader("token", token)
-//            }
-//        }token
+        val token = AccountManager.getToken()
+        if (token.isNotEmpty()) {
+            builder.addHeader("token", token)
+        }
         builder.addHeader("Content-Type", "application/json")
         // Add environment information
         builder.addHeader("os", "android")

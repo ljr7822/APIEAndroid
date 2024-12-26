@@ -1,6 +1,7 @@
 package com.xiaoxun.apie.network.net
 
 import com.xiaoxun.apie.common.config.APieConfig
+import com.xiaoxun.apie.common.utils.account.AccountManager
 import com.xiaoxun.apie.network.net.config.ClientConfig
 import com.xiaoxun.apie.network.net.factory.APieGsonFactory
 import com.xiaoxun.apie.network.net.factory.OkHttpClientFactory
@@ -17,11 +18,10 @@ object APieNetwork {
             ClientConfig(customInterceptor = { chain ->
                 val original = chain.request()
                 val builder = original.newBuilder()
-//                APicAccount.token?.let { token ->
-//                    if (token.isNotEmpty()) {
-//                        builder.addHeader("token", token)
-//                    }
-//                }
+                val token = AccountManager.getToken()
+                if (token.isNotEmpty()) {
+                    builder.addHeader("token", token)
+                }
                 builder.addHeader("Content-Type", "application/json")
                 chain.proceed(builder.build())
             })

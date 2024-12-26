@@ -7,6 +7,7 @@ import com.xiaoxun.apie.common.intf.OnAppStatusListener
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.FilePathConfig
 import com.xiaoxun.apie.common.utils.ForegroundCallbacks
+import com.xiaoxun.apie.common.utils.SharedPreferencesHelper
 import com.xiaoxun.apie.data_loader.repository.cache.CacheType
 import com.xiaoxun.apie.data_loader.repository.cache.DataCacheConfig
 import com.xiaoxun.apie.data_loader.repository.cache.DataCacheManager
@@ -30,6 +31,7 @@ class APieNewApplication : APieBaseApplication() {
 
         initDataCache(this)
         initDataLoader()
+        initSharedPreferences(this)
     }
 
     private fun initDataCache(app: Application) {
@@ -78,5 +80,9 @@ class APieNewApplication : APieBaseApplication() {
         })
         DataLoaderConfig.setCacheType(CacheType.DB)
         DataLoaderManager.instance.initWithContext(this)
+    }
+
+    private fun initSharedPreferences(app: Application) {
+        SharedPreferencesHelper.init(app)
     }
 }

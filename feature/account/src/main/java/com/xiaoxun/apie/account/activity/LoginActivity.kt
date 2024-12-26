@@ -76,24 +76,23 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
 
         // 获取验证码
         binding.loginGetSmsCode.setDebouncingClickListener {
-            binding.phoneEdit.text.toString().let {
-                if(PhoneNumberValidator.isValidPhoneNumber(it).not()) {
-                    APieToast.showDialog("手机号输入错误")
-                    return@let
-                }
-                sendSmsCode(it)
-            }
-        }
-
-        // 登录
-        binding.submitLayout.setDebouncingClickListener {
-            val phoneNum = binding.phoneEdit.text.toString()
-            val passwordOrCode = binding.passwordOrCodeEdit.text.toString()
+            val phoneNum = binding.phoneEdit.text.toString().replace(" ", "")
             if(PhoneNumberValidator.isValidPhoneNumber(phoneNum).not()) {
                 APieToast.showDialog("手机号输入错误")
                 return@setDebouncingClickListener
             }
+            sendSmsCode(phoneNum)
+        }
+
+        // 登录
+        binding.submitLayout.setDebouncingClickListener {
             KeyBoardUtils.hideKeyboard(this)
+            val phoneNum = binding.phoneEdit.text.toString().replace(" ", "")
+            val passwordOrCode = binding.passwordOrCodeEdit.text.toString().replace(" ", "")
+            if(PhoneNumberValidator.isValidPhoneNumber(phoneNum).not()) {
+                APieToast.showDialog("手机号输入错误")
+                return@setDebouncingClickListener
+            }
             if (viewModel.isLoginByPassword()) {
                 loginByPassword(phoneNum, passwordOrCode)
             } else {
