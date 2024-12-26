@@ -13,6 +13,8 @@ import com.xiaoxun.apie.account.viewmodel.LoadingState
 import com.xiaoxun.apie.account.viewmodel.LoginWayType
 import com.xiaoxun.apie.account.viewmodel.SendSmsCodeStatus
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
+import com.xiaoxun.apie.common.ui.formatAsPhoneNumber
+import com.xiaoxun.apie.common.ui.setEditTextMaxInput
 import com.xiaoxun.apie.common.utils.alphaHide
 import com.xiaoxun.apie.common.utils.alphaShow
 import com.xiaoxun.apie.common.utils.hide
@@ -22,7 +24,6 @@ import com.xiaoxun.apie.common.utils.toast.APieToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
     LayoutApieLoginActivityBinding::inflate
@@ -52,6 +53,7 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
     override fun initializeView() {
         super.initializeView()
         initSwitchWayText()
+        binding.phoneEdit.formatAsPhoneNumber()
         // 切换登录方式
         binding.switchWayLayout.setDebouncingClickListener {
             viewModel.switchLoginWay()
@@ -191,6 +193,7 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
             binding.passwordOrCodeEdit.hint =
                 getString(com.xiaoxun.apie.common.R.string.login_input_sms_code_hint)
             binding.passwordOrCodeEdit.inputType = InputType.TYPE_CLASS_NUMBER
+            binding.passwordOrCodeEdit.setEditTextMaxInput(4)
             binding.loginGetSmsCode.alphaShow(200)
         }
 

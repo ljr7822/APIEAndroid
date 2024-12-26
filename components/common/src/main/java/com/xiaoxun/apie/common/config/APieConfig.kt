@@ -18,6 +18,8 @@ object APieConfig {
     private const val DESIRE_TAB_LOTTIE_JSON = "category.json"
     private const val MINE_TAB_LOTTIE_JSON = "mine.json"
 
+    const val PHONE_NUMBER_MAX_LENGTH = 11
+
     const val API_URL: String = "http://10.31.165.137:8090"
 
     /**

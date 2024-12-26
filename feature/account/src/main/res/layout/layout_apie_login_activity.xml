@@ -99,6 +99,7 @@
                         android:layout_marginEnd="@dimen/apie_theme_dimension_8"
                         android:layout_marginBottom="@dimen/apie_theme_dimension_8"
                         android:background="@null"
+                        android:digits="1234567890"
                         android:hint="@string/login_input_phone"
                         android:inputType="phone"
                         android:textSize="@dimen/apie_theme_dimension_13"
@@ -158,10 +159,10 @@
                         android:id="@+id/loginGetSmsCode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/apie_theme_dimension_8"
                         android:text="@string/login_get_sms_code"
                         android:textColor="@color/apie_color_6F94F4"
                         android:textSize="@dimen/apie_theme_text_11"
-                        android:layout_marginEnd="@dimen/apie_theme_dimension_8"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -186,8 +187,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/apie_theme_dimension_50"
-        android:layout_marginEnd="@dimen/apie_theme_dimension_50"
         android:layout_marginTop="@dimen/apie_theme_dimension_16"
+        android:layout_marginEnd="@dimen/apie_theme_dimension_50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginInputLayout">
 
