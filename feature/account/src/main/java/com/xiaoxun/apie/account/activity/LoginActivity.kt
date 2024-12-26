@@ -17,6 +17,7 @@ import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 import com.xiaoxun.apie.common.ui.formatAsPhoneNumber
 import com.xiaoxun.apie.common.ui.setEditTextMaxInput
 import com.xiaoxun.apie.common.utils.KeyBoardUtils
+import com.xiaoxun.apie.common.utils.PhoneNumberValidator
 import com.xiaoxun.apie.common.utils.alphaHide
 import com.xiaoxun.apie.common.utils.alphaShow
 import com.xiaoxun.apie.common.utils.hide
@@ -76,7 +77,7 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
         // 获取验证码
         binding.loginGetSmsCode.setDebouncingClickListener {
             binding.phoneEdit.text.toString().let {
-                if (it.isEmpty()) {
+                if(PhoneNumberValidator.isValidPhoneNumber(it).not()) {
                     APieToast.showDialog("手机号输入错误")
                     return@let
                 }
@@ -86,9 +87,13 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
 
         // 登录
         binding.submitLayout.setDebouncingClickListener {
-            KeyBoardUtils.hideKeyboard(this)
             val phoneNum = binding.phoneEdit.text.toString()
             val passwordOrCode = binding.passwordOrCodeEdit.text.toString()
+            if(PhoneNumberValidator.isValidPhoneNumber(phoneNum).not()) {
+                APieToast.showDialog("手机号输入错误")
+                return@setDebouncingClickListener
+            }
+            KeyBoardUtils.hideKeyboard(this)
             if (viewModel.isLoginByPassword()) {
                 loginByPassword(phoneNum, passwordOrCode)
             } else {
