@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_view"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/apie_color_white">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/apie_login_page_bg"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/logoImage"
@@ -20,10 +31,68 @@
         app:layout_constraintVertical_bias="0.29" />
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/apie_theme_dimension_100"
+        android:layout_marginBottom="@dimen/apie_theme_dimension_50"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/switchWayLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/goLoginLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/apie_theme_dimension_45"
+            android:layout_marginStart="@dimen/apie_theme_dimension_45"
+            android:layout_marginEnd="@dimen/apie_theme_dimension_45"
+            android:background="@drawable/apie_login_submit_btn_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/goLoginTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="登录使用"
+                android:textColor="@color/apie_color_white"
+                android:textSize="@dimen/apie_theme_text_16"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/goLoginLayout"
+                app:layout_constraintEnd_toEndOf="@+id/goLoginLayout"
+                app:layout_constraintStart_toStartOf="@+id/goLoginLayout"
+                app:layout_constraintTop_toTopOf="@+id/goLoginLayout" />
+
+            <com.xiaoxun.apie.common.ui.APieLoadingView
+                android:id="@+id/checkLoginLoadingView"
+                android:layout_width="@dimen/apie_theme_dimension_20"
+                android:layout_height="@dimen/apie_theme_dimension_20"
+                app:layout_constraintBottom_toBottomOf="@+id/goLoginLayout"
+                app:layout_constraintEnd_toEndOf="@+id/goLoginLayout"
+                app:layout_constraintStart_toStartOf="@+id/goLoginLayout"
+                app:layout_constraintTop_toTopOf="@+id/goLoginLayout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/skipLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/apie_theme_dimension_14"
+            android:text="暂时不登录,先逛逛"
+            android:textColor="@color/apieTheme_colorGray1000"
+            android:textSize="@dimen/apie_theme_text_11"
+            app:layout_constraintEnd_toEndOf="@+id/goLoginLayout"
+            app:layout_constraintStart_toStartOf="@+id/goLoginLayout"
+            app:layout_constraintTop_toBottomOf="@+id/goLoginLayout" />
+
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/switchWayLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="@dimen/apie_theme_dimension_45"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +105,7 @@
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textSize="@dimen/apie_theme_text_16" />
 
 
         <TextView
@@ -46,7 +115,7 @@
             android:text="V1.0.0"
             android:layout_marginTop="6dp"
             android:textColor="@color/bbl_999999"
-            android:textSize="12dp" />
+            android:textSize="@dimen/apie_theme_text_11" />
 
     </LinearLayout>
 

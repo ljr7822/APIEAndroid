@@ -14,51 +14,7 @@ class HomeFragment: APieBaseBindingFragment<LayoutHomeFragmentBinding>(LayoutHom
         const val TEST_FLAG: String = "test_flag"
     }
 
-    private val viewModel: AccountViewModel by lazy { AccountViewModel() }
-
-    private var phoneNum: String = "18289816889"
-    private var userId: String = ""
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.startPassword.setOnClickListener {
-//            viewLifecycleOwner.lifecycleScope.launch {
-//                viewModel.loginByPassword(phoneNum, "123456").also { res ->
-//                    res.getOrNull()?.data?.let { data ->
-//                        phoneNum = data.phoneNum
-//                        userId = data.userId
-//                        binding.tv.text = res.toString()
-//                    }
-//                }
-//            }
-            APieToast.showDialog("这是一个toast")
-        }
-
-//        binding.startCode.setOnClickListener {
-//            viewLifecycleOwner.lifecycleScope.launch {
-//                viewModel.loginBySmsCode(phoneNum, getCode()).also { res ->
-//                    res.getOrNull()?.data?.let { data ->
-//                        phoneNum = data.phoneNum
-//                        userId = data.userId
-//                        binding.tv.text = res.toString()
-//                    }
-//                }
-//            }
-//        }
-//
-//        binding.getCode.setOnClickListener {
-//            viewLifecycleOwner.lifecycleScope.launch {
-//                viewModel.sendSmsCode(phoneNum, userId).also {res ->
-//                    res.getOrNull()?.data?.let { data ->
-//                        binding.tv.text = res.toString()
-//                    }
-//                }
-//            }
-//        }
-
-    }
-
-    private fun getCode(): String {
-        return binding.etCode.text.toString()
     }
 }

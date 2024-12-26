@@ -1,5 +1,6 @@
 package com.example.xiaoxun
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowInsetsAnimation
@@ -9,6 +10,9 @@ import com.example.xiaoxun.fragment.DesireFragment
 import com.example.xiaoxun.fragment.HomeFragment
 import com.example.xiaoxun.fragment.MineFragment
 import com.gyf.immersionbar.ImmersionBar
+import com.xiaoxun.apie.account.activity.LoginActivity
+import com.xiaoxun.apie.account.activity.LoginActivity.Companion.SWITCH_CITY_REQUEST_CODE
+import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 import com.xiaoxun.apie.common.base.activity.APieBaseViewPagerActivity
 import com.xiaoxun.apie.common.config.APieConfig
 import com.xiaoxun.apie.common.utils.APieLog
@@ -21,6 +25,16 @@ class APieHomeActivity :
     APieBaseViewPagerActivity<LayoutApieHomeActivityBinding, ViewPagerAdapter>(
         LayoutApieHomeActivityBinding::inflate
     ) {
+
+    companion object {
+        @JvmStatic
+        fun start(activity: APieBaseBindingActivity<*>) {
+            activity.startActivityForResult(
+                Intent(activity, APieHomeActivity::class.java),
+                SWITCH_CITY_REQUEST_CODE,
+            )
+        }
+    }
 
     override fun createAdapter(): ViewPagerAdapter {
         return ViewPagerAdapter(this, mFragmentList)

@@ -1,5 +1,7 @@
 package com.xiaoxun.apie.account.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.InputType
@@ -34,6 +36,16 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
 
     companion object {
         private const val COUNTDOWN_TOTAL_MILLIS = 120 * 1000L
+        //标识来自切换城市页Activity的请求码
+        const val SWITCH_CITY_REQUEST_CODE = 191919
+
+        @JvmStatic
+        fun start(activity: APieBaseBindingActivity<*>) {
+            activity.startActivityForResult(
+                Intent(activity, LoginActivity::class.java),
+                SWITCH_CITY_REQUEST_CODE,
+            )
+        }
     }
 
     private val viewModel: AccountViewModel by lazy { AccountViewModel() }

@@ -19,7 +19,8 @@
         android:networkSecurityConfig="@xml/network_security_config"
         tools:targetApi="31">
         <activity
-            android:name="com.xiaoxun.apie.account.activity.LoginActivity"
+            android:name=".APieWelcomeActivity"
+            android:launchMode="singleTop"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +28,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.xiaoxun.apie.account.activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="behind"
+            android:theme="@style/Theme.Xiaoxun"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity
+            android:name=".APieHomeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="behind"
+            android:theme="@style/Theme.Xiaoxun"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
     </application>
 
 </manifest>
