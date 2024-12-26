@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/apie_color_white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="119dp"
+        android:background="@drawable/apie_login_top_bg"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/loginMainTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/apie_theme_dimension_60"
+        android:text="@string/apie_login_main_title"
+        android:textColor="@color/apieTheme_colorBlack"
+        android:textSize="@dimen/apie_theme_text_18"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/loginSubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/apie_theme_dimension_10"
+        android:text="@string/apie_login_sub_title"
+        android:textColor="@color/apieTheme_colorGrayLevel1_alpha_80"
+        android:textSize="@dimen/apie_theme_text_13"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginMainTitle" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loginInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/apie_theme_dimension_110"
+        android:layout_marginTop="@dimen/apie_theme_dimension_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginSubTitle">
+
+        <LinearLayout
+            android:id="@+id/loginInputLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|top"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/phoneInputCard"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/apie_theme_dimension_45"
+                android:layout_marginStart="@dimen/apie_theme_dimension_45"
+                android:layout_marginTop="@dimen/apie_theme_dimension_5"
+                android:layout_marginEnd="@dimen/apie_theme_dimension_45"
+                android:layout_marginBottom="@dimen/apie_theme_dimension_10"
+                app:cardBackgroundColor="@color/apieTheme_colorGrayLevel1_alpha_4"
+                app:cardCornerRadius="@dimen/apie_theme_dimension_8"
+                app:cardElevation="@dimen/apie_theme_dimension_0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/phoneIcon"
+                        android:layout_width="@dimen/apie_theme_dimension_18"
+                        android:layout_height="@dimen/apie_theme_dimension_18"
+                        android:layout_marginStart="@dimen/apie_theme_dimension_12"
+                        android:background="@drawable/apie_login_phone_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/phoneEdit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/apie_theme_dimension_8"
+                        android:layout_marginTop="@dimen/apie_theme_dimension_8"
+                        android:layout_marginEnd="@dimen/apie_theme_dimension_8"
+                        android:layout_marginBottom="@dimen/apie_theme_dimension_8"
+                        android:background="@null"
+                        android:hint="@string/login_input_phone"
+                        android:inputType="phone"
+                        android:textSize="@dimen/apie_theme_dimension_13"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/phoneIcon"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/passwordInputCard"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/apie_theme_dimension_45"
+                android:layout_marginStart="@dimen/apie_theme_dimension_45"
+                android:layout_marginTop="@dimen/apie_theme_dimension_5"
+                android:layout_marginEnd="@dimen/apie_theme_dimension_45"
+                android:layout_marginBottom="@dimen/apie_theme_dimension_10"
+                app:cardBackgroundColor="@color/apieTheme_colorGrayLevel1_alpha_4"
+                app:cardCornerRadius="@dimen/apie_theme_dimension_8"
+                app:cardElevation="@dimen/apie_theme_dimension_0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/passwordOrCodeIcon"
+                        android:layout_width="@dimen/apie_theme_dimension_18"
+                        android:layout_height="@dimen/apie_theme_dimension_18"
+                        android:layout_marginStart="@dimen/apie_theme_dimension_12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/passwordOrCodeEdit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/apie_theme_dimension_8"
+                        android:layout_marginTop="@dimen/apie_theme_dimension_8"
+                        android:layout_marginBottom="@dimen/apie_theme_dimension_8"
+                        android:background="@null"
+                        android:hint="@string/login_input_password_hint"
+                        android:inputType="textPassword"
+                        android:textSize="@dimen/apie_theme_dimension_13"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/loginGetSmsCode"
+                        app:layout_constraintStart_toEndOf="@+id/passwordOrCodeIcon"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/loginGetSmsCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login_get_sms_code"
+                        android:textColor="@color/apie_color_6F94F4"
+                        android:textSize="@dimen/apie_theme_text_11"
+                        android:layout_marginEnd="@dimen/apie_theme_dimension_8"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/apie_login_top_left_bg"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tipLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/apie_theme_dimension_50"
+        android:layout_marginEnd="@dimen/apie_theme_dimension_50"
+        android:layout_marginTop="@dimen/apie_theme_dimension_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginInputLayout">
+
+        <LinearLayout
+            android:id="@+id/switchWayLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/switchWayIcon"
+                android:layout_width="@dimen/apie_theme_dimension_18"
+                android:layout_height="@dimen/apie_theme_dimension_18"
+                android:background="@drawable/apie_login_switch_way_icon" />
+
+            <TextView
+                android:id="@+id/switchWayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/apie_theme_dimension_5"
+                android:text="@string/apie_login_switch_password_tip"
+                android:textColor="@color/apie_color_6F94F4"
+                android:textSize="@dimen/apie_theme_text_12" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/forgetPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/apie_login_forget_password_tip"
+            android:textColor="@color/apieTheme_colorGrayLevel1_alpha_70"
+            android:textSize="@dimen/apie_theme_text_12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/submitLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/apie_theme_dimension_45"
+        android:layout_marginStart="@dimen/apie_theme_dimension_45"
+        android:layout_marginTop="@dimen/apie_theme_dimension_28"
+        android:layout_marginEnd="@dimen/apie_theme_dimension_45"
+        android:background="@drawable/apie_login_submit_btn_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tipLayout">
+
+        <TextView
+            android:id="@+id/submitTip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="验证并登录"
+            android:textColor="@color/apie_color_white"
+            android:textSize="@dimen/apie_theme_text_16"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

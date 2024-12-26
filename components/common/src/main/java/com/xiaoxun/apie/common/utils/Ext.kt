@@ -1,12 +1,27 @@
 package com.xiaoxun.apie.common.utils
 
+import android.animation.ValueAnimator
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.Rect
+import android.graphics.drawable.Drawable
+import android.os.SystemClock
 import android.util.TypedValue
 import android.view.TouchDelegate
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.view.accessibility.AccessibilityNodeInfo
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.DecelerateInterpolator
+import android.widget.Button
 import android.widget.TextView
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.transition.Transition
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 
 /**
  * sp to float value
@@ -199,4 +214,82 @@ fun View?.setPaddingRight(right: Int) {
  */
 fun View?.setPaddingBottom(bottom: Int) {
     this?.setPadding(this.paddingLeft, this.paddingTop, this.paddingRight, bottom)
+}
+
+/**
+ * 用于设置 view 在无障碍模式下读取的 class name;
+ * 比如 ImageView  在无障碍模式下，设置 ImageView.setAccessClassNameDelegate(Button::class.java.name) 后，在 读取时会结尾会补充「按钮」二字
+ * 默认会读取「按钮」二字
+ */
+fun View.setAccessClassNameDelegate(delegateClassName: String = Button::class.java.name) {
+    this.accessibilityDelegate = object : View.AccessibilityDelegate() {
+        override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfo) {
+            super.onInitializeAccessibilityNodeInfo(host, info)
+            info.className = delegateClassName
+        }
+    }
+}
+
+const val DEF_DURATION = 250L
+abstract class DebouncingClickListener(private val duration: Long) : OnClickListener {
+    private var lastClickTs = 0L
+    override fun onClick(v: View) {
+        val current = SystemClock.elapsedRealtime()
+        if (current - lastClickTs > duration) {
+            lastClickTs = current
+            onDebouncedClick(v)
+        }
+    }
+
+    abstract fun onDebouncedClick(v: View)
+}
+
+fun View.setDebouncingClickListener(duration: Long = DEF_DURATION, block: (View) -> Unit) {
+    this.setOnClickListener(object : DebouncingClickListener(duration) {
+        override fun onDebouncedClick(v: View) {
+            block(v)
+        }
+    })
+}
+
+@SuppressLint("CodeCommentMethod")
+fun View.alphaShow(duration: Long = 250L) {
+    if (this.visibility == View.VISIBLE && alpha == 1f) return
+    animate().alpha(1f).setDuration(duration)
+        .withStartAction { this.show() }
+        .start()
+}
+
+
+@SuppressLint("CodeCommentMethod")
+fun View.alphaHide(duration: Long = 250L) {
+    if (this.visibility != View.VISIBLE) return
+    animate().alpha(0f).setDuration(duration)
+        .withStartAction { this.show() }
+        .withEndAction { this.hide() }
+        .start()
+}
+
+fun View.animateHeight(targetHeight: Int, duration: Long = 300, onAnimationEnd: (() -> Unit)? = null) {
+    val initialHeight = this.height
+    val animator = ValueAnimator.ofInt(initialHeight, targetHeight).apply {
+        this.duration = duration
+        interpolator = AccelerateDecelerateInterpolator()
+        addUpdateListener { animation ->
+            val animatedValue = animation.animatedValue as Int
+            val layoutParams = this@animateHeight.layoutParams
+            layoutParams.height = animatedValue
+            this@animateHeight.layoutParams = layoutParams
+        }
+        addListener(object : android.animation.Animator.AnimatorListener {
+            override fun onAnimationStart(animation: android.animation.Animator) {}
+            override fun onAnimationEnd(animation: android.animation.Animator) {
+                onAnimationEnd?.invoke()
+            }
+
+            override fun onAnimationCancel(animation: android.animation.Animator) {}
+            override fun onAnimationRepeat(animation: android.animation.Animator) {}
+        })
+    }
+    animator.start()
 }

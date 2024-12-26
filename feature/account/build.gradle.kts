@@ -32,6 +32,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -41,6 +45,7 @@ dependencies {
     implementation(project(":feature_base:apie_data_loader"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.geyifeng.immersionbar)
     implementation(libs.material)
     implementation(libs.reactivex.rxjava2.rxandroid)
     implementation(libs.reactivex.rxjava2.rxjava)

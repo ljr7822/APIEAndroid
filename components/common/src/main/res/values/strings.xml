@@ -7,4 +7,21 @@
     <string name="tab_me">我的</string>
     <string name="tab_category">分类</string>
     <string name="tab_cart">购物车</string>
+
+    <string name="login_phone_zone_code">手机区号：</string>
+    <string name="login_phone_code_prefix">+%1$s</string>
+    <string name="login_top_bar_skip_tip">跳过</string>
+    <string name="login_phone_prefix">+86</string>
+    <string name="login_input_phone">请输入手机号码</string>
+    <string name="login_input_password_hint">请输入密码</string>
+    <string name="login_input_sms_code_hint">请输入验证码</string>
+    <string name="login_get_sms_code">获取验证码</string>
+    <string name="login_reget_sms_code">重新获取(%1$dS)</string>
+
+
+    <string name="apie_login_main_title">登录后，体验完整功能</string>
+    <string name="apie_login_sub_title">未注册手机号通过验证将自动注册</string>
+    <string name="apie_login_switch_password_tip">密码登录</string>
+    <string name="apie_login_switch_sms_code_tip">验证码登录</string>
+    <string name="apie_login_forget_password_tip">忘记密码？</string>
 </resources>
