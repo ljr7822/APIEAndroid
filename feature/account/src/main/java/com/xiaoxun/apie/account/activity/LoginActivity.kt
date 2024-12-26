@@ -3,16 +3,21 @@ package com.xiaoxun.apie.account.activity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.InputType
-import android.widget.Toast
 import com.gyf.immersionbar.ImmersionBar
 import com.xiaoxun.apie.account.R
 import com.xiaoxun.apie.account.databinding.LayoutApieLoginActivityBinding
-import com.xiaoxun.apie.account.vm.AccountViewModel
-import com.xiaoxun.apie.account.vm.LoginWayType
+import com.xiaoxun.apie.account.repo.AccountRepo
+import com.xiaoxun.apie.account.repo.IAccountRepo
+import com.xiaoxun.apie.account.viewmodel.AccountViewModel
+import com.xiaoxun.apie.account.viewmodel.LoadingState
+import com.xiaoxun.apie.account.viewmodel.LoginWayType
+import com.xiaoxun.apie.account.viewmodel.SendSmsCodeStatus
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 import com.xiaoxun.apie.common.utils.alphaHide
 import com.xiaoxun.apie.common.utils.alphaShow
+import com.xiaoxun.apie.common.utils.hide
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
+import com.xiaoxun.apie.common.utils.show
 import com.xiaoxun.apie.common.utils.toast.APieToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -28,6 +33,8 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
     }
 
     private val viewModel: AccountViewModel by lazy { AccountViewModel() }
+
+    private val repo: IAccountRepo by lazy { AccountRepo(this, viewModel) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,23 +85,16 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
      */
     private fun loginBySmsCode(phoneNum: String, smsCode: String) {
         GlobalScope.launch(Dispatchers.Main) {
-            viewModel.loginBySmsCode(phoneNum, smsCode).also {
-                it.getOrNull()?.data?.let { data ->
-                    APieToast.showDialog("验证码登录成功")
-                }
-            }
+            repo.startLoginBySmsCode(phoneNum, smsCode)
         }
     }
+
     /**
      * 密码登录
      */
     private fun loginByPassword(phoneNum: String, password: String) {
         GlobalScope.launch(Dispatchers.Main) {
-            viewModel.loginByPassword(phoneNum, password).also {
-                it.getOrNull()?.data?.let { data ->
-                    APieToast.showDialog("密码登录成功")
-                }
-            }
+            repo.startLoginByPassword(phoneNum, password)
         }
     }
 
@@ -103,15 +103,7 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
      */
     private fun sendSmsCode(phoneNum: String, userId: String = "99678322425856") {
         GlobalScope.launch(Dispatchers.Main) {
-            viewModel.sendSmsCode(phoneNum, userId).also {
-                it.getOrNull()?.data?.let { data ->
-                    APieToast.showDialog("验证码发送成功，请注意查收")
-                    withContext(Dispatchers.IO) {
-                        // 开始倒计时
-                        startCountdown()
-                    }
-                }
-            }
+            repo.getSmsCode(phoneNum, userId)
         }
     }
 
@@ -123,7 +115,7 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
                 getString(com.xiaoxun.apie.common.R.string.apie_login_switch_sms_code_tip)
             }
 
-        viewModel.currentLoginWayType.observe(this) {
+        observe(viewModel.currentLoginWayType) {
             if (it == null) {
                 return@observe
             }
@@ -135,36 +127,77 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
             }
             switchLoginWay(it)
         }
+
+        observe(viewModel.loadingState) {
+            when (it) {
+                LoadingState.Loading -> {
+                    binding.submitTip.hide()
+                    binding.submitLoading.show()
+                }
+                LoadingState.Success -> {
+                    APieToast.showDialog("登录成功")
+                    binding.submitTip.show()
+                    binding.submitLoading.hide()
+                }
+                LoadingState.Failed -> {
+                    APieToast.showDialog("登录失败")
+                    binding.submitTip.show()
+                    binding.submitLoading.hide()
+                }
+                else -> {}
+            }
+        }
+
+        observe(viewModel.sendSmsCodeStatus) {
+            when(it) {
+                SendSmsCodeStatus.SendSuccess -> {
+                    APieToast.showDialog("验证码发送成功")
+                    startCountdown()
+                }
+                SendSmsCodeStatus.SendFailed -> {
+                    APieToast.showDialog("验证码发送失败")
+                }
+                else -> {}
+            }
+        }
     }
 
     private fun startCountdown() {
         object : CountDownTimer(COUNTDOWN_TOTAL_MILLIS, 1000L) {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsLeft = millisUntilFinished / 1000
-                binding.loginGetSmsCode.text = getString(com.xiaoxun.apie.common.R.string.login_reget_sms_code, secondsLeft)
+                binding.loginGetSmsCode.text =
+                    getString(com.xiaoxun.apie.common.R.string.login_reget_sms_code, secondsLeft)
                 binding.loginGetSmsCode.isEnabled = false
             }
 
             override fun onFinish() {
-                binding.loginGetSmsCode.text = getString(com.xiaoxun.apie.common.R.string.login_get_sms_code)
+                binding.loginGetSmsCode.text =
+                    getString(com.xiaoxun.apie.common.R.string.login_get_sms_code)
                 binding.loginGetSmsCode.isEnabled = true
             }
         }.start()
     }
 
-
     private fun switchLoginWay(loginWayType: LoginWayType) {
         if (loginWayType == LoginWayType.PASSWORD) {
             binding.passwordOrCodeIcon.setImageResource(R.drawable.apie_login_password_icon)
-            binding.passwordOrCodeEdit.hint = getString(com.xiaoxun.apie.common.R.string.login_input_password_hint)
+            binding.passwordOrCodeEdit.hint =
+                getString(com.xiaoxun.apie.common.R.string.login_input_password_hint)
             binding.passwordOrCodeEdit.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
             binding.loginGetSmsCode.alphaHide(200)
         } else {
             binding.passwordOrCodeIcon.setImageResource(R.drawable.apie_login_code_icon)
-            binding.passwordOrCodeEdit.hint = getString(com.xiaoxun.apie.common.R.string.login_input_sms_code_hint)
+            binding.passwordOrCodeEdit.hint =
+                getString(com.xiaoxun.apie.common.R.string.login_input_sms_code_hint)
             binding.passwordOrCodeEdit.inputType = InputType.TYPE_CLASS_NUMBER
             binding.loginGetSmsCode.alphaShow(200)
         }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        repo.onCleared()
     }
 }

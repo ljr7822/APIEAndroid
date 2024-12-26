@@ -254,6 +254,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.xiaoxun.apie.common.ui.APieLoadingView
+            android:id="@+id/submitLoading"
+            android:layout_width="@dimen/apie_theme_dimension_20"
+            android:layout_height="@dimen/apie_theme_dimension_20"
+            app:layout_constraintBottom_toBottomOf="@+id/submitTip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/submitTip" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

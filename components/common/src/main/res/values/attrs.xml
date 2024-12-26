@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <declare-styleable name="BottomBarItem">
 
     </declare-styleable>
@@ -67,6 +67,14 @@
         <!--设置未读数组阈值 大于阈值的数字将显示为 n+ n为设置的阈值-->
         <attr name="unreadThreshold" format="integer"/>
 
+    </declare-styleable>
+
+    <!-- 自定义loadingview的自定义属性-->
+    <declare-styleable name="APieLoadingView" tools:ignore="ResourceName">
+        <attr name="loading_view_radius" format="dimension|reference"/>
+        <attr name="loading_view_paint_width" format="dimension|reference"/>
+        <attr name="loading_view_anim_duration" format="integer"/>
+        <attr name="loading_view_color" format="color"/>
     </declare-styleable>
 
 </resources>
