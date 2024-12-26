@@ -72,30 +72,67 @@ class AccountRepo(private val activity: AppCompatActivity, private val viewModel
 
     override suspend fun startLoginByPassword(phoneNum: String, password: String) {
         viewModel.markLoginLoading()
-        loginByPassword(phoneNum, password).also {
-            it.getOrNull()?.data?.let { data ->
-                viewModel.onLoginSuccess()
+        val result = loginByPassword(phoneNum, password)
+        result.fold(
+            onSuccess = {
+                val response = it
+                if (response.isSuccess()) {
+                    response.data?.let {
+                        viewModel.onLoginSuccess()
+                    } ?: let {
+                        viewModel.onLoginFailed("登录异常，用户数据为空")
+                    }
+                } else {
+                    viewModel.onLoginFailed(response.message ?: "登录异常，请稍后再试")
+                }
+            },
+            onFailure = {
+                viewModel.onLoginFailed(it.message ?: "登录异常，请稍后再试")
             }
-        }
+        )
     }
 
     override suspend fun startLoginBySmsCode(phoneNum: String, smsCode: String) {
         viewModel.markLoginLoading()
-        loginBySmsCode(phoneNum, smsCode).also {
-            it.getOrNull()?.data?.let { data ->
-                viewModel.onLoginSuccess()
+        val result = loginBySmsCode(phoneNum, smsCode)
+        result.fold(
+            onSuccess = {
+                val response = it
+                if (response.isSuccess()) {
+                    response.data?.let {
+                        viewModel.onLoginSuccess()
+                    } ?: let {
+                        viewModel.onLoginFailed("登录异常，用户数据为空")
+                    }
+                } else {
+                    viewModel.onLoginFailed(response.message ?: "登录异常，请稍后再试")
+                }
+            },
+            onFailure = {
+                viewModel.onLoginFailed(it.message ?: "登录异常，请稍后再试")
             }
-        }
+        )
     }
 
     override suspend fun getSmsCode(phoneNum: String, userId: String)  {
-        innerSmsCode(phoneNum, userId).also {
-            it.getOrNull()?.data?.let { data ->
-                viewModel.sendSmsCodeSuccess()
-            } ?: let {
+        val result = innerSmsCode(phoneNum, userId)
+        result.fold(
+            onSuccess = {
+                val response = it
+                if (response.isSuccess()) {
+                    response.data?.let {
+                        viewModel.sendSmsCodeSuccess()
+                    } ?: let {
+                        viewModel.sendSmsCodeFailed()
+                    }
+                } else {
+                    viewModel.sendSmsCodeFailed()
+                }
+            },
+            onFailure = {
                 viewModel.sendSmsCodeFailed()
             }
-        }
+        )
     }
 
     private suspend fun loginByPassword(phoneNum: String, password: String): Result<BaseResponse<AccountModel>> {

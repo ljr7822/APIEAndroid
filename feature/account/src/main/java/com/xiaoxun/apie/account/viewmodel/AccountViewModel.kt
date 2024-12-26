@@ -8,8 +8,8 @@ class AccountViewModel: APieBaseViewModel() {
     private var _currentLoginWayType = MutableLiveData<LoginWayType>()
     val currentLoginWayType: MutableLiveData<LoginWayType> get() = _currentLoginWayType
 
-    private var _loadingStatus = MutableLiveData<LoadingState>()
-    val loadingState: MutableLiveData<LoadingState> get() = _loadingStatus
+    private var _loadingStatus = MutableLiveData<Pair<LoadingState, TipMsg>>()
+    val loadingState: MutableLiveData<Pair<LoadingState, TipMsg>> get() = _loadingStatus
 
     private var _sendSmsCodeStatus = MutableLiveData<SendSmsCodeStatus>()
     val sendSmsCodeStatus: MutableLiveData<SendSmsCodeStatus> get() = _sendSmsCodeStatus
@@ -20,7 +20,7 @@ class AccountViewModel: APieBaseViewModel() {
     init {
         _currentLoginWayType.value = LoginWayType.SMS_CODE
         _inputDoneStatus.value = false
-        _loadingStatus.value = LoadingState.Initialization
+        _loadingStatus.value = Pair(LoadingState.Initialization, TipMsg())
     }
 
     fun updateLoginWayType(type: LoginWayType) {
@@ -49,15 +49,15 @@ class AccountViewModel: APieBaseViewModel() {
     }
 
     fun markLoginLoading() {
-        _loadingStatus.value = LoadingState.Loading
+        _loadingStatus.value = Pair(LoadingState.Loading, TipMsg("正在登录..."))
     }
 
-    fun onLoginFail() {
-        _loadingStatus.value = LoadingState.Failed
+    fun onLoginFailed(errorMsg: String) {
+        _loadingStatus.value = Pair(LoadingState.Failed, TipMsg(errorMsg))
     }
 
     fun onLoginSuccess() {
-        _loadingStatus.value = LoadingState.Success
+        _loadingStatus.value = Pair(LoadingState.Success, TipMsg("登录成功"))
     }
 
     fun updateInputDoneStatus(isDone: Boolean) {
@@ -66,3 +66,4 @@ class AccountViewModel: APieBaseViewModel() {
     }
 }
 
+data class TipMsg(val message: String = "")

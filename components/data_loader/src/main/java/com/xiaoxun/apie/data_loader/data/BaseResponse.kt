@@ -19,4 +19,8 @@ open class BaseResponse<T> {
     override fun toString(): String {
         return "BaseResponse: success=$success, code=$code, data=$data, message=$message"
     }
+
+    fun isSuccess(): Boolean {
+        return code == 0
+    }
 }

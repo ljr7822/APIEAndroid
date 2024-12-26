@@ -3,6 +3,7 @@ package com.xiaoxun.apie.account.activity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.InputType
+import android.text.method.PasswordTransformationMethod
 import com.gyf.immersionbar.ImmersionBar
 import com.xiaoxun.apie.account.R
 import com.xiaoxun.apie.account.databinding.LayoutApieLoginActivityBinding
@@ -15,6 +16,7 @@ import com.xiaoxun.apie.account.viewmodel.SendSmsCodeStatus
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 import com.xiaoxun.apie.common.ui.formatAsPhoneNumber
 import com.xiaoxun.apie.common.ui.setEditTextMaxInput
+import com.xiaoxun.apie.common.utils.KeyBoardUtils
 import com.xiaoxun.apie.common.utils.alphaHide
 import com.xiaoxun.apie.common.utils.alphaShow
 import com.xiaoxun.apie.common.utils.hide
@@ -84,6 +86,7 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
 
         // 登录
         binding.submitLayout.setDebouncingClickListener {
+            KeyBoardUtils.hideKeyboard(this)
             val phoneNum = binding.phoneEdit.text.toString()
             val passwordOrCode = binding.passwordOrCodeEdit.text.toString()
             if (viewModel.isLoginByPassword()) {
@@ -91,33 +94,6 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
             } else {
                 loginBySmsCode(phoneNum, passwordOrCode)
             }
-        }
-    }
-
-    /**
-     * 验证码登录
-     */
-    private fun loginBySmsCode(phoneNum: String, smsCode: String) {
-        GlobalScope.launch(Dispatchers.Main) {
-            repo.startLoginBySmsCode(phoneNum, smsCode)
-        }
-    }
-
-    /**
-     * 密码登录
-     */
-    private fun loginByPassword(phoneNum: String, password: String) {
-        GlobalScope.launch(Dispatchers.Main) {
-            repo.startLoginByPassword(phoneNum, password)
-        }
-    }
-
-    /**
-     * 发送验证码
-     */
-    private fun sendSmsCode(phoneNum: String, userId: String = "99678322425856") {
-        GlobalScope.launch(Dispatchers.Main) {
-            repo.getSmsCode(phoneNum, userId)
         }
     }
 
@@ -152,19 +128,19 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
             switchLoginWay(it)
         }
 
-        observe(viewModel.loadingState) {
-            when (it) {
+        observe(viewModel.loadingState) { pair ->
+            when (pair.first) {
                 LoadingState.Loading -> {
                     binding.submitTip.hide()
                     binding.submitLoading.show()
                 }
                 LoadingState.Success -> {
-                    APieToast.showDialog("登录成功")
+                    APieToast.showDialog(pair.second.message)
                     binding.submitTip.show()
                     binding.submitLoading.hide()
                 }
                 LoadingState.Failed -> {
-                    APieToast.showDialog("登录失败")
+                    APieToast.showDialog(pair.second.message)
                     binding.submitTip.show()
                     binding.submitLoading.hide()
                 }
@@ -208,7 +184,9 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
             binding.passwordOrCodeIcon.setImageResource(R.drawable.apie_login_password_icon)
             binding.passwordOrCodeEdit.hint =
                 getString(com.xiaoxun.apie.common.R.string.login_input_password_hint)
-            binding.passwordOrCodeEdit.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+            binding.passwordOrCodeEdit.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            binding.passwordOrCodeEdit.transformationMethod = PasswordTransformationMethod.getInstance()
+            binding.passwordOrCodeEdit.setEditTextMaxInput(6)
             binding.loginGetSmsCode.alphaHide(200)
         } else {
             binding.passwordOrCodeIcon.setImageResource(R.drawable.apie_login_code_icon)
@@ -218,7 +196,33 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
             binding.passwordOrCodeEdit.setEditTextMaxInput(4)
             binding.loginGetSmsCode.alphaShow(200)
         }
+    }
 
+    /**
+     * 验证码登录
+     */
+    private fun loginBySmsCode(phoneNum: String, smsCode: String) {
+        GlobalScope.launch(Dispatchers.Main) {
+            repo.startLoginBySmsCode(phoneNum, smsCode)
+        }
+    }
+
+    /**
+     * 密码登录
+     */
+    private fun loginByPassword(phoneNum: String, password: String) {
+        GlobalScope.launch(Dispatchers.Main) {
+            repo.startLoginByPassword(phoneNum, password)
+        }
+    }
+
+    /**
+     * 发送验证码
+     */
+    private fun sendSmsCode(phoneNum: String, userId: String = "99678322425856") {
+        GlobalScope.launch(Dispatchers.Main) {
+            repo.getSmsCode(phoneNum, userId)
+        }
     }
 
     override fun onDestroy() {
