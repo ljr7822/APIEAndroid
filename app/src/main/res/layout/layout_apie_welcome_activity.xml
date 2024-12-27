@@ -33,7 +33,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/apie_theme_dimension_100"
-        android:layout_marginBottom="@dimen/apie_theme_dimension_50"
+        android:layout_marginBottom="@dimen/apie_theme_dimension_100"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/switchWayLayout"
@@ -81,8 +81,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/apie_theme_dimension_14"
             android:text="暂时不登录,先逛逛"
-            android:textColor="@color/apieTheme_colorGray1000"
-            android:textSize="@dimen/apie_theme_text_11"
+            android:textColor="@color/apieTheme_colorGray600"
+            android:textSize="@dimen/apie_theme_text_10"
             app:layout_constraintEnd_toEndOf="@+id/goLoginLayout"
             app:layout_constraintStart_toStartOf="@+id/goLoginLayout"
             app:layout_constraintTop_toBottomOf="@+id/goLoginLayout" />
@@ -103,9 +103,9 @@
             android:id="@+id/appNameTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:text="@string/app_name_cn"
             android:textColor="@color/black"
-            android:textSize="@dimen/apie_theme_text_16" />
+            android:textSize="@dimen/apie_theme_text_14" />
 
 
         <TextView
@@ -115,7 +115,7 @@
             android:text="V1.0.0"
             android:layout_marginTop="6dp"
             android:textColor="@color/bbl_999999"
-            android:textSize="@dimen/apie_theme_text_11" />
+            android:textSize="@dimen/apie_theme_text_8" />
 
     </LinearLayout>
 
