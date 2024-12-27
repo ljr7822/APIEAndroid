@@ -2,8 +2,9 @@ package com.xiaoxun.apie.home_page.activity
 
 import android.content.Intent
 import android.os.Bundle
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.gyf.immersionbar.ImmersionBar
-import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
+import com.xiaoxun.apie.common.HOME_INDEX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.activity.APieBaseViewPagerActivity
 import com.xiaoxun.apie.common.config.APieConfig
 import com.xiaoxun.apie.common.utils.APieLog
@@ -14,20 +15,11 @@ import com.xiaoxun.apie.home_page.fragment.APieIndexDesireFragment
 import com.xiaoxun.apie.home_page.fragment.APieIndexHomeFragment
 import com.xiaoxun.apie.home_page.fragment.APieIndexMineFragment
 
+@Route(path = HOME_INDEX_ACTIVITY_PATH)
 class APieIndexActivity :
     APieBaseViewPagerActivity<LayoutApieIndexActivityBinding, APieViewPagerAdapter>(
         LayoutApieIndexActivityBinding::inflate
     ) {
-    companion object {
-        const val SWITCH_CITY_REQUEST_CODE = 191919
-        @JvmStatic
-        fun start(activity: APieBaseBindingActivity<*>) {
-            activity.startActivityForResult(
-                Intent(activity, APieIndexActivity::class.java),
-                SWITCH_CITY_REQUEST_CODE,
-            )
-        }
-    }
 
     override fun createAdapter(): APieViewPagerAdapter {
         return APieViewPagerAdapter(this, mFragmentList)

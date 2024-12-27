@@ -1,11 +1,11 @@
 package com.xiaoxun.apie.account.activity
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.InputType
 import android.text.method.PasswordTransformationMethod
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.gyf.immersionbar.ImmersionBar
 import com.xiaoxun.apie.account.R
 import com.xiaoxun.apie.account.databinding.LayoutApieLoginActivityBinding
@@ -15,6 +15,8 @@ import com.xiaoxun.apie.account.viewmodel.AccountViewModel
 import com.xiaoxun.apie.account.viewmodel.LoadingState
 import com.xiaoxun.apie.account.viewmodel.LoginWayType
 import com.xiaoxun.apie.account.viewmodel.SendSmsCodeStatus
+import com.xiaoxun.apie.common.ACCOUNT_LOGIN_ACTIVITY_PATH
+import com.xiaoxun.apie.common.HOME_INDEX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 import com.xiaoxun.apie.common.ui.formatAsPhoneNumber
 import com.xiaoxun.apie.common.ui.setEditTextMaxInput
@@ -30,22 +32,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+@Route(path = ACCOUNT_LOGIN_ACTIVITY_PATH)
 class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
     LayoutApieLoginActivityBinding::inflate
 ) {
 
     companion object {
         private const val COUNTDOWN_TOTAL_MILLIS = 120 * 1000L
-        //标识来自切换城市页Activity的请求码
-        const val SWITCH_CITY_REQUEST_CODE = 191919
-
-        @JvmStatic
-        fun start(activity: APieBaseBindingActivity<*>) {
-            activity.startActivityForResult(
-                Intent(activity, LoginActivity::class.java),
-                SWITCH_CITY_REQUEST_CODE,
-            )
-        }
     }
 
     private val viewModel: AccountViewModel by lazy { AccountViewModel() }
@@ -154,6 +147,7 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
                     APieToast.showDialog(pair.second.message)
                     binding.submitTip.show()
                     binding.submitLoading.hide()
+                    ARouter.getInstance().build(HOME_INDEX_ACTIVITY_PATH).navigation();
                 }
                 LoadingState.Failed -> {
                     APieToast.showDialog(pair.second.message)

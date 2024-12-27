@@ -1,22 +1,22 @@
 package com.example.xiaoxun
 
 import android.os.Bundle
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.xiaoxun.databinding.LayoutApieWelcomeActivityBinding
 import com.example.xiaoxun.repo.WelcomeRepo
 import com.example.xiaoxun.viewmodel.CheckLoginStatus
 import com.example.xiaoxun.viewmodel.WelcomeViewModel
 import com.gyf.immersionbar.ImmersionBar
-import com.xiaoxun.apie.account.activity.LoginActivity
+import com.xiaoxun.apie.common.ACCOUNT_LOGIN_ACTIVITY_PATH
+import com.xiaoxun.apie.common.APP_WELCOME_ACTIVITY_PATH
+import com.xiaoxun.apie.common.HOME_INDEX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 import com.xiaoxun.apie.common.utils.alphaHide
 import com.xiaoxun.apie.common.utils.alphaShow
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
-import com.xiaoxun.apie.common.utils.show
-import com.xiaoxun.apie.home_page.activity.APieIndexActivity
 
-/**
- * 欢迎页
- */
+@Route(path = APP_WELCOME_ACTIVITY_PATH)
 class APieWelcomeActivity : APieBaseBindingActivity<LayoutApieWelcomeActivityBinding>(
     LayoutApieWelcomeActivityBinding::inflate
 ) {
@@ -43,7 +43,7 @@ class APieWelcomeActivity : APieBaseBindingActivity<LayoutApieWelcomeActivityBin
         super.initializeView()
         binding.goLoginLayout.setDebouncingClickListener {
             if (viewModel.isNotLogin()) {
-                LoginActivity.start(this)
+                ARouter.getInstance().build(ACCOUNT_LOGIN_ACTIVITY_PATH).navigation()
             }
         }
 
@@ -65,7 +65,7 @@ class APieWelcomeActivity : APieBaseBindingActivity<LayoutApieWelcomeActivityBin
                 }
                 CheckLoginStatus.Login -> {
                     binding.checkLoginLoadingView.hide()
-                    APieIndexActivity.start(this)
+                    ARouter.getInstance().build(HOME_INDEX_ACTIVITY_PATH).navigation()
                     this.finish()
                 }
                 CheckLoginStatus.NotLogin -> {

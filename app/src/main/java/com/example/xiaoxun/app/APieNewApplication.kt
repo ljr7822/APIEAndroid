@@ -1,6 +1,7 @@
 package com.example.xiaoxun.app
 
 import android.app.Application
+import com.alibaba.android.arouter.launcher.ARouter
 import com.xiaoxun.apie.apie_data_loader.DataLoaderManager
 import com.xiaoxun.apie.common.base.APieBaseApplication
 import com.xiaoxun.apie.common.intf.OnAppStatusListener
@@ -13,7 +14,6 @@ import com.xiaoxun.apie.data_loader.repository.cache.DataCacheConfig
 import com.xiaoxun.apie.data_loader.repository.cache.DataCacheManager
 import com.xiaoxun.apie.data_loader.utils.DataLoaderConfig
 import com.xiaoxun.apie.data_loader.utils.LoggerDelegate
-import java.io.File
 
 class APieNewApplication : APieBaseApplication() {
     override fun onCreate() {
@@ -32,6 +32,7 @@ class APieNewApplication : APieBaseApplication() {
         initDataCache(this)
         initDataLoader()
         initSharedPreferences(this)
+        initARouter(this)
     }
 
     private fun initDataCache(app: Application) {
@@ -84,5 +85,12 @@ class APieNewApplication : APieBaseApplication() {
 
     private fun initSharedPreferences(app: Application) {
         SharedPreferencesHelper.init(app)
+    }
+
+    private fun initARouter(app: Application) {
+        // TODO: 建立开发模式和发布模式的切换
+        ARouter.openLog()   // 打印日志
+        ARouter.openDebug() // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+        ARouter.init(app)   // 尽可能早，推荐在Application中初始化
     }
 }

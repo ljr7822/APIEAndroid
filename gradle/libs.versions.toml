@@ -27,6 +27,9 @@ androidLifecycleExtensionsVersion = "1.1.1"
 gsonVersion = "2.8.6"
 mmkvVersion = "1.2.10"
 viewmodelKtxVersion = "2.6.2"
+arouterApiVersion = "1.5.2"
+arouterCompilerVersion = "1.5.2"
+roomCompilerProcessingTesting = "2.6.1"
 
 # 需要注意的是，如果名称中有“-”，在Gradle构建脚本中引用时必须将其改成“.”，例如：androidx-core-ktx 调用时需要改成 androidx.core.ktx
 [libraries]
@@ -54,6 +57,10 @@ reactivex-rxjava2-rxandroid = { group = "io.reactivex.rxjava2", name = "rxandroi
 reactivex-rxjava2-rxjava = { group = "io.reactivex.rxjava2", name = "rxjava", version.ref = "rxjava2RxjavaVersion" }
 google-code-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gsonVersion" }
 
+# ARouter
+alibaba-arouter-api = { group = "com.alibaba", name = "arouter-api", version.ref = "arouterApiVersion"}
+alibaba-arouter-compiler = { group = "com.alibaba", name = "arouter-compiler", version.ref = "arouterCompilerVersion"}
+
 # room数据库
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidxRoomRuntimeVersion" }
 androidx-room-rxjava2 = { group = "androidx.room", name = "room-rxjava2", version.ref = "androidxRoomRuntimeVersion" }
@@ -61,6 +68,7 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 
 # other
 tencent-mmkv = { group = "com.tencent", name = "mmkv", version.ref = "mmkvVersion" }
+androidx-room-compiler-processing-testing = { group = "androidx.room", name = "room-compiler-processing-testing", version.ref = "roomCompilerProcessingTesting" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -16,6 +16,12 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
+    kapt {
+        arguments {
+            arg("AROUTER_MODULE_NAME", project.name)
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -43,6 +49,8 @@ dependencies {
     implementation(project(":components:common_model"))
     implementation(project(":components:data_loader"))
     implementation(project(":feature_base:apie_data_loader"))
+    implementation(libs.alibaba.arouter.api)
+    kapt(libs.alibaba.arouter.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.geyifeng.immersionbar)
