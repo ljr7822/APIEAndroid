@@ -53,7 +53,6 @@ dependencies {
     kapt(libs.alibaba.arouter.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.geyifeng.immersionbar)
     implementation(libs.material)
     implementation(libs.reactivex.rxjava2.rxandroid)
     implementation(libs.reactivex.rxjava2.rxjava)

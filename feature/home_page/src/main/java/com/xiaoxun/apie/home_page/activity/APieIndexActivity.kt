@@ -1,9 +1,7 @@
 package com.xiaoxun.apie.home_page.activity
 
-import android.content.Intent
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.gyf.immersionbar.ImmersionBar
 import com.xiaoxun.apie.common.HOME_INDEX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.activity.APieBaseViewPagerActivity
 import com.xiaoxun.apie.common.config.APieConfig
@@ -27,17 +25,9 @@ class APieIndexActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initWindowsStyle()
         initNavItemData()
         val statusBarHeight1 = StatusBarUtils.getStatusBarHeight(context = this)
         APieLog.d("ljrxxx", "statusBarHeight1=$statusBarHeight1")
-    }
-
-    private fun initWindowsStyle() {
-        ImmersionBar.with(this)
-            .transparentStatusBar()
-            .statusBarDarkFont(true)
-            .init()
     }
 
     override fun setupViewPager() {

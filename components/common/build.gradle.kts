@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.reactivex.rxjava2.rxandroid)
     implementation(libs.tencent.mmkv)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.geyifeng.immersionbar)
     kapt(libs.androidx.room.compiler)
     implementation(libs.google.code.gson)
     testImplementation(libs.junit)

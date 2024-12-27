@@ -7,7 +7,6 @@ import com.example.xiaoxun.databinding.LayoutApieWelcomeActivityBinding
 import com.example.xiaoxun.repo.WelcomeRepo
 import com.example.xiaoxun.viewmodel.CheckLoginStatus
 import com.example.xiaoxun.viewmodel.WelcomeViewModel
-import com.gyf.immersionbar.ImmersionBar
 import com.xiaoxun.apie.common.ACCOUNT_LOGIN_ACTIVITY_PATH
 import com.xiaoxun.apie.common.APP_WELCOME_ACTIVITY_PATH
 import com.xiaoxun.apie.common.HOME_INDEX_ACTIVITY_PATH
@@ -27,16 +26,8 @@ class APieWelcomeActivity : APieBaseBindingActivity<LayoutApieWelcomeActivityBin
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initWindowsStyle()
         initData()
         initObserver()
-    }
-
-    private fun initWindowsStyle() {
-        ImmersionBar.with(this)
-            .transparentStatusBar()
-            .statusBarDarkFont(true)
-            .init()
     }
 
     override fun initializeView() {

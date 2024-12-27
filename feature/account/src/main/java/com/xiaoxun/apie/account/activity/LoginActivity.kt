@@ -6,7 +6,6 @@ import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.gyf.immersionbar.ImmersionBar
 import com.xiaoxun.apie.account.R
 import com.xiaoxun.apie.account.databinding.LayoutApieLoginActivityBinding
 import com.xiaoxun.apie.account.repo.AccountRepo
@@ -47,15 +46,7 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initWindowsStyle()
         initializeView()
-    }
-
-    private fun initWindowsStyle() {
-        ImmersionBar.with(this)
-            .transparentStatusBar()
-            .statusBarDarkFont(true)
-            .init()
     }
 
     override fun initializeView() {
