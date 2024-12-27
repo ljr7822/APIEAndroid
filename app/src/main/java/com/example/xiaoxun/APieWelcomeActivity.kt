@@ -9,6 +9,7 @@ import com.example.xiaoxun.viewmodel.CheckLoginStatus
 import com.example.xiaoxun.viewmodel.WelcomeViewModel
 import com.xiaoxun.apie.common.ACCOUNT_LOGIN_ACTIVITY_PATH
 import com.xiaoxun.apie.common.APP_WELCOME_ACTIVITY_PATH
+import com.xiaoxun.apie.common.APP_XX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.HOME_INDEX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 import com.xiaoxun.apie.common.utils.alphaHide
@@ -40,6 +41,10 @@ class APieWelcomeActivity : APieBaseBindingActivity<LayoutApieWelcomeActivityBin
 
         binding.skipLogin.setDebouncingClickListener {
             viewModel.updateLoginStatus(CheckLoginStatus.Login)
+        }
+
+        binding.logoLayout.setDebouncingClickListener {
+            ARouter.getInstance().build(APP_XX_ACTIVITY_PATH).navigation()
         }
     }
 
