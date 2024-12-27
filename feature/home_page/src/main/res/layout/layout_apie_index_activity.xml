@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:barHeight="55dp"
-        app:barBackground="@color/white"
+        app:barBackground="@color/apie_color_white"
         app:iconWidth="25dp"
         app:iconHeight="25dp"
         app:itemTextSize="10sp"

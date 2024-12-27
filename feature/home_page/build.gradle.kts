@@ -32,12 +32,20 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
-
+    implementation(project(":components:common"))
+    implementation(project(":components:common_model"))
+    implementation(project(":components:data_loader"))
+    implementation(project(":feature_base:apie_data_loader"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.geyifeng.immersionbar)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

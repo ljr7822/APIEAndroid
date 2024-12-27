@@ -1,43 +1,36 @@
-package com.example.xiaoxun
+package com.xiaoxun.apie.home_page.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.WindowInsets
-import android.view.WindowInsetsAnimation
-import com.example.xiaoxun.adapter.ViewPagerAdapter
-import com.example.xiaoxun.databinding.LayoutApieHomeActivityBinding
-import com.example.xiaoxun.fragment.DesireFragment
-import com.example.xiaoxun.fragment.HomeFragment
-import com.example.xiaoxun.fragment.MineFragment
 import com.gyf.immersionbar.ImmersionBar
-import com.xiaoxun.apie.account.activity.LoginActivity
-import com.xiaoxun.apie.account.activity.LoginActivity.Companion.SWITCH_CITY_REQUEST_CODE
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 import com.xiaoxun.apie.common.base.activity.APieBaseViewPagerActivity
 import com.xiaoxun.apie.common.config.APieConfig
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.StatusBarUtils
+import com.xiaoxun.apie.home_page.adapter.APieViewPagerAdapter
+import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexActivityBinding
+import com.xiaoxun.apie.home_page.fragment.APieIndexDesireFragment
+import com.xiaoxun.apie.home_page.fragment.APieIndexHomeFragment
+import com.xiaoxun.apie.home_page.fragment.APieIndexMineFragment
 
-/**
- * 首页Activity
- */
-class APieHomeActivity :
-    APieBaseViewPagerActivity<LayoutApieHomeActivityBinding, ViewPagerAdapter>(
-        LayoutApieHomeActivityBinding::inflate
+class APieIndexActivity :
+    APieBaseViewPagerActivity<LayoutApieIndexActivityBinding, APieViewPagerAdapter>(
+        LayoutApieIndexActivityBinding::inflate
     ) {
-
     companion object {
+        const val SWITCH_CITY_REQUEST_CODE = 191919
         @JvmStatic
         fun start(activity: APieBaseBindingActivity<*>) {
             activity.startActivityForResult(
-                Intent(activity, APieHomeActivity::class.java),
+                Intent(activity, APieIndexActivity::class.java),
                 SWITCH_CITY_REQUEST_CODE,
             )
         }
     }
 
-    override fun createAdapter(): ViewPagerAdapter {
-        return ViewPagerAdapter(this, mFragmentList)
+    override fun createAdapter(): APieViewPagerAdapter {
+        return APieViewPagerAdapter(this, mFragmentList)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,27 +57,27 @@ class APieHomeActivity :
         getNavTabNames().forEachIndexed { index, tabName ->
             when (index) {
                 APieConfig.HOME_PAGE_INDEX -> {
-                    val fragment = HomeFragment().apply {
+                    val fragment = APieIndexHomeFragment().apply {
                         arguments = Bundle().apply {
-                            putString(HomeFragment.TEST_FLAG, tabName)
+                            putString(APieIndexHomeFragment.TEST_FLAG, tabName)
                         }
                     }
                     mFragmentList.add(fragment)
                 }
 
                 APieConfig.DESIRE_PAGE_INDEX -> {
-                    val fragment = DesireFragment().apply {
+                    val fragment = APieIndexDesireFragment().apply {
                         arguments = Bundle().apply {
-                            putString(DesireFragment.TEST_FLAG, tabName)
+                            putString(APieIndexDesireFragment.TEST_FLAG, tabName)
                         }
                     }
                     mFragmentList.add(fragment)
                 }
 
                 APieConfig.MINE_PAGE_INDEX -> {
-                    val fragment = MineFragment().apply {
+                    val fragment = APieIndexMineFragment().apply {
                         arguments = Bundle().apply {
-                            putString(DesireFragment.TEST_FLAG, tabName)
+                            putString(APieIndexDesireFragment.TEST_FLAG, tabName)
                         }
                     }
                     mFragmentList.add(fragment)

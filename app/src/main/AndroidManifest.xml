@@ -38,7 +38,7 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity
-            android:name=".APieHomeActivity"
+            android:name="com.xiaoxun.apie.home_page.activity.APieIndexActivity"
             android:launchMode="singleTask"
             android:screenOrientation="behind"
             android:theme="@style/Theme.Xiaoxun"

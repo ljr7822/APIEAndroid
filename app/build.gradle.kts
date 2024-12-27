@@ -51,6 +51,7 @@ android {
 dependencies {
 
     implementation(project(":feature:account"))
+    implementation(project(":feature:home_page"))
     implementation(project(":components:common"))
     implementation(project(":components:common_model"))
     implementation(project(":feature_base:apie_data_loader"))

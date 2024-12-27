@@ -12,6 +12,7 @@ import com.xiaoxun.apie.common.utils.alphaHide
 import com.xiaoxun.apie.common.utils.alphaShow
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.show
+import com.xiaoxun.apie.home_page.activity.APieIndexActivity
 
 /**
  * 欢迎页
@@ -64,7 +65,7 @@ class APieWelcomeActivity : APieBaseBindingActivity<LayoutApieWelcomeActivityBin
                 }
                 CheckLoginStatus.Login -> {
                     binding.checkLoginLoadingView.hide()
-                    APieHomeActivity.start(this)
+                    APieIndexActivity.start(this)
                     this.finish()
                 }
                 CheckLoginStatus.NotLogin -> {

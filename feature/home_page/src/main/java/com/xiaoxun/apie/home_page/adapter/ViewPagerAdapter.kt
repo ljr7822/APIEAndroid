@@ -1,10 +1,10 @@
-package com.example.xiaoxun.adapter
+package com.xiaoxun.apie.home_page.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class ViewPagerAdapter(
+class APieViewPagerAdapter(
     fm: FragmentActivity,
     private val fragmentList: List<Fragment>
 ) : FragmentStateAdapter(fm) {
