@@ -4,8 +4,11 @@ import android.content.Context
 import com.xiaoxun.apie.apie_data_loader.repository.APieDataLoaderRepository
 import com.xiaoxun.apie.apie_data_loader.request.account.login.password.LoginByPasswordRequest
 import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySmsCodeRequest
+import com.xiaoxun.apie.apie_data_loader.request.account.plan.LoadPlans
 import com.xiaoxun.apie.apie_data_loader.request.account.sms.SendSmsCode
 import com.xiaoxun.apie.common_model.account.AccountModel
+import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
+import com.xiaoxun.apie.common_model.home_page.plan.PlanRespModel
 import com.xiaoxun.apie.common_model.sms.SmsCodeModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
 import com.xiaoxun.apie.data_loader.loader.APieSimpleDataLoader
@@ -61,5 +64,13 @@ class DataLoaderManager private constructor() {
     fun sendSmsCode(sendSmsCode: SendSmsCode, cacheStrategy: CacheStrategy): Observable<BaseResponse<SmsCodeModel>> {
         val loader = buildDataLoader<SmsCodeModel>(APieUrl.ACCOUNT_SEND_SMS_CODE.name)
         return loader?.getData(sendSmsCode, cacheStrategy) ?: Observable.error(Exception("loader is null"))
+    }
+
+    /**
+     * 获取用户的所有计划
+     */
+    fun getAllPlanByUserId(loadPlans: LoadPlans, cacheStrategy: CacheStrategy): Observable<BaseResponse<PlanRespModel>> {
+        val loader = buildDataLoader<PlanRespModel>(APieUrl.ACCOUNT_GET_ALL_PLAN_BY_USER_ID.name)
+        return loader?.getData(loadPlans, cacheStrategy) ?: Observable.error(Exception("loader is null"))
     }
 }

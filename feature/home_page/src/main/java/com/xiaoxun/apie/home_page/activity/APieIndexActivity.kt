@@ -5,8 +5,6 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.xiaoxun.apie.common.HOME_INDEX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.activity.APieBaseViewPagerActivity
 import com.xiaoxun.apie.common.config.APieConfig
-import com.xiaoxun.apie.common.utils.APieLog
-import com.xiaoxun.apie.common.utils.StatusBarUtils
 import com.xiaoxun.apie.home_page.adapter.APieViewPagerAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexActivityBinding
 import com.xiaoxun.apie.home_page.fragment.APieIndexDesireFragment
@@ -26,8 +24,10 @@ class APieIndexActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initNavItemData()
-        val statusBarHeight1 = StatusBarUtils.getStatusBarHeight(context = this)
-        APieLog.d("ljrxxx", "statusBarHeight1=$statusBarHeight1")
+    }
+
+    override fun initializeView() {
+        super.initializeView()
     }
 
     override fun setupViewPager() {

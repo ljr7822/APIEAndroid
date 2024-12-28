@@ -5,13 +5,12 @@
     android:background="@color/home_gb"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/test_flag"
-        android:layout_width="wrap_content"
+    <com.xiaoxun.apie.common.ui.APieTopBar
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:titleText="心愿"
+        app:rightIconEnable="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

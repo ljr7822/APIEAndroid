@@ -1,11 +1,13 @@
 package com.xiaoxun.apie.apie_data_loader.service
 
+import com.xiaoxun.apie.apie_data_loader.ACCOUNT_GET_ALL_PLAN_BY_USER_ID_URL
 import com.xiaoxun.apie.apie_data_loader.ACCOUNT_LOGIN_PASSWORD_URL
 import com.xiaoxun.apie.apie_data_loader.ACCOUNT_LOGIN_SMS_CODE_URL
 import com.xiaoxun.apie.apie_data_loader.ACCOUNT_SEND_SMS_CODE_URL
 import com.xiaoxun.apie.apie_data_loader.request.account.login.password.LoginByPasswordRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySmsCodeRequestBody
 import com.xiaoxun.apie.common_model.account.AccountModel
+import com.xiaoxun.apie.common_model.home_page.plan.PlanRespModel
 import com.xiaoxun.apie.common_model.sms.SmsCodeModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
 import io.reactivex.Observable
@@ -24,4 +26,7 @@ interface APieAccountService {
 
     @GET(ACCOUNT_SEND_SMS_CODE_URL)
     fun sendSmsCode(@Path("phoneNum") phoneNum: String, @Path("userId") userId: String): Observable<BaseResponse<SmsCodeModel>>
+
+    @GET(ACCOUNT_GET_ALL_PLAN_BY_USER_ID_URL)
+    fun getAllPlanByUserId(@Path("userId") userId: String): Observable<BaseResponse<PlanRespModel>>
 }

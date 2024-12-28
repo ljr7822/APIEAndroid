@@ -17,6 +17,10 @@ class APieIndexDesireFragment : APieBaseBindingFragment<LayoutApieIndexDesireFra
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.testFlag.text = requireArguments().getString(TEST_FLAG)
     }
+
+    override fun initTopBarView() {
+        super.initTopBarView()
+    }
+
 }

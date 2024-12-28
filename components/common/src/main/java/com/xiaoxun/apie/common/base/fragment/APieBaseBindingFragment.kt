@@ -29,4 +29,11 @@ abstract class APieBaseBindingFragment<VB : ViewBinding>(
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initTopBarView()
+    }
+
+    open fun initTopBarView(){}
 }
