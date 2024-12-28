@@ -86,4 +86,9 @@
         <attr name="rightIconEnable" format="boolean"/>
     </declare-styleable>
 
+    <declare-styleable name="ScrollFloatingButton">
+        <attr name="scrollEnable" format="boolean" />
+    </declare-styleable>
+
+
 </resources>

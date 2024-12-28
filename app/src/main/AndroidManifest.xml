@@ -46,6 +46,14 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity
+            android:name="com.xiaoxun.apie.home_page.activity.APieCreatePlanActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="behind"
+            android:theme="@style/Theme.Xiaoxun"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity
             android:name=".XxTestActivity"
             android:launchMode="singleTask"
             android:screenOrientation="behind"

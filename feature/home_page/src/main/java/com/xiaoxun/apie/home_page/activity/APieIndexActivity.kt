@@ -2,9 +2,12 @@ package com.xiaoxun.apie.home_page.activity
 
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
+import com.xiaoxun.apie.common.HOME_CREATE_PLAN_ACTIVITY_PATH
 import com.xiaoxun.apie.common.HOME_INDEX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.activity.APieBaseViewPagerActivity
 import com.xiaoxun.apie.common.config.APieConfig
+import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.home_page.adapter.APieViewPagerAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexActivityBinding
 import com.xiaoxun.apie.home_page.fragment.APieIndexDesireFragment
@@ -28,6 +31,9 @@ class APieIndexActivity :
 
     override fun initializeView() {
         super.initializeView()
+        binding.createBtn.setDebouncingClickListener {
+            ARouter.getInstance().build(HOME_CREATE_PLAN_ACTIVITY_PATH).navigation()
+        }
     }
 
     override fun setupViewPager() {
