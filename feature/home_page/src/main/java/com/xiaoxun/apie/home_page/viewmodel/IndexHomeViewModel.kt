@@ -7,6 +7,9 @@ import com.xiaoxun.apie.common_model.home_page.plan.PlanRespModel
 
 class IndexHomeViewModel: APieBaseViewModel() {
 
+    private var _listScrolling = MutableLiveData<Boolean>()
+    val listScrolling get() = _listScrolling
+
     private var _loadPlanListState = MutableLiveData<LoadPlanListState>()
     val loadPlanListState get() = _loadPlanListState
 
@@ -15,6 +18,11 @@ class IndexHomeViewModel: APieBaseViewModel() {
 
     fun loadPlanListStart() {
         _loadPlanListState.value = LoadPlanListState.START
+    }
+
+    fun updateListScrolling(isScrolling: Boolean) {
+        if (_listScrolling.value == isScrolling) return
+        _listScrolling.value = isScrolling
     }
 
     fun loadPlanListSuccess(newPlanList: List<PlanModel>) {

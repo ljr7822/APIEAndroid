@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/home_gb"
-        app:layout_constraintBottom_toTopOf="@+id/bbl"
+        app:layout_constraintBottom_toTopOf="@+id/navBarLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +30,7 @@
         app:srcCompat="@drawable/apie_nav_bar_add_icon" />
 
     <com.xiaoxun.apie.common.navbar.APieNavBarLayout
-        android:id="@+id/bbl"
+        android:id="@+id/navBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:barBackground="@color/apie_color_white"

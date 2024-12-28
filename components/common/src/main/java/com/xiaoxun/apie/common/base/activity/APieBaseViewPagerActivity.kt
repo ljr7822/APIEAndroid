@@ -2,9 +2,7 @@ package com.xiaoxun.apie.common.base.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -24,7 +22,7 @@ abstract class APieBaseViewPagerActivity<VB : ViewBinding, FA : FragmentStateAda
 
     // 延迟初始化 ViewPager2 和 NavBar
     val mVpContent: ViewPager2 by lazy { binding.root.findViewById(R.id.vp_content) }
-    val mNavBarLayout: APieNavBarLayout? by lazy { binding.root.findViewById(R.id.bbl) }
+    val mNavBarLayout: APieNavBarLayout? by lazy { binding.root.findViewById(R.id.navBarLayout) }
 
     // Fragment 列表
     val mFragmentList: MutableList<Fragment> = mutableListOf<Fragment>()

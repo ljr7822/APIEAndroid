@@ -14,10 +14,10 @@ class APieTopBar @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
-    private val titleTextView: TextView
-    private val leftIconView: ImageView
-    private val rightIconView: ImageView
-    private val avatarImageView: GlideCircleImageView
+    val titleTextView: TextView
+    val leftIconView: ImageView
+    val rightIconView: ImageView
+    val avatarImageView: GlideCircleImageView
 
     init {
         orientation = HORIZONTAL

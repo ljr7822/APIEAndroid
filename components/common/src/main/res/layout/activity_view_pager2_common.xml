@@ -13,7 +13,7 @@
         android:layout_marginBottom="45dp" />
 
     <com.xiaoxun.apie.common.navbar.APieNavBarLayout
-        android:id="@+id/bbl"
+        android:id="@+id/navBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

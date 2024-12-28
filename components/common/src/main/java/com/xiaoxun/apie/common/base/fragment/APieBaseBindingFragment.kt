@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 
 /**
@@ -15,6 +16,10 @@ abstract class APieBaseBindingFragment<VB : ViewBinding>(
 
     private var _binding: VB? = null
     val binding: VB get() = _binding!!
+
+    // 提供一个强类型的 AppCompatActivity 属性
+    protected val hostActivity: AppCompatActivity
+        get() = requireActivity() as AppCompatActivity
 
     override fun onCreateView(
         inflater: LayoutInflater,
