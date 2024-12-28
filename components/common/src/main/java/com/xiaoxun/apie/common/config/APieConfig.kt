@@ -10,9 +10,9 @@ object APieConfig {
     const val DESIRE_PAGE_INDEX = 1
     const val MINE_PAGE_INDEX = 2
 
-    private const val HOME_TAB_NAME = "tab-1"
-    private const val DESIRE_TAB_NAME = "tab-2"
-    private const val MINE_TAB_NAME = "tab-3"
+    private const val HOME_TAB_NAME = "计划"
+    private const val DESIRE_TAB_NAME = "心愿"
+    private const val MINE_TAB_NAME = "我的"
 
     private const val HOME_TAB_LOTTIE_JSON = "home.json"
     private const val DESIRE_TAB_LOTTIE_JSON = "category.json"

@@ -53,40 +53,70 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="计划标题计划标题计划标题计划标题计划标题计划标题"
+                    android:text="计划标题计划"
                     android:textColor="@color/apieTheme_colorBlack"
                     android:textSize="@dimen/apie_theme_text_14" />
 
-                <ImageView
-                    android:layout_width="@dimen/apie_theme_dimension_16"
-                    android:layout_height="@dimen/apie_theme_dimension_16"
-                    android:layout_marginStart="@dimen/apie_theme_dimension_8"
-                    android:background="@drawable/apie_def_male_avatar_icon" />
+                <com.xiaoxun.apie.common.ui.GlideCircleImageView
+                    android:id="@+id/groupIcon"
+                    android:layout_gravity="center"
+                    android:layout_width="@dimen/apie_theme_dimension_14"
+                    android:layout_height="@dimen/apie_theme_dimension_14"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_8" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
+                android:layout_marginEnd="@dimen/apie_theme_dimension_12"
                 android:layout_marginStart="@dimen/apie_theme_dimension_12"
                 android:layout_marginBottom="@dimen/apie_theme_dimension_15"
+                android:gravity="start"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
                 app:layout_constraintStart_toEndOf="@+id/coverImageView">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/goldIcon"
+                        android:layout_width="@dimen/apie_theme_dimension_14"
+                        android:layout_height="@dimen/apie_theme_dimension_14"
+                        android:background="@drawable/apie_plan_gold_icon" />
+
+                    <TextView
+                        android:id="@+id/goldValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/apie_theme_dimension_3"
+                        android:text="1"
+                        android:textSize="@dimen/apie_theme_text_10" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/planGroupName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_5"
+                    android:background="@drawable/apie_plan_group_bg"
+                    android:paddingStart="@dimen/apie_theme_dimension_3"
+                    android:paddingTop="@dimen/apie_theme_dimension_2"
+                    android:paddingEnd="@dimen/apie_theme_dimension_3"
+                    android:paddingBottom="@dimen/apie_theme_dimension_2"
                     android:text="每日计划"
-                    android:textSize="@dimen/apie_theme_text_11" />
+                    android:textSize="@dimen/apie_theme_text_10" />
 
                 <TextView
                     android:id="@+id/planFrequency"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="每天3次"
                     android:layout_marginStart="@dimen/apie_theme_dimension_8"
+                    android:text="每天3次"
+                    android:visibility="gone"
                     android:textSize="@dimen/apie_theme_text_11" />
 
             </LinearLayout>

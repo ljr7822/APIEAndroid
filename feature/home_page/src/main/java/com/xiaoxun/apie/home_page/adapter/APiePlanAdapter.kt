@@ -26,7 +26,8 @@ class APiePlanAdapter(
         val planTitleView: TextView = view.findViewById(R.id.planTitleView)
         val planGroupName: TextView = view.findViewById(R.id.planGroupName)
         val planFrequency: TextView = view.findViewById(R.id.planFrequency)
-
+        val goldValue: TextView = view.findViewById(R.id.goldValue)
+        val groupIcon: GlideCircleImageView = view.findViewById(R.id.groupIcon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,7 +41,9 @@ class APiePlanAdapter(
         val item = items[position]
         holder.planTitleView.text = item.planName
         holder.coverImageView.loadImage(item.planIcon, 20)
-        holder.planGroupName.text = item.belongGroupId
+        holder.goldValue.text = item.planAward.toString()
+        holder.planGroupName.text = item.planGroupModel.groupName
         holder.planFrequency.text = "每天${item.planFrequency}次"
+        holder.groupIcon.loadImage(item.planGroupModel.groupIcon)
     }
 }

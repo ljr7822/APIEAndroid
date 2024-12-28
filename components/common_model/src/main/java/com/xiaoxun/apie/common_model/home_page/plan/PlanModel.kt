@@ -3,8 +3,8 @@ package com.xiaoxun.apie.common_model.home_page.plan
 import android.os.Parcelable
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
+import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import kotlinx.parcelize.Parcelize
-import java.time.LocalDateTime
 
 @Parcelize
 @Keep
@@ -17,6 +17,8 @@ data class PlanModel(
     val planIcon: String = "",
     @SerializedName("belongGroupId")
     val belongGroupId: String = "",
+    @SerializedName("planGroupBean")
+    val planGroupModel: PlanGroupModel,
     @SerializedName("planFrequency")
     val planFrequency: String = "",
     @SerializedName("planAward")
