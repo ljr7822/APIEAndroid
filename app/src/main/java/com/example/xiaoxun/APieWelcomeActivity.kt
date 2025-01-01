@@ -12,6 +12,7 @@ import com.xiaoxun.apie.common.APP_WELCOME_ACTIVITY_PATH
 import com.xiaoxun.apie.common.APP_XX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.HOME_INDEX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
+import com.xiaoxun.apie.common.utils.AndroidUtils
 import com.xiaoxun.apie.common.utils.alphaHide
 import com.xiaoxun.apie.common.utils.alphaShow
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
@@ -33,6 +34,8 @@ class APieWelcomeActivity : APieBaseBindingActivity<LayoutApieWelcomeActivityBin
 
     override fun initializeView() {
         super.initializeView()
+        val versionName = AndroidUtils.getVersionName(this)
+        binding.versionTv.text = versionName
         binding.goLoginLayout.setDebouncingClickListener {
             if (viewModel.isNotLogin()) {
                 ARouter.getInstance().build(ACCOUNT_LOGIN_ACTIVITY_PATH).navigation()

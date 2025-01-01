@@ -1,5 +1,9 @@
 # 在 versions 代码块中，定义用于保存依赖项和插件版本的变量。您可以在后续代码块（libraries 和 plugins 代码块）中使用这些变量。
 [versions]
+# 应用版本号
+versionCode = "1000000"
+versionName = "1.0.0"
+
 # 将minSdk和targetSdk移动到版本目录中
 minSdk = "26"
 targetSdk = "34"
