@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/apie_theme_dimension_265"
+    android:layout_height="match_parent"
+    android:background="@color/home_gb">
+
+    <ImageView
+        android:id="@+id/apieLeftDrawerPopupViewBg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/apie_theme_dimension_200"
+        android:background="@drawable/apie_common_page_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/apie_theme_dimension_55"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_marginEnd="@dimen/apie_theme_dimension_8"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/apie_theme_dimension_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/scanIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/timeTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="下午好，"
+                android:textColor="@color/apieTheme_colorBlack"
+                android:textSize="@dimen/apie_theme_text_12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="小寻测试1小寻测试1"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/apieTheme_colorBlack"
+                android:textSize="@dimen/apie_theme_text_14"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/settingIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/apie_theme_dimension_16"
+            android:background="@drawable/apie_setting_bg"
+            android:gravity="center"
+            android:padding="@dimen/apie_theme_dimension_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/apie_top_bar_setting_icon" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/scanIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/apie_theme_dimension_16"
+            android:background="@drawable/apie_setting_bg"
+            android:gravity="center"
+            android:padding="@dimen/apie_theme_dimension_8"
+            app:layout_constraintEnd_toStartOf="@+id/settingIcon"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/apie_top_bar_scan_icon" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dataAnalysisCardView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/apie_theme_dimension_100"
+        android:layout_marginStart="@dimen/apie_theme_dimension_16"
+        android:layout_marginTop="@dimen/apie_theme_dimension_16"
+        android:layout_marginEnd="@dimen/apie_theme_dimension_16"
+        app:cardCornerRadius="@dimen/apie_theme_dimension_10"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/apie_theme_dimension_12"
+                android:layout_marginTop="@dimen/apie_theme_dimension_12"
+                android:text="我的数据"
+                android:textColor="@color/apieTheme_colorBlack"
+                android:textSize="@dimen/apie_theme_text_13"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/quickSettingCardView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/apie_theme_dimension_150"
+        android:layout_marginStart="@dimen/apie_theme_dimension_16"
+        android:layout_marginTop="@dimen/apie_theme_dimension_20"
+        android:layout_marginEnd="@dimen/apie_theme_dimension_16"
+        app:cardCornerRadius="@dimen/apie_theme_dimension_10"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dataAnalysisCardView">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/apie_theme_dimension_12"
+                android:layout_marginTop="@dimen/apie_theme_dimension_12"
+                android:text="快捷设置"
+                android:textColor="@color/apieTheme_colorBlack"
+                android:textSize="@dimen/apie_theme_text_13"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

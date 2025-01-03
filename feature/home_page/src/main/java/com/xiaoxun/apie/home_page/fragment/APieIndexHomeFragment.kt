@@ -6,11 +6,10 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.arouter.launcher.ARouter
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.enums.PopupPosition
-import com.xiaoxun.apie.common.HOME_SETTING_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.fragment.APieBaseBindingFragment
+import com.xiaoxun.apie.home_page.widget.APieLeftDrawerPopupView
 import com.xiaoxun.apie.home_page.widget.APieFilterPartShadowPopupView
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.home_page.adapter.APiePlanAdapter
@@ -53,7 +52,7 @@ class APieIndexHomeFragment: APieBaseBindingFragment<LayoutApieIndexHomeFragment
     override fun initTopBarView() {
         super.initTopBarView()
         binding.topBar.leftIconView.setDebouncingClickListener {
-            ARouter.getInstance().build(HOME_SETTING_ACTIVITY_PATH).navigation()
+            showLeftDrawerPopupView()
         }
         binding.topBar.rightIconView.setDebouncingClickListener {
             showTopFilterView()
@@ -100,6 +99,14 @@ class APieIndexHomeFragment: APieBaseBindingFragment<LayoutApieIndexHomeFragment
             .isViewMode(false)
             .popupPosition(PopupPosition.Bottom)
             .asCustom(topFilterView)
+            .show()
+    }
+
+    private fun showLeftDrawerPopupView() {
+        XPopup.Builder(hostActivity)
+            .isDestroyOnDismiss(true)
+            .isViewMode(true)
+            .asCustom(APieLeftDrawerPopupView(hostActivity))
             .show()
     }
 }
