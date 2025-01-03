@@ -26,8 +26,8 @@
             android:id="@+id/goldValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/apie_theme_dimension_3"
-            android:text="10000"
+            android:layout_marginStart="@dimen/apie_theme_dimension_5"
+            android:text="+ 899"
             android:textColor="@color/apieTheme_colorBlack_alpha_50"
             android:textSize="@dimen/apie_theme_text_13" />
     </LinearLayout>

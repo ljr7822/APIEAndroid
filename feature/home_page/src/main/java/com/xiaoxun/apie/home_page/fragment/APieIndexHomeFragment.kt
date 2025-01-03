@@ -1,27 +1,25 @@
 package com.xiaoxun.apie.home_page.fragment
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.enums.PopupPosition
 import com.xiaoxun.apie.common.HOME_SETTING_ACTIVITY_PATH
-import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 import com.xiaoxun.apie.common.base.fragment.APieBaseBindingFragment
+import com.xiaoxun.apie.home_page.widget.APieFilterPartShadowPopupView
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
-import com.xiaoxun.apie.data_loader.utils.ThreadUtils
-import com.xiaoxun.apie.home_page.R
-import com.xiaoxun.apie.home_page.activity.APieIndexActivity
 import com.xiaoxun.apie.home_page.adapter.APiePlanAdapter
-import com.xiaoxun.apie.home_page.adapter.SpaceItemDecoration
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexHomeFragmentBinding
 import com.xiaoxun.apie.home_page.repo.IIndexHomeRepo
 import com.xiaoxun.apie.home_page.repo.IndexHomeRepo
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModelFactory
+import com.xiaoxun.apie.home_page.viewmodel.PlanListType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -35,6 +33,10 @@ class APieIndexHomeFragment: APieBaseBindingFragment<LayoutApieIndexHomeFragment
         ViewModelProvider(hostActivity, IndexHomeViewModelFactory()).get(
             IndexHomeViewModel::class.java
         )
+    }
+
+    private val topFilterView: APieFilterPartShadowPopupView by lazy {
+        APieFilterPartShadowPopupView(context = hostActivity, gravity = Gravity.END)
     }
 
     private val repo: IIndexHomeRepo by lazy { IndexHomeRepo(viewModel) }
@@ -53,18 +55,21 @@ class APieIndexHomeFragment: APieBaseBindingFragment<LayoutApieIndexHomeFragment
         binding.topBar.leftIconView.setDebouncingClickListener {
             ARouter.getInstance().build(HOME_SETTING_ACTIVITY_PATH).navigation()
         }
+        binding.topBar.rightIconView.setDebouncingClickListener {
+            showTopFilterView()
+        }
     }
 
     private fun initData() {
         GlobalScope.launch(Dispatchers.Main) {
-            repo.loadPlanList()
+            repo.loadPlanListByType(PlanListType.ALL_PLAN)
         }
     }
 
     private fun initObserver() {
         viewModel.planList.observe(viewLifecycleOwner) {
             // 更新数据
-            adapter.replayData(it)
+            adapter.replayData(it.second)
         }
     }
 
@@ -87,5 +92,14 @@ class APieIndexHomeFragment: APieBaseBindingFragment<LayoutApieIndexHomeFragment
                 }
             }
         })
+    }
+
+    private fun showTopFilterView() {
+        XPopup.Builder(hostActivity)
+            .atView(binding.topBar)
+            .isViewMode(false)
+            .popupPosition(PopupPosition.Bottom)
+            .asCustom(topFilterView)
+            .show()
     }
 }

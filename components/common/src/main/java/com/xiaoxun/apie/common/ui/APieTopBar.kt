@@ -30,7 +30,7 @@ class APieTopBar @JvmOverloads constructor(
 
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.APieTopBarView)
         titleTextView.text = attributes.getString(R.styleable.APieTopBarView_titleText) ?: context.getString(R.string.app_name)
-        leftIconView.setImageResource(attributes.getResourceId(R.styleable.APieTopBarView_leftIconRes, R.drawable.apie_topbar_setting_icon))
+        leftIconView.setImageResource(attributes.getResourceId(R.styleable.APieTopBarView_leftIconRes, R.drawable.apie_top_bar_menu_icon))
         leftIconView.visibility = if (attributes.getBoolean(R.styleable.APieTopBarView_leftIconEnable, true)) VISIBLE else GONE
         rightIconView.setImageResource(attributes.getResourceId(R.styleable.APieTopBarView_rightIconRes, R.drawable.apie_top_bar_filter_icon))
         rightIconView.visibility = if (attributes.getBoolean(R.styleable.APieTopBarView_rightIconEnable, true)) VISIBLE else GONE

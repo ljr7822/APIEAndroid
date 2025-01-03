@@ -22,6 +22,7 @@
     <color name="apie_color_4770DC">#4770DC</color>
     <color name="apie_color_6F94F4">#6F94F4</color>
     <color name="apie_color_97B4FF">#97B4FF</color>
+    <color name="apie_color_97B4FF_alpha_30">#4D97B4FF</color>
 
     <color name="apieTheme_colorBlack">#000000</color>
     <color name="apieTheme_colorBlack_alpha_0">#00000000</color>
