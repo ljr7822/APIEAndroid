@@ -27,12 +27,16 @@
     <string name="apie_top_filter_resect_btn_text">重置</string>
     <string name="apie_top_filter_close_btn_text">收起</string>
     <string name="apie_top_filter_status_title_text">计划状态</string>
+    <string name="apie_top_filter_status_no_start_plan_title">未开始</string>
+    <string name="apie_top_filter_status_done_plan_title">已完成</string>
+    <string name="apie_top_filter_status_doing_plan_title">进行中</string>
+    <string name="apie_top_filter_status_give_up_plan_title">已放弃</string>
+
     <string name="apie_top_filter_type_title_text">计划类型</string>
-    <string name="apie_top_filter_status_all_plan_title">全部计划</string>
-    <string name="apie_top_filter_status_done_plan_title">已完成计划</string>
-    <string name="apie_top_filter_status_doing_plan_title">进行中计划</string>
+    <string name="apie_top_filter_type_all_plan_title">全部计划</string>
     <string name="apie_top_filter_type_single_plan_title">单次计划</string>
     <string name="apie_top_filter_type_today_plan_title">每日计划</string>
     <string name="apie_top_filter_type_week_plan_title">每周计划</string>
     <string name="apie_top_filter_type_month_plan_title">每月计划</string>
+    <string name="apie_top_filter_type_year_plan_title">每年计划</string>
 </resources>

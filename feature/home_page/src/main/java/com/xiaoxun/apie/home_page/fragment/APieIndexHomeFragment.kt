@@ -16,6 +16,7 @@ import com.xiaoxun.apie.home_page.adapter.APiePlanAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexHomeFragmentBinding
 import com.xiaoxun.apie.home_page.repo.IIndexHomeRepo
 import com.xiaoxun.apie.home_page.repo.IndexHomeRepo
+import com.xiaoxun.apie.home_page.viewmodel.PlanStatus
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.PlanListType
@@ -61,14 +62,34 @@ class APieIndexHomeFragment: APieBaseBindingFragment<LayoutApieIndexHomeFragment
 
     private fun initData() {
         GlobalScope.launch(Dispatchers.Main) {
-            repo.loadPlanListByType(PlanListType.ALL_PLAN)
+            repo.loadPlanByType(PlanListType.ALL_PLAN)
         }
     }
 
     private fun initObserver() {
-        viewModel.planList.observe(viewLifecycleOwner) {
+        viewModel.planTypeList.observe(viewLifecycleOwner) {
             // 更新数据
             adapter.replayData(it.second)
+        }
+
+        viewModel.planStatusList.observe(viewLifecycleOwner) {
+            // 更新数据
+            adapter.replayData(it.second)
+        }
+
+
+        // 根据状态进行筛选
+        viewModel.planStatus.observe(viewLifecycleOwner) {
+            GlobalScope.launch(Dispatchers.Main) {
+                repo.loadPlanByStatus(it)
+            }
+        }
+
+        // 根据类型进行筛选
+        viewModel.filterPlanType.observe(viewLifecycleOwner) {
+            GlobalScope.launch(Dispatchers.Main) {
+                repo.loadPlanByType(it)
+            }
         }
     }
 

@@ -11,7 +11,7 @@ import com.lxj.xpopup.impl.PartShadowPopupView
 import com.xiaoxun.apie.common.R
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
-import com.xiaoxun.apie.home_page.viewmodel.FilterStatus
+import com.xiaoxun.apie.home_page.viewmodel.PlanStatus
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.PlanListType
@@ -30,21 +30,24 @@ class APieFilterPartShadowPopupView @JvmOverloads constructor(
     }
 
     // 状态过滤
-    private val statusFilterButtons: Map<FilterStatus, TextView> by lazy {
+    private val statusFilterButtons: Map<PlanStatus, TextView> by lazy {
         mapOf(
-            FilterStatus.ALL to findViewById(R.id.allPlan),
-            FilterStatus.DONE to findViewById(R.id.donePlan),
-            FilterStatus.DOING to findViewById(R.id.doingPlan)
+            PlanStatus.NOT_START to findViewById(R.id.notStartPlan),
+            PlanStatus.DONE to findViewById(R.id.donePlan),
+            PlanStatus.DOING to findViewById(R.id.doingPlan),
+            PlanStatus.GIVE_UP to findViewById(R.id.giveUpPlan)
         )
     }
 
     // 类型过滤
     private val planTypeButtons: Map<PlanListType, TextView> by lazy {
         mapOf(
+            PlanListType.ALL_PLAN to findViewById(R.id.allPlan),
             PlanListType.SINGLE_PLAN to findViewById(R.id.singlePlan),
             PlanListType.TODAY_PLAN to findViewById(R.id.todayPlan),
             PlanListType.WEEK_PLAN to findViewById(R.id.weekPlan),
-            PlanListType.MONTH_PLAN to findViewById(R.id.monthPlan)
+            PlanListType.MONTH_PLAN to findViewById(R.id.monthPlan),
+            PlanListType.YEAR_PLAN to findViewById(R.id.yearPlan)
         )
     }
 
@@ -65,7 +68,7 @@ class APieFilterPartShadowPopupView @JvmOverloads constructor(
     private fun initView() {
         statusFilterButtons.forEach { (status, button) ->
             button.setDebouncingClickListener {
-                viewModel.filterStatus.value = status
+                viewModel.planStatus.value = status
             }
         }
 
@@ -76,7 +79,7 @@ class APieFilterPartShadowPopupView @JvmOverloads constructor(
         }
 
         resetBtn.setDebouncingClickListener {
-            viewModel.filterStatus.value = FilterStatus.ALL
+            viewModel.planStatus.value = PlanStatus.DOING
             viewModel.filterPlanType.value = PlanListType.ALL_PLAN
         }
 
@@ -86,7 +89,7 @@ class APieFilterPartShadowPopupView @JvmOverloads constructor(
     }
 
     private fun initObserver() {
-        viewModel.filterStatus.observe(context as LifecycleOwner) { status ->
+        viewModel.planStatus.observe(context as LifecycleOwner) { status ->
             statusFilterButtons.forEach { (key, button) ->
                 val isSelected = key == status
                 button.setTextColor(

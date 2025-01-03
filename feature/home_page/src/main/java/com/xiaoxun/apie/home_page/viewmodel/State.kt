@@ -26,8 +26,12 @@ enum class PlanListType(val type: Int) {
     DOING_PLAN(8)   // 进行中计划
 }
 
-enum class FilterStatus(val status: Int) {
-    ALL(0),     // 全部
-    DONE(1),    // 已完成
-    DOING(2)    // 进行中
+/**
+ * 计划进行状态(planStatus)：0: 未开始，1: 进行中，2: 已完成，3: 已放弃
+ */
+enum class PlanStatus(val status: Int) {
+    NOT_START(0),  // 未开始
+    DONE(1),       // 已完成
+    DOING(2),      // 进行中
+    GIVE_UP(3)     // 已放弃
 }

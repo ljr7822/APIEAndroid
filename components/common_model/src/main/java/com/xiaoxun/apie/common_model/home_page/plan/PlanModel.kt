@@ -17,6 +17,8 @@ import kotlinx.parcelize.Parcelize
  *
  * 计划开始时间(planStartTime)
  * 计划截止时间(planStopTime)
+ *
+ * 计划进行状态(planStatus)：0: 未开始，1: 进行中，2: 已完成，3: 已放弃
  */
 @Parcelize
 @Keep
@@ -68,5 +70,8 @@ data class PlanModel(
     val planStartTime: String = "",
     // 计划截止时间
     @SerializedName("planStopTime")
-    val planStopTime: String = ""
+    val planStopTime: String = "",
+    // 计划进行状态
+    @SerializedName("planStatus")
+    val planStatus: Int = 0,
 ): Parcelable

@@ -48,7 +48,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/allPlan"
+                    android:id="@+id/notStartPlan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/apie_filter_plan_normal_bg"
@@ -56,7 +56,7 @@
                     android:paddingTop="@dimen/apie_theme_dimension_8"
                     android:paddingEnd="@dimen/apie_theme_dimension_6"
                     android:paddingBottom="@dimen/apie_theme_dimension_8"
-                    android:text="@string/apie_top_filter_status_all_plan_title"
+                    android:text="@string/apie_top_filter_status_no_start_plan_title"
                     tools:textColor="@color/apie_color_4770DC"
                     tools:background="@drawable/apie_filter_plan_selected_bg"
                     android:textColor="@color/apieTheme_colorBlack"
@@ -105,6 +105,25 @@
                     app:layout_constraintStart_toEndOf="@+id/donePlan"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/giveUpPlan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_12"
+                    android:background="@drawable/apie_filter_plan_normal_bg"
+                    android:paddingStart="@dimen/apie_theme_dimension_6"
+                    android:paddingTop="@dimen/apie_theme_dimension_8"
+                    android:paddingEnd="@dimen/apie_theme_dimension_6"
+                    android:paddingBottom="@dimen/apie_theme_dimension_8"
+                    android:text="@string/apie_top_filter_status_give_up_plan_title"
+                    android:textColor="@color/apieTheme_colorBlack"
+                    android:textSize="@dimen/apie_theme_text_12"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/donePlan"
+                    app:layout_constraintTop_toTopOf="parent" />
+
             </LinearLayout>
 
             <TextView
@@ -127,10 +146,29 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/allPlan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/apie_filter_plan_normal_bg"
+                    android:paddingStart="@dimen/apie_theme_dimension_6"
+                    android:paddingTop="@dimen/apie_theme_dimension_8"
+                    android:paddingEnd="@dimen/apie_theme_dimension_6"
+                    android:paddingBottom="@dimen/apie_theme_dimension_8"
+                    android:text="@string/apie_top_filter_type_all_plan_title"
+                    android:textColor="@color/apieTheme_colorBlack"
+                    android:textSize="@dimen/apie_theme_text_12"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/todayPlan"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
                     android:id="@+id/singlePlan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/apie_filter_plan_normal_bg"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_12"
                     android:paddingStart="@dimen/apie_theme_dimension_6"
                     android:paddingTop="@dimen/apie_theme_dimension_8"
                     android:paddingEnd="@dimen/apie_theme_dimension_6"
@@ -163,11 +201,21 @@
                     app:layout_constraintStart_toEndOf="@+id/singlePlan"
                     app:layout_constraintTop_toTopOf="parent" />
 
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/apie_theme_dimension_16"
+                android:layout_marginTop="@dimen/apie_theme_dimension_12"
+                android:gravity="start"
+                android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/weekPlan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/apie_theme_dimension_12"
                     android:background="@drawable/apie_filter_plan_normal_bg"
                     android:paddingStart="@dimen/apie_theme_dimension_6"
                     android:paddingTop="@dimen/apie_theme_dimension_8"
@@ -201,6 +249,24 @@
                     app:layout_constraintStart_toEndOf="@+id/weekPlan"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/yearPlan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_12"
+                    android:background="@drawable/apie_filter_plan_normal_bg"
+                    android:paddingStart="@dimen/apie_theme_dimension_6"
+                    android:paddingTop="@dimen/apie_theme_dimension_8"
+                    android:paddingEnd="@dimen/apie_theme_dimension_6"
+                    android:paddingBottom="@dimen/apie_theme_dimension_8"
+                    android:text="@string/apie_top_filter_type_year_plan_title"
+                    android:textColor="@color/apieTheme_colorBlack"
+                    android:textSize="@dimen/apie_theme_text_12"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/weekPlan"
+                    app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
 
             <View

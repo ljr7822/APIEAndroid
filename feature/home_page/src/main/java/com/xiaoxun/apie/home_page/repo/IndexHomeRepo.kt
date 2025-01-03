@@ -11,6 +11,7 @@ import com.xiaoxun.apie.data_loader.data.BaseResponse
 import com.xiaoxun.apie.data_loader.utils.CacheStrategy
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
 import com.xiaoxun.apie.home_page.viewmodel.PlanListType
+import com.xiaoxun.apie.home_page.viewmodel.PlanStatus
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -24,12 +25,28 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel) : IIndexHomeRepo 
 
     private val disposables = CompositeDisposable()
 
-    override suspend fun loadPlanListByType(planType: PlanListType) {
+    override suspend fun loadPlanByType(planType: PlanListType) {
         innerLoadPlanList().fold(
             onSuccess = {
                 it.data?.let { resp ->
                     val resultList = filterResultList(planType, resp.planList)
-                    viewModel.loadPlanListSuccess(Pair(planType, resultList.toMutableList()))
+                    viewModel.loadPlanByTypeSuccess(Pair(planType, resultList.toMutableList()))
+                } ?: let {
+                    viewModel.loadPlanListFailed("data is null.")
+                }
+            },
+            onFailure = {
+                viewModel.loadPlanListFailed(it.localizedMessage ?: "request error.")
+            }
+        )
+    }
+
+    override suspend fun loadPlanByStatus(status: PlanStatus) {
+        innerLoadPlanList().fold(
+            onSuccess = {
+                it.data?.let { resp ->
+                    val resultList = resp.planList.filter { it.planStatus == status.status }
+                    viewModel.loadPlanByStatusSuccess(Pair(status, resultList.toMutableList()))
                 } ?: let {
                     viewModel.loadPlanListFailed("data is null.")
                 }

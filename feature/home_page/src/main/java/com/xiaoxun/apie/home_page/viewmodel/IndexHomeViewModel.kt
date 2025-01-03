@@ -12,17 +12,20 @@ class IndexHomeViewModel: APieBaseViewModel() {
     private var _loadPlanListState = MutableLiveData<LoadPlanListState>()
     val loadPlanListState get() = _loadPlanListState
 
-    private var _planList = MutableLiveData<Pair<PlanListType, MutableList<PlanModel>>>()
-    val planList get() = _planList
+    private var _planTypeList = MutableLiveData<Pair<PlanListType, MutableList<PlanModel>>>()
+    val planTypeList get() = _planTypeList
 
-    private var _filterStatus = MutableLiveData<FilterStatus>()
-    val filterStatus get() = _filterStatus
+    private var _planStatusList = MutableLiveData<Pair<PlanStatus, MutableList<PlanModel>>>()
+    val planStatusList get() = _planStatusList
+
+    private var _planStatus = MutableLiveData<PlanStatus>()
+    val planStatus get() = _planStatus
 
     private var _filterPlanType = MutableLiveData<PlanListType>()
     val filterPlanType get() = _filterPlanType
 
     init {
-        _filterStatus.value = FilterStatus.ALL
+        _planStatus.value = PlanStatus.DOING
     }
 
     fun loadPlanListStart() {
@@ -34,9 +37,14 @@ class IndexHomeViewModel: APieBaseViewModel() {
         _listScrolling.value = isScrolling
     }
 
-    fun loadPlanListSuccess(newPlanListAndType: Pair<PlanListType, MutableList<PlanModel>>) {
+    fun loadPlanByTypeSuccess(newPlanListAndType: Pair<PlanListType, MutableList<PlanModel>>) {
         _loadPlanListState.value = LoadPlanListState.SUCCESS
-        _planList.value = newPlanListAndType
+        _planTypeList.value = newPlanListAndType
+    }
+
+    fun loadPlanByStatusSuccess(newPlanListAndType: Pair<PlanStatus, MutableList<PlanModel>>) {
+        _loadPlanListState.value = LoadPlanListState.SUCCESS
+        _planStatusList.value = newPlanListAndType
     }
 
     fun loadPlanListFailed(error: String) {
