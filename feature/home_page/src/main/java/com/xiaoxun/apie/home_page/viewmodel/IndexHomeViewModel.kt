@@ -36,6 +36,7 @@ class IndexHomeViewModel: APieBaseViewModel() {
 
     init {
         _filterPlanType.value = PlanListType.ALL_PLAN
+        _createPlanState.value = CreatePlanState.INIT_STATUS
     }
 
     fun loadPlanListStart() {
@@ -44,6 +45,10 @@ class IndexHomeViewModel: APieBaseViewModel() {
 
     fun createPlanStart() {
         _createPlanState.value = CreatePlanState.START
+    }
+
+    fun resetCreatePlanStatus() {
+        _createPlanState.value = CreatePlanState.INIT_STATUS
     }
 
     fun loadPlanByTypeSuccess(newPlanListAndType: Pair<PlanListType, MutableList<PlanModel>>) {

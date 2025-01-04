@@ -13,6 +13,7 @@ enum class LoadPlanGroupListState {
 }
 
 enum class CreatePlanState {
+    INIT_STATUS,
     START,
     SUCCESS,
     FAILED

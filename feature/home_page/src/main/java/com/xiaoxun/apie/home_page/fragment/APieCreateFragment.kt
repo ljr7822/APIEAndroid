@@ -43,7 +43,7 @@ class APieCreateFragment(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //isCancelable = false
+        isCancelable = false
     }
 
     override fun onCreateView(
@@ -71,7 +71,7 @@ class APieCreateFragment(
 
             val behavior = BottomSheetBehavior.from(it)
             val screenHeight = UIUtils.getScreenRealHeight(requireContext())
-            behavior.peekHeight = screenHeight / 2
+            behavior.peekHeight = screenHeight - 50.dp
             it.layoutParams.height = screenHeight - 50.dp
 
             // 禁止隐藏
@@ -93,10 +93,10 @@ class APieCreateFragment(
     private fun initView() {
         initFrequencyRecyclerView()
         initGroupRecyclerView()
-        binding.closeIcon.setDebouncingClickListener {
+        binding.cancelLayout.setDebouncingClickListener {
             dismiss()
         }
-        binding.confirmIcon.setDebouncingClickListener {
+        binding.submitLayout.setDebouncingClickListener {
             createPlan()
         }
     }
@@ -227,5 +227,10 @@ class APieCreateFragment(
         binding.groupLoadingLayout.visibility = View.GONE
         binding.groupErrorTips.visibility = View.VISIBLE
         binding.groupLoadingView.hide()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.resetCreatePlanStatus()
     }
 }
