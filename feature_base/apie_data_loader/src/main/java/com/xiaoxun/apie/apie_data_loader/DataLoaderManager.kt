@@ -4,9 +4,12 @@ import android.content.Context
 import com.xiaoxun.apie.apie_data_loader.repository.APieDataLoaderRepository
 import com.xiaoxun.apie.apie_data_loader.request.account.login.password.LoginByPasswordRequest
 import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySmsCodeRequest
-import com.xiaoxun.apie.apie_data_loader.request.account.plan.LoadPlans
+import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlans
 import com.xiaoxun.apie.apie_data_loader.request.account.sms.SendSmsCode
+import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlan
+import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlanGroups
 import com.xiaoxun.apie.common_model.account.AccountModel
+import com.xiaoxun.apie.common_model.home_page.group.PlanGroupRespModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanRespModel
 import com.xiaoxun.apie.common_model.sms.SmsCodeModel
@@ -72,5 +75,21 @@ class DataLoaderManager private constructor() {
     fun getAllPlanByUserId(loadPlans: LoadPlans, cacheStrategy: CacheStrategy): Observable<BaseResponse<PlanRespModel>> {
         val loader = buildDataLoader<PlanRespModel>(APieUrl.ACCOUNT_GET_ALL_PLAN_BY_USER_ID.name)
         return loader?.getData(loadPlans, cacheStrategy) ?: Observable.error(Exception("loader is null"))
+    }
+
+    /**
+     * 获取用户的所有计划分组
+     */
+    fun getAllPlanGroupByUserId(loadPlanGroups: LoadPlanGroups, cacheStrategy: CacheStrategy): Observable<BaseResponse<PlanGroupRespModel>> {
+        val loader = buildDataLoader<PlanGroupRespModel>(APieUrl.GET_ALL_PLAN_GROUP_BY_USER_ID.name)
+        return loader?.getData(loadPlanGroups, cacheStrategy) ?: Observable.error(Exception("loader is null"))
+    }
+
+    /**
+     * 创建计划
+     */
+    fun createPlan(createPlan: CreatePlan, cacheStrategy: CacheStrategy): Observable<BaseResponse<PlanModel>> {
+        val loader = buildDataLoader<PlanModel>(APieUrl.CREATE_PLAN.name)
+        return loader?.getData(createPlan, cacheStrategy) ?: Observable.error(Exception("loader is null"))
     }
 }

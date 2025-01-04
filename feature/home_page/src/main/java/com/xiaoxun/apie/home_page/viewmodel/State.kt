@@ -6,6 +6,18 @@ enum class LoadPlanListState {
     FAILED
 }
 
+enum class LoadPlanGroupListState {
+    START,
+    SUCCESS,
+    FAILED
+}
+
+enum class CreatePlanState {
+    START,
+    SUCCESS,
+    FAILED
+}
+
 /**
  * 1、单次计划，即只有一次的计划(次数(planFrequency)=1)
  * 2、每日计划，即每天都要完成的计划(次数(planFrequency)可自定义)
@@ -13,17 +25,17 @@ enum class LoadPlanListState {
  * 4、每月计划，即每月都要完成的计划(次数(planFrequency)可自定义)
  * 5、每年计划，即每年都要完成的计划(次数(planFrequency)可自定义)
  * 6、自定义计划(定目标)，即自定义时间段内都要完成的计划(次数(planFrequency)可自定义)
+ * 7、无限(定目标)，即无限时间段内都要完成的计划(次数(planFrequency)可自定义)
  */
-enum class PlanListType(val type: Int) {
-    ALL_PLAN(0),    // 所有计划
-    SINGLE_PLAN(1), // 单次计划
-    TODAY_PLAN(2),  // 今日计划
-    WEEK_PLAN(3),   // 本周计划
-    MONTH_PLAN(4),  // 本月计划
-    YEAR_PLAN(5),   // 本年计划
-    CUSTOM_PLAN(6), // 自定义计划
-    DONE_PLAN(7),   // 已完成计划
-    DOING_PLAN(8)   // 进行中计划
+enum class PlanListType(val type: Int, val desc: String = "") {
+    ALL_PLAN(0, "全部"),      // 所有计划
+    SINGLE_PLAN(1, "单次"),   // 单次计划
+    TODAY_PLAN(2, "每天"),    // 今日计划
+    WEEK_PLAN(3, "每周"),     // 本周计划
+    MONTH_PLAN(4, "每月"),    // 本月计划
+    YEAR_PLAN(5, "每年"),     // 本年计划
+    CUSTOM_PLAN(6, "自定义"), // 自定义计划
+    CYCLE_PLAN(7, "无限"),    // 无限计划
 }
 
 /**

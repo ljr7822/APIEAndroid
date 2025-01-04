@@ -26,7 +26,4 @@ interface APieAccountService {
 
     @GET(ACCOUNT_SEND_SMS_CODE_URL)
     fun sendSmsCode(@Path("phoneNum") phoneNum: String, @Path("userId") userId: String): Observable<BaseResponse<SmsCodeModel>>
-
-    @GET(ACCOUNT_GET_ALL_PLAN_BY_USER_ID_URL)
-    fun getAllPlanByUserId(@Path("userId") userId: String): Observable<BaseResponse<PlanRespModel>>
 }

@@ -9,9 +9,7 @@ import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_USERID_K
 object AccountManager {
 
     fun isLogin(): Boolean {
-        // return getUserId().isNotEmpty() && getToken().isNotEmpty() && getPhoneNum().isNotEmpty()
-        // TODO: 临时不用判断
-        return false
+        return getUserId().isNotEmpty() && getToken().isNotEmpty() && getPhoneNum().isNotEmpty()
     }
 
     fun getUserId(): String {

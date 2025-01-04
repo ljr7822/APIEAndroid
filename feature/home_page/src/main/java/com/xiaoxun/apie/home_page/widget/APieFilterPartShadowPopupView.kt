@@ -79,7 +79,6 @@ class APieFilterPartShadowPopupView @JvmOverloads constructor(
         }
 
         resetBtn.setDebouncingClickListener {
-            viewModel.planStatus.value = PlanStatus.DOING
             viewModel.filterPlanType.value = PlanListType.ALL_PLAN
         }
 

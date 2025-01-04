@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.xiaoxun.apie.common.R
 
 class APieTopBar @JvmOverloads constructor(
@@ -14,6 +15,7 @@ class APieTopBar @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
+    val rootViewLayout: ConstraintLayout
     val titleTextView: TextView
     val leftIconView: ImageView
     val rightIconView: ImageView
@@ -23,12 +25,14 @@ class APieTopBar @JvmOverloads constructor(
         orientation = HORIZONTAL
         LayoutInflater.from(context).inflate(R.layout.apie_top_bar, this, true)
 
+        rootViewLayout = findViewById(R.id.rootViewLayout)
         titleTextView = findViewById(R.id.titleTextView)
         leftIconView = findViewById(R.id.leftIconView)
         rightIconView = findViewById(R.id.rightIconView)
         avatarImageView = findViewById(R.id.avatarImageView)
 
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.APieTopBarView)
+        rootViewLayout.background = attributes.getDrawable(R.styleable.APieTopBarView_rootViewBg)
         titleTextView.text = attributes.getString(R.styleable.APieTopBarView_titleText) ?: context.getString(R.string.app_name)
         leftIconView.setImageResource(attributes.getResourceId(R.styleable.APieTopBarView_leftIconRes, R.drawable.apie_top_bar_menu_icon))
         leftIconView.visibility = if (attributes.getBoolean(R.styleable.APieTopBarView_leftIconEnable, true)) VISIBLE else GONE

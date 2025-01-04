@@ -1,10 +1,14 @@
 package com.xiaoxun.apie.home_page.repo
 
 import com.xiaoxun.apie.apie_data_loader.DataLoaderManager
-import com.xiaoxun.apie.apie_data_loader.request.account.plan.LoadPlans
+import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlan
+import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanRequestBody
+import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlanGroups
+import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlans
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.account.AccountManager
 import com.xiaoxun.apie.common.utils.coroutine.singleSuspendCoroutine
+import com.xiaoxun.apie.common_model.home_page.group.PlanGroupRespModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanRespModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
@@ -26,6 +30,7 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel) : IIndexHomeRepo 
     private val disposables = CompositeDisposable()
 
     override suspend fun loadPlanByType(planType: PlanListType) {
+        viewModel.loadPlanListStart()
         innerLoadPlanList().fold(
             onSuccess = {
                 it.data?.let { resp ->
@@ -42,6 +47,7 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel) : IIndexHomeRepo 
     }
 
     override suspend fun loadPlanByStatus(status: PlanStatus) {
+        viewModel.loadPlanListStart()
         innerLoadPlanList().fold(
             onSuccess = {
                 it.data?.let { resp ->
@@ -61,8 +67,36 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel) : IIndexHomeRepo 
 
     }
 
-    override suspend fun createPlan() {
+    override suspend fun createPlan(createPlanRequestBody: CreatePlanRequestBody) {
+        viewModel.createPlanStart()
+        innerCreatePlan(createPlanRequestBody).fold(
+            onSuccess = {
+                it.data?.let { resp ->
+                    viewModel.createPlanSuccess(resp)
+                } ?: let {
+                    viewModel.createPlanFailed("data is null.")
+                }
+            },
+            onFailure = {
+                viewModel.createPlanFailed(it.localizedMessage ?: "request error.")
+            }
+        )
+    }
 
+    override suspend fun loadPlanGroup() {
+        viewModel.loadPlanGroupListStart()
+        innerLoadPlanGroupList().fold(
+            onSuccess = {
+                it.data?.let { resp ->
+                    viewModel.loadPlanGroupListSuccess(resp.planGroupList.toMutableList())
+                } ?: let {
+                    viewModel.loadPlanGroupListFailed("data is null.")
+                }
+            },
+            onFailure = {
+                viewModel.loadPlanGroupListFailed(it.localizedMessage ?: "request error.")
+            }
+        )
     }
 
     /**
@@ -89,6 +123,24 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel) : IIndexHomeRepo 
             DataLoaderManager.instance.getAllPlanByUserId(
                 LoadPlans(AccountManager.getUserId()),
                 CacheStrategy.FIRST_CACHE_AND_SEND_REQUEST
+            )
+        }
+    }
+
+    private suspend fun innerLoadPlanGroupList(): Result<BaseResponse<PlanGroupRespModel>> {
+        return executeResult {
+            DataLoaderManager.instance.getAllPlanGroupByUserId(
+                LoadPlanGroups(AccountManager.getUserId()),
+                CacheStrategy.FIRST_CACHE_AND_SEND_REQUEST
+            )
+        }
+    }
+
+    private suspend fun innerCreatePlan(createPlanRequestBody: CreatePlanRequestBody): Result<BaseResponse<PlanModel>> {
+        return executeResult {
+            DataLoaderManager.instance.createPlan(
+                CreatePlan(createPlanRequestBody),
+                CacheStrategy.FORCE_NET
             )
         }
     }

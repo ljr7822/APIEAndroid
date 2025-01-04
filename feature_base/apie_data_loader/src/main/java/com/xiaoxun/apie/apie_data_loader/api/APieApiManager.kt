@@ -2,6 +2,7 @@ package com.xiaoxun.apie.apie_data_loader.api
 
 import com.xiaoxun.apie.network.net.APieNet
 import com.xiaoxun.apie.apie_data_loader.service.APieAccountService
+import com.xiaoxun.apie.apie_data_loader.service.APiePlanService
 
 object APieApiManager {
     /**
@@ -27,6 +28,8 @@ object APieApiManager {
     }
 
     fun getAccountAPIService(): APieAccountService = getOrCreate(APieAccountService::class.java, ApiGateway.EDITH)
+
+    fun getPlanAPIService(): APiePlanService = getOrCreate(APiePlanService::class.java, ApiGateway.EDITH)
 }
 
 sealed class ApiGateway {

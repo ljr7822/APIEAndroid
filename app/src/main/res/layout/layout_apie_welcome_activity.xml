@@ -9,7 +9,7 @@
     android:background="@color/apie_color_white">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/confirmIcon"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@drawable/apie_login_page_bg"

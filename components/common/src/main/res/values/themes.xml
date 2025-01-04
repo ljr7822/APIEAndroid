@@ -7,4 +7,10 @@
 
     <style name="Theme.Xiaoxun" parent="Base.Theme.Xiaoxun" />
 
+    <style name="APieBottomSheetAnimation" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowEnterAnimation">@anim/apie_dilaog_bottom_sheet_slide_in</item>
+        <item name="android:windowExitAnimation">@anim/apie_dilaog_bottom_sheet_slide_out</item>
+    </style>
+
+
 </resources>

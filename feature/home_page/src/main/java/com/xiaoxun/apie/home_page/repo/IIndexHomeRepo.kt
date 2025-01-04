@@ -1,5 +1,6 @@
 package com.xiaoxun.apie.home_page.repo
 
+import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanRequestBody
 import com.xiaoxun.apie.home_page.viewmodel.PlanListType
 import com.xiaoxun.apie.home_page.viewmodel.PlanStatus
 
@@ -25,7 +26,12 @@ interface IIndexHomeRepo {
     /**
      * 创建计划
      */
-    suspend fun createPlan()
+    suspend fun createPlan(createPlanRequestBody: CreatePlanRequestBody)
+
+    /**
+     * 获取用户分组信息
+     */
+    suspend fun loadPlanGroup()
 
     /**
      * 在生命周期结束时清理订阅

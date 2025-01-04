@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.apie_data_loader.request.account.plan
+package com.xiaoxun.apie.apie_data_loader.request.plan
 
 import com.xiaoxun.apie.apie_data_loader.APieUrl
 import com.xiaoxun.apie.apie_data_loader.api.APieApiManager
@@ -11,7 +11,7 @@ class LoadPlans(
     private val userId: String
 ) : APieRequestParams<PlanRespModel>() {
     override fun apiService(version: String): Observable<BaseResponse<PlanRespModel>>? {
-        return APieApiManager.getAccountAPIService().getAllPlanByUserId(userId)
+        return APieApiManager.getPlanAPIService().getAllPlanByUserId(userId)
     }
 
     override fun dataType(): String {

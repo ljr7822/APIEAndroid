@@ -17,7 +17,7 @@
     <string name="login_input_sms_code_hint">请输入验证码</string>
     <string name="login_get_sms_code">获取验证码</string>
     <string name="login_reget_sms_code">重新获取(%1$dS)</string>
-
+    <string name="apie_loading_msg">加载中...</string>
 
     <string name="apie_login_main_title">登录后，体验完整功能</string>
     <string name="apie_login_sub_title">未注册手机号通过验证将自动注册</string>
@@ -39,4 +39,15 @@
     <string name="apie_top_filter_type_week_plan_title">每周计划</string>
     <string name="apie_top_filter_type_month_plan_title">每月计划</string>
     <string name="apie_top_filter_type_year_plan_title">每年计划</string>
+
+    <string name="apie_create_plan_title">创建计划</string>
+    <string name="apie_create_plan_name_hint">在这里填写计划名称（限20字数）</string>
+    <string name="apie_create_plan_frequency_tip">计划频次:</string>
+    <string name="apie_create_plan_frequency_one_tip">完成</string>
+    <string name="apie_create_plan_frequency_count_tip">次</string>
+    <string name="apie_create_plan_group_tip">计划分组:</string>
+    <string name="apie_create_plan_add_new_group_tip">创建分组</string>
+    <string name="apie_create_plan_load_group_error_msg">加载失败，请重试</string>
+    <string name="apie_create_plan_award_tip">设定一个奖励:</string>
+    <string name="apie_create_plan_deduct_desc_tip">选填，默认未完成任务不扣除派币</string>
 </resources>

@@ -1,7 +1,10 @@
 package com.xiaoxun.apie.common.utils
 
 import android.content.Context
+import android.graphics.Point
 import android.graphics.drawable.Drawable
+import android.os.Build
+import android.view.WindowManager
 
 object UIUtils {
     /**
@@ -35,5 +38,22 @@ object UIUtils {
 
     fun getDrawable(context: Context, resId: Int): Drawable {
         return context.resources.getDrawable(resId)
+    }
+
+    /**
+     * 获取屏幕宽度
+     * 真实屏幕宽度
+     * @param context
+     * @return
+     */
+    fun getScreenRealHeight(context: Context): Int {
+        val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return windowManager.currentWindowMetrics.bounds.height()
+        } else {
+            val point = Point()
+            windowManager.defaultDisplay.getSize(point)
+            return point.y
+        }
     }
 }

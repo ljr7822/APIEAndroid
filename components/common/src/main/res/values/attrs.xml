@@ -78,6 +78,7 @@
     </declare-styleable>
 
     <declare-styleable name="APieTopBarView">
+        <attr name="rootViewBg" format="reference" />
         <attr name="titleText" format="string" />
         <attr name="leftIconRes" format="reference" />
         <attr name="rightIconRes" format="reference" />

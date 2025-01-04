@@ -4,9 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="@color/home_gb"
     android:layout_height="match_parent">
 
     <com.xiaoxun.apie.common.ui.APieTopBar
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleText="创建计划"
