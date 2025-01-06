@@ -192,7 +192,7 @@
                                 android:id="@+id/planFrequencyRv"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/apie_theme_dimension_16"
+                                android:layout_marginEnd="@dimen/apie_theme_dimension_10"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -208,7 +208,7 @@
                                 app:layout_constraintTop_toTopOf="parent">
 
                                 <TextView
-                                    android:id="@+id/textView2"
+                                    android:id="@+id/frequencyOneTip"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/apie_create_plan_frequency_one_tip"
@@ -220,7 +220,7 @@
 
                                 <EditText
                                     android:id="@+id/frequencyCountEdit"
-                                    android:layout_width="25dp"
+                                    android:layout_width="@dimen/apie_theme_dimension_30"
                                     android:layout_height="0dp"
                                     android:layout_marginTop="@dimen/apie_theme_dimension_5"
                                     android:layout_marginBottom="@dimen/apie_theme_dimension_5"
@@ -236,12 +236,12 @@
                                     android:textCursorDrawable="@drawable/apie_custom_common_cursor"
                                     android:textSize="@dimen/apie_theme_text_14"
                                     app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toStartOf="@+id/textView"
-                                    app:layout_constraintStart_toEndOf="@+id/textView2"
+                                    app:layout_constraintEnd_toStartOf="@+id/frequencyCountTip"
+                                    app:layout_constraintStart_toEndOf="@+id/frequencyOneTip"
                                     app:layout_constraintTop_toTopOf="parent" />
 
                                 <TextView
-                                    android:id="@+id/textView"
+                                    android:id="@+id/frequencyCountTip"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:gravity="center"

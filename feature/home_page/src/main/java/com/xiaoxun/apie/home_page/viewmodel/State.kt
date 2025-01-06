@@ -29,6 +29,7 @@ enum class CreatePlanState {
  * 7、无限(定目标)，即无限时间段内都要完成的计划(次数(planFrequency)可自定义)
  */
 enum class PlanListType(val type: Int, val desc: String = "") {
+    INIT_TYPE(-1, "初始化"), // 初始化
     ALL_PLAN(0, "全部"),      // 所有计划
     SINGLE_PLAN(1, "单次"),   // 单次计划
     TODAY_PLAN(2, "每天"),    // 今日计划

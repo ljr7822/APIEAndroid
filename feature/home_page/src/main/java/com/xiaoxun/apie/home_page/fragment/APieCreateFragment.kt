@@ -112,6 +112,7 @@ class APieCreateFragment(
             PlanListType.CYCLE_PLAN
         )
         frequencyAdapter = APiePlanFrequencyAdapter(items = frequencyList) { pos, item ->
+            viewModel.updateSelectPlanFrequency(item)
             selectedFrequency = item
         }
 
@@ -159,10 +160,11 @@ class APieCreateFragment(
                 else -> {}
             }
         }
+        // 计划分组列表
         viewModel.planGroupList.observe(viewLifecycleOwner) {
             groupAdapter?.replayData(it)
         }
-
+        // 创建计划状态
         viewModel.createPlanState.observe(viewLifecycleOwner) {
             when (it) {
                 CreatePlanState.START -> {
@@ -182,6 +184,24 @@ class APieCreateFragment(
                 }
 
                 else -> {}
+            }
+        }
+        viewModel.selectPlanFrequency.observe(viewLifecycleOwner) {
+            if (it == null) {
+                return@observe
+            }
+            if (it == PlanListType.SINGLE_PLAN) {
+                activity?.let { act ->
+                    binding.frequencyOneTip.setTextColor(act.getColor(com.xiaoxun.apie.common.R.color.apieTheme_colorBlack_alpha_20))
+                    binding.frequencyCountTip.setTextColor(act.getColor(com.xiaoxun.apie.common.R.color.apieTheme_colorBlack_alpha_20))
+                    binding.frequencyCountEdit.isEnabled  = false
+                }
+            } else {
+                activity?.let { act ->
+                    binding.frequencyOneTip.setTextColor(act.getColor(com.xiaoxun.apie.common.R.color.apieTheme_colorBlack_alpha_80))
+                    binding.frequencyCountTip.setTextColor(act.getColor(com.xiaoxun.apie.common.R.color.apieTheme_colorBlack_alpha_80))
+                    binding.frequencyCountEdit.isEnabled  = true
+                }
             }
         }
     }
