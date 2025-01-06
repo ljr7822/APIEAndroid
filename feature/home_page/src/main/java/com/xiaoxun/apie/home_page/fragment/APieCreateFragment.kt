@@ -71,8 +71,8 @@ class APieCreateFragment(
 
             val behavior = BottomSheetBehavior.from(it)
             val screenHeight = UIUtils.getScreenRealHeight(requireContext())
-            behavior.peekHeight = screenHeight - 50.dp
-            it.layoutParams.height = screenHeight - 50.dp
+            behavior.peekHeight = screenHeight - 100.dp
+            it.layoutParams.height = screenHeight - 100.dp
 
             // 禁止隐藏
             behavior.isHideable = false

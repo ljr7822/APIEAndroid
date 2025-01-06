@@ -63,6 +63,7 @@ dependencies {
     implementation(project(":feature_base:apie_data_loader"))
     implementation(project(":components:data_loader"))
     implementation(libs.alibaba.arouter.api)
+    implementation(libs.codelocator.core)
     kapt(libs.alibaba.arouter.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

@@ -22,8 +22,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/apie_theme_dimension_12"
-            android:visibility="gone"
             android:background="@drawable/apie_top_bar_close_icon"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,545 +44,573 @@
             android:id="@+id/confirmIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_marginEnd="@dimen/apie_theme_dimension_12"
             android:background="@drawable/apie_top_bar_confirm_icon"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- 内容区域-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <!-- 滚动部分 -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/ScrollLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
-        <!-- 标题区域-->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/planNameInputCard"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout5"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/apie_theme_dimension_45"
-            android:layout_marginStart="@dimen/apie_theme_dimension_16"
-            android:layout_marginTop="@dimen/apie_theme_dimension_5"
-            android:layout_marginEnd="@dimen/apie_theme_dimension_16"
-            android:layout_marginBottom="@dimen/apie_theme_dimension_10"
-            app:cardBackgroundColor="@color/apieTheme_colorGrayLevel1_alpha_4"
-            app:cardCornerRadius="@dimen/apie_theme_dimension_8"
-            app:cardElevation="@dimen/apie_theme_dimension_0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
+
+            <!-- 内容区域-->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/nameIcon"
-                    android:layout_width="@dimen/apie_theme_dimension_18"
-                    android:layout_height="@dimen/apie_theme_dimension_18"
-                    android:layout_marginStart="@dimen/apie_theme_dimension_12"
-                    android:background="@drawable/apie_create_plan_name_icon"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/nameEdit"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/apie_theme_dimension_5"
-                    android:layout_marginTop="@dimen/apie_theme_dimension_8"
-                    android:layout_marginEnd="@dimen/apie_theme_dimension_8"
-                    android:layout_marginBottom="@dimen/apie_theme_dimension_8"
-                    android:background="@null"
-                    android:hint="@string/apie_create_plan_name_hint"
-                    android:maxLines="1"
-                    android:textSize="@dimen/apie_theme_dimension_13"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/nameIcon"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- 计划频次-->
-        <LinearLayout
-            android:id="@+id/planFrequencyLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/apie_theme_dimension_16"
-            android:layout_marginTop="@dimen/apie_theme_dimension_10"
-            android:layout_marginEnd="@dimen/apie_theme_dimension_16"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/planNameInputCard">
-
-            <!-- 标题-->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/planFrequencyTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/apie_create_plan_frequency_tip"
-                    android:textColor="@color/apieTheme_colorBlack"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/planFrequencyIcon"
-                    android:layout_width="@dimen/apie_theme_dimension_16"
-                    android:layout_height="@dimen/apie_theme_dimension_16"
-                    android:layout_marginStart="@dimen/apie_theme_dimension_4"
-                    android:layout_marginTop="@dimen/apie_theme_dimension_2"
-                    android:background="@drawable/apie_create_plan_frequency_tip_icon"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/planFrequencyTitle"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- 内容-->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/apie_theme_dimension_8"
-                app:cardBackgroundColor="@color/apieTheme_colorGrayLevel1_alpha_4"
-                app:cardCornerRadius="@dimen/apie_theme_dimension_8"
-                app:cardElevation="@dimen/apie_theme_dimension_0"
-                tools:layout_height="@dimen/apie_theme_dimension_60">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <!-- 标题区域-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/planNameInputCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/apie_theme_dimension_10"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_16"
                     android:layout_marginTop="@dimen/apie_theme_dimension_5"
-                    android:layout_marginBottom="@dimen/apie_theme_dimension_5"
-                    android:orientation="horizontal">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/planFrequencyRv"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/apie_theme_dimension_16"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/constraintLayout3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/apie_theme_dimension_40"
-                        android:layout_marginEnd="@dimen/apie_theme_dimension_10"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/textView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/apie_create_plan_frequency_one_tip"
-                            android:textColor="@color/apieTheme_colorBlack_alpha_80"
-                            android:textSize="@dimen/apie_theme_text_12"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <EditText
-                            android:id="@+id/frequencyCountEdit"
-                            android:layout_width="25dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="@dimen/apie_theme_dimension_6"
-                            android:layout_marginEnd="@dimen/apie_theme_dimension_6"
-                            android:background="@drawable/apie_cerate_plan_common_edit_bg"
-                            android:gravity="center"
-                            android:hint="xx"
-                            android:inputType="number"
-                            android:maxWidth="@dimen/apie_theme_dimension_25"
-                            android:maxLines="1"
-                            android:textColor="@color/apie_color_4770DC"
-                            android:textCursorDrawable="@drawable/apie_custom_common_cursor"
-                            android:textSize="@dimen/apie_theme_text_14"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/textView"
-                            app:layout_constraintStart_toEndOf="@+id/textView2"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/textView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="@string/apie_create_plan_frequency_count_tip"
-                            android:textColor="@color/apieTheme_colorBlack_alpha_80"
-                            android:textSize="@dimen/apie_theme_text_12"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-        <!-- 计划分组-->
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/apie_theme_dimension_16"
-            android:layout_marginTop="@dimen/apie_theme_dimension_10"
-            android:layout_marginEnd="@dimen/apie_theme_dimension_16"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/planFrequencyLayout">
-
-            <!-- 标题-->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/planGroupTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/apie_create_plan_group_tip"
-                    android:textColor="@color/apieTheme_colorBlack"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/planGroupIcon"
-                    android:layout_width="@dimen/apie_theme_dimension_16"
-                    android:layout_height="@dimen/apie_theme_dimension_16"
-                    android:layout_marginStart="@dimen/apie_theme_dimension_4"
-                    android:layout_marginTop="@dimen/apie_theme_dimension_2"
-                    android:background="@drawable/apie_create_plan_frequency_tip_icon"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/planGroupTitle"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/apie_theme_dimension_8">
-
-                <!-- 分组列表-->
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/apie_theme_dimension_12"
+                    android:layout_marginEnd="@dimen/apie_theme_dimension_16"
+                    android:layout_marginBottom="@dimen/apie_theme_dimension_10"
                     app:cardBackgroundColor="@color/apieTheme_colorGrayLevel1_alpha_4"
                     app:cardCornerRadius="@dimen/apie_theme_dimension_8"
                     app:cardElevation="@dimen/apie_theme_dimension_0"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/createGroupLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:layout_height="@dimen/apie_theme_dimension_60">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/apie_theme_dimension_10"
-                        android:layout_marginTop="@dimen/apie_theme_dimension_5"
-                        android:layout_marginBottom="@dimen/apie_theme_dimension_5"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent">
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/planGroupRv"
+                        <ImageView
+                            android:id="@+id/nameIcon"
+                            android:layout_width="@dimen/apie_theme_dimension_18"
+                            android:layout_height="@dimen/apie_theme_dimension_18"
+                            android:layout_marginStart="@dimen/apie_theme_dimension_12"
+                            android:background="@drawable/apie_create_plan_name_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <EditText
+                            android:id="@+id/nameEdit"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/apie_theme_dimension_5"
+                            android:layout_marginTop="@dimen/apie_theme_dimension_8"
+                            android:layout_marginEnd="@dimen/apie_theme_dimension_8"
+                            android:layout_marginBottom="@dimen/apie_theme_dimension_8"
+                            android:background="@null"
+                            android:hint="@string/apie_create_plan_name_hint"
+                            android:maxLines="1"
+                            android:textSize="@dimen/apie_theme_dimension_13"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/nameIcon"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- 计划频次-->
+                <LinearLayout
+                    android:id="@+id/planFrequencyLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_16"
+                    android:layout_marginTop="@dimen/apie_theme_dimension_10"
+                    android:layout_marginEnd="@dimen/apie_theme_dimension_16"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/planNameInputCard">
+
+                    <!-- 标题-->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/planFrequencyTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/apie_create_plan_frequency_tip"
+                            android:textColor="@color/apieTheme_colorBlack"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/planFrequencyIcon"
+                            android:layout_width="@dimen/apie_theme_dimension_16"
+                            android:layout_height="@dimen/apie_theme_dimension_16"
+                            android:layout_marginStart="@dimen/apie_theme_dimension_4"
+                            android:layout_marginTop="@dimen/apie_theme_dimension_2"
+                            android:background="@drawable/apie_create_plan_frequency_tip_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/planFrequencyTitle"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- 内容-->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/apie_theme_dimension_45"
+                        android:layout_marginTop="@dimen/apie_theme_dimension_8"
+                        app:cardBackgroundColor="@color/apieTheme_colorGrayLevel1_alpha_4"
+                        app:cardCornerRadius="@dimen/apie_theme_dimension_8"
+                        app:cardElevation="@dimen/apie_theme_dimension_0"
+                        tools:layout_height="@dimen/apie_theme_dimension_60">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/apie_theme_dimension_10"
+                            android:layout_marginTop="@dimen/apie_theme_dimension_5"
+                            android:layout_marginBottom="@dimen/apie_theme_dimension_5">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/planFrequencyRv"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/apie_theme_dimension_16"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/constraintLayout3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/apie_theme_dimension_45"
+                                android:layout_marginEnd="@dimen/apie_theme_dimension_10"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <TextView
+                                    android:id="@+id/textView2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/apie_create_plan_frequency_one_tip"
+                                    android:textColor="@color/apieTheme_colorBlack_alpha_80"
+                                    android:textSize="@dimen/apie_theme_text_12"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <EditText
+                                    android:id="@+id/frequencyCountEdit"
+                                    android:layout_width="25dp"
+                                    android:layout_height="0dp"
+                                    android:layout_marginTop="@dimen/apie_theme_dimension_5"
+                                    android:layout_marginBottom="@dimen/apie_theme_dimension_5"
+                                    android:layout_marginStart="@dimen/apie_theme_dimension_6"
+                                    android:layout_marginEnd="@dimen/apie_theme_dimension_6"
+                                    android:background="@drawable/apie_cerate_plan_common_edit_bg"
+                                    android:gravity="center"
+                                    android:hint="1"
+                                    android:inputType="number"
+                                    android:maxWidth="@dimen/apie_theme_dimension_25"
+                                    android:maxLines="1"
+                                    android:textColor="@color/apie_color_4770DC"
+                                    android:textCursorDrawable="@drawable/apie_custom_common_cursor"
+                                    android:textSize="@dimen/apie_theme_text_14"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@+id/textView"
+                                    app:layout_constraintStart_toEndOf="@+id/textView2"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:text="@string/apie_create_plan_frequency_count_tip"
+                                    android:textColor="@color/apieTheme_colorBlack_alpha_80"
+                                    android:textSize="@dimen/apie_theme_text_12"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <!-- 计划分组-->
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_16"
+                    android:layout_marginTop="@dimen/apie_theme_dimension_10"
+                    android:layout_marginEnd="@dimen/apie_theme_dimension_16"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/planFrequencyLayout">
+
+                    <!-- 标题-->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/planGroupTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/apie_create_plan_group_tip"
+                            android:textColor="@color/apieTheme_colorBlack"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/planGroupIcon"
+                            android:layout_width="@dimen/apie_theme_dimension_16"
+                            android:layout_height="@dimen/apie_theme_dimension_16"
+                            android:layout_marginStart="@dimen/apie_theme_dimension_4"
+                            android:layout_marginTop="@dimen/apie_theme_dimension_2"
+                            android:background="@drawable/apie_create_plan_frequency_tip_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/planGroupTitle"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/apie_theme_dimension_45"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/apie_theme_dimension_8">
+
+                        <!-- 分组列表-->
+                        <androidx.cardview.widget.CardView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/apie_theme_dimension_12"
-                            android:visibility="gone"
+                            app:cardBackgroundColor="@color/apieTheme_colorGrayLevel1_alpha_4"
+                            app:cardCornerRadius="@dimen/apie_theme_dimension_8"
+                            app:cardElevation="@dimen/apie_theme_dimension_0"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/createGroupLayout"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            tools:visibility="visible" />
+                            tools:layout_height="@dimen/apie_theme_dimension_60">
 
-                        <LinearLayout
-                            android:id="@+id/groupLoadingLayout"
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/apie_theme_dimension_10"
+                                android:layout_marginEnd="@dimen/apie_theme_dimension_10"
+                                android:layout_marginTop="@dimen/apie_theme_dimension_5"
+                                android:layout_marginBottom="@dimen/apie_theme_dimension_5"
+                                android:orientation="horizontal">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/planGroupRv"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="visible"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:visibility="visible" />
+
+                                <LinearLayout
+                                    android:id="@+id/groupLoadingLayout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/apie_theme_dimension_45"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"
+                                    android:visibility="gone"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:visibility="visible">
+
+                                    <com.xiaoxun.apie.common.ui.APieLoadingView
+                                        android:id="@+id/groupLoadingView"
+                                        android:layout_width="@dimen/apie_theme_dimension_25"
+                                        android:layout_height="@dimen/apie_theme_dimension_25"
+                                        android:visibility="gone"
+                                        app:loading_view_color="@color/apieTheme_colorBlack_alpha_40" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/apie_theme_dimension_3"
+                                        android:text="@string/apie_loading_msg"
+                                        android:textColor="@color/apieTheme_colorBlack_alpha_40"
+                                        android:textSize="@dimen/apie_theme_text_11" />
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/groupErrorTips"
+                                    android:layout_width="wrap_content"
+                                    android:gravity="center"
+                                    android:layout_height="@dimen/apie_theme_dimension_45"
+                                    android:text="@string/apie_create_plan_load_group_error_msg"
+                                    android:textColor="@color/apieTheme_colorBlack_alpha_40"
+                                    android:textSize="@dimen/apie_theme_text_11"
+                                    android:visibility="gone"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:visibility="visible" />
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- 创建分组按钮-->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/createGroupLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:visibility="gone"
+                            android:background="@drawable/apie_cerate_plan_common_btn_bg"
+                            android:padding="@dimen/apie_theme_dimension_3"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:visibility="visible">
+                            app:layout_constraintTop_toTopOf="parent">
 
-                            <com.xiaoxun.apie.common.ui.APieLoadingView
-                                android:id="@+id/groupLoadingView"
-                                android:layout_width="@dimen/apie_theme_dimension_25"
-                                android:layout_height="@dimen/apie_theme_dimension_25"
-                                android:visibility="gone"
-                                app:loading_view_color="@color/apieTheme_colorBlack_alpha_40" />
-
-                            <TextView
+                            <ImageView
+                                android:id="@+id/imageView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/apie_theme_dimension_3"
-                                android:text="@string/apie_loading_msg"
+                                android:background="@drawable/apie_create_plan_add_group_icon"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/createGroup"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/apie_create_plan_add_new_group_tip"
                                 android:textColor="@color/apieTheme_colorBlack_alpha_40"
-                                android:textSize="@dimen/apie_theme_text_11" />
+                                android:textSize="@dimen/apie_theme_text_8"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/groupErrorTips"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/apie_create_plan_load_group_error_msg"
-                            android:textColor="@color/apieTheme_colorBlack_alpha_40"
-                            android:textSize="@dimen/apie_theme_text_11"
-                            android:visibility="gone"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:visibility="visible" />
-
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
-                <!-- 创建分组按钮-->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/createGroupLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/apie_cerate_plan_common_btn_bg"
-                    android:padding="@dimen/apie_theme_dimension_3"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/apie_create_plan_add_group_icon"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/createGroup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/apie_create_plan_add_new_group_tip"
-                        android:textColor="@color/apieTheme_colorBlack_alpha_40"
-                        android:textSize="@dimen/apie_theme_text_8"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
-
-        <!-- 奖励与惩罚-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/apie_theme_dimension_16"
-            android:layout_marginTop="@dimen/apie_theme_dimension_10"
-            android:layout_marginEnd="@dimen/apie_theme_dimension_16"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-            <!-- 标题-->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/planAwardTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/apie_create_plan_award_tip"
-                    android:textColor="@color/apieTheme_colorBlack"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/planAwardIcon"
-                    android:layout_width="@dimen/apie_theme_dimension_16"
-                    android:layout_height="@dimen/apie_theme_dimension_16"
-                    android:layout_marginStart="@dimen/apie_theme_dimension_4"
-                    android:layout_marginTop="@dimen/apie_theme_dimension_2"
-                    android:background="@drawable/apie_create_plan_frequency_tip_icon"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/planAwardTitle"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/apie_theme_dimension_8"
-                app:cardBackgroundColor="@color/apieTheme_colorGrayLevel1_alpha_4"
-                app:cardCornerRadius="@dimen/apie_theme_dimension_8"
-                app:cardElevation="@dimen/apie_theme_dimension_0">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <!-- 奖励与惩罚-->
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_16"
+                    android:layout_marginTop="@dimen/apie_theme_dimension_10"
+                    android:layout_marginEnd="@dimen/apie_theme_dimension_16"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-                    <LinearLayout
-                        android:id="@+id/awardLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/apie_theme_dimension_40"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingTop="@dimen/apie_theme_dimension_5"
-                        android:paddingBottom="@dimen/apie_theme_dimension_5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                    <!-- 标题-->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
 
                         <TextView
-                            android:id="@+id/awardTip"
+                            android:id="@+id/planAwardTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/apie_theme_dimension_10"
-                            android:text="单次完成获得"
-                            android:textColor="@color/apieTheme_colorBlack_alpha_80"
-                            android:textSize="@dimen/apie_theme_text_12"
+                            android:text="@string/apie_create_plan_award_tip"
+                            android:textColor="@color/apieTheme_colorBlack"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <EditText
-                            android:id="@+id/awardCountEdit"
-                            android:layout_width="@dimen/apie_theme_dimension_50"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="@dimen/apie_theme_dimension_5"
-                            android:background="@drawable/apie_cerate_plan_common_edit_bg"
-                            android:gravity="center"
-                            android:hint="xx"
-                            android:inputType="number"
-                            android:maxWidth="@dimen/apie_theme_dimension_25"
-                            android:maxLines="1"
-                            android:textColor="@color/apie_color_4770DC"
-                            android:textCursorDrawable="@drawable/apie_custom_common_cursor"
-                            android:textSize="@dimen/apie_theme_text_14"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/awardTip"
-                            app:layout_constraintTop_toTopOf="parent" />
-
                         <ImageView
-                            android:id="@+id/awardIcon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/apie_theme_dimension_5"
-                            android:background="@drawable/apie_plan_gold_icon"
+                            android:id="@+id/planAwardIcon"
+                            android:layout_width="@dimen/apie_theme_dimension_16"
+                            android:layout_height="@dimen/apie_theme_dimension_16"
+                            android:layout_marginStart="@dimen/apie_theme_dimension_4"
+                            android:layout_marginTop="@dimen/apie_theme_dimension_2"
+                            android:background="@drawable/apie_create_plan_frequency_tip_icon"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/awardCountEdit"
+                            app:layout_constraintStart_toEndOf="@+id/planAwardTitle"
                             app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/deductLayout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/apie_theme_dimension_40"
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/apie_theme_dimension_8"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingTop="@dimen/apie_theme_dimension_5"
-                        android:paddingBottom="@dimen/apie_theme_dimension_5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/awardLayout">
+                        app:cardBackgroundColor="@color/apieTheme_colorGrayLevel1_alpha_4"
+                        app:cardCornerRadius="@dimen/apie_theme_dimension_8"
+                        app:cardElevation="@dimen/apie_theme_dimension_0">
 
-                        <TextView
-                            android:id="@+id/deductTip"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/apie_theme_dimension_10"
-                            android:text="如未完成扣除"
-                            android:textColor="@color/apieTheme_colorBlack_alpha_80"
-                            android:textSize="@dimen/apie_theme_text_12"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                        <EditText
-                            android:id="@+id/deductCountEdit"
-                            android:layout_width="@dimen/apie_theme_dimension_50"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="@dimen/apie_theme_dimension_5"
-                            android:background="@drawable/apie_cerate_plan_common_edit_bg"
-                            android:gravity="center"
-                            android:hint="xx"
-                            android:inputType="number"
-                            android:maxWidth="@dimen/apie_theme_dimension_25"
-                            android:maxLines="1"
-                            android:textColor="@color/apie_color_4770DC"
-                            android:textCursorDrawable="@drawable/apie_custom_common_cursor"
-                            android:textSize="@dimen/apie_theme_text_14"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/deductTip"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            <LinearLayout
+                                android:id="@+id/awardLayout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/apie_theme_dimension_40"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:paddingTop="@dimen/apie_theme_dimension_5"
+                                android:paddingBottom="@dimen/apie_theme_dimension_5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageView
-                            android:id="@+id/deductIcon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/apie_theme_dimension_5"
-                            android:background="@drawable/apie_plan_gold_icon"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/awardCountEdit"
-                            app:layout_constraintTop_toTopOf="parent" />
+                                <TextView
+                                    android:id="@+id/awardTip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/apie_theme_dimension_10"
+                                    android:text="单次完成获得"
+                                    android:textColor="@color/apieTheme_colorBlack_alpha_80"
+                                    android:textSize="@dimen/apie_theme_text_12"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/apie_theme_dimension_5"
-                            android:text="@string/apie_create_plan_deduct_desc_tip"
-                            android:textColor="@color/apieTheme_colorBlack_alpha_40"
-                            android:textSize="@dimen/apie_theme_text_8" />
+                                <EditText
+                                    android:id="@+id/awardCountEdit"
+                                    android:layout_width="@dimen/apie_theme_dimension_50"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="@dimen/apie_theme_dimension_5"
+                                    android:background="@drawable/apie_cerate_plan_common_edit_bg"
+                                    android:gravity="center"
+                                    android:hint="1"
+                                    android:inputType="number"
+                                    android:maxWidth="@dimen/apie_theme_dimension_25"
+                                    android:maxLines="1"
+                                    android:textColor="@color/apie_color_4770DC"
+                                    android:textCursorDrawable="@drawable/apie_custom_common_cursor"
+                                    android:textSize="@dimen/apie_theme_text_14"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/awardTip"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
-                    </LinearLayout>
+                                <ImageView
+                                    android:id="@+id/awardIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/apie_theme_dimension_5"
+                                    android:background="@drawable/apie_plan_gold_icon"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/awardCountEdit"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/deductLayout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/apie_theme_dimension_40"
+                                android:layout_marginTop="@dimen/apie_theme_dimension_8"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:paddingTop="@dimen/apie_theme_dimension_5"
+                                android:paddingBottom="@dimen/apie_theme_dimension_5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/awardLayout">
+
+                                <TextView
+                                    android:id="@+id/deductTip"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/apie_theme_dimension_10"
+                                    android:text="如未完成扣除"
+                                    android:textColor="@color/apieTheme_colorBlack_alpha_80"
+                                    android:textSize="@dimen/apie_theme_text_12"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <EditText
+                                    android:id="@+id/deductCountEdit"
+                                    android:layout_width="@dimen/apie_theme_dimension_50"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="@dimen/apie_theme_dimension_5"
+                                    android:background="@drawable/apie_cerate_plan_common_edit_bg"
+                                    android:gravity="center"
+                                    android:hint="0"
+                                    android:inputType="number"
+                                    android:maxWidth="@dimen/apie_theme_dimension_25"
+                                    android:maxLines="1"
+                                    android:textColor="@color/apie_color_4770DC"
+                                    android:textCursorDrawable="@drawable/apie_custom_common_cursor"
+                                    android:textSize="@dimen/apie_theme_text_14"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/deductTip"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/deductIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/apie_theme_dimension_5"
+                                    android:background="@drawable/apie_plan_gold_icon"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/awardCountEdit"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/apie_theme_dimension_5"
+                                    android:text="@string/apie_create_plan_deduct_desc_tip"
+                                    android:textColor="@color/apieTheme_colorBlack_alpha_40"
+                                    android:textSize="@dimen/apie_theme_text_8" />
+
+                            </LinearLayout>
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            </androidx.cardview.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
 
-        </LinearLayout>
+                </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- 底部按钮-->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/apie_theme_dimension_35"

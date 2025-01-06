@@ -36,6 +36,7 @@ arouterCompilerVersion = "1.5.2"
 roomCompilerProcessingTesting = "2.6.1"
 githubXpopupVersion = "2.10.0"
 glideVersion = "4.12.0"
+codelocatorCoreVersion = "2.0.4"
 
 # 需要注意的是，如果名称中有“-”，在Gradle构建脚本中引用时必须将其改成“.”，例如：androidx-core-ktx 调用时需要改成 androidx.core.ktx
 [libraries]
@@ -78,6 +79,7 @@ androidx-room-compiler-processing-testing = { group = "androidx.room", name = "r
 github-xpopup = { group = "com.github.li-xiaojun", name = "XPopup", version.ref = "githubXpopupVersion" }
 github-bumptech-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glideVersion" }
 github-bumptech-glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glideVersion" }
+codelocator-core = { group = "com.bytedance.tools.codelocator", name = "codelocator-core", version.ref = "codelocatorCoreVersion"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

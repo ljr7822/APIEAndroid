@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.codelocator.core)
     implementation(libs.github.bumptech.glide)
     kapt(libs.github.bumptech.glide.compiler)
     implementation(libs.github.xpopup)
