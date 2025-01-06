@@ -45,6 +45,10 @@ class APiePlanAdapter(
         holder.goldValue.text = item.planAward.toString()
         holder.planGroupName.text = item.planGroupModel.groupName
         holder.planFrequency.text = "每天${item.planFrequency}次"
+        bindPlanType(holder, item)
+    }
+
+    private fun bindPlanType(holder: ViewHolder, item: PlanModel) {
         val typeIcon = when(item.planType) {
             PlanListType.SINGLE_PLAN.type -> {
                 com.xiaoxun.apie.common.R.drawable.apie_plan_single_type_icon
@@ -69,6 +73,6 @@ class APiePlanAdapter(
             }
         }
 
-        holder.planTypeIcon.loadImage(typeIcon)
+        holder.planTypeIcon.loadImage(typeIcon, 1)
     }
 }

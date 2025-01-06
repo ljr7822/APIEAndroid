@@ -97,7 +97,7 @@ class APiePlanFrequencyAdapter(
                 com.xiaoxun.apie.common.R.drawable.apie_plan_custom_type_icon
             }
         }
-        holder.planTypeIcon.loadImage(typeIcon, 10)
+        holder.planTypeIcon.loadImage(typeIcon, 1)
     }
 
     fun updateSelectedPosition(position: Int) {
