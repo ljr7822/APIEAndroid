@@ -58,7 +58,7 @@
                     android:textSize="@dimen/apie_theme_text_14" />
 
                 <com.xiaoxun.apie.common.ui.GlideCircleImageView
-                    android:id="@+id/groupIcon"
+                    android:id="@+id/planTypeIcon"
                     android:layout_gravity="center"
                     android:layout_width="@dimen/apie_theme_dimension_14"
                     android:layout_height="@dimen/apie_theme_dimension_14"

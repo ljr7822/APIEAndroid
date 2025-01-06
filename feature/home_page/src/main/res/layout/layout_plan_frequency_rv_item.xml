@@ -3,7 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/planFrequencyItemLayout"
     android:background="@color/apieTheme_colorTransparent">
+
+   <com.xiaoxun.apie.common.ui.GlideCircleImageView
+       android:id="@+id/planTypeIcon"
+       android:layout_width="@dimen/apie_theme_dimension_14"
+       android:layout_height="@dimen/apie_theme_dimension_14"
+       android:layout_gravity="center"
+       android:layout_marginStart="@dimen/apie_theme_dimension_6"
+       app:layout_constraintBottom_toBottomOf="parent"
+       android:visibility="gone"
+       tools:visibility="visible"
+       tools:background="@drawable/apie_plan_cycle_type_icon"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent" />
 
    <TextView
        android:id="@+id/planFrequencyName"
@@ -18,7 +33,7 @@
        android:textSize="@dimen/apie_theme_text_12"
        app:layout_constraintBottom_toBottomOf="parent"
        app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintStart_toEndOf="@+id/planTypeIcon"
        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
