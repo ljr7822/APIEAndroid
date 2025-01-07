@@ -7,6 +7,7 @@ import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySm
 import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlans
 import com.xiaoxun.apie.apie_data_loader.request.account.sms.SendSmsCode
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlan
+import com.xiaoxun.apie.apie_data_loader.request.plan.DeletePlan
 import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlanGroups
 import com.xiaoxun.apie.apie_data_loader.request.plan.UpdatePlanCompletedCount
 import com.xiaoxun.apie.common_model.account.AccountModel
@@ -100,5 +101,13 @@ class DataLoaderManager private constructor() {
     fun updatePlanCompletedCount(updatePlanCompletedCount: UpdatePlanCompletedCount, cacheStrategy: CacheStrategy): Observable<BaseResponse<PlanModel>> {
         val loader = buildDataLoader<PlanModel>(APieUrl.UPDATE_PLAN_COMPLETED_COUNT.name)
         return loader?.getData(updatePlanCompletedCount, cacheStrategy) ?: Observable.error(Exception("loader is null"))
+    }
+
+    /**
+     * 删除一个计划
+     */
+    fun deletePlan(deletePlan: DeletePlan, cacheStrategy: CacheStrategy): Observable<BaseResponse<Int>> {
+        val loader = buildDataLoader<Int>(APieUrl.DELETE_PLAN.name)
+        return loader?.getData(deletePlan, cacheStrategy) ?: Observable.error(Exception("loader is null"))
     }
 }

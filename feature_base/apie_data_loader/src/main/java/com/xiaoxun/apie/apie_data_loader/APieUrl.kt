@@ -8,6 +8,7 @@ enum class APieUrl(val url: String) {
     GET_ALL_PLAN_GROUP_BY_USER_ID(GET_ALL_PLAN_GROUP_BY_USER_ID_URL),
     CREATE_PLAN(CREATE_PLAN_URL),
     UPDATE_PLAN_COMPLETED_COUNT(UPDATE_PLAN_COMPLETED_COUNT_URL),
+    DELETE_PLAN(DELETE_PLAN_URL),
     ACCOUNT_REGISTER(ACCOUNT_REGISTER_URL),
 }
 
@@ -18,4 +19,5 @@ internal const val ACCOUNT_GET_ALL_PLAN_BY_USER_ID_URL = "/plan/queryAllPlan/{us
 internal const val GET_ALL_PLAN_GROUP_BY_USER_ID_URL = "/planGroup/queryAllGroup/{userId}"
 internal const val CREATE_PLAN_URL = "/plan/create"
 internal const val UPDATE_PLAN_COMPLETED_COUNT_URL = "/plan/completedCount/{optType}/{planId}"
+internal const val DELETE_PLAN_URL = "/plan/planInvisible/{planId}"
 internal const val ACCOUNT_REGISTER_URL = "/user/loginByPassword"

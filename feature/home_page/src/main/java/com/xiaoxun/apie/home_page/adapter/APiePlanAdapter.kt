@@ -251,7 +251,7 @@ class APiePlanAdapter : RecyclerView.Adapter<APiePlanAdapter.ViewHolder>() {
         fun onItemDoneClick(position: Int, planModel: PlanModel)
         fun onItemDataAnalysisClick(position: Int, planModel: PlanModel)
         fun onItemResetClick(position: Int, planModel: PlanModel)
-        fun onItemVisibilityClick(position: Int, planModel: PlanModel)
+        fun onItemVisibilityClick(position: Int, planModel: PlanModel) {}
         fun onItemEditClick(position: Int, planModel: PlanModel)
         fun onItemDeleteClick(position: Int, planModel: PlanModel)
     }

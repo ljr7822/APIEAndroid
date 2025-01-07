@@ -2,6 +2,7 @@ package com.xiaoxun.apie.apie_data_loader.service
 
 import com.xiaoxun.apie.apie_data_loader.ACCOUNT_GET_ALL_PLAN_BY_USER_ID_URL
 import com.xiaoxun.apie.apie_data_loader.CREATE_PLAN_URL
+import com.xiaoxun.apie.apie_data_loader.DELETE_PLAN_URL
 import com.xiaoxun.apie.apie_data_loader.GET_ALL_PLAN_GROUP_BY_USER_ID_URL
 import com.xiaoxun.apie.apie_data_loader.UPDATE_PLAN_COMPLETED_COUNT_URL
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanRequestBody
@@ -28,4 +29,7 @@ interface APiePlanService {
 
     @GET(UPDATE_PLAN_COMPLETED_COUNT_URL)
     fun updatePlanCompletedCount(@Path("optType") optType: Int, @Path("planId") planId: String): Observable<BaseResponse<PlanModel>>
+
+    @GET(DELETE_PLAN_URL)
+    fun deletePlan(@Path("planId") planId: String): Observable<BaseResponse<Int>>
 }

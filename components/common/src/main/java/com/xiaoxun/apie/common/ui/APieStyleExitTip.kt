@@ -21,6 +21,8 @@ class APieStyleExitTip(
 
     companion object {
         const val APIE_RESECT_PLAN_COUNT_KEY = "APIE_RESECT_PLAN_COUNT_KEY"
+        const val APIE_DELETE_PLAN_KEY = "APIE_DELETE_PLAN_KEY"
+
 
         fun show(
             activity: AppCompatActivity,
@@ -28,7 +30,9 @@ class APieStyleExitTip(
             actionCallback: () -> Unit,
             cancelCallback: () -> Unit = {}
         ) {
-            if (key != APIE_RESECT_PLAN_COUNT_KEY) return
+            if (key != APIE_RESECT_PLAN_COUNT_KEY
+                && key != APIE_DELETE_PLAN_KEY
+            ) return
             if (Looper.getMainLooper() != Looper.myLooper()) {
                 Handler(Looper.getMainLooper()).post {
                     APieStyleExitTip(activity, key, actionCallback, cancelCallback).show()
@@ -50,11 +54,14 @@ class APieStyleExitTip(
         }
         val title = when (key) {
             APIE_RESECT_PLAN_COUNT_KEY -> R.string.apie_plan_item_reset_count_tip
+            APIE_DELETE_PLAN_KEY -> R.string.apie_plan_item_delete_tip
             else -> R.string.app_name
         }
 
         // 如果key为TIP_IMAGE_UPLOAD_KEY，则不显示"下次不再提示"文字
-        if (key == APIE_RESECT_PLAN_COUNT_KEY) {
+        if (key == APIE_RESECT_PLAN_COUNT_KEY
+            || key == APIE_DELETE_PLAN_KEY
+        ) {
             binding.styleSelectBtn.visibility = View.GONE
             binding.styleNoHint.visibility = View.GONE
         } else {

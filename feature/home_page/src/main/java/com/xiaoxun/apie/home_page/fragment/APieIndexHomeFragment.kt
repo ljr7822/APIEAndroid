@@ -10,6 +10,7 @@ import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.enums.PopupPosition
 import com.xiaoxun.apie.common.base.fragment.APieBaseBindingFragment
 import com.xiaoxun.apie.common.ui.APieStyleExitTip
+import com.xiaoxun.apie.common.utils.APieVibrateTool
 import com.xiaoxun.apie.home_page.widget.APieLeftDrawerPopupView
 import com.xiaoxun.apie.home_page.widget.APieFilterPartShadowPopupView
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
@@ -27,7 +28,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class APieIndexHomeFragment: APieBaseBindingFragment<LayoutApieIndexHomeFragmentBinding>(LayoutApieIndexHomeFragmentBinding::inflate) {
+class APieIndexHomeFragment :
+    APieBaseBindingFragment<LayoutApieIndexHomeFragmentBinding>(LayoutApieIndexHomeFragmentBinding::inflate) {
     companion object {
         const val TEST_FLAG: String = "test_flag"
     }
@@ -119,6 +121,7 @@ class APieIndexHomeFragment: APieBaseBindingFragment<LayoutApieIndexHomeFragment
                         // 列表停止滚动
                         viewModel.updateListScrolling(false)
                     }
+
                     RecyclerView.SCROLL_STATE_DRAGGING, RecyclerView.SCROLL_STATE_SETTLING -> {
                         // 列表正在滚动
                         viewModel.updateListScrolling(true)
@@ -129,28 +132,44 @@ class APieIndexHomeFragment: APieBaseBindingFragment<LayoutApieIndexHomeFragment
         })
         itemClickListener = object : APiePlanAdapter.ItemClickListener {
             override fun onItemDeleteClick(position: Int, planModel: PlanModel) {
-                APieToast.showDialog("删除了第$position 个item")
+                APieVibrateTool.device(50)
+                APieStyleExitTip.show(
+                    activity = hostActivity,
+                    key = APieStyleExitTip.APIE_DELETE_PLAN_KEY,
+                    actionCallback = {
+                        adapter.hidePlanMenuLayer()
+                        GlobalScope.launch(Dispatchers.Main) {
+                            repo.deletePlan(planModel.planId)
+                        }
+                    })
             }
 
             override fun onItemEditClick(position: Int, planModel: PlanModel) {
+                APieVibrateTool.device(50)
                 APieToast.showDialog("编辑了第$position 个item")
             }
 
             override fun onItemDoneClick(position: Int, planModel: PlanModel) {
+                APieVibrateTool.device(50)
                 if (planModel.planCompletedCount >= planModel.planFrequency) {
                     APieToast.showDialog("今日打卡已经完毕，明天再来吧～")
                     return
                 }
                 GlobalScope.launch(Dispatchers.Main) {
-                    repo.updatePlanCompletedCount(CompletedCountOptType.INCREMENT.type, planModel.planId)
+                    repo.updatePlanCompletedCount(
+                        CompletedCountOptType.INCREMENT.type,
+                        planModel.planId
+                    )
                 }
             }
 
             override fun onItemDataAnalysisClick(position: Int, planModel: PlanModel) {
+                APieVibrateTool.device(50)
                 APieToast.showDialog("数据分析了第$position 个item")
             }
 
             override fun onItemResetClick(position: Int, planModel: PlanModel) {
+                APieVibrateTool.device(50)
                 if (planModel.planCompletedCount == 0) {
                     APieToast.showDialog("目前还没有打卡记录哦，无法撤销～")
                     return
@@ -161,13 +180,12 @@ class APieIndexHomeFragment: APieBaseBindingFragment<LayoutApieIndexHomeFragment
                     actionCallback = {
                         adapter.hidePlanMenuLayer()
                         GlobalScope.launch(Dispatchers.Main) {
-                            repo.updatePlanCompletedCount(CompletedCountOptType.DECREMENT.type, planModel.planId)
+                            repo.updatePlanCompletedCount(
+                                CompletedCountOptType.DECREMENT.type,
+                                planModel.planId
+                            )
                         }
                     })
-            }
-
-            override fun onItemVisibilityClick(position: Int, planModel: PlanModel) {
-                APieToast.showDialog("可见性操作了第$position 个item")
             }
         }
         adapter.setItemClickListener(itemClickListener)
@@ -188,5 +206,10 @@ class APieIndexHomeFragment: APieBaseBindingFragment<LayoutApieIndexHomeFragment
             .isViewMode(true)
             .asCustom(APieLeftDrawerPopupView(hostActivity))
             .show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        repo.onCleared()
     }
 }

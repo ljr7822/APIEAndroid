@@ -39,6 +39,11 @@ interface IIndexHomeRepo {
     suspend fun updatePlanCompletedCount(optType: Int, planId: String)
 
     /**
+     * 删除计划
+     */
+    suspend fun deletePlan(planId: String)
+
+    /**
      * 在生命周期结束时清理订阅
      */
     fun onCleared()

@@ -102,7 +102,7 @@ class IndexHomeViewModel: APieBaseViewModel() {
 
     fun createPlanSuccess(plan: PlanModel) {
         _createPlanState.value = CreatePlanState.SUCCESS
-        updateOrInsertPlanSuccess(plan)
+        updateOrInsertPlan(plan)
     }
 
     fun createPlanFailed(error: String) {
@@ -118,9 +118,11 @@ class IndexHomeViewModel: APieBaseViewModel() {
         _listScrolling.value = isScrolling
     }
 
-    fun updateOrInsertPlanSuccess(resp: PlanModel) {
+    /**
+     * 更新或插入计划
+     */
+    private fun updateOrInsertPlan(resp: PlanModel) {
         val currentList = _currentPlanList.value ?: mutableListOf()
-
         val indexToUpdate = currentList.indexOfFirst { it.planId == resp.planId }
 
         if (indexToUpdate != -1) {
@@ -134,8 +136,31 @@ class IndexHomeViewModel: APieBaseViewModel() {
         _currentPlanList.value = currentList
     }
 
+    /**
+     * 通过planId移除一个计划
+     */
+    private fun removePlan(planId: String) {
+        val currentList = _currentPlanList.value ?: mutableListOf()
+        val removePlan = currentList.find { it.planId == planId }
+        if (removePlan != null) {
+            currentList.remove(removePlan)
+        }
+        _currentPlanList.value = currentList
+    }
 
-    fun updateOrInsertPlanFailed(error: String) {
+    fun deletePlanSuccess(planId: String) {
+        removePlan(planId)
+    }
+
+    fun deletePlanFailed(error: String) {
+
+    }
+
+    fun updatePlanSuccess(resp: PlanModel) {
+        updateOrInsertPlan(resp)
+    }
+
+    fun updatePlanFailed(error: String) {
 
     }
 

@@ -3,6 +3,7 @@ package com.xiaoxun.apie.home_page.repo
 import com.xiaoxun.apie.apie_data_loader.DataLoaderManager
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlan
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanRequestBody
+import com.xiaoxun.apie.apie_data_loader.request.plan.DeletePlan
 import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlanGroups
 import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlans
 import com.xiaoxun.apie.apie_data_loader.request.plan.UpdatePlanCompletedCount
@@ -104,13 +105,28 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel) : IIndexHomeRepo 
         innerUpdatePlanCompletedCount(optType, planId).fold(
             onSuccess = {
                 it.data?.let { resp ->
-                    viewModel.updateOrInsertPlanSuccess(resp)
+                    viewModel.updatePlanSuccess(resp)
                 } ?: let {
-                    viewModel.updateOrInsertPlanFailed("data is null.")
+                    viewModel.updatePlanFailed("data is null.")
                 }
             },
             onFailure = {
-                viewModel.updateOrInsertPlanFailed(it.localizedMessage ?: "request error.")
+                viewModel.updatePlanFailed(it.localizedMessage ?: "request error.")
+            }
+        )
+    }
+
+    override suspend fun deletePlan(planId: String) {
+        innerDeletePlan(planId).fold(
+            onSuccess = {
+                it.data?.let { resp ->
+                    viewModel.deletePlanSuccess(planId)
+                } ?: let {
+                    viewModel.deletePlanFailed("data is null.")
+                }
+            },
+            onFailure = {
+                viewModel.deletePlanFailed(it.localizedMessage ?: "request error.")
             }
         )
     }
@@ -161,10 +177,22 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel) : IIndexHomeRepo 
         }
     }
 
-    private suspend fun innerUpdatePlanCompletedCount(optType: Int, planId: String): Result<BaseResponse<PlanModel>> {
+    private suspend fun innerUpdatePlanCompletedCount(
+        optType: Int,
+        planId: String
+    ): Result<BaseResponse<PlanModel>> {
         return executeResult {
             DataLoaderManager.instance.updatePlanCompletedCount(
                 UpdatePlanCompletedCount(optType, planId),
+                CacheStrategy.FORCE_NET
+            )
+        }
+    }
+
+    private suspend fun innerDeletePlan(planId: String): Result<BaseResponse<Int>> {
+        return executeResult {
+            DataLoaderManager.instance.deletePlan(
+                DeletePlan(planId),
                 CacheStrategy.FORCE_NET
             )
         }
