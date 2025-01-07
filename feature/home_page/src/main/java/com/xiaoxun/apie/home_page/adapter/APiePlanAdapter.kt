@@ -91,6 +91,7 @@ class APiePlanAdapter : RecyclerView.Adapter<APiePlanAdapter.ViewHolder>() {
         val visibilityIcon: ImageView = view.findViewById(R.id.visibilityIcon)
         val editIcon: ImageView = view.findViewById(R.id.editIcon)
         val deleteIcon: ImageView = view.findViewById(R.id.deleteIcon)
+        val rightDoingIcon: ImageView = view.findViewById(R.id.rightDoingIcon)
 
         val maskingLayer: View = view.findViewById(R.id.maskingLayer)
         val goldValue: TextView = view.findViewById(R.id.goldValue)
@@ -140,12 +141,14 @@ class APiePlanAdapter : RecyclerView.Adapter<APiePlanAdapter.ViewHolder>() {
             holder.planScheduleTip.hide()
             holder.planDoneIcon.show()
             holder.maskingLayer.show()
+            holder.rightDoingIcon.hide()
         } else {
             holder.planScheduleProgress.show()
             holder.planScheduleTip.show()
             holder.planDoneIcon.hide()
             holder.planScheduleTip.text = "${item.planCompletedCount}/${item.planFrequency}"
             holder.maskingLayer.hide()
+            holder.rightDoingIcon.show()
         }
     }
 

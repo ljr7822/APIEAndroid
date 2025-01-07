@@ -26,6 +26,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/rightDoingIcon"
+                android:layout_width="@dimen/apie_theme_dimension_25"
+                android:layout_height="@dimen/apie_theme_dimension_25"
+                android:background="@drawable/apie_plan_item_doing2_right_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.xiaoxun.apie.common.ui.GlideCircleImageView
                 android:id="@+id/coverImageView"
                 android:layout_width="@dimen/apie_theme_dimension_50"
@@ -222,17 +230,19 @@
             app:cardCornerRadius="@dimen/apie_theme_dimension_8"
             android:layout_height="@dimen/apie_theme_dimension_80">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center">
 
                 <ImageView
+                    android:layout_width="@dimen/apie_theme_dimension_25"
+                    android:layout_height="@dimen/apie_theme_dimension_25"
+                    android:background="@drawable/apie_plan_item_done2_right_icon"
                     android:visibility="visible"
-                    android:layout_width="@dimen/apie_theme_dimension_50"
-                    android:layout_height="@dimen/apie_theme_dimension_50"
-                    android:background="@drawable/apie_plan_item_done_icon"/>
-            </LinearLayout>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -241,7 +251,7 @@
             app:cardBackgroundColor="@color/apie_color_97B4FF_alpha_90"
             app:cardElevation="0dp"
             android:visibility="gone"
-            tools:visibility="visible"
+            tools:visibility="gone"
             android:clickable="true"
             android:focusable="true"
             app:cardCornerRadius="@dimen/apie_theme_dimension_8"
