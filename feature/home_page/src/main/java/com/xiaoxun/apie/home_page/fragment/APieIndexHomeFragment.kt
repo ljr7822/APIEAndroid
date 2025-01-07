@@ -9,14 +9,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.enums.PopupPosition
 import com.xiaoxun.apie.common.base.fragment.APieBaseBindingFragment
+import com.xiaoxun.apie.common.ui.APieStyleExitTip
 import com.xiaoxun.apie.home_page.widget.APieLeftDrawerPopupView
 import com.xiaoxun.apie.home_page.widget.APieFilterPartShadowPopupView
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
+import com.xiaoxun.apie.common.utils.toast.APieToast
+import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
 import com.xiaoxun.apie.home_page.adapter.APiePlanAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexHomeFragmentBinding
 import com.xiaoxun.apie.home_page.repo.IIndexHomeRepo
 import com.xiaoxun.apie.home_page.repo.IndexHomeRepo
-import com.xiaoxun.apie.home_page.viewmodel.PlanStatus
+import com.xiaoxun.apie.home_page.viewmodel.CompletedCountOptType
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.PlanListType
@@ -43,6 +46,8 @@ class APieIndexHomeFragment: APieBaseBindingFragment<LayoutApieIndexHomeFragment
 
     private val adapter: APiePlanAdapter by lazy { APiePlanAdapter() }
 
+    private var itemClickListener: APiePlanAdapter.ItemClickListener? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
@@ -68,15 +73,24 @@ class APieIndexHomeFragment: APieBaseBindingFragment<LayoutApieIndexHomeFragment
 
     private fun initObserver() {
         viewModel.planTypeList.observe(viewLifecycleOwner) {
-            // 更新数据
-            adapter.replayData(it.second)
+            // 更新数据到当前显示的列表
+            viewModel.updateCurrentPlanList(it.second)
         }
 
         viewModel.planStatusList.observe(viewLifecycleOwner) {
-            // 更新数据
-            adapter.replayData(it.second)
+            // 更新数据到当前显示的列表
+            viewModel.updateCurrentPlanList(it.second)
         }
 
+        viewModel.currentPlanList.observe(viewLifecycleOwner) { newList ->
+            // 更新数据
+            val oldList = adapter.getItems()
+            if (oldList.isNotEmpty() && (newList.size > oldList.size)) {
+                // 滚动到顶部
+                binding.planRecyclerView.scrollToPosition(0)
+            }
+            adapter.updateData(newList)
+        }
 
         // 根据状态进行筛选
         viewModel.planStatus.observe(viewLifecycleOwner) {
@@ -108,10 +122,55 @@ class APieIndexHomeFragment: APieBaseBindingFragment<LayoutApieIndexHomeFragment
                     RecyclerView.SCROLL_STATE_DRAGGING, RecyclerView.SCROLL_STATE_SETTLING -> {
                         // 列表正在滚动
                         viewModel.updateListScrolling(true)
+                        adapter.hidePlanMenuLayer()
                     }
                 }
             }
         })
+        itemClickListener = object : APiePlanAdapter.ItemClickListener {
+            override fun onItemDeleteClick(position: Int, planModel: PlanModel) {
+                APieToast.showDialog("删除了第$position 个item")
+            }
+
+            override fun onItemEditClick(position: Int, planModel: PlanModel) {
+                APieToast.showDialog("编辑了第$position 个item")
+            }
+
+            override fun onItemDoneClick(position: Int, planModel: PlanModel) {
+                if (planModel.planCompletedCount >= planModel.planFrequency) {
+                    APieToast.showDialog("今日打卡已经完毕，明天再来吧～")
+                    return
+                }
+                GlobalScope.launch(Dispatchers.Main) {
+                    repo.updatePlanCompletedCount(CompletedCountOptType.INCREMENT.type, planModel.planId)
+                }
+            }
+
+            override fun onItemDataAnalysisClick(position: Int, planModel: PlanModel) {
+                APieToast.showDialog("数据分析了第$position 个item")
+            }
+
+            override fun onItemResetClick(position: Int, planModel: PlanModel) {
+                if (planModel.planCompletedCount == 0) {
+                    APieToast.showDialog("目前还没有打卡记录哦，无法撤销～")
+                    return
+                }
+                APieStyleExitTip.show(
+                    activity = hostActivity,
+                    key = APieStyleExitTip.APIE_RESECT_PLAN_COUNT_KEY,
+                    actionCallback = {
+                        adapter.hidePlanMenuLayer()
+                        GlobalScope.launch(Dispatchers.Main) {
+                            repo.updatePlanCompletedCount(CompletedCountOptType.DECREMENT.type, planModel.planId)
+                        }
+                    })
+            }
+
+            override fun onItemVisibilityClick(position: Int, planModel: PlanModel) {
+                APieToast.showDialog("可见性操作了第$position 个item")
+            }
+        }
+        adapter.setItemClickListener(itemClickListener)
     }
 
     private fun showTopFilterView() {

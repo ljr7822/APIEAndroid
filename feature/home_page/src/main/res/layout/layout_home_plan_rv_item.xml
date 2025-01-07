@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/home_gb"
     tools:background="@color/apieTheme_colorBlack">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/apie_theme_dimension_80"
-        android:layout_marginBottom="@dimen/apie_theme_dimension_4"
+        android:layout_marginStart="@dimen/apie_theme_dimension_12"
         android:layout_marginTop="@dimen/apie_theme_dimension_4"
+        android:layout_marginEnd="@dimen/apie_theme_dimension_12"
+        android:layout_marginBottom="@dimen/apie_theme_dimension_4"
         app:cardBackgroundColor="@color/apie_color_white"
         app:cardCornerRadius="@dimen/apie_theme_dimension_8"
         app:cardElevation="0.5dp"
-        android:layout_marginStart="@dimen/apie_theme_dimension_12"
-        android:layout_marginEnd="@dimen/apie_theme_dimension_12"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,17 +59,18 @@
 
                 <com.xiaoxun.apie.common.ui.GlideCircleImageView
                     android:id="@+id/planTypeIcon"
-                    android:layout_gravity="center"
                     android:layout_width="@dimen/apie_theme_dimension_14"
                     android:layout_height="@dimen/apie_theme_dimension_14"
-                    android:layout_marginStart="@dimen/apie_theme_dimension_8" />
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_8"
+                    tools:background="@drawable/apie_plan_cycle_type_icon" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/apie_theme_dimension_12"
                 android:layout_marginStart="@dimen/apie_theme_dimension_12"
+                android:layout_marginEnd="@dimen/apie_theme_dimension_12"
                 android:layout_marginBottom="@dimen/apie_theme_dimension_15"
                 android:gravity="start"
                 android:orientation="horizontal"
@@ -77,10 +78,26 @@
                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
                 app:layout_constraintStart_toEndOf="@+id/coverImageView">
 
-                <LinearLayout
+                <!-- 分组名称-->
+                <TextView
+                    android:id="@+id/planGroupName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center">
+                    android:background="@drawable/apie_plan_group_bg"
+                    android:paddingStart="@dimen/apie_theme_dimension_3"
+                    android:paddingTop="@dimen/apie_theme_dimension_2"
+                    android:paddingEnd="@dimen/apie_theme_dimension_3"
+                    android:paddingBottom="@dimen/apie_theme_dimension_2"
+                    android:text="每日计划"
+                    android:textSize="@dimen/apie_theme_text_10" />
+
+                <!-- 金币数据-->
+                <LinearLayout
+                    android:id="@+id/goldLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_6">
 
                     <ImageView
                         android:id="@+id/goldIcon"
@@ -97,47 +114,60 @@
                         android:textSize="@dimen/apie_theme_text_10" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/planGroupName"
+                <!-- 任务状态-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/planScheduleLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/apie_theme_dimension_5"
-                    android:background="@drawable/apie_plan_group_bg"
-                    android:paddingStart="@dimen/apie_theme_dimension_3"
-                    android:paddingTop="@dimen/apie_theme_dimension_2"
-                    android:paddingEnd="@dimen/apie_theme_dimension_3"
-                    android:paddingBottom="@dimen/apie_theme_dimension_2"
-                    android:text="每日计划"
-                    android:textSize="@dimen/apie_theme_text_10" />
-
-                <TextView
-                    android:id="@+id/planFrequency"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/apie_theme_dimension_8"
-                    android:text="每天3次"
-                    android:visibility="gone"
-                    android:textSize="@dimen/apie_theme_text_11" />
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-            </LinearLayout>
+                    <com.xiaoxun.apie.common.ui.APieCircularProgressView
+                        android:id="@+id/planScheduleProgress"
+                        android:layout_width="@dimen/apie_theme_dimension_14"
+                        android:layout_height="@dimen/apie_theme_dimension_14"
+                        app:animDuration="200"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:paintProgressColor="@color/apie_color_6F94F4"
+                        app:paintCheckMarkColor="@color/apie_color_97B4FF"
+                        app:strokeWidth="2dp" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/apie_theme_dimension_50"
-                android:layout_marginEnd="@dimen/apie_theme_dimension_12"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                    <TextView
+                        android:id="@+id/planScheduleTip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/apie_theme_dimension_5"
+                        android:text="0/5"
+                        android:textSize="@dimen/apie_theme_text_9"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/planScheduleProgress"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/planDoneIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/apie_plan_item_done_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_8">
 
                     <ImageView
                         android:id="@+id/planEdit"
@@ -149,14 +179,119 @@
                         android:id="@+id/planDelete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/apie_theme_dimension_8"
+                        android:layout_marginStart="@dimen/apie_theme_dimension_5"
                         android:background="@drawable/apie_plan_item_delete_icon" />
                 </LinearLayout>
 
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/apie_theme_dimension_5"
+                android:layout_marginTop="@dimen/apie_theme_dimension_5"
+                android:layout_marginEnd="@dimen/apie_theme_dimension_12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/planDoneClickIcon"
+                    android:layout_width="@dimen/apie_theme_dimension_40"
+                    android:layout_height="@dimen/apie_theme_dimension_40"
+                    android:background="@drawable/apie_plan_item_done_click_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/maskingLayer"
+            android:layout_width="match_parent"
+            app:cardBackgroundColor="@color/apieTheme_colorWhite_alpha_60"
+            app:cardElevation="0dp"
+            android:visibility="gone"
+            tools:visibility="gone"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="@dimen/apie_theme_dimension_8"
+            android:layout_height="@dimen/apie_theme_dimension_80">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:visibility="visible"
+                    android:layout_width="@dimen/apie_theme_dimension_50"
+                    android:layout_height="@dimen/apie_theme_dimension_50"
+                    android:background="@drawable/apie_plan_item_done_icon"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/planMenuLayer"
+            android:layout_width="match_parent"
+            app:cardBackgroundColor="@color/apie_color_97B4FF_alpha_90"
+            app:cardElevation="0dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="@dimen/apie_theme_dimension_8"
+            android:layout_height="@dimen/apie_theme_dimension_80">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/dataAnalysisIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/apie_plan_item_menu_data_icon" />
+
+                <ImageView
+                    android:id="@+id/resetIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_25"
+                    android:background="@drawable/apie_plan_item_menu_resect_icon" />
+
+                <ImageView
+                    android:id="@+id/visibilityIcon"
+                    android:layout_width="wrap_content"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_25"
+                    android:background="@drawable/apie_plan_item_menu_hide_icon" />
+
+                <ImageView
+                    android:id="@+id/editIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_25"
+                    android:background="@drawable/apie_plan_item_menu_edit_icon" />
+
+                <ImageView
+                    android:id="@+id/deleteIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_25"
+                    android:background="@drawable/apie_plan_item_menu_delete_icon" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

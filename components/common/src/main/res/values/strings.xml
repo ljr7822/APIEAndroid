@@ -8,6 +8,8 @@
     <string name="tab_category">分类</string>
     <string name="tab_cart">购物车</string>
 
+    <string name="apie_common_style_dialog_no_hint_txt">下次不再提示</string>
+
     <string name="login_phone_zone_code">手机区号：</string>
     <string name="login_phone_code_prefix">+%1$s</string>
     <string name="login_top_bar_skip_tip">跳过</string>
@@ -24,6 +26,8 @@
     <string name="apie_login_switch_password_tip">密码登录</string>
     <string name="apie_login_switch_sms_code_tip">验证码登录</string>
     <string name="apie_login_forget_password_tip">忘记密码？</string>
+    <string name="apie_plan_item_schedule_tip">进度:</string>
+
     <string name="apie_top_filter_resect_btn_text">重置</string>
     <string name="apie_top_filter_close_btn_text">收起</string>
     <string name="apie_top_filter_status_title_text">计划状态</string>
@@ -50,4 +54,6 @@
     <string name="apie_create_plan_load_group_error_msg">加载失败，请重试</string>
     <string name="apie_create_plan_award_tip">设定一个奖励:</string>
     <string name="apie_create_plan_deduct_desc_tip">选填，默认未完成任务不扣除派币</string>
+
+    <string name="apie_plan_item_reset_count_tip">确定要撤销一条打卡记录？</string>
 </resources>

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanRequestBody
+import com.xiaoxun.apie.common.ui.APieCircularProgressView
 import com.xiaoxun.apie.common.utils.UIUtils
 import com.xiaoxun.apie.common.utils.account.AccountManager
 import com.xiaoxun.apie.common.utils.dp
@@ -222,7 +223,7 @@ class APieCreateFragment(
             planIcon = "https://picasso-static.xiaohongshu.com/fe-platform/ad1ed1f24ebad49ce8ebf2f82acd63b8aaf00470.png",
             planType = selectedFrequency?.type ?: PlanListType.SINGLE_PLAN.type, // 默认是单次计划
             belongGroupId = selectedGroup?.groupId ?: "",
-            planFrequency = binding.frequencyCountEdit.text.toString(), // 计划频率
+            planFrequency = binding.frequencyCountEdit.text.toString().toIntOrNull() ?: 1, // 计划频率
             planAward = binding.awardCountEdit.text.toString().toIntOrNull() ?: 1,// 奖励派币数量
             planPunish = binding.deductCountEdit.text.toString().toIntOrNull() ?: 0,// 扣除派币数量
             planWeight = 10,

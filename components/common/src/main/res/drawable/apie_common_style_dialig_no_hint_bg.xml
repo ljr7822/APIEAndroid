@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_selected="false">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/apieTheme_colorWhite_alpha_10" />
+            <stroke android:width="1dp" android:color="@color/apieTheme_colorBlack_alpha_50" />
+            <corners android:radius="@dimen/apie_theme_dimension_13" />
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/apie_common_style_dialog_nohint_ok" android:state_selected="true" />
+
+</selector>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/apie_color_6F94F4" />
+            <corners android:radius="@dimen/apie_theme_dimension_17" />
+        </shape>
+    </item>
+
+    <item
+        android:bottom="2dp"
+        android:drawable="@drawable/apie_common_style_icon_check_10"
+        android:gravity="center"
+        android:left="2dp"
+        android:right="2dp"
+        android:top="2dp" />
+
+</layer-list>

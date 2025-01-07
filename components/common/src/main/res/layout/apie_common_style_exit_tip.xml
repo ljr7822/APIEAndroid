@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <View
+        android:id="@+id/styleExitBg"
+        android:layout_width="270dp"
+        android:layout_height="0dp"
+        android:background="@drawable/apie_common_style_dialog_shape_white_radius_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/styleTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/apie_theme_dimension_20"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/apie_theme_dimension_3"
+        android:paddingStart="@dimen/apie_theme_dimension_20"
+        android:paddingEnd="@dimen/apie_theme_dimension_20"
+        android:text="@string/app_name"
+        android:textColor="@color/apieTheme_colorGray1000"
+        android:textSize="@dimen/apie_theme_text_14"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/styleExitBg"
+        app:layout_constraintStart_toStartOf="@id/styleExitBg"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/styleSelectBtn"
+        android:layout_width="@dimen/apie_theme_dimension_13"
+        android:layout_height="@dimen/apie_theme_dimension_13"
+        android:layout_marginTop="@dimen/apie_theme_dimension_12"
+        android:background="@drawable/apie_common_style_dialig_no_hint_bg"
+        app:layout_constraintEnd_toStartOf="@id/styleNoHint"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/styleTitle" />
+
+    <TextView
+        android:id="@+id/styleNoHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/apie_theme_dimension_6"
+        android:text="@string/apie_common_style_dialog_no_hint_txt"
+        android:textColor="@color/apieTheme_colorGrayLevel1_alpha_50"
+        android:textSize="@dimen/apie_theme_text_12"
+        app:layout_constraintBottom_toBottomOf="@id/styleSelectBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/styleSelectBtn"
+        app:layout_constraintTop_toTopOf="@id/styleSelectBtn" />
+
+    <View
+        android:id="@+id/noHintArea"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/apie_theme_dimension_10"
+        android:layout_height="@dimen/apie_theme_dimension_30"
+        app:layout_constraintBottom_toBottomOf="@id/styleSelectBtn"
+        app:layout_constraintEnd_toEndOf="@id/styleNoHint"
+        app:layout_constraintStart_toStartOf="@id/styleSelectBtn"
+        app:layout_constraintTop_toTopOf="@id/styleSelectBtn" />
+
+
+    <TextView
+        android:id="@+id/styleHintCancelBtn"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/apie_theme_dimension_48"
+        android:layout_marginTop="@dimen/apie_theme_dimension_16"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/apieTheme_colorGray600"
+        android:textSize="@dimen/apie_theme_text_16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/styleHintCancelSure"
+        app:layout_constraintStart_toStartOf="@id/styleExitBg"
+        app:layout_constraintTop_toBottomOf="@id/styleNoHint" />
+
+    <TextView
+        android:id="@+id/styleHintCancelSure"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/apie_theme_dimension_48"
+        android:layout_marginTop="@dimen/apie_theme_dimension_16"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/apie_color_6F94F4"
+        android:textSize="@dimen/apie_theme_text_16"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/styleExitBg"
+        app:layout_constraintStart_toEndOf="@id/styleHintCancelBtn"
+        app:layout_constraintTop_toBottomOf="@id/styleNoHint" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="@dimen/apie_theme_dimension_0_5"
+        android:background="@color/apieTheme_colorGrayLevel1_alpha_10"
+        app:layout_constraintEnd_toEndOf="@id/styleExitBg"
+        app:layout_constraintStart_toStartOf="@id/styleExitBg"
+        app:layout_constraintTop_toTopOf="@id/styleHintCancelSure" />
+
+    <View
+        android:layout_width="@dimen/apie_theme_dimension_0_5"
+        android:layout_height="@dimen/apie_theme_dimension_28"
+        android:background="@color/apieTheme_colorGrayLevel1_alpha_10"
+        app:layout_constraintBottom_toBottomOf="@id/styleHintCancelSure"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/styleHintCancelSure" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

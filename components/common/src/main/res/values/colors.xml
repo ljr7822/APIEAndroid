@@ -23,6 +23,12 @@
     <color name="apie_color_6F94F4">#6F94F4</color>
     <color name="apie_color_97B4FF">#97B4FF</color>
     <color name="apie_color_97B4FF_alpha_30">#4D97B4FF</color>
+    <color name="apie_color_97B4FF_alpha_40">#6697B4FF</color>
+    <color name="apie_color_97B4FF_alpha_50">#8097B4FF</color>
+    <color name="apie_color_97B4FF_alpha_60">#9997B4FF</color>
+    <color name="apie_color_97B4FF_alpha_70">#B397B4FF</color>
+    <color name="apie_color_97B4FF_alpha_80">#CC97B4FF</color>
+    <color name="apie_color_97B4FF_alpha_90">#E697B4FF</color>
 
     <color name="apieTheme_colorBlack">#000000</color>
     <color name="apieTheme_colorBlack_alpha_0">#00000000</color>

@@ -43,7 +43,7 @@ data class PlanModel(
     val planType: Int = 0,
     // 计划频率
     @SerializedName("planFrequency")
-    val planFrequency: String = "",
+    val planFrequency: Int = 0,
     // 计划完成奖励
     @SerializedName("planAward")
     val planAward: Int = 1,
@@ -56,6 +56,9 @@ data class PlanModel(
     // 计划状态：1可见，0不可见
     @SerializedName("visibleStatus")
     val visibleStatus: Int = 1,
+    // 计划已完成次数
+    @SerializedName("planCompletedCount")
+    val planCompletedCount: Int = 0,
     // 计划创建者id
     @SerializedName("createUserId")
     val createUserId: String = "",

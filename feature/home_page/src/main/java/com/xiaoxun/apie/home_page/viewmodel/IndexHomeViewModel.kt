@@ -31,6 +31,10 @@ class IndexHomeViewModel: APieBaseViewModel() {
     private var _planStatusList = MutableLiveData<Pair<PlanStatus, MutableList<PlanModel>>>()
     val planStatusList get() = _planStatusList
 
+    // 当前显示的列表数据
+    private var _currentPlanList = MutableLiveData<MutableList<PlanModel>>()
+    val currentPlanList get() = _currentPlanList
+
     // 计划状态
     private var _planStatus = MutableLiveData<PlanStatus>()
     val planStatus get() = _planStatus
@@ -79,6 +83,10 @@ class IndexHomeViewModel: APieBaseViewModel() {
         _loadPlanListState.value = LoadPlanListState.FAILED
     }
 
+    fun updateCurrentPlanList(planList: MutableList<PlanModel>) {
+        _currentPlanList.value = planList
+    }
+
     fun loadPlanGroupListStart() {
         _loadPlanGroupListState.value = LoadPlanGroupListState.START
     }
@@ -94,6 +102,7 @@ class IndexHomeViewModel: APieBaseViewModel() {
 
     fun createPlanSuccess(plan: PlanModel) {
         _createPlanState.value = CreatePlanState.SUCCESS
+        updateOrInsertPlanSuccess(plan)
     }
 
     fun createPlanFailed(error: String) {
@@ -107,6 +116,27 @@ class IndexHomeViewModel: APieBaseViewModel() {
     fun updateListScrolling(isScrolling: Boolean) {
         if (_listScrolling.value == isScrolling) return
         _listScrolling.value = isScrolling
+    }
+
+    fun updateOrInsertPlanSuccess(resp: PlanModel) {
+        val currentList = _currentPlanList.value ?: mutableListOf()
+
+        val indexToUpdate = currentList.indexOfFirst { it.planId == resp.planId }
+
+        if (indexToUpdate != -1) {
+            // 更新现有数据
+            currentList[indexToUpdate] = resp
+        } else {
+            // 插入新数据
+            currentList.add(0, resp) // 可按需求改变插入位置，比如插入到列表顶部
+        }
+
+        _currentPlanList.value = currentList
+    }
+
+
+    fun updateOrInsertPlanFailed(error: String) {
+
     }
 
 }

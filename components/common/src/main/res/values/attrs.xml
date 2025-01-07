@@ -91,5 +91,13 @@
         <attr name="scrollEnable" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="APieCircularProgressView">
+        <attr name="progressColor" format="color" />
+        <attr name="paintBackgroundColor" format="color" />
+        <attr name="paintProgressColor" format="color" />
+        <attr name="paintCheckMarkColor" format="color" />
+        <attr name="strokeWidth" format="dimension" />
+        <attr name="animDuration" format="integer" />
+    </declare-styleable>
 
 </resources>

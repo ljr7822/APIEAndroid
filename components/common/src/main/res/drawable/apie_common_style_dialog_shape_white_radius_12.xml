@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="@color/apieTheme_colorGray25"/>
-    <corners android:radius="@dimen/apie_theme_dimension_5" />
-</shape>  
+
+    <corners android:radius="@dimen/apie_theme_dimension_12" />
+
+    <solid android:color="@color/apieTheme_colorWhite" />
+
+</shape>

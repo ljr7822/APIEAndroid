@@ -34,6 +34,11 @@ interface IIndexHomeRepo {
     suspend fun loadPlanGroup()
 
     /**
+     * 更新计划完成次数
+     */
+    suspend fun updatePlanCompletedCount(optType: Int, planId: String)
+
+    /**
      * 在生命周期结束时清理订阅
      */
     fun onCleared()

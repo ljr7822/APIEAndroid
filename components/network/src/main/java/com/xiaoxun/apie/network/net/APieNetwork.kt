@@ -22,6 +22,10 @@ object APieNetwork {
                 if (token.isNotEmpty()) {
                     builder.addHeader("token", token)
                 }
+                val userId = AccountManager.getUserId()
+                if (userId.isNotEmpty()) {
+                    builder.addHeader("userId", userId)
+                }
                 builder.addHeader("Content-Type", "application/json")
                 chain.proceed(builder.build())
             })

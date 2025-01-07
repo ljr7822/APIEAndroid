@@ -49,3 +49,11 @@ enum class PlanStatus(val status: Int) {
     DOING(2),      // 进行中
     GIVE_UP(3)     // 已放弃
 }
+
+/**
+ * 计划完成次数跟新类型
+ */
+enum class CompletedCountOptType(val type: Int) {
+    INCREMENT(1), // 增加
+    DECREMENT(0)  // 减少
+}

@@ -5,6 +5,7 @@ import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlan
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlanGroups
 import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlans
+import com.xiaoxun.apie.apie_data_loader.request.plan.UpdatePlanCompletedCount
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.account.AccountManager
 import com.xiaoxun.apie.common.utils.coroutine.singleSuspendCoroutine
@@ -99,6 +100,21 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel) : IIndexHomeRepo 
         )
     }
 
+    override suspend fun updatePlanCompletedCount(optType: Int, planId: String) {
+        innerUpdatePlanCompletedCount(optType, planId).fold(
+            onSuccess = {
+                it.data?.let { resp ->
+                    viewModel.updateOrInsertPlanSuccess(resp)
+                } ?: let {
+                    viewModel.updateOrInsertPlanFailed("data is null.")
+                }
+            },
+            onFailure = {
+                viewModel.updateOrInsertPlanFailed(it.localizedMessage ?: "request error.")
+            }
+        )
+    }
+
     /**
      * 在生命周期结束时清理订阅
      */
@@ -140,6 +156,15 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel) : IIndexHomeRepo 
         return executeResult {
             DataLoaderManager.instance.createPlan(
                 CreatePlan(createPlanRequestBody),
+                CacheStrategy.FORCE_NET
+            )
+        }
+    }
+
+    private suspend fun innerUpdatePlanCompletedCount(optType: Int, planId: String): Result<BaseResponse<PlanModel>> {
+        return executeResult {
+            DataLoaderManager.instance.updatePlanCompletedCount(
+                UpdatePlanCompletedCount(optType, planId),
                 CacheStrategy.FORCE_NET
             )
         }
