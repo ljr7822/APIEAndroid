@@ -20,6 +20,8 @@ class APiePlanGroupAdapter(
 
     private var selectedPosition: Int = -1 // 记录当前选中的位置
 
+    fun getItems(): List<PlanGroupModel> = items
+
     @MainThread
     fun replayData(newData: List<PlanGroupModel>) {
         items.clear()
@@ -63,5 +65,12 @@ class APiePlanGroupAdapter(
         selectedPosition = position
         notifyItemChanged(previousSelectedPosition) // 更新之前选中的项
         notifyItemChanged(selectedPosition)        // 更新当前选中的项
+    }
+
+    fun updateSelectedByGroupId(groupId: String) {
+        val position = items.indexOfFirst { it.groupId == groupId }
+        if (position != -1) {
+            updateSelectedPosition(position)
+        }
     }
 }

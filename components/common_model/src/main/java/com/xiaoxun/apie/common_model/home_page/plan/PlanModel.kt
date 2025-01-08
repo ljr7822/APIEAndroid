@@ -70,10 +70,10 @@ data class PlanModel(
     val updateat: String = "",
     // 计划开始时间
     @SerializedName("planStartTime")
-    val planStartTime: String = "",
+    val planStartTime: Long = 0,
     // 计划截止时间
     @SerializedName("planStopTime")
-    val planStopTime: String = "",
+    val planStopTime: Long = 0,
     // 计划进行状态
     @SerializedName("planStatus")
     val planStatus: Int = 0,

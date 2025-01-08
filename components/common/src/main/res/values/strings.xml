@@ -45,6 +45,11 @@
     <string name="apie_top_filter_type_year_plan_title">每年计划</string>
 
     <string name="apie_create_plan_title">创建计划</string>
+    <string name="apie_create_plan_reedit_title">编辑计划</string>
+    <string name="apie_create_plan_submit_btn_tip">确认创建</string>
+    <string name="apie_create_plan_cancel_btn_tip">取消创建</string>
+    <string name="apie_create_plan_reedit_submit_btn_tip">保存修改</string>
+    <string name="apie_create_plan_reedit_cancel_btn_tip">放弃修改</string>
     <string name="apie_create_plan_name_hint">在这里填写计划名称（限20字数）</string>
     <string name="apie_create_plan_frequency_tip">计划频次:</string>
     <string name="apie_create_plan_frequency_one_tip">完成</string>
@@ -53,6 +58,7 @@
     <string name="apie_create_plan_add_new_group_tip">创建分组</string>
     <string name="apie_create_plan_load_group_error_msg">加载失败，请重试</string>
     <string name="apie_create_plan_award_tip">设定一个奖励:</string>
+    <string name="apie_create_plan_validity_time_tip">计划周期:</string>
     <string name="apie_create_plan_deduct_desc_tip">选填，默认未完成任务不扣除派币</string>
 
     <string name="apie_plan_item_reset_count_tip">撤销打卡将会回收获得的金币，是否要撤销一条打卡记录？</string>

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.enums.PopupPosition
+import com.xiaoxun.apie.home_page.bean.PlanModeInfo
 import com.xiaoxun.apie.common.base.fragment.APieBaseBindingFragment
 import com.xiaoxun.apie.common.ui.APieStyleExitTip
 import com.xiaoxun.apie.common.utils.APieVibrateTool
@@ -17,6 +18,7 @@ import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.toast.APieToast
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
 import com.xiaoxun.apie.home_page.adapter.APiePlanAdapter
+import com.xiaoxun.apie.home_page.bean.planModel2PlanModeInfo
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexHomeFragmentBinding
 import com.xiaoxun.apie.home_page.repo.IIndexHomeRepo
 import com.xiaoxun.apie.home_page.repo.IndexHomeRepo
@@ -146,7 +148,12 @@ class APieIndexHomeFragment :
 
             override fun onItemEditClick(position: Int, planModel: PlanModel) {
                 APieVibrateTool.device(50)
-                APieToast.showDialog("编辑了第$position 个item")
+                APieCreateFragment(
+                    repo = repo,
+                    viewModel = viewModel,
+                    planModelInfo = planModel.planModel2PlanModeInfo()
+                ).show(parentFragmentManager, "create_plan")
+                adapter.hidePlanMenuLayer()
             }
 
             override fun onItemDoneClick(position: Int, planModel: PlanModel) {

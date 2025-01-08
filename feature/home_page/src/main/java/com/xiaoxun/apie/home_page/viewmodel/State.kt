@@ -57,3 +57,11 @@ enum class CompletedCountOptType(val type: Int) {
     INCREMENT(1), // 增加
     DECREMENT(0)  // 减少
 }
+
+/**
+ * 时间区间选择类型-标题
+ */
+enum class TimeRangeType(val type: Int, val desc: String) {
+    START_TIME(0, "选择开始时间"),
+    STOP_TIME(1, "选择结束时间")
+}

@@ -53,7 +53,6 @@ class APieIndexActivity :
     override fun initializeView() {
         super.initializeView()
         binding.createBtn.setDebouncingClickListener {
-//            ARouter.getInstance().build(HOME_CREATE_PLAN_ACTIVITY_PATH).navigation()
             APieCreateFragment(repo, viewModel).show(supportFragmentManager, "create_plan")
         }
     }

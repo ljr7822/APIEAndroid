@@ -1,3 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="apie_create_plan_submit_btn_tip">确认创建</string>
 </resources>

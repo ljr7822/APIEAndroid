@@ -4,8 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import com.xiaoxun.apie.common.base.viewmodel.APieBaseViewModel
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
-class IndexHomeViewModel: APieBaseViewModel() {
+class IndexHomeViewModel : APieBaseViewModel() {
 
     // 列表滚动状态
     private var _listScrolling = MutableLiveData<Boolean>()
@@ -50,6 +53,14 @@ class IndexHomeViewModel: APieBaseViewModel() {
     // 创建事选中的计划频率
     private var _selectPlanFrequency = MutableLiveData<PlanListType>()
     val selectPlanFrequency get() = _selectPlanFrequency
+
+    // 创建选中的计划分组
+    private var _selectPlanGroup = MutableLiveData<String>()
+    val selectPlanGroup get() = _selectPlanGroup
+
+    // 记录选择的时间区间
+    private var _selectTimeRange = MutableLiveData<HashMap<TimeRangeType, Pair<Long, String>>>()
+    val selectTimeRange get() = _selectTimeRange
 
     init {
         _filterPlanType.value = PlanListType.ALL_PLAN
@@ -113,6 +124,10 @@ class IndexHomeViewModel: APieBaseViewModel() {
         _selectPlanFrequency.value = planListType
     }
 
+    fun updateSelectPlanGroup(planGroupId: String) {
+        _selectPlanGroup.value = planGroupId
+    }
+
     fun updateListScrolling(isScrolling: Boolean) {
         if (_listScrolling.value == isScrolling) return
         _listScrolling.value = isScrolling
@@ -162,6 +177,26 @@ class IndexHomeViewModel: APieBaseViewModel() {
 
     fun updatePlanFailed(error: String) {
 
+    }
+
+    fun getSelectPlanFrequency(): PlanListType {
+        return _selectPlanFrequency.value ?: PlanListType.INIT_TYPE
+    }
+
+    fun updateSelectTimeRange(timeRangeType: TimeRangeType, timeRange: Pair<Long, String>) {
+        val timeRangeMap = _selectTimeRange.value ?: hashMapOf()
+        timeRangeMap[timeRangeType] = timeRange
+        _selectTimeRange.value = timeRangeMap
+    }
+
+    fun getSelectStopTime(): Long? {
+        val timeRangeMap = _selectTimeRange.value ?: hashMapOf()
+        return timeRangeMap[TimeRangeType.STOP_TIME]?.first
+    }
+
+    fun getSelectStartTime(): Long? {
+        val timeRangeMap = _selectTimeRange.value ?: hashMapOf()
+        return timeRangeMap[TimeRangeType.START_TIME]?.first
     }
 
 }

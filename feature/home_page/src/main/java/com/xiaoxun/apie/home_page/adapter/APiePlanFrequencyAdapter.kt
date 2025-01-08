@@ -21,6 +21,8 @@ class APiePlanFrequencyAdapter(
 
     private var selectedPosition: Int = -1 // 记录当前选中的位置
 
+    fun getItems(): List<PlanListType> = items
+
     @MainThread
     fun replayData(newData: List<PlanListType>) {
         items.clear()
@@ -106,4 +108,12 @@ class APiePlanFrequencyAdapter(
         notifyItemChanged(previousSelectedPosition) // 更新之前选中的项
         notifyItemChanged(selectedPosition)        // 更新当前选中的项
     }
+
+    fun updateSelectedByPlanListType(planType: PlanListType) {
+        val position = items.indexOfFirst { it == planType }
+        if (position != -1) {
+            updateSelectedPosition(position)
+        }
+    }
+
 }

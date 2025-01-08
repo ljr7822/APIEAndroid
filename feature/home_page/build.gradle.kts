@@ -49,6 +49,7 @@ dependencies {
     implementation(project(":components:common_model"))
     implementation(project(":components:data_loader"))
     implementation(project(":feature_base:apie_data_loader"))
+    implementation(libs.github.datetimepicker)
     implementation(libs.codelocator.core)
     implementation(libs.github.xpopup)
     implementation(libs.alibaba.arouter.api)
