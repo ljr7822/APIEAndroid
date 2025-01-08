@@ -4,9 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import com.xiaoxun.apie.common.base.viewmodel.APieBaseViewModel
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class IndexHomeViewModel : APieBaseViewModel() {
 
@@ -55,8 +52,8 @@ class IndexHomeViewModel : APieBaseViewModel() {
     val createPlanState get() = _createPlanState
 
     // 创建事选中的计划频率
-    private var _selectPlanFrequency = MutableLiveData<PlanListType>()
-    val selectPlanFrequency get() = _selectPlanFrequency
+    private var _selectPlanType = MutableLiveData<PlanListType>()
+    val selectPlanType get() = _selectPlanType
 
     // 创建选中的计划分组
     private var _selectPlanGroup = MutableLiveData<String>()
@@ -69,7 +66,7 @@ class IndexHomeViewModel : APieBaseViewModel() {
     init {
         _filterPlanType.value = PlanListType.ALL_PLAN
         _createPlanState.value = CreatePlanState.INIT_STATUS
-        _selectPlanFrequency.value = PlanListType.INIT_TYPE
+        _selectPlanType.value = PlanListType.INIT_TYPE
     }
 
     fun loadPlanListStart() {
@@ -138,7 +135,7 @@ class IndexHomeViewModel : APieBaseViewModel() {
     }
 
     fun updateSelectPlanFrequency(planListType: PlanListType) {
-        _selectPlanFrequency.value = planListType
+        _selectPlanType.value = planListType
     }
 
     fun updateSelectPlanGroup(planGroupId: String) {
@@ -203,7 +200,7 @@ class IndexHomeViewModel : APieBaseViewModel() {
     }
 
     fun getSelectPlanFrequency(): PlanListType {
-        return _selectPlanFrequency.value ?: PlanListType.INIT_TYPE
+        return _selectPlanType.value ?: PlanListType.INIT_TYPE
     }
 
     fun updateSelectTimeRange(timeRangeType: TimeRangeType, timeRange: Pair<Long, String>) {
@@ -222,4 +219,7 @@ class IndexHomeViewModel : APieBaseViewModel() {
         return timeRangeMap[TimeRangeType.START_TIME]?.first
     }
 
+    fun selectPlanTypeIsInit(): Boolean {
+        return _selectPlanType.value == PlanListType.INIT_TYPE
+    }
 }

@@ -65,5 +65,5 @@
     <string name="apie_plan_item_delete_tip">计划删除后，获得的金币也会删除，是否要删除这个计划？</string>
 
     <string name="apie_create_plan_group_title">创建分组</string>
-    <string name="apie_create_plan_group_name_hint">填写分组名称（限6字数）</string>
+    <string name="apie_create_plan_group_name_hint">填写分组名称（限5字数）</string>
 </resources>

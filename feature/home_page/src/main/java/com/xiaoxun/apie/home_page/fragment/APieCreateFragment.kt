@@ -9,6 +9,7 @@ import com.loper7.date_time_picker.dialog.CardWeekPickerDialog
 import com.loper7.date_time_picker.number_picker.NumberPicker
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanRequestBody
 import com.xiaoxun.apie.common.base.fragment.APieBaseBottomSheetDialogFragment
+import com.xiaoxun.apie.common.ui.setEditTextMaxInput
 import com.xiaoxun.apie.home_page.bean.PlanModeInfo
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.StringUtils
@@ -80,6 +81,7 @@ class APieCreateFragment(
         initFrequencyRecyclerView()
         initGroupRecyclerView()
         initBottomView()
+        binding.nameEdit.setEditTextMaxInput(20)
         binding.createGroupLayout.setDebouncingClickListener {
             val dialog = APieCreateGroupDialog(
                 titleRes = com.xiaoxun.apie.common.R.string.apie_create_plan_group_title,
@@ -95,7 +97,9 @@ class APieCreateFragment(
         }
         binding.cancelLayout.setDebouncingClickListener { dismiss() }
         binding.submitLayout.setDebouncingClickListener {
-            createOrReeditPlan()
+            if (needIntercept().not()) {
+                createOrReeditPlan()
+            }
         }
         binding.startTime.setDebouncingClickListener {
             showSelectDayView(
@@ -151,6 +155,7 @@ class APieCreateFragment(
 
     private fun initGroupRecyclerView() {
         groupAdapter = APieGroupAdapter { pos, item ->
+            viewModel.updateSelectPlanGroup(item.groupId)
             selectedGroup = item
         }
 
@@ -186,8 +191,8 @@ class APieCreateFragment(
         }
         // 创建计划状态
         viewModel.createPlanState.observe(viewLifecycleOwner) { handleCreatePlanState(it) }
-        // 计划频率选择状态
-        viewModel.selectPlanFrequency.observe(viewLifecycleOwner) { handleFrequencyChange(it) }
+        // 计划类型选择状态
+        viewModel.selectPlanType.observe(viewLifecycleOwner) { handleFrequencyChange(it) }
         // 计划分组选择状态
         viewModel.selectPlanGroup.observe(viewLifecycleOwner) { handlePlanGroupChange(it) }
         // 更新时间区间
@@ -380,6 +385,57 @@ class APieCreateFragment(
     private fun getCurrentTimeStr(): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return sdf.format(Date())
+    }
+
+    /**
+     * 检查是否可以提交
+     */
+    private fun needIntercept(): Boolean {
+        val name = binding.nameEdit.text.toString()
+        if (name.isEmpty()) {
+            APieToast.showDialog("计划名称不能为空")
+            return true
+        }
+        if (viewModel.selectPlanTypeIsInit()) {
+            APieToast.showDialog("请选择计划类型")
+            return true
+        }
+
+        viewModel.selectPlanGroup.value ?: run {
+            APieToast.showDialog("请选择计划分组")
+            return true
+        }
+
+//        val frequency = binding.frequencyCountEdit.text.toString()
+//        if (frequency.isEmpty() && viewModel.selectPlanType.value == PlanListType.CUSTOM_PLAN) {
+//            APieToast.showDialog("计划频率不能为空")
+//            return false
+//        }
+        val award = binding.awardCountEdit.text.toString()
+        if (award.isEmpty()) {
+            APieToast.showDialog("奖励派币数量不能为空")
+            return true
+        }
+//        val deduct = binding.deductCountEdit.text.toString()
+//        if (deduct.isEmpty()) {
+//            APieToast.showDialog("扣除派币数量不能为空")
+//            return false
+//        }
+
+        viewModel.selectTimeRange.value?.let {
+            if ((it[TimeRangeType.START_TIME]?.first ?: 0) <= 0) {
+                APieToast.showDialog("请选择开始时间")
+                return true
+            }
+            if ((it[TimeRangeType.STOP_TIME]?.first ?: 0) <= 0) {
+                APieToast.showDialog("请选择结束时间")
+                return true
+            }
+        } ?: run {
+            APieToast.showDialog("请选择时间范围")
+            return true
+        }
+        return false
     }
 
     override fun onDestroy() {
