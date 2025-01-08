@@ -21,6 +21,7 @@
             <option value="$PROJECT_DIR$/feature_base" />
             <option value="$PROJECT_DIR$/feature_base/apie_data_loader" />
             <option value="$PROJECT_DIR$/feature_base/apie_network" />
+            <option value="$PROJECT_DIR$/feature_base/gold_manage" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

@@ -33,3 +33,4 @@ include(":feature_base:apie_network")
 
 include(":feature:home_page")
 include(":feature:account")
+include(":feature_base:gold_manage")

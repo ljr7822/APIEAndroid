@@ -17,6 +17,7 @@ import com.xiaoxun.apie.home_page.widget.APieFilterPartShadowPopupView
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.toast.APieToast
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
+import com.xiaoxun.apie.gold_manage.service.GoldService
 import com.xiaoxun.apie.home_page.adapter.plan.APiePlanAdapter
 import com.xiaoxun.apie.home_page.bean.planModel2PlanModeInfo
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexHomeFragmentBinding
@@ -43,6 +44,8 @@ class APieIndexHomeFragment :
         APieFilterPartShadowPopupView(context = hostActivity, gravity = Gravity.END)
     }
 
+    private val goldService: GoldService by lazy { GoldService() }
+
     private val repo: IIndexHomeRepo by lazy { IndexHomeRepo(viewModel) }
 
     private val adapter: APiePlanAdapter by lazy { APiePlanAdapter() }
@@ -51,18 +54,28 @@ class APieIndexHomeFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initGoldManager()
         initRecyclerView()
         initData()
         initObserver()
     }
 
+    private fun initGoldManager() {
+        goldService.initializeGoldManager()
+        goldService.goldLiveData.observe(viewLifecycleOwner) {
+            binding.expandView.setGoldValue(it.toString())
+        }
+    }
+
     override fun initTopBarView() {
         super.initTopBarView()
         binding.topBar.leftIconView.setDebouncingClickListener {
-            showLeftDrawerPopupView()
+            //showLeftDrawerPopupView()
+            goldService.increaseGold(50) // 完成计划增加50金币
         }
         binding.topBar.rightIconView.setDebouncingClickListener {
-            showTopFilterView()
+            //showTopFilterView()
+            goldService.reduceGold(20) // 失败计划扣除20金币
         }
     }
 
