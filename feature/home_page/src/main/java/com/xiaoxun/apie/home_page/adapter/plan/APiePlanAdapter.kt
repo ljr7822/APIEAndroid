@@ -1,7 +1,6 @@
-package com.xiaoxun.apie.home_page.adapter
+package com.xiaoxun.apie.home_page.adapter.plan
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +11,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.xiaoxun.apie.common.ui.APieCircularProgressView
 import com.xiaoxun.apie.common.ui.GlideCircleImageView
-import com.xiaoxun.apie.common.utils.alphaHide
-import com.xiaoxun.apie.common.utils.alphaShow
 import com.xiaoxun.apie.common.utils.hide
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.show
-import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
 import com.xiaoxun.apie.home_page.R
 import com.xiaoxun.apie.home_page.viewmodel.PlanListType
@@ -141,14 +137,14 @@ class APiePlanAdapter : RecyclerView.Adapter<APiePlanAdapter.ViewHolder>() {
             holder.planScheduleTip.hide()
             holder.planDoneIcon.show()
             holder.maskingLayer.show()
-            holder.rightDoingIcon.hide()
+            //holder.rightDoingIcon.hide()
         } else {
             holder.planScheduleProgress.show()
             holder.planScheduleTip.show()
             holder.planDoneIcon.hide()
             holder.planScheduleTip.text = "${item.planCompletedCount}/${item.planFrequency}"
             holder.maskingLayer.hide()
-            holder.rightDoingIcon.show()
+            //holder.rightDoingIcon.show()
         }
     }
 
@@ -192,14 +188,16 @@ class APiePlanAdapter : RecyclerView.Adapter<APiePlanAdapter.ViewHolder>() {
         }
         // 蒙层长按
         holder.maskingLayer.setOnLongClickListener {
-            showPlanMenuLayer(position)
-            itemClickListener?.onItemLongClick(position, item)
+            val realPosition = holder.adapterPosition
+            showPlanMenuLayer(realPosition)
+            itemClickListener?.onItemLongClick(realPosition, item)
             true
         }
         // item长按
         holder.itemView.setOnLongClickListener {
-            showPlanMenuLayer(position)
-            itemClickListener?.onItemLongClick(position, item)
+            val realPosition = holder.adapterPosition
+            showPlanMenuLayer(realPosition)
+            itemClickListener?.onItemLongClick(realPosition, item)
             true
         }
         holder.planDoneClickIcon.setDebouncingClickListener {

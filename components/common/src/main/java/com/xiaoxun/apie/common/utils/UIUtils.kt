@@ -41,8 +41,7 @@ object UIUtils {
     }
 
     /**
-     * 获取屏幕宽度
-     * 真实屏幕宽度
+     * 获取屏幕高度
      * @param context
      * @return
      */
@@ -54,6 +53,22 @@ object UIUtils {
             val point = Point()
             windowManager.defaultDisplay.getSize(point)
             return point.y
+        }
+    }
+
+    /**
+     * 获取屏幕宽度
+     * @param context
+     * @return
+     */
+    fun getScreenRealWidth(context: Context): Int {
+        val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return windowManager.currentWindowMetrics.bounds.width()
+        } else {
+            val point = Point()
+            windowManager.defaultDisplay.getSize(point)
+            return point.x
         }
     }
 }

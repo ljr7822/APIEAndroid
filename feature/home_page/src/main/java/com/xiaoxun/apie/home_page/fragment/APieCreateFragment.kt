@@ -1,31 +1,25 @@
 package com.xiaoxun.apie.home_page.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import com.loper7.date_time_picker.dialog.CardWeekPickerDialog
 import com.loper7.date_time_picker.number_picker.NumberPicker
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanRequestBody
+import com.xiaoxun.apie.common.base.fragment.APieBaseBottomSheetDialogFragment
 import com.xiaoxun.apie.home_page.bean.PlanModeInfo
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.StringUtils
 import com.xiaoxun.apie.common.utils.ThreadUtil
-import com.xiaoxun.apie.common.utils.UIUtils
 import com.xiaoxun.apie.common.utils.account.AccountManager
-import com.xiaoxun.apie.common.utils.dp
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.toFormatList
 import com.xiaoxun.apie.common.utils.toast.APieToast
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
-import com.xiaoxun.apie.home_page.R
 import com.xiaoxun.apie.home_page.adapter.APiePlanFrequencyAdapter
-import com.xiaoxun.apie.home_page.adapter.APiePlanGroupAdapter
+import com.xiaoxun.apie.home_page.adapter.group.APieGroupAdapter
 import com.xiaoxun.apie.home_page.adapter.SpaceItemDecoration
 import com.xiaoxun.apie.home_page.databinding.LayoutApieCreatePlanFragmentBinding
 import com.xiaoxun.apie.home_page.repo.IIndexHomeRepo
@@ -43,55 +37,24 @@ class APieCreateFragment(
     private val repo: IIndexHomeRepo,
     private val viewModel: IndexHomeViewModel,
     private val planModelInfo: PlanModeInfo? = null
-) : BottomSheetDialogFragment() {
-
-    private var _binding: LayoutApieCreatePlanFragmentBinding? = null
-    private val binding get() = _binding!!
+) : APieBaseBottomSheetDialogFragment<LayoutApieCreatePlanFragmentBinding>(
+    LayoutApieCreatePlanFragmentBinding::inflate
+) {
 
     private lateinit var frequencyAdapter: APiePlanFrequencyAdapter
-    private lateinit var groupAdapter: APiePlanGroupAdapter
+    private lateinit var groupAdapter: APieGroupAdapter
 
     private val isReedit: Boolean by lazy { planModelInfo != null }
 
     private var selectedFrequency: PlanListType? = null
     private var selectedGroup: PlanGroupModel? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        isCancelable = false
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = LayoutApieCreatePlanFragmentBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initDialogStyle()
         initData()
         initObserver()
         initView()
         initReeditData()
-    }
-
-    private fun initDialogStyle() {
-        dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)?.apply {
-            setBackgroundResource(com.xiaoxun.apie.common.R.drawable.apie_create_plan_fragment_bg)
-            val behavior = BottomSheetBehavior.from(this)
-            val screenHeight = UIUtils.getScreenRealHeight(requireContext())
-            behavior.peekHeight = screenHeight - 100.dp
-            layoutParams.height = screenHeight - 100.dp
-            behavior.isHideable = false
-            behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {}
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-            })
-        }
     }
 
     private fun initReeditData() {
@@ -117,6 +80,19 @@ class APieCreateFragment(
         initFrequencyRecyclerView()
         initGroupRecyclerView()
         initBottomView()
+        binding.createGroupLayout.setDebouncingClickListener {
+            val dialog = APieCreateGroupDialog(
+                titleRes = com.xiaoxun.apie.common.R.string.apie_create_plan_group_title,
+                context = requireContext(),
+                onConfirm = { name ->
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        repo.createPlanGroup(name)
+                    }
+                },
+                onCancel = {}
+            )
+            dialog.show()
+        }
         binding.cancelLayout.setDebouncingClickListener { dismiss() }
         binding.submitLayout.setDebouncingClickListener {
             createOrReeditPlan()
@@ -174,7 +150,7 @@ class APieCreateFragment(
     }
 
     private fun initGroupRecyclerView() {
-        groupAdapter = APiePlanGroupAdapter { pos, item ->
+        groupAdapter = APieGroupAdapter { pos, item ->
             selectedGroup = item
         }
 
@@ -187,7 +163,7 @@ class APieCreateFragment(
 
     private fun initData() {
         viewLifecycleOwner.lifecycleScope.launch {
-            repo.loadPlanGroup()
+            repo.loadPlanGroupList()
         }
         viewModel.updateSelectTimeRange(
             TimeRangeType.START_TIME,
@@ -199,7 +175,15 @@ class APieCreateFragment(
         // 分组列表加载状态
         viewModel.loadPlanGroupListState.observe(viewLifecycleOwner) { handleGroupLoadState(it) }
         // 计划分组列表
-        viewModel.planGroupList.observe(viewLifecycleOwner) { groupAdapter.replayData(it) }
+        viewModel.planGroupList.observe(viewLifecycleOwner) { newList ->
+            // 更新数据
+            val oldList = groupAdapter.getItems()
+            if (oldList.isNotEmpty() && (newList.size > oldList.size)) {
+                // 滚动到前面
+                binding.planGroupRv.scrollToPosition(0)
+            }
+            groupAdapter.updateData(newList)
+        }
         // 创建计划状态
         viewModel.createPlanState.observe(viewLifecycleOwner) { handleCreatePlanState(it) }
         // 计划频率选择状态
@@ -297,10 +281,6 @@ class APieCreateFragment(
             binding.planGroupRv.scrollToPosition(index)
         }, 400)
 
-    }
-
-    override fun getTheme(): Int {
-        return com.xiaoxun.apie.common.R.style.APieBottomSheetAnimation
     }
 
     private fun createOrReeditPlan() {

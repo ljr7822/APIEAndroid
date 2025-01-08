@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.home_page.adapter
+package com.xiaoxun.apie.home_page.adapter.group
 
 import android.annotation.SuppressLint
 import android.graphics.Typeface
@@ -7,20 +7,32 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.MainThread
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
+import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
 import com.xiaoxun.apie.home_page.R
-import com.xiaoxun.apie.home_page.viewmodel.PlanListType
+import com.xiaoxun.apie.home_page.adapter.plan.APiePlanDiffCallback
 
-class APiePlanGroupAdapter(
+class APieGroupAdapter(
     private val items: MutableList<PlanGroupModel> = mutableListOf(),
     val itemClick: (Int, PlanGroupModel) -> Unit = { _, _ -> } // 返回选中项的 position 和对应的数据项
-) : RecyclerView.Adapter<APiePlanGroupAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<APieGroupAdapter.ViewHolder>() {
 
     private var selectedPosition: Int = -1 // 记录当前选中的位置
 
     fun getItems(): List<PlanGroupModel> = items
+
+    // 更新数据的方法
+    fun updateData(newList: List<PlanGroupModel>) {
+        // 获取之前选中的数据项
+        val diffCallback = APieGroupDiffCallback(items, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        items.clear()
+        items.addAll(newList)
+        diffResult.dispatchUpdatesTo(this)
+    }
 
     @MainThread
     fun replayData(newData: List<PlanGroupModel>) {
@@ -41,8 +53,7 @@ class APiePlanGroupAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    @SuppressLint("ResourceAsColor")
-    override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.planFrequencyName.text = item.groupName
         if (position == selectedPosition) {
@@ -55,8 +66,9 @@ class APiePlanGroupAdapter(
             holder.planFrequencyName.setTypeface(null, Typeface.NORMAL)
         }
         holder.planFrequencyName.setDebouncingClickListener {
-            updateSelectedPosition(position)
-            itemClick(position, item)
+            val realPosition = holder.adapterPosition
+            updateSelectedPosition(realPosition)
+            itemClick(realPosition, item)
         }
     }
 

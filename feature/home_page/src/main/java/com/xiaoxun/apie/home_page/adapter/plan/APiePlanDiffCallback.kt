@@ -1,6 +1,5 @@
-package com.xiaoxun.apie.home_page.adapter
+package com.xiaoxun.apie.home_page.adapter.plan
 
-import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
 

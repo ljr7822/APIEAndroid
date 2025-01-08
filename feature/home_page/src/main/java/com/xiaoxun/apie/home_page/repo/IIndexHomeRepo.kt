@@ -31,7 +31,12 @@ interface IIndexHomeRepo {
     /**
      * 获取用户分组信息
      */
-    suspend fun loadPlanGroup()
+    suspend fun loadPlanGroupList()
+
+    /**
+     * 创建一个新分组
+     */
+    suspend fun createPlanGroup(groupName: String)
 
     /**
      * 更新计划完成次数

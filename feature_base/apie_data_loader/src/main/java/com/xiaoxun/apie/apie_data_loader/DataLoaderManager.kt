@@ -7,11 +7,14 @@ import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySm
 import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlans
 import com.xiaoxun.apie.apie_data_loader.request.account.sms.SendSmsCode
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlan
+import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanGroup
 import com.xiaoxun.apie.apie_data_loader.request.plan.DeletePlan
 import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlanGroups
 import com.xiaoxun.apie.apie_data_loader.request.plan.UpdatePlanCompletedCount
 import com.xiaoxun.apie.common_model.account.AccountModel
+import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupRespModel
+import com.xiaoxun.apie.common_model.home_page.plan.DeletePlanRespModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanRespModel
 import com.xiaoxun.apie.common_model.sms.SmsCodeModel
@@ -80,6 +83,14 @@ class DataLoaderManager private constructor() {
     }
 
     /**
+     * 创建一个分组
+     */
+    fun createPlanGroup(createPlanGroup: CreatePlanGroup, cacheStrategy: CacheStrategy): Observable<BaseResponse<PlanGroupModel>> {
+        val loader = buildDataLoader<PlanGroupModel>(APieUrl.CREATE_GROUP.name)
+        return loader?.getData(createPlanGroup, cacheStrategy) ?: Observable.error(Exception("loader is null"))
+    }
+
+    /**
      * 获取用户的所有计划分组
      */
     fun getAllPlanGroupByUserId(loadPlanGroups: LoadPlanGroups, cacheStrategy: CacheStrategy): Observable<BaseResponse<PlanGroupRespModel>> {
@@ -106,8 +117,8 @@ class DataLoaderManager private constructor() {
     /**
      * 删除一个计划
      */
-    fun deletePlan(deletePlan: DeletePlan, cacheStrategy: CacheStrategy): Observable<BaseResponse<Int>> {
-        val loader = buildDataLoader<Int>(APieUrl.DELETE_PLAN.name)
+    fun deletePlan(deletePlan: DeletePlan, cacheStrategy: CacheStrategy): Observable<BaseResponse<DeletePlanRespModel>> {
+        val loader = buildDataLoader<DeletePlanRespModel>(APieUrl.DELETE_PLAN.name)
         return loader?.getData(deletePlan, cacheStrategy) ?: Observable.error(Exception("loader is null"))
     }
 }

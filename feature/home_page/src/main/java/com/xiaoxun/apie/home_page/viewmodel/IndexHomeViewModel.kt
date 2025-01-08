@@ -22,6 +22,10 @@ class IndexHomeViewModel : APieBaseViewModel() {
     private var _loadPlanGroupListState = MutableLiveData<LoadPlanGroupListState>()
     val loadPlanGroupListState get() = _loadPlanGroupListState
 
+    // 创建计划分状态
+    private var _createPlanGroupState = MutableLiveData<CreatePlanGroupState>()
+    val createPlanGroupState get() = _createPlanGroupState
+
     // 计划分组列表
     private var _planGroupList = MutableLiveData<MutableList<PlanGroupModel>>()
     val planGroupList get() = _planGroupList
@@ -111,6 +115,19 @@ class IndexHomeViewModel : APieBaseViewModel() {
         _loadPlanGroupListState.value = LoadPlanGroupListState.FAILED
     }
 
+    fun createPlanGroupStart() {
+        _createPlanGroupState.value = CreatePlanGroupState.START
+    }
+
+    fun createPlanGroupSuccess(groupModel: PlanGroupModel) {
+        _createPlanGroupState.value = CreatePlanGroupState.SUCCESS
+        insertGroup(groupModel)
+    }
+
+    fun createPlanGroupFailed(error: String) {
+        _createPlanGroupState.value = CreatePlanGroupState.FAILED
+    }
+
     fun createPlanSuccess(plan: PlanModel) {
         _createPlanState.value = CreatePlanState.SUCCESS
         updateOrInsertPlan(plan)
@@ -131,6 +148,12 @@ class IndexHomeViewModel : APieBaseViewModel() {
     fun updateListScrolling(isScrolling: Boolean) {
         if (_listScrolling.value == isScrolling) return
         _listScrolling.value = isScrolling
+    }
+
+    private fun insertGroup(groupModel: PlanGroupModel) {
+        val currentList = _planGroupList.value ?: mutableListOf()
+        currentList.add(0, groupModel)
+        _planGroupList.value = currentList
     }
 
     /**

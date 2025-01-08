@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.xiaoxun.apie.common.HOME_INDEX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.activity.APieBaseViewPagerActivity
 import com.xiaoxun.apie.common.config.APieConfig
+import com.xiaoxun.apie.common.utils.UIUtils
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.home_page.adapter.APieViewPagerAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexActivityBinding
@@ -65,18 +66,19 @@ class APieIndexActivity :
 
     private fun startFloatBtnAnim(isScrolling: Boolean) {
         // 滚动时向下隐藏，停止滚动时向上出现
-        val translationY = if (isScrolling) binding.createBtn.height.toFloat() + 250f else 0f
+        val translationX =
+            if (isScrolling) (UIUtils.getScreenRealWidth(this) / 2f) + (binding.createBtn.height.toFloat() / 3f) else 0f
         val rotation = if (isScrolling) 360f else 0f
-        val alpha = if (isScrolling) 0f else 1f // 透明度动画
-        // 停止滚动时延迟 1 秒再显示按钮
+        val alpha = if (isScrolling) 0.9f else 1f // 透明度动画
+        // 停止滚动时延迟 1.5 秒再显示按钮
         if (!isScrolling) {
             // 取消之前的任务（如果存在）
             coroutineJob?.cancel()
             // 启动新的协程任务
             coroutineJob = GlobalScope.launch(Dispatchers.Main) {
-                delay(1000L)
+                delay(1500L)
                 binding.createBtn.animate()
-                    .translationY(translationY)
+                    .translationX(translationX)
                     .rotation(rotation)
                     .alpha(alpha)
                     .setDuration(400L)
@@ -85,7 +87,7 @@ class APieIndexActivity :
             }
         } else {
             binding.createBtn.animate()
-                .translationY(translationY)
+                .translationX(translationX)
                 .rotation(rotation)
                 .alpha(alpha)
                 .setDuration(400L)

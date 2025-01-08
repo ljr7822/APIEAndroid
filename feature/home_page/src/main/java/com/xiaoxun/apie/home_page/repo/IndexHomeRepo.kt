@@ -2,6 +2,8 @@ package com.xiaoxun.apie.home_page.repo
 
 import com.xiaoxun.apie.apie_data_loader.DataLoaderManager
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlan
+import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanGroup
+import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanGroupRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.plan.DeletePlan
 import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlanGroups
@@ -10,7 +12,9 @@ import com.xiaoxun.apie.apie_data_loader.request.plan.UpdatePlanCompletedCount
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.account.AccountManager
 import com.xiaoxun.apie.common.utils.coroutine.singleSuspendCoroutine
+import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupRespModel
+import com.xiaoxun.apie.common_model.home_page.plan.DeletePlanRespModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanRespModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
@@ -85,7 +89,7 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel) : IIndexHomeRepo 
         )
     }
 
-    override suspend fun loadPlanGroup() {
+    override suspend fun loadPlanGroupList() {
         viewModel.loadPlanGroupListStart()
         innerLoadPlanGroupList().fold(
             onSuccess = {
@@ -97,6 +101,22 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel) : IIndexHomeRepo 
             },
             onFailure = {
                 viewModel.loadPlanGroupListFailed(it.localizedMessage ?: "request error.")
+            }
+        )
+    }
+
+    override suspend fun createPlanGroup(groupName: String) {
+        viewModel.createPlanGroupStart()
+        innerCreatePlanGroup(groupName).fold(
+            onSuccess = {
+                it.data?.let { resp ->
+                    viewModel.createPlanGroupSuccess(resp)
+                } ?: let {
+                    viewModel.createPlanGroupFailed("data is null.")
+                }
+            },
+            onFailure = {
+                viewModel.createPlanGroupFailed(it.localizedMessage ?: "request error.")
             }
         )
     }
@@ -120,7 +140,7 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel) : IIndexHomeRepo 
         innerDeletePlan(planId).fold(
             onSuccess = {
                 it.data?.let { resp ->
-                    viewModel.deletePlanSuccess(planId)
+                    viewModel.deletePlanSuccess(resp.planId)
                 } ?: let {
                     viewModel.deletePlanFailed("data is null.")
                 }
@@ -168,6 +188,17 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel) : IIndexHomeRepo 
         }
     }
 
+    private suspend fun innerCreatePlanGroup(groupName: String): Result<BaseResponse<PlanGroupModel>> {
+        return executeResult {
+            DataLoaderManager.instance.createPlanGroup(
+                CreatePlanGroup(CreatePlanGroupRequestBody(
+                    groupName = groupName,
+                    createUserId = AccountManager.getUserId())),
+                CacheStrategy.FORCE_NET
+            )
+        }
+    }
+
     private suspend fun innerCreatePlan(createPlanRequestBody: CreatePlanRequestBody): Result<BaseResponse<PlanModel>> {
         return executeResult {
             DataLoaderManager.instance.createPlan(
@@ -189,7 +220,7 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel) : IIndexHomeRepo 
         }
     }
 
-    private suspend fun innerDeletePlan(planId: String): Result<BaseResponse<Int>> {
+    private suspend fun innerDeletePlan(planId: String): Result<BaseResponse<DeletePlanRespModel>> {
         return executeResult {
             DataLoaderManager.instance.deletePlan(
                 DeletePlan(planId),

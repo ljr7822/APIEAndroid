@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.enums.PopupPosition
-import com.xiaoxun.apie.home_page.bean.PlanModeInfo
 import com.xiaoxun.apie.common.base.fragment.APieBaseBindingFragment
 import com.xiaoxun.apie.common.ui.APieStyleExitTip
 import com.xiaoxun.apie.common.utils.APieVibrateTool
@@ -17,7 +17,7 @@ import com.xiaoxun.apie.home_page.widget.APieFilterPartShadowPopupView
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.toast.APieToast
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
-import com.xiaoxun.apie.home_page.adapter.APiePlanAdapter
+import com.xiaoxun.apie.home_page.adapter.plan.APiePlanAdapter
 import com.xiaoxun.apie.home_page.bean.planModel2PlanModeInfo
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexHomeFragmentBinding
 import com.xiaoxun.apie.home_page.repo.IIndexHomeRepo
@@ -27,7 +27,6 @@ import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.PlanListType
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class APieIndexHomeFragment :
@@ -37,9 +36,7 @@ class APieIndexHomeFragment :
     }
 
     private val viewModel: IndexHomeViewModel by lazy {
-        ViewModelProvider(hostActivity, IndexHomeViewModelFactory()).get(
-            IndexHomeViewModel::class.java
-        )
+        ViewModelProvider(hostActivity, IndexHomeViewModelFactory())[IndexHomeViewModel::class.java]
     }
 
     private val topFilterView: APieFilterPartShadowPopupView by lazy {
@@ -70,7 +67,7 @@ class APieIndexHomeFragment :
     }
 
     private fun initData() {
-        GlobalScope.launch(Dispatchers.Main) {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             repo.loadPlanByType(PlanListType.ALL_PLAN)
         }
     }
@@ -98,14 +95,14 @@ class APieIndexHomeFragment :
 
         // 根据状态进行筛选
         viewModel.planStatus.observe(viewLifecycleOwner) {
-            GlobalScope.launch(Dispatchers.Main) {
+            viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
                 repo.loadPlanByStatus(it)
             }
         }
 
         // 根据类型进行筛选
         viewModel.filterPlanType.observe(viewLifecycleOwner) {
-            GlobalScope.launch(Dispatchers.Main) {
+            viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
                 repo.loadPlanByType(it)
             }
         }
@@ -140,7 +137,7 @@ class APieIndexHomeFragment :
                     key = APieStyleExitTip.APIE_DELETE_PLAN_KEY,
                     actionCallback = {
                         adapter.hidePlanMenuLayer()
-                        GlobalScope.launch(Dispatchers.Main) {
+                        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
                             repo.deletePlan(planModel.planId)
                         }
                     })
@@ -162,7 +159,7 @@ class APieIndexHomeFragment :
                     APieToast.showDialog("今日打卡已经完毕，明天再来吧～")
                     return
                 }
-                GlobalScope.launch(Dispatchers.Main) {
+                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
                     repo.updatePlanCompletedCount(
                         CompletedCountOptType.INCREMENT.type,
                         planModel.planId
@@ -186,7 +183,7 @@ class APieIndexHomeFragment :
                     key = APieStyleExitTip.APIE_RESECT_PLAN_COUNT_KEY,
                     actionCallback = {
                         adapter.hidePlanMenuLayer()
-                        GlobalScope.launch(Dispatchers.Main) {
+                        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
                             repo.updatePlanCompletedCount(
                                 CompletedCountOptType.DECREMENT.type,
                                 planModel.planId

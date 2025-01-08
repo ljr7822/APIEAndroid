@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="@dimen/apie_theme_dimension_20"
+        android:layout_marginBottom="@dimen/apie_theme_dimension_12"
         app:layout_constraintBottom_toBottomOf="@+id/vp_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

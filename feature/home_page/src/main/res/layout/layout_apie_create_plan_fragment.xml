@@ -83,7 +83,7 @@
 
                 <!-- 标题区域-->
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/planNameInputCard"
+                    android:id="@+id/groupNameInputCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/apie_theme_dimension_16"
@@ -142,7 +142,7 @@
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/planNameInputCard">
+                    app:layout_constraintTop_toBottomOf="@+id/groupNameInputCard">
 
                     <!-- 标题-->
                     <androidx.constraintlayout.widget.ConstraintLayout
