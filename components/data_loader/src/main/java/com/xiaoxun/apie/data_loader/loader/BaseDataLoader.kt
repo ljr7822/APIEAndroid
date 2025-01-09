@@ -97,7 +97,8 @@ abstract class BaseDataLoader<Data>: IDataLoader<Data>() {
                                     .apply { code = 0 } })
                     { t1, t2 -> t1.code == 1 || t2.code == 1 }.subscribe({
                         if (!it) {
-                            observer.onError(Exception("优先缓存，同时会发送一次请求 error"))
+                            observer.onError(
+                                APieDataLoaderException(message = "优先缓存，同时会发送一次请求 error"))
                         } else {
                             DataLoaderLogger.i("${params.url()}  优先缓存，同时会发送一次请求 success")
                         }

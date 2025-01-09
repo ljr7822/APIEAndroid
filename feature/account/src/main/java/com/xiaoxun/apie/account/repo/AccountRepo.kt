@@ -16,6 +16,8 @@ import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_GRADE_KE
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_NAME_KEY
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_PHONE_KEY
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_TOKEN_KEY
+import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_TOTAL_DESIRE_KEY
+import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_TOTAL_PLAN_KEY
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_USERID_KEY
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_USER_TYPE_KEY
 import com.xiaoxun.apie.common.utils.coroutine.singleSuspendCoroutine
@@ -119,7 +121,8 @@ class AccountRepo(
         SharedPreferencesHelper.putInt(SP_ACCOUNT_GOLD_COUNT_KEY, accountModel.goldCount ?: 0)
         SharedPreferencesHelper.putInt(SP_ACCOUNT_GRADE_KEY, accountModel.grade ?: 0)
         SharedPreferencesHelper.putInt(SP_ACCOUNT_USER_TYPE_KEY, accountModel.userType ?: 0)
-
+        SharedPreferencesHelper.putInt(SP_ACCOUNT_TOTAL_PLAN_KEY, accountModel.totalPlan ?: 0)
+        SharedPreferencesHelper.putInt(SP_ACCOUNT_TOTAL_DESIRE_KEY, accountModel.totalDesire ?: 0)
     }
 
     private suspend fun loginByPassword(

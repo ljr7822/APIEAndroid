@@ -686,7 +686,7 @@
                                 android:textSize="@dimen/apie_theme_text_12"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/textView"
+                                app:layout_constraintStart_toEndOf="@+id/leftViewDataTitle"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView

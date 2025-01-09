@@ -8,6 +8,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.lxj.xpopup.core.DrawerPopupView
 import com.xiaoxun.apie.common.HOME_SETTING_ACTIVITY_PATH
 import com.xiaoxun.apie.common.R
+import com.xiaoxun.apie.common.utils.SharedPreferencesHelper
 import com.xiaoxun.apie.common.utils.account.AccountManager
 
 class APieLeftDrawerPopupView @JvmOverloads constructor(
@@ -20,6 +21,10 @@ class APieLeftDrawerPopupView @JvmOverloads constructor(
     private val userName: TextView by lazy { findViewById(R.id.userName) }
     private val scanIcon: LinearLayout by lazy { findViewById(R.id.scanIcon) }
     private val settingIcon: LinearLayout by lazy { findViewById(R.id.settingIcon) }
+
+    private val totalPlanNum: TextView by lazy { findViewById(R.id.totalPlanNum) }
+    private val totalDesireNum: TextView by lazy { findViewById(R.id.totalDesireNum) }
+    private val totalGoldNum: TextView by lazy { findViewById(R.id.totalGoldNum) }
 
     override fun getImplLayoutId(): Int {
         return R.layout.apie_left_drawer_popup_view
@@ -40,6 +45,9 @@ class APieLeftDrawerPopupView @JvmOverloads constructor(
             ARouter.getInstance().build(HOME_SETTING_ACTIVITY_PATH).navigation()
             dismiss()
         }
+        totalPlanNum.text = SharedPreferencesHelper.getInt(SharedPreferencesHelper.SP_ACCOUNT_TOTAL_PLAN_KEY, 0).toString()
+        totalDesireNum.text = SharedPreferencesHelper.getInt(SharedPreferencesHelper.SP_ACCOUNT_TOTAL_DESIRE_KEY, 0).toString()
+        totalGoldNum.text = SharedPreferencesHelper.getInt(SharedPreferencesHelper.SP_ACCOUNT_GOLD_COUNT_KEY, 0).toString()
     }
 
     private fun getGreetingMessage(): String {
@@ -52,5 +60,4 @@ class APieLeftDrawerPopupView @JvmOverloads constructor(
             else -> "晚上好，" // 18:00-4:59
         }
     }
-
 }

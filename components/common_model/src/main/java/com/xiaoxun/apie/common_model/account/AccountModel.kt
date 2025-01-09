@@ -12,18 +12,20 @@ import kotlinx.parcelize.Parcelize
  *     "message": "ok",
  *     "data": {
  *         "userId": "99678322425856",
- *         "userName": "小寻测试1",
+ *         "userName": "☀️男孩",
  *         "userPortrait": "https://picasso-static.xiaohongshu.com/fe-platform/ad1ed1f24ebad49ce8ebf2f82acd63b8aaf00470.png",
  *         "phoneNum": "18289816889",
- *         "token": "ZGZhYTVhMTYtYTE1Ni00YTI4LThlM2ItZWEyMzM4MTVlNDI1",
- *         "desc": "小寻的测试账号",
+ *         "token": "MDgxOTM4NmMtYmU0MS00MTc2LThlOWEtYzMxMmVlMzg4OWFi",
+ *         "desc": "人生若只如初见， 何事秋风悲画扇",
  *         "sex": 0,
  *         "address": "中国-北京-朝阳区",
  *         "school": "清华大学",
  *         "birthday": "2025-01-01T02:45:36.000+00:00",
  *         "grade": 1000,
  *         "goldCount": 9999,
- *         "userType": 10
+ *         "userType": 10,
+ *         "totalPlan": null,
+ *         "totalDesire": null
  *     }
  * }
  */
@@ -54,4 +56,8 @@ data class AccountModel(
     val goldCount: Int? = null,
     @SerializedName("userType")
     val userType: Int? = null,
+    @SerializedName("totalPlan")
+    val totalPlan: Int? = null,
+    @SerializedName("totalDesire")
+    val totalDesire: Int? = null,
 ) : Parcelable
