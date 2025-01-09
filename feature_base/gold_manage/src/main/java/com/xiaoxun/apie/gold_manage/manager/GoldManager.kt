@@ -3,6 +3,7 @@ package com.xiaoxun.apie.gold_manage.manager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper
+import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_GOLD_COUNT_KEY
 
 object GoldManager {
     // 当前金币数的 LiveData
@@ -11,7 +12,7 @@ object GoldManager {
 
     // 初始化金币（从持久化加载）
     fun initialize() {
-        val gold = SharedPreferencesHelper.getInt("currentGold", 0)
+        val gold = SharedPreferencesHelper.getInt(SP_ACCOUNT_GOLD_COUNT_KEY, 0)
         _goldLiveData.postValue(gold)
     }
 
@@ -30,6 +31,6 @@ object GoldManager {
     // 更新金币值并持久化
     private fun updateGold(newGold: Int) {
         _goldLiveData.postValue(newGold)
-        SharedPreferencesHelper.putInt("currentGold", newGold)
+        SharedPreferencesHelper.putInt(SP_ACCOUNT_GOLD_COUNT_KEY, newGold)
     }
 }

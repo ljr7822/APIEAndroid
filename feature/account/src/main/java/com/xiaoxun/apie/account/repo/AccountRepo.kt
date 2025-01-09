@@ -11,10 +11,13 @@ import com.xiaoxun.apie.apie_data_loader.request.account.sms.SendSmsCode
 import com.xiaoxun.apie.common.utils.GsonUtils
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_DATA_KEY
+import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_GOLD_COUNT_KEY
+import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_GRADE_KEY
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_NAME_KEY
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_PHONE_KEY
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_TOKEN_KEY
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_USERID_KEY
+import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_USER_TYPE_KEY
 import com.xiaoxun.apie.common.utils.coroutine.singleSuspendCoroutine
 import com.xiaoxun.apie.common_model.account.AccountModel
 import com.xiaoxun.apie.common_model.sms.SmsCodeModel
@@ -113,6 +116,10 @@ class AccountRepo(
         SharedPreferencesHelper.putString(SP_ACCOUNT_NAME_KEY, accountModel.userName ?: "")
         SharedPreferencesHelper.putString(SP_ACCOUNT_PHONE_KEY, accountModel.phoneNum)
         SharedPreferencesHelper.putString(SP_ACCOUNT_USERID_KEY, accountModel.userId)
+        SharedPreferencesHelper.putInt(SP_ACCOUNT_GOLD_COUNT_KEY, accountModel.goldCount ?: 0)
+        SharedPreferencesHelper.putInt(SP_ACCOUNT_GRADE_KEY, accountModel.grade ?: 0)
+        SharedPreferencesHelper.putInt(SP_ACCOUNT_USER_TYPE_KEY, accountModel.userType ?: 0)
+
     }
 
     private suspend fun loginByPassword(

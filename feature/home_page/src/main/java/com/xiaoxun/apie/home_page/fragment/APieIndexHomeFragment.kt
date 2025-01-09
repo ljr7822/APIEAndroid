@@ -70,12 +70,10 @@ class APieIndexHomeFragment :
     override fun initTopBarView() {
         super.initTopBarView()
         binding.topBar.leftIconView.setDebouncingClickListener {
-            //showLeftDrawerPopupView()
-            goldService.increaseGold(50) // 完成计划增加50金币
+            showLeftDrawerPopupView()
         }
         binding.topBar.rightIconView.setDebouncingClickListener {
-            //showTopFilterView()
-            goldService.reduceGold(20) // 失败计划扣除20金币
+            showTopFilterView()
         }
     }
 

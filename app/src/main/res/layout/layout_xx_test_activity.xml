@@ -4,14 +4,32 @@
     android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/apie_theme_dimension_50"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <TextView
+    <Button
+        android:id="@+id/new_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Hello Android"
-        android:textColor="@color/black" />
+        android:text="NEW_MESSAGE" />
+
+    <Button
+        android:id="@+id/shake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SHAKE" />
+
+    <Button
+        android:id="@+id/end_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="END_TIP" />
+
+    <Button
+        android:id="@+id/catch_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CATCH_ON" />
 
 </LinearLayout>

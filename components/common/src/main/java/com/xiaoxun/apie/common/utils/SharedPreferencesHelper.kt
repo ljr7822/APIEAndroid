@@ -13,6 +13,9 @@ object SharedPreferencesHelper {
     const val SP_ACCOUNT_NAME_KEY = "sp_account_name_key"
     const val SP_ACCOUNT_PHONE_KEY = "sp_account_phone_key"
     const val SP_ACCOUNT_USERID_KEY = "sp_account_userId_key"
+    const val SP_ACCOUNT_GOLD_COUNT_KEY = "sp_account_gold_count_key"
+    const val SP_ACCOUNT_GRADE_KEY = "sp_account_grade_key"
+    const val SP_ACCOUNT_USER_TYPE_KEY = "sp_account_user_type_key"
 
     /**
      * 初始化方法，应在 Application 类中调用
