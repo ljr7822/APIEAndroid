@@ -46,7 +46,7 @@ class APieSoundEffectsSettingFragment :
         val list = mutableListOf(
             APieSettingInfo(
                 settingType = SettingInfoType.PLAN_DONE_SOUND_EFFECTS,
-                leftIcon = com.xiaoxun.apie.common.R.drawable.apie_setting_sound_effects_icon,
+                leftIcon = com.xiaoxun.apie.common.R.drawable.apie_setting_sound_effects_done_icon,
                 leftText = "打卡音效",
                 desc = "开启后，打卡将会触发音效，选择自己喜欢的音效吧～",
                 isShowSwitch = true,
