@@ -18,6 +18,18 @@ object SharedPreferencesHelper {
     const val SP_ACCOUNT_USER_TYPE_KEY = "sp_account_user_type_key"
     const val SP_ACCOUNT_TOTAL_PLAN_KEY = "sp_account_total_plan_key"
     const val SP_ACCOUNT_TOTAL_DESIRE_KEY = "sp_account_total_desire_key"
+    // 打卡
+    const val SP_ACCOUNT_SOUND_EFFECTS_DONE_PLAN_SWITCH_KEY = "sp_account_sound_effects_done_plan_switch_key"
+    const val SP_ACCOUNT_SOUND_EFFECTS_CLICK_DONE_ID_KEY = "sp_account_sound_effects_click_done_id_key"
+
+    // 撤销打卡
+    const val SP_ACCOUNT_SOUND_EFFECTS_RESET_PLAN_SWITCH_KEY = "sp_account_sound_effects_reset_plan_switch_key"
+    const val SP_ACCOUNT_SOUND_EFFECTS_CLICK_RESET_ID_KEY = "sp_account_sound_effects_click_reset_id_key"
+
+    // 删除任务
+    const val SP_ACCOUNT_SOUND_EFFECTS_DELETE_PLAN_SWITCH_KEY = "sp_account_sound_effects_delete_plan_switch_key"
+    const val SP_ACCOUNT_SOUND_EFFECTS_CLICK_DELETE_ID_KEY = "sp_account_sound_effects_click_delete_id_key"
+
 
     /**
      * 初始化方法，应在 Application 类中调用

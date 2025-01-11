@@ -7,33 +7,30 @@ import com.xiaoxun.apie.common.APP_XX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.sound_pool.APieSoundPoolHelper
-import com.xiaoxun.apie.common.utils.sound_pool.BuiltInSound
+import com.xiaoxun.apie.common.utils.sound_pool.SoundInfo
 
 @Route(path = APP_XX_ACTIVITY_PATH)
 class XxTestActivity : APieBaseBindingActivity<LayoutXxTestActivityBinding>(
     LayoutXxTestActivityBinding::inflate
 ) {
 
-    private lateinit var soundPoolHelper: APieSoundPoolHelper
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        soundPoolHelper = APieSoundPoolHelper.getInstance(this)
 
         binding.newMessage.setDebouncingClickListener {
-            soundPoolHelper.playBuiltIn(BuiltInSound.NEW_MESSAGE)
+            APieSoundPoolHelper.playBuiltIn(SoundInfo.NEW_MESSAGE)
         }
 
         binding.shake.setDebouncingClickListener {
-            soundPoolHelper.playBuiltIn(BuiltInSound.SHAKE)
+            APieSoundPoolHelper.playBuiltIn(SoundInfo.SHAKE)
         }
 
         binding.endTip.setDebouncingClickListener {
-            soundPoolHelper.playBuiltIn(BuiltInSound.END_TIP)
+            APieSoundPoolHelper.playBuiltIn(SoundInfo.END_TIP)
         }
 
         binding.catchOn.setDebouncingClickListener {
-            soundPoolHelper.playBuiltIn(BuiltInSound.CATCH_ON)
+            APieSoundPoolHelper.playBuiltIn(SoundInfo.CATCH_ON)
         }
     }
 }

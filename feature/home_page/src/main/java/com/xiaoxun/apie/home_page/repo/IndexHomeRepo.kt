@@ -19,6 +19,8 @@ import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanRespModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
 import com.xiaoxun.apie.data_loader.utils.CacheStrategy
+import com.xiaoxun.apie.gold_manage.service.GoldService
+import com.xiaoxun.apie.home_page.viewmodel.CompletedCountOptType
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
 import com.xiaoxun.apie.home_page.viewmodel.PlanListType
 import com.xiaoxun.apie.home_page.viewmodel.PlanStatus
@@ -28,7 +30,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlin.coroutines.resume
 
-class IndexHomeRepo(private val viewModel: IndexHomeViewModel) : IIndexHomeRepo {
+class IndexHomeRepo(private val viewModel: IndexHomeViewModel, private val goldService: GoldService? = null) : IIndexHomeRepo {
     companion object {
         private const val TAG = "IndexHomeRepo"
     }
@@ -121,17 +123,23 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel) : IIndexHomeRepo 
         )
     }
 
-    override suspend fun updatePlanCompletedCount(optType: Int, planId: String) {
-        innerUpdatePlanCompletedCount(optType, planId).fold(
+    override suspend fun updatePlanCompletedCount(optType: CompletedCountOptType, planId: String) {
+        innerUpdatePlanCompletedCount(optType.type, planId).fold(
             onSuccess = {
                 it.data?.let { resp ->
-                    viewModel.updatePlanSuccess(resp)
+                    viewModel.updatePlanCompletedCountSuccess(optType, resp)
+                    // 调整全局金币数量
+                    if (optType == CompletedCountOptType.INCREMENT) {
+                        goldService?.increaseGold(resp.planAward)
+                    } else {
+                        goldService?.reduceGold(resp.planAward)
+                    }
                 } ?: let {
-                    viewModel.updatePlanFailed("data is null.")
+                    viewModel.updatePlanCompletedCountFailed("data is null.")
                 }
             },
             onFailure = {
-                viewModel.updatePlanFailed(it.localizedMessage ?: "request error.")
+                viewModel.updatePlanCompletedCountFailed(it.localizedMessage ?: "request error.")
             }
         )
     }

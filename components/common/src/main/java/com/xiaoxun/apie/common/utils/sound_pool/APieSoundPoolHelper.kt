@@ -3,24 +3,32 @@ package com.xiaoxun.apie.common.utils.sound_pool
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.SoundPool
-import com.xiaoxun.apie.common.R
 
 /**
  * 内置声音播放类
  */
-class APieSoundPoolHelper private constructor(context: Context) {
-    private val soundPool: SoundPool
-    private val soundMap = mutableMapOf<BuiltInSound, Int>() // 使用枚举管理内置音效
-    private var isLoaded = false // 标志是否所有音效加载完成
+private const val MAX_STREAMS = 10
 
-    init {
+object APieSoundPoolHelper {
+    private lateinit var soundPool: SoundPool
+    private val soundMap = mutableMapOf<SoundInfo, Int>()
+    private var isLoaded = false
+
+    /**
+     * 初始化SoundPool和内置音效
+     */
+    fun init(context: Context) {
+        if (::soundPool.isInitialized) {
+            return // 已经初始化过，不再重复初始化
+        }
+
         val audioAttributes = AudioAttributes.Builder()
             .setUsage(AudioAttributes.USAGE_MEDIA)
             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
             .build()
 
         soundPool = SoundPool.Builder()
-            .setMaxStreams(MAX_STREAMS) // 最大同时播放音效数
+            .setMaxStreams(MAX_STREAMS)
             .setAudioAttributes(audioAttributes)
             .build()
 
@@ -30,29 +38,25 @@ class APieSoundPoolHelper private constructor(context: Context) {
             }
         }
 
-        // 加载内置音效资源
         loadBuiltInSounds(context)
     }
 
     /**
      * 加载内置的音效资源
-     *
-     * @param context 上下文
      */
     private fun loadBuiltInSounds(context: Context) {
-        soundMap[BuiltInSound.NEW_MESSAGE] = soundPool.load(context, R.raw.newmsg, 1)
-        soundMap[BuiltInSound.SHAKE] = soundPool.load(context, R.raw.audio_shake, 1)
-        soundMap[BuiltInSound.END_TIP] = soundPool.load(context, R.raw.audio_end_tip, 1)
-        soundMap[BuiltInSound.CATCH_ON] = soundPool.load(context, R.raw.catch_on, 1)
+        soundMap[SoundInfo.NEW_MESSAGE] = soundPool.load(context, SoundInfo.NEW_MESSAGE.soundResId, 1)
+        soundMap[SoundInfo.SHAKE] = soundPool.load(context, SoundInfo.SHAKE.soundResId, 1)
+        soundMap[SoundInfo.END_TIP] = soundPool.load(context,SoundInfo.END_TIP.soundResId, 1)
+        soundMap[SoundInfo.CATCH_ON] = soundPool.load(context, SoundInfo.CATCH_ON.soundResId, 1)
+        soundMap[SoundInfo.SLOWER] = soundPool.load(context, SoundInfo.SLOWER.soundResId, 1)
+        soundMap[SoundInfo.WATER_DROPLETS] = soundPool.load(context, SoundInfo.WATER_DROPLETS.soundResId, 1)
     }
 
     /**
      * 播放指定的内置音效
-     *
-     * @param sound 内置音效枚举值
-     * @param loop 是否循环播放 (0 表示不循环，-1 表示无限循环)
      */
-    fun playBuiltIn(sound: BuiltInSound, loop: Int = 0) {
+    fun playBuiltIn(sound: SoundInfo, loop: Int = 0) {
         if (!isLoaded) {
             throw IllegalStateException("SoundPool 未加载完成，请稍后再试！")
         }
@@ -62,11 +66,22 @@ class APieSoundPoolHelper private constructor(context: Context) {
     }
 
     /**
-     * 停止播放指定的内置音效
-     *
-     * @param sound 内置音效枚举值
+     * 获取指定的内置音效信息
      */
-    fun stopBuiltIn(sound: BuiltInSound) {
+    fun playSoundInfoById(soundId: Int, loop: Int = 0) {
+        if (!isLoaded) {
+            throw IllegalStateException("SoundPool 未加载完成，请稍后再试！")
+        }
+        val soundInf = getSoundInfById(soundId)
+        soundMap[soundInf]?.let {
+            soundPool.play(it, 1f, 1f, 1, loop, 1f)
+        }
+    }
+
+    /**
+     * 停止播放指定的内置音效
+     */
+    fun stopBuiltIn(sound: SoundInfo) {
         val soundId = soundMap[sound] ?: return
         soundPool.stop(soundId)
     }
@@ -77,23 +92,5 @@ class APieSoundPoolHelper private constructor(context: Context) {
     fun release() {
         soundPool.release()
         soundMap.clear()
-    }
-
-    companion object {
-        private const val MAX_STREAMS = 10 // 最大同时播放音效数量
-
-        @Volatile
-        private var instance: APieSoundPoolHelper? = null
-
-        /**
-         * 获取单例实例
-         *
-         * @param context 上下文
-         */
-        fun getInstance(context: Context): APieSoundPoolHelper {
-            return instance ?: synchronized(this) {
-                instance ?: APieSoundPoolHelper(context.applicationContext).also { instance = it }
-            }
-        }
     }
 }

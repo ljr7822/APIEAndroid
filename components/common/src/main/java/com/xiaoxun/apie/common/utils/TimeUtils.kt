@@ -7,7 +7,7 @@ package com.xiaoxun.apie.common.utils
 fun MutableList<Long>.toFormatList(format: String = "yyyy-MM-dd"): MutableList<String> {
     val formatList = mutableListOf<String>()
     for (i in this) {
-        formatList.add(StringUtils.conversionTime(i, format))
+        formatList.add(DateTimeUtils.conversionTime(i, format))
     }
     return formatList
 }

@@ -77,4 +77,10 @@ data class PlanModel(
     // 计划进行状态
     @SerializedName("planStatus")
     val planStatus: Int = 0,
-): Parcelable
+    // 计划全部完成时可获得的最大金币数量
+    @SerializedName("planTotalGoldCount")
+    val planTotalGoldCount: Int = 0,
+    // 计划目前已获得的金币数量
+    @SerializedName("planObtainedGoldCount")
+    val planObtainedGoldCount: Int = 0
+) : Parcelable

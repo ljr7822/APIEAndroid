@@ -100,4 +100,7 @@
         <attr name="animDuration" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="APieSwitch">
+        <attr name="enableLoadingState" format="boolean" />
+    </declare-styleable>
 </resources>

@@ -1,6 +1,7 @@
 package com.xiaoxun.apie.home_page.repo
 
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanRequestBody
+import com.xiaoxun.apie.home_page.viewmodel.CompletedCountOptType
 import com.xiaoxun.apie.home_page.viewmodel.PlanListType
 import com.xiaoxun.apie.home_page.viewmodel.PlanStatus
 
@@ -41,7 +42,7 @@ interface IIndexHomeRepo {
     /**
      * 更新计划完成次数
      */
-    suspend fun updatePlanCompletedCount(optType: Int, planId: String)
+    suspend fun updatePlanCompletedCount(optType: CompletedCountOptType, planId: String)
 
     /**
      * 删除计划

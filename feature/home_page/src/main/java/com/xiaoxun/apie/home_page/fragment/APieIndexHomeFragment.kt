@@ -23,6 +23,8 @@ import com.xiaoxun.apie.home_page.bean.planModel2PlanModeInfo
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexHomeFragmentBinding
 import com.xiaoxun.apie.home_page.repo.IIndexHomeRepo
 import com.xiaoxun.apie.home_page.repo.IndexHomeRepo
+import com.xiaoxun.apie.home_page.utils.APieHomeSoundUtils
+import com.xiaoxun.apie.home_page.utils.SceneType
 import com.xiaoxun.apie.home_page.viewmodel.CompletedCountOptType
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModelFactory
@@ -46,7 +48,7 @@ class APieIndexHomeFragment :
 
     private val goldService: GoldService by lazy { GoldService() }
 
-    private val repo: IIndexHomeRepo by lazy { IndexHomeRepo(viewModel) }
+    private val repo: IIndexHomeRepo by lazy { IndexHomeRepo(viewModel, goldService) }
 
     private val adapter: APiePlanAdapter by lazy { APiePlanAdapter() }
 
@@ -151,6 +153,7 @@ class APieIndexHomeFragment :
                         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
                             repo.deletePlan(planModel.planId)
                         }
+                        APieHomeSoundUtils.playSound(SceneType.PLAN_DELETE_CLICK)
                     })
             }
 
@@ -172,10 +175,11 @@ class APieIndexHomeFragment :
                 }
                 viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
                     repo.updatePlanCompletedCount(
-                        CompletedCountOptType.INCREMENT.type,
+                        CompletedCountOptType.INCREMENT,
                         planModel.planId
                     )
                 }
+                APieHomeSoundUtils.playSound(SceneType.PLAN_DONE_CLICK)
             }
 
             override fun onItemDataAnalysisClick(position: Int, planModel: PlanModel) {
@@ -196,10 +200,11 @@ class APieIndexHomeFragment :
                         adapter.hidePlanMenuLayer()
                         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
                             repo.updatePlanCompletedCount(
-                                CompletedCountOptType.DECREMENT.type,
+                                CompletedCountOptType.DECREMENT,
                                 planModel.planId
                             )
                         }
+                        APieHomeSoundUtils.playSound(SceneType.PLAN_RESET_CLICK)
                     })
             }
         }

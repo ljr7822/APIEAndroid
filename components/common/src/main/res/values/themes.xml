@@ -23,4 +23,18 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <!-- 开关样式-->
+    <style name="apie_switch_btn_view_style">
+        <item name="colorControlActivated">@color/apieTheme_colorRed</item>
+        <item name="colorSwitchThumbNormal">@color/apieTheme_colorGrayLevel4</item>
+        <item name="android:colorForeground">@color/apieTheme_colorGrayLevel4</item>
+    </style>
+
+    <style name="APieLoadingDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>

@@ -13,7 +13,7 @@ class APieExpandBar @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
     val goldLayout: LinearLayout
-    val goldValue: TextView
+    val goldValue: ScrollingDigitalAnimation
 
     init {
         orientation = HORIZONTAL
@@ -24,6 +24,8 @@ class APieExpandBar @JvmOverloads constructor(
     }
 
     fun setGoldValue(value: String) {
-        goldValue.text = value
+        val oldValue = goldValue.text.toString()
+        goldValue.setPrefixString("+")
+        goldValue.setNumberString(oldValue, value)
     }
 }

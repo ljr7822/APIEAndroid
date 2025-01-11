@@ -1,6 +1,7 @@
 package com.xiaoxun.apie.common.base
 
 import android.app.Application
+import com.xiaoxun.apie.common.utils.sound_pool.APieSoundPoolHelper
 
 abstract class APieBaseApplication: Application() {
     companion object {
@@ -14,5 +15,6 @@ abstract class APieBaseApplication: Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        APieSoundPoolHelper.init(this)
     }
 }

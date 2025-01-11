@@ -9,6 +9,7 @@ import com.xiaoxun.apie.common.base.activity.APieBaseViewPagerActivity
 import com.xiaoxun.apie.common.config.APieConfig
 import com.xiaoxun.apie.common.utils.UIUtils
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
+import com.xiaoxun.apie.gold_manage.service.GoldService
 import com.xiaoxun.apie.home_page.adapter.APieViewPagerAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexActivityBinding
 import com.xiaoxun.apie.home_page.fragment.APieCreateFragment
@@ -39,7 +40,9 @@ class APieIndexActivity :
         )
     }
 
-    private val repo: IIndexHomeRepo by lazy { IndexHomeRepo(viewModel) }
+    private val goldService: GoldService by lazy { GoldService() }
+
+    private val repo: IIndexHomeRepo by lazy { IndexHomeRepo(viewModel, goldService) }
 
     override fun createAdapter(): APieViewPagerAdapter {
         return APieViewPagerAdapter(this, mFragmentList)

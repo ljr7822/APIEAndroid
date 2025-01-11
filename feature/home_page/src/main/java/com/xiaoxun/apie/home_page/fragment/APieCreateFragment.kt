@@ -8,12 +8,14 @@ import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import com.loper7.date_time_picker.dialog.CardWeekPickerDialog
 import com.loper7.date_time_picker.number_picker.NumberPicker
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanRequestBody
+import com.xiaoxun.apie.common.R
 import com.xiaoxun.apie.common.base.fragment.APieBaseBottomSheetDialogFragment
 import com.xiaoxun.apie.common.ui.setEditTextMaxInput
 import com.xiaoxun.apie.home_page.bean.PlanModeInfo
 import com.xiaoxun.apie.common.utils.APieLog
-import com.xiaoxun.apie.common.utils.StringUtils
+import com.xiaoxun.apie.common.utils.DateTimeUtils
 import com.xiaoxun.apie.common.utils.ThreadUtil
+import com.xiaoxun.apie.common.utils.UnitType
 import com.xiaoxun.apie.common.utils.account.AccountManager
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.toFormatList
@@ -23,6 +25,7 @@ import com.xiaoxun.apie.home_page.adapter.APiePlanFrequencyAdapter
 import com.xiaoxun.apie.home_page.adapter.group.APieGroupAdapter
 import com.xiaoxun.apie.home_page.adapter.SpaceItemDecoration
 import com.xiaoxun.apie.home_page.databinding.LayoutApieCreatePlanFragmentBinding
+import com.xiaoxun.apie.home_page.dialog.APieCreateGroupDialog
 import com.xiaoxun.apie.home_page.repo.IIndexHomeRepo
 import com.xiaoxun.apie.home_page.viewmodel.CreatePlanState
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
@@ -34,6 +37,9 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+/**
+ * 创建计划的半层页面
+ */
 class APieCreateFragment(
     private val repo: IIndexHomeRepo,
     private val viewModel: IndexHomeViewModel,
@@ -49,6 +55,10 @@ class APieCreateFragment(
 
     private var selectedFrequency: PlanListType? = null
     private var selectedGroup: PlanGroupModel? = null
+
+    companion object {
+        private const val TAG = "APieCreateFragment"
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,11 +78,11 @@ class APieCreateFragment(
             binding.deductCountEdit.setText(it.planPunish.toString())
             viewModel.updateSelectTimeRange(
                 TimeRangeType.START_TIME,
-                Pair(it.planStartTime, StringUtils.conversionTime(it.planStartTime, "yyyy-MM-dd"))
+                Pair(it.planStartTime, DateTimeUtils.conversionTime(it.planStartTime, "yyyy-MM-dd"))
             )
             viewModel.updateSelectTimeRange(
                 TimeRangeType.STOP_TIME,
-                Pair(it.planStopTime, StringUtils.conversionTime(it.planStopTime, "yyyy-MM-dd"))
+                Pair(it.planStopTime, DateTimeUtils.conversionTime(it.planStopTime, "yyyy-MM-dd"))
             )
         }
     }
@@ -84,7 +94,7 @@ class APieCreateFragment(
         binding.nameEdit.setEditTextMaxInput(20)
         binding.createGroupLayout.setDebouncingClickListener {
             val dialog = APieCreateGroupDialog(
-                titleRes = com.xiaoxun.apie.common.R.string.apie_create_plan_group_title,
+                titleRes = R.string.apie_create_plan_group_title,
                 context = requireContext(),
                 onConfirm = { name ->
                     viewLifecycleOwner.lifecycleScope.launch {
@@ -235,7 +245,7 @@ class APieCreateFragment(
     private fun handleFrequencyChange(frequency: PlanListType?) {
         frequency ?: return
         binding.stopTime.text = if (isReedit && (planModelInfo?.planStopTime ?: 0) > 0) {
-            StringUtils.conversionTime(planModelInfo?.planStopTime ?: 0, "yyyy-MM-dd")
+            DateTimeUtils.conversionTime(planModelInfo?.planStopTime ?: 0, "yyyy-MM-dd")
         } else if (frequency == PlanListType.CYCLE_PLAN) {
             "无限期"
         } else {
@@ -310,8 +320,31 @@ class APieCreateFragment(
             planWeight = 10,
             createUserId = AccountManager.getUserId(),
             planStartTime = viewModel.getSelectStartTime() ?: 0,
-            planStopTime = viewModel.getSelectStopTime() ?: 0
+            planStopTime = viewModel.getSelectStopTime() ?: 0,
+            planTotalGoldCount = getPlanTotalGoldCount(),
+            planObtainedGoldCount = 0
         )
+    }
+
+    // 计算这个任务最大的金币数量
+    private fun getPlanTotalGoldCount(): Int {
+        val awardCount = binding.awardCountEdit.text.toString().toIntOrNull() ?: 1
+        val frequencyCount = binding.frequencyCountEdit.text.toString().toIntOrNull() ?: 1
+
+        val startTime = viewModel.getSelectStartTime() ?: 0
+        val stopTime = viewModel.getSelectStopTime() ?: 0
+
+        val count = when (selectedFrequency) {
+            PlanListType.SINGLE_PLAN -> awardCount
+            PlanListType.TODAY_PLAN -> DateTimeUtils.calculateTimeDifference(startTime, stopTime, UnitType.DAY) * awardCount * frequencyCount
+            PlanListType.WEEK_PLAN -> DateTimeUtils.calculateTimeDifference(startTime, stopTime, UnitType.WEEK) * awardCount * frequencyCount
+            PlanListType.MONTH_PLAN -> DateTimeUtils.calculateTimeDifference(startTime, stopTime, UnitType.MONTH) * awardCount * frequencyCount
+            PlanListType.YEAR_PLAN -> DateTimeUtils.calculateTimeDifference(startTime, stopTime, UnitType.YEAR) * awardCount * frequencyCount
+            PlanListType.CUSTOM_PLAN, PlanListType.CYCLE_PLAN -> 0
+            else -> 0
+        }
+        APieLog.d(TAG, "getPlanTotalGoldCount: $count")
+        return count
     }
 
     private fun loadPlanGroupStart() {
@@ -345,7 +378,7 @@ class APieCreateFragment(
             .showDateLabel(false)
             .showFocusDateInfo(false)
             .setOnChoose("确定") { millisecond ->
-                val showText = StringUtils.conversionTime(millisecond, "yyyy-MM-dd")
+                val showText = DateTimeUtils.conversionTime(millisecond, "yyyy-MM-dd")
                 viewModel.updateSelectTimeRange(timeRangeType, Pair(millisecond, showText))
                 if (timeRangeType == TimeRangeType.START_TIME) {
                     binding.startTime.text = showText

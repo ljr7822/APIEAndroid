@@ -13,7 +13,7 @@ import com.xiaoxun.apie.account.databinding.LoginViewPhoneEdittextV3Binding
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.LoginUtils
 import com.xiaoxun.apie.common.utils.RegisterCountryPhoneCode
-import com.xiaoxun.apie.common.utils.StringUtils
+import com.xiaoxun.apie.common.utils.DateTimeUtils
 import com.xiaoxun.apie.common.utils.TextUtil
 import com.xiaoxun.apie.common.utils.filter.PhoneNumberMaxLengthFilter
 import com.xiaoxun.apie.common.utils.hide
@@ -51,7 +51,7 @@ class PhoneNumberEditText @JvmOverloads constructor(
             binding.mCancelInputImageView.showIf(s.toString().isNotEmpty())
         }
 
-        private var beforeText: String = StringUtils.EMPTY_STRING
+        private var beforeText: String = DateTimeUtils.EMPTY_STRING
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             s?.apply {

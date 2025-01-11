@@ -29,5 +29,7 @@ data class CreatePlanRequestBody(
     val planWeight: Int = 0,
     val createUserId: String = "",
     val planStartTime: Long = 0,
-    val planStopTime: Long = 0
+    val planStopTime: Long = 0,
+    val planTotalGoldCount: Int,
+    val planObtainedGoldCount: Int = 0
 ): Parcelable

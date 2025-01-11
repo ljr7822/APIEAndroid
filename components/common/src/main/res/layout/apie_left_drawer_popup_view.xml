@@ -26,9 +26,9 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_marginEnd="@dimen/apie_theme_dimension_8"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/apie_theme_dimension_16"
+            android:layout_marginEnd="@dimen/apie_theme_dimension_8"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/scanIcon"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,9 +47,9 @@
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="小寻测试1小寻测试1"
-                android:maxLines="1"
                 android:ellipsize="end"
+                android:maxLines="1"
+                android:text="小寻测试1小寻测试1"
                 android:textColor="@color/apieTheme_colorBlack"
                 android:textSize="@dimen/apie_theme_text_14"
                 android:textStyle="bold" />
@@ -108,8 +108,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:padding="@dimen/apie_theme_dimension_10"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="@dimen/apie_theme_dimension_10">
 
             <TextView
                 android:id="@+id/leftViewDataTitle"
@@ -125,19 +125,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/apie_theme_dimension_2"
                 android:gravity="center"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginBottom="@dimen/apie_theme_dimension_2">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:layout_weight="1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
@@ -145,19 +145,19 @@
                         android:id="@+id/totalPlanNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="0"
                         android:textColor="@color/apieTheme_colorBlack"
                         android:textSize="@dimen/apie_theme_text_14" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="总计划数"
-                        android:maxLines="1"
-                        android:ellipsize="end"
                         android:layout_marginTop="@dimen/apie_theme_dimension_4"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="总计划数"
                         android:textColor="@color/apieTheme_colorBlack_alpha_60"
                         android:textSize="@dimen/apie_theme_text_10" />
                 </LinearLayout>
@@ -165,8 +165,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
@@ -175,19 +175,19 @@
                         android:id="@+id/totalDesireNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="0"
                         android:textColor="@color/apieTheme_colorBlack"
                         android:textSize="@dimen/apie_theme_text_14" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="总心愿数"
-                        android:maxLines="1"
-                        android:ellipsize="end"
                         android:layout_marginTop="@dimen/apie_theme_dimension_4"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="总心愿数"
                         android:textColor="@color/apieTheme_colorBlack_alpha_60"
                         android:textSize="@dimen/apie_theme_text_10" />
                 </LinearLayout>
@@ -195,8 +195,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
@@ -205,19 +205,19 @@
                         android:id="@+id/totalGoldNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
-                        android:maxLines="1"
                         android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="0"
                         android:textColor="@color/apieTheme_colorBlack"
                         android:textSize="@dimen/apie_theme_text_14" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="总金币数"
-                        android:maxLines="1"
-                        android:ellipsize="end"
                         android:layout_marginTop="@dimen/apie_theme_dimension_4"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="总金币数"
                         android:textColor="@color/apieTheme_colorBlack_alpha_60"
                         android:textSize="@dimen/apie_theme_text_10" />
                 </LinearLayout>
@@ -231,7 +231,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/quickSettingCardView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/apie_theme_dimension_150"
+        android:layout_height="@dimen/apie_theme_dimension_100"
         android:layout_marginStart="@dimen/apie_theme_dimension_16"
         android:layout_marginTop="@dimen/apie_theme_dimension_20"
         android:layout_marginEnd="@dimen/apie_theme_dimension_16"
@@ -243,19 +243,107 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="@dimen/apie_theme_dimension_10">
 
             <TextView
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/apie_theme_dimension_10"
-                android:layout_marginTop="@dimen/apie_theme_dimension_10"
                 android:text="快捷设置"
                 android:textColor="@color/apieTheme_colorBlack"
                 android:textSize="@dimen/apie_theme_text_13"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/apie_theme_dimension_10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:id="@+id/soundEffectsSettingLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/material_motion_duration_long_1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/apie_theme_dimension_28"
+                            android:layout_height="@dimen/apie_theme_dimension_28"
+                            android:background="@drawable/apie_setting_sound_effects_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/apie_theme_dimension_4"
+                            android:text="音效设置"
+                            android:textColor="@color/apieTheme_colorBlack_alpha_60"
+                            android:textSize="@dimen/apie_theme_text_10" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/settingGroupManager"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/material_motion_duration_long_1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/apie_theme_dimension_28"
+                            android:layout_height="@dimen/apie_theme_dimension_28"
+                            android:background="@drawable/apie_setting_group_manager_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/apie_theme_dimension_4"
+                            android:text="分组管理"
+                            android:textColor="@color/apieTheme_colorBlack_alpha_60"
+                            android:textSize="@dimen/apie_theme_text_10" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/settingListStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/material_motion_duration_long_1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/apie_theme_dimension_28"
+                            android:layout_height="@dimen/apie_theme_dimension_28"
+                            android:background="@drawable/apie_setting_list_style_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/apie_theme_dimension_4"
+                            android:text="列表风格"
+                            android:textColor="@color/apieTheme_colorBlack_alpha_60"
+                            android:textSize="@dimen/apie_theme_text_10" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

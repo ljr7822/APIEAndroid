@@ -191,11 +191,11 @@ class IndexHomeViewModel : APieBaseViewModel() {
 
     }
 
-    fun updatePlanSuccess(resp: PlanModel) {
+    fun updatePlanCompletedCountSuccess(optType: CompletedCountOptType, resp: PlanModel) {
         updateOrInsertPlan(resp)
     }
 
-    fun updatePlanFailed(error: String) {
+    fun updatePlanCompletedCountFailed(error: String) {
 
     }
 

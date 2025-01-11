@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.home_page.fragment
+package com.xiaoxun.apie.home_page.dialog
 
 import android.app.Dialog
 import android.content.Context
@@ -9,8 +9,11 @@ import com.xiaoxun.apie.common.R
 import com.xiaoxun.apie.common.ui.setEditTextMaxInput
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.toast.APieToast
-import com.xiaoxun.apie.home_page.databinding.LayoutApieCreatePlanGroupFragmentBinding
+import com.xiaoxun.apie.home_page.databinding.LayoutApieCreatePlanGroupDialogBinding
 
+/**
+ * 创建分组弹窗
+ */
 class APieCreateGroupDialog (
     context: Context,
     private val titleRes: Int?,
@@ -18,12 +21,12 @@ class APieCreateGroupDialog (
     private val onCancel: (() -> Unit)? = null
 ) : Dialog(context, R.style.ru_permission_dialog_style) {
 
-    private lateinit var binding: LayoutApieCreatePlanGroupFragmentBinding
+    private lateinit var binding: LayoutApieCreatePlanGroupDialogBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = LayoutApieCreatePlanGroupFragmentBinding.inflate(LayoutInflater.from(context))
+        binding = LayoutApieCreatePlanGroupDialogBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
         setCancelable(true)
 

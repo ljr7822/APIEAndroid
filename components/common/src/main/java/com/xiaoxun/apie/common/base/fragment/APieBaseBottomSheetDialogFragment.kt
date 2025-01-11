@@ -17,7 +17,6 @@ abstract class APieBaseBottomSheetDialogFragment<VB : ViewBinding>(
     private var _binding: VB? = null
     protected val binding get() = _binding!!
 
-
     // 展开时初始显示的高度
     protected var peekHeight: Int? = null
     // 最大高度
