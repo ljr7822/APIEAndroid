@@ -10,6 +10,7 @@ import com.loper7.date_time_picker.number_picker.NumberPicker
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanRequestBody
 import com.xiaoxun.apie.common.R
 import com.xiaoxun.apie.common.base.fragment.APieBaseBottomSheetDialogFragment
+import com.xiaoxun.apie.common.ui.APieLoadingDialog
 import com.xiaoxun.apie.common.ui.setEditTextMaxInput
 import com.xiaoxun.apie.home_page.bean.PlanModeInfo
 import com.xiaoxun.apie.common.utils.APieLog
@@ -52,6 +53,8 @@ class APieCreateFragment(
     private lateinit var groupAdapter: APieGroupAdapter
 
     private val isReedit: Boolean by lazy { planModelInfo != null }
+
+    private val loadingDialog: APieLoadingDialog by lazy { APieLoadingDialog(requireContext()) }
 
     private var selectedFrequency: PlanListType? = null
     private var selectedGroup: PlanGroupModel? = null
@@ -221,18 +224,19 @@ class APieCreateFragment(
         when (state) {
             CreatePlanState.START -> {
                 // 开始创建计划
-                APieToast.showDialog("开始创建计划")
+                loadingDialog.show()
             }
 
             CreatePlanState.SUCCESS -> {
                 // 创建计划成功
                 APieToast.showDialog("创建计划成功")
+                loadingDialog.dismiss()
                 dismiss()
             }
 
             CreatePlanState.FAILED -> {
                 // 创建计划失败
-                APieToast.showDialog("创建计划失败")
+                loadingDialog.dismiss()
             }
 
             else -> {}
