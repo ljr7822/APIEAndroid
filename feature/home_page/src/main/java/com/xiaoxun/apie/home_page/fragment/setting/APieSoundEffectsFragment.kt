@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.home_page.fragment
+package com.xiaoxun.apie.home_page.fragment.setting
 
 import android.os.Bundle
 import android.view.View
@@ -20,7 +20,7 @@ import com.xiaoxun.apie.home_page.databinding.LayoutApieSoundEffectsSettingFragm
 /**
  * 声音效果设置
  */
-class APieSoundEffectsSettingFragment :
+class APieSoundEffectsFragment :
     APieBaseBottomSheetDialogFragment<LayoutApieSoundEffectsSettingFragmentBinding>(
         LayoutApieSoundEffectsSettingFragmentBinding::inflate
     ) {

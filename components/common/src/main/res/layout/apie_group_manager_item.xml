@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/apie_theme_dimension_35"
+    android:background="@color/apieTheme_colorTransparent"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+    <com.xiaoxun.apie.common.ui.GlideCircleImageView
+        android:id="@+id/groupIcon"
+        android:layout_width="@dimen/apie_theme_dimension_18"
+        android:layout_height="@dimen/apie_theme_dimension_18"
+        android:layout_marginStart="@dimen/apie_theme_dimension_16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/apie_setting_group_manager_item_def_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/groupName"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/apie_theme_dimension_8"
+        android:layout_marginEnd="@dimen/apie_theme_dimension_8"
+        android:gravity="center_vertical"
+        android:textColor="@color/apieTheme_colorBlack"
+        android:textSize="@dimen/apie_theme_text_13"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/groupEditTv"
+        app:layout_constraintStart_toEndOf="@+id/groupIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="流水" />
+
+    <TextView
+        android:id="@+id/groupEditTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="编辑"
+        android:layout_marginEnd="@dimen/apie_theme_dimension_10"
+        android:textColor="@color/apieTheme_colorBlack_alpha_30"
+        android:textSize="@dimen/apie_theme_text_10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/groupDeleteTv"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/groupDeleteTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/apieTheme_colorBlack_alpha_30"
+        android:textSize="@dimen/apie_theme_text_10"
+        android:text="删除"
+        android:layout_marginEnd="@dimen/apie_theme_dimension_16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/apie_theme_dimension_0_5"
+        android:layout_marginStart="@dimen/apie_theme_dimension_16"
+        android:layout_marginEnd="@dimen/apie_theme_dimension_16"
+        android:background="@color/apieTheme_colorBlack_alpha_5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

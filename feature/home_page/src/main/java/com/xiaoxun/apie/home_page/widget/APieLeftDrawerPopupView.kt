@@ -13,7 +13,8 @@ import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper
 import com.xiaoxun.apie.common.utils.account.AccountManager
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
-import com.xiaoxun.apie.home_page.fragment.APieSoundEffectsSettingFragment
+import com.xiaoxun.apie.home_page.fragment.setting.APieGroupManagerFragment
+import com.xiaoxun.apie.home_page.fragment.setting.APieSoundEffectsFragment
 
 class APieLeftDrawerPopupView @JvmOverloads constructor(
     context: Context,
@@ -61,16 +62,14 @@ class APieLeftDrawerPopupView @JvmOverloads constructor(
         totalGoldNum.text = SharedPreferencesHelper.getInt(SharedPreferencesHelper.SP_ACCOUNT_GOLD_COUNT_KEY, 0).toString()
 
         soundEffectsSetting.setDebouncingClickListener {
-            val fragmentManager = (context as? FragmentActivity)?.supportFragmentManager
-            if (fragmentManager != null) {
-                val soundEffectsFragment = APieSoundEffectsSettingFragment()
-                soundEffectsFragment.show(fragmentManager, APieSoundEffectsSettingFragment::class.java.simpleName)
-            } else {
-                APieLog.e(TAG, "FragmentManager is null. Ensure the context is a FragmentActivity.")
+            (context as? FragmentActivity)?.supportFragmentManager?.let {
+                APieSoundEffectsFragment().show(it, APieSoundEffectsFragment::class.java.simpleName)
             }
         }
         groupManagerSetting.setDebouncingClickListener {
-            // TODO: open group manager
+            (context as? FragmentActivity)?.supportFragmentManager?.let {
+                APieGroupManagerFragment().show(it, APieGroupManagerFragment::class.java.simpleName)
+            }
         }
         listStyleSetting.setDebouncingClickListener {
             // TODO: open list style setting
