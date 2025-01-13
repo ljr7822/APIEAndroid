@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.apie_data_loader.request.plan
+package com.xiaoxun.apie.apie_data_loader.request.group
 
 import android.os.Parcelable
 import androidx.annotation.Keep

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/apie_theme_dimension_44"
     android:layout_height="@dimen/apie_theme_dimension_44"
+    android:background="@drawable/apie_view_bg_fill1_corner_8dp"
     android:layout_gravity="center">
 
     <com.airbnb.lottie.LottieAnimationView
@@ -14,7 +15,13 @@
         android:layout_gravity="center"
         android:visibility="gone"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="anim/loading/zhuan_chang.json"
+        app:lottie_fileName="zhuan_chang.json"
         app:lottie_loop="true" />
+
+    <com.xiaoxun.apie.common.ui.APieLoadingView
+        android:id="@+id/loadingView"
+        android:layout_gravity="center"
+        android:layout_width="@dimen/apie_theme_dimension_35"
+        android:layout_height="@dimen/apie_theme_dimension_35" />
 
 </FrameLayout>

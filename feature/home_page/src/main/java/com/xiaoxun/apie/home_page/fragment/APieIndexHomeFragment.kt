@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.enums.PopupPosition
 import com.xiaoxun.apie.common.base.fragment.APieBaseBindingFragment
+import com.xiaoxun.apie.common.ui.APieLoadingDialog
 import com.xiaoxun.apie.common.ui.APieStyleExitTip
 import com.xiaoxun.apie.common.utils.APieVibrateTool
 import com.xiaoxun.apie.home_page.widget.APieLeftDrawerPopupView
@@ -28,6 +29,7 @@ import com.xiaoxun.apie.home_page.utils.SceneType
 import com.xiaoxun.apie.home_page.viewmodel.CompletedCountOptType
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModelFactory
+import com.xiaoxun.apie.home_page.viewmodel.LoadPlanListState
 import com.xiaoxun.apie.home_page.viewmodel.PlanListType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -51,6 +53,8 @@ class APieIndexHomeFragment :
     private val repo: IIndexHomeRepo by lazy { IndexHomeRepo(viewModel, goldService) }
 
     private val adapter: APiePlanAdapter by lazy { APiePlanAdapter() }
+
+    private val loadingDialog: APieLoadingDialog by lazy { APieLoadingDialog(hostActivity) }
 
     private var itemClickListener: APiePlanAdapter.ItemClickListener? = null
 
@@ -86,6 +90,14 @@ class APieIndexHomeFragment :
     }
 
     private fun initObserver() {
+        viewModel.loadPlanListState.observe(viewLifecycleOwner) {
+            when (it) {
+                LoadPlanListState.START -> loadingDialog.show()
+                LoadPlanListState.SUCCESS -> loadingDialog.dismiss()
+                LoadPlanListState.FAILED -> loadingDialog.dismiss()
+                else -> {}
+            }
+        }
         viewModel.planTypeList.observe(viewLifecycleOwner) {
             // 更新数据到当前显示的列表
             viewModel.updateCurrentPlanList(it.second)

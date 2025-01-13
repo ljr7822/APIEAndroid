@@ -1,6 +1,7 @@
 package com.xiaoxun.apie.home_page.repo
 
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanRequestBody
+import com.xiaoxun.apie.apie_data_loader.request.group.UpdateGroupRequestBody
 import com.xiaoxun.apie.home_page.viewmodel.CompletedCountOptType
 import com.xiaoxun.apie.home_page.viewmodel.PlanListType
 import com.xiaoxun.apie.home_page.viewmodel.PlanStatus
@@ -48,6 +49,16 @@ interface IIndexHomeRepo {
      * 删除计划
      */
     suspend fun deletePlan(planId: String)
+
+    /**
+     * 删除分组
+     */
+    suspend fun deleteGroup(groupId: String)
+
+    /**
+     * 更新分组数据
+     */
+    suspend fun updateGroup(updateGroupRequestBody: UpdateGroupRequestBody)
 
     /**
      * 在生命周期结束时清理订阅

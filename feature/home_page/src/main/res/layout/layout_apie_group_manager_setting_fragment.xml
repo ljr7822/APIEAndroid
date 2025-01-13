@@ -22,7 +22,7 @@
             android:id="@+id/closeIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/apie_theme_dimension_12"
+            android:layout_marginStart="@dimen/apie_theme_dimension_16"
             android:background="@drawable/apie_top_bar_close_icon"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -37,17 +37,17 @@
             android:textColor="@color/apieTheme_colorBlack"
             android:textSize="@dimen/apie_theme_text_15"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/confirmIcon"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/closeIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/confirmIcon"
+            android:id="@+id/addGroupIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/apie_theme_dimension_12"
-            android:background="@drawable/apie_top_bar_confirm_icon"
-            android:visibility="gone"
+            android:layout_marginEnd="@dimen/apie_theme_dimension_16"
+            android:background="@drawable/apie_create_plan_add_group_icon"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -69,12 +69,64 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/groupManagerRecyclerView"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/apie_theme_dimension_10"
-            android:layout_marginBottom="@dimen/apie_theme_dimension_10"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/groupManagerRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/apie_theme_dimension_10"
+                android:layout_marginBottom="@dimen/apie_theme_dimension_10"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:id="@+id/groupLoadingLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/apie_theme_dimension_45"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible">
+
+                <com.xiaoxun.apie.common.ui.APieLoadingView
+                    android:id="@+id/groupLoadingView"
+                    android:layout_width="@dimen/apie_theme_dimension_25"
+                    android:layout_height="@dimen/apie_theme_dimension_25"
+                    android:visibility="gone"
+                    app:loading_view_color="@color/apieTheme_colorBlack_alpha_40" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_3"
+                    android:text="@string/apie_loading_msg"
+                    android:textColor="@color/apieTheme_colorBlack_alpha_40"
+                    android:textSize="@dimen/apie_theme_text_11" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/groupErrorTips"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/apie_theme_dimension_45"
+                android:gravity="center"
+                android:text="@string/apie_create_plan_load_group_error_msg"
+                android:textColor="@color/apieTheme_colorBlack_alpha_40"
+                android:textSize="@dimen/apie_theme_text_11"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.cardview.widget.CardView>
 
 

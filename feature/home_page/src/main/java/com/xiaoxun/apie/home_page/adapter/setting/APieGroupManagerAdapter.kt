@@ -5,17 +5,33 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.MainThread
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.xiaoxun.apie.common.R
 import com.xiaoxun.apie.common.ui.GlideCircleImageView
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
+import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
+import com.xiaoxun.apie.home_page.adapter.plan.APiePlanDiffCallback
 
 class APieGroupManagerAdapter(
     private val items: MutableList<PlanGroupModel> = mutableListOf()
 ) : RecyclerView.Adapter<APieGroupManagerAdapter.ViewHolder>() {
 
     private var listener: OnGroupManagerItemClickListener? = null
+
+    fun getItems(): List<PlanGroupModel> {
+        return items
+    }
+
+    // 更新数据的方法
+    fun updateData(newList: List<PlanGroupModel>) {
+        val diffCallback = APieGroupManagerDiffCallback(items, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        items.clear()
+        items.addAll(newList)
+        diffResult.dispatchUpdatesTo(this)
+    }
 
     @MainThread
     fun replayData(newData: List<PlanGroupModel>) {
@@ -52,10 +68,12 @@ class APieGroupManagerAdapter(
             holder.groupIcon.loadImage(R.drawable.apie_setting_group_manager_item_def_icon, 1)
         }
         holder.groupEditTv.setDebouncingClickListener {
-            listener?.onGroupItemEditClick(position, item)
+            val realPosition = holder.adapterPosition
+            listener?.onGroupItemEditClick(realPosition, item)
         }
         holder.groupDeleteTv.setDebouncingClickListener {
-            listener?.onGroupItemDeleteClick(position, item)
+            val realPosition = holder.adapterPosition
+            listener?.onGroupItemDeleteClick(realPosition, item)
         }
     }
 

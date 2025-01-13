@@ -2,6 +2,7 @@ package com.xiaoxun.apie.home_page.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.xiaoxun.apie.common.base.viewmodel.APieBaseViewModel
+import com.xiaoxun.apie.common.ui.APieLoadingDialog
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
 
@@ -22,6 +23,10 @@ class IndexHomeViewModel : APieBaseViewModel() {
     // 创建计划分状态
     private var _createPlanGroupState = MutableLiveData<CreatePlanGroupState>()
     val createPlanGroupState get() = _createPlanGroupState
+
+    // 删除计划分状态
+    private var _deletePlanGroupState = MutableLiveData<DeletePlanGroupState>()
+    val deletePlanGroupState get() = _deletePlanGroupState
 
     // 计划分组列表
     private var _planGroupList = MutableLiveData<MutableList<PlanGroupModel>>()
@@ -201,6 +206,31 @@ class IndexHomeViewModel : APieBaseViewModel() {
 
     fun getSelectPlanFrequency(): PlanListType {
         return _selectPlanType.value ?: PlanListType.INIT_TYPE
+    }
+
+    fun deleteGroupStart() {
+        _deletePlanGroupState.value = DeletePlanGroupState.START
+    }
+
+    fun deleteGroupSuccess(groupId: String) {
+        _deletePlanGroupState.value = DeletePlanGroupState.SUCCESS
+        removeGroup(groupId)
+    }
+
+    fun deleteGroupFailed(error: String) {
+        _deletePlanGroupState.value = DeletePlanGroupState.FAILED
+    }
+
+    /**
+     * 通过groupId移除一个计划
+     */
+    private fun removeGroup(groupId: String) {
+        val currentGroupList = _planGroupList.value ?: mutableListOf()
+        val removeGroup = currentGroupList.find { it.groupId == groupId }
+        if (removeGroup != null) {
+            currentGroupList.remove(removeGroup)
+        }
+        _planGroupList.value = currentGroupList
     }
 
     fun updateSelectTimeRange(timeRangeType: TimeRangeType, timeRange: Pair<Long, String>) {

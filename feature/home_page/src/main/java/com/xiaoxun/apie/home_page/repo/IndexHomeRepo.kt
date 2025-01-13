@@ -2,16 +2,19 @@ package com.xiaoxun.apie.home_page.repo
 
 import com.xiaoxun.apie.apie_data_loader.DataLoaderManager
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlan
-import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanGroup
-import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanGroupRequestBody
+import com.xiaoxun.apie.apie_data_loader.request.group.CreatePlanGroup
+import com.xiaoxun.apie.apie_data_loader.request.group.CreatePlanGroupRequestBody
+import com.xiaoxun.apie.apie_data_loader.request.group.DeleteGroup
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.plan.DeletePlan
-import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlanGroups
+import com.xiaoxun.apie.apie_data_loader.request.group.LoadPlanGroups
 import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlans
+import com.xiaoxun.apie.apie_data_loader.request.group.UpdateGroupRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.plan.UpdatePlanCompletedCount
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.account.AccountManager
 import com.xiaoxun.apie.common.utils.coroutine.singleSuspendCoroutine
+import com.xiaoxun.apie.common_model.home_page.group.DeleteGroupRespModel
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupRespModel
 import com.xiaoxun.apie.common_model.home_page.plan.DeletePlanRespModel
@@ -159,6 +162,26 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel, private val goldS
         )
     }
 
+    override suspend fun deleteGroup(groupId: String) {
+        viewModel.deleteGroupStart()
+        innerDeleteGroup(groupId).fold(
+            onSuccess = {
+                it.data?.let { resp ->
+                    viewModel.deleteGroupSuccess(resp.groupId)
+                } ?: let {
+                    viewModel.deleteGroupFailed("data is null.")
+                }
+            },
+            onFailure = {
+                viewModel.deleteGroupFailed(it.localizedMessage ?: "request error.")
+            }
+        )
+    }
+
+    override suspend fun updateGroup(updateGroupRequestBody: UpdateGroupRequestBody) {
+        TODO("Not yet implemented")
+    }
+
     /**
      * 在生命周期结束时清理订阅
      */
@@ -199,9 +222,11 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel, private val goldS
     private suspend fun innerCreatePlanGroup(groupName: String): Result<BaseResponse<PlanGroupModel>> {
         return executeResult {
             DataLoaderManager.instance.createPlanGroup(
-                CreatePlanGroup(CreatePlanGroupRequestBody(
+                CreatePlanGroup(
+                    CreatePlanGroupRequestBody(
                     groupName = groupName,
-                    createUserId = AccountManager.getUserId())),
+                    createUserId = AccountManager.getUserId())
+                ),
                 CacheStrategy.FORCE_NET
             )
         }
@@ -232,6 +257,15 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel, private val goldS
         return executeResult {
             DataLoaderManager.instance.deletePlan(
                 DeletePlan(planId),
+                CacheStrategy.FORCE_NET
+            )
+        }
+    }
+
+    private suspend fun innerDeleteGroup(groupId: String): Result<BaseResponse<DeleteGroupRespModel>> {
+        return executeResult {
+            DataLoaderManager.instance.deleteGroup(
+                DeleteGroup(groupId),
                 CacheStrategy.FORCE_NET
             )
         }

@@ -7,11 +7,13 @@ import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySm
 import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlans
 import com.xiaoxun.apie.apie_data_loader.request.account.sms.SendSmsCode
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlan
-import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanGroup
+import com.xiaoxun.apie.apie_data_loader.request.group.CreatePlanGroup
+import com.xiaoxun.apie.apie_data_loader.request.group.DeleteGroup
 import com.xiaoxun.apie.apie_data_loader.request.plan.DeletePlan
-import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlanGroups
+import com.xiaoxun.apie.apie_data_loader.request.group.LoadPlanGroups
 import com.xiaoxun.apie.apie_data_loader.request.plan.UpdatePlanCompletedCount
 import com.xiaoxun.apie.common_model.account.AccountModel
+import com.xiaoxun.apie.common_model.home_page.group.DeleteGroupRespModel
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupRespModel
 import com.xiaoxun.apie.common_model.home_page.plan.DeletePlanRespModel
@@ -120,5 +122,13 @@ class DataLoaderManager private constructor() {
     fun deletePlan(deletePlan: DeletePlan, cacheStrategy: CacheStrategy): Observable<BaseResponse<DeletePlanRespModel>> {
         val loader = buildDataLoader<DeletePlanRespModel>(APieUrl.DELETE_PLAN.name)
         return loader?.getData(deletePlan, cacheStrategy) ?: Observable.error(Exception("loader is null"))
+    }
+
+    /**
+     * 删除一个分组
+     */
+    fun deleteGroup(deleteGroup: DeleteGroup, cacheStrategy: CacheStrategy): Observable<BaseResponse<DeleteGroupRespModel>> {
+        val loader = buildDataLoader<DeleteGroupRespModel>(APieUrl.DELETE_GROUP.name)
+        return loader?.getData(deleteGroup, cacheStrategy) ?: Observable.error(Exception("loader is null"))
     }
 }

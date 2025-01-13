@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.apie_data_loader.request.plan
+package com.xiaoxun.apie.apie_data_loader.request.group
 
 import com.xiaoxun.apie.apie_data_loader.APieUrl
 import com.xiaoxun.apie.apie_data_loader.api.APieApiManager
