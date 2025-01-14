@@ -38,6 +38,9 @@ githubXpopupVersion = "2.10.0"
 glideVersion = "4.12.0"
 codelocatorCoreVersion = "2.0.4"
 dateTimePickerVersion = "0.6.3"
+datastoreVersion = "1.0.0"
+livedataKtxVersion = "2.3.1"
+startupVersion = '1.1.0'
 
 # 需要注意的是，如果名称中有“-”，在Gradle构建脚本中引用时必须将其改成“.”，例如：androidx-core-ktx 调用时需要改成 androidx.core.ktx
 [libraries]
@@ -49,6 +52,9 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastoreVersion" }
+livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "livedataKtxVersion" }
+startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "startupVersion"}
 
 # lifecycle
 androidx-lifecycle-process = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "androidxlifecycleprocessVersion" }
@@ -66,8 +72,8 @@ reactivex-rxjava2-rxjava = { group = "io.reactivex.rxjava2", name = "rxjava", ve
 google-code-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gsonVersion" }
 
 # ARouter
-alibaba-arouter-api = { group = "com.alibaba", name = "arouter-api", version.ref = "arouterApiVersion"}
-alibaba-arouter-compiler = { group = "com.alibaba", name = "arouter-compiler", version.ref = "arouterCompilerVersion"}
+alibaba-arouter-api = { group = "com.alibaba", name = "arouter-api", version.ref = "arouterApiVersion" }
+alibaba-arouter-compiler = { group = "com.alibaba", name = "arouter-compiler", version.ref = "arouterCompilerVersion" }
 
 # room数据库
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidxRoomRuntimeVersion" }
@@ -80,7 +86,7 @@ androidx-room-compiler-processing-testing = { group = "androidx.room", name = "r
 github-xpopup = { group = "com.github.li-xiaojun", name = "XPopup", version.ref = "githubXpopupVersion" }
 github-bumptech-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glideVersion" }
 github-bumptech-glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glideVersion" }
-codelocator-core = { group = "com.bytedance.tools.codelocator", name = "codelocator-core", version.ref = "codelocatorCoreVersion"}
+codelocator-core = { group = "com.bytedance.tools.codelocator", name = "codelocator-core", version.ref = "codelocatorCoreVersion" }
 github-datetimepicker = { group = "com.github.loper7", name = "DateTimePicker", version.ref = "dateTimePickerVersion" }
 
 [plugins]

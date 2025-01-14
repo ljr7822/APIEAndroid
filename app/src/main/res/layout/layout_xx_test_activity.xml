@@ -5,31 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/apie_theme_dimension_50"
+    android:gravity="center"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/new_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NEW_MESSAGE" />
+    <TextView
+        android:id="@+id/data"
+        android:layout_width="match_parent"
+        android:text="@string/app_name"
+        android:gravity="center"
+        android:layout_height="@dimen/apie_theme_dimension_100"
+        android:textColor="@color/apieTheme_colorBlack"/>
 
     <Button
-        android:id="@+id/shake"
+        android:id="@+id/getData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SHAKE" />
+        android:text="getData" />
 
     <Button
-        android:id="@+id/end_tip"
+        android:id="@+id/saveData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="END_TIP" />
-
-    <Button
-        android:id="@+id/catch_on"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CATCH_ON" />
+        android:text="saveData" />
 
 </LinearLayout>
