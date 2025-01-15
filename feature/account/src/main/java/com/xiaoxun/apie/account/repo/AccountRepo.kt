@@ -2,24 +2,17 @@ package com.xiaoxun.apie.account.repo
 
 import androidx.appcompat.app.AppCompatActivity
 import com.xiaoxun.apie.account.viewmodel.AccountViewModel
+import com.xiaoxun.apie.account_manager.repo.AccountDBRepository
+import com.xiaoxun.apie.account_manager.repo.AccountDataDescriptor
 import com.xiaoxun.apie.apie_data_loader.DataLoaderManager
 import com.xiaoxun.apie.apie_data_loader.request.account.login.password.LoginByPasswordRequest
 import com.xiaoxun.apie.apie_data_loader.request.account.login.password.LoginByPasswordRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySmsCodeRequest
 import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySmsCodeRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.account.sms.SendSmsCode
-import com.xiaoxun.apie.common.utils.GsonUtils
-import com.xiaoxun.apie.common.utils.SharedPreferencesHelper
-import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_DATA_KEY
-import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_GOLD_COUNT_KEY
-import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_GRADE_KEY
-import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_NAME_KEY
-import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_PHONE_KEY
-import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_TOKEN_KEY
-import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_TOTAL_DESIRE_KEY
-import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_TOTAL_PLAN_KEY
-import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_USERID_KEY
-import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_USER_TYPE_KEY
+import com.xiaoxun.apie.common.repo.AccountMMKVRepository
+import com.xiaoxun.apie.common.repo.DesireMMKVRepository
+import com.xiaoxun.apie.common.repo.PlanMMKVRepository
 import com.xiaoxun.apie.common.utils.coroutine.singleSuspendCoroutine
 import com.xiaoxun.apie.common_model.account.AccountModel
 import com.xiaoxun.apie.common_model.sms.SmsCodeModel
@@ -38,6 +31,8 @@ class AccountRepo(
 
     private val disposables = CompositeDisposable()
 
+    private val accountDb: AccountDBRepository by lazy { AccountDBRepository(activity) }
+
     /**
      * 在生命周期结束时清理订阅
      */
@@ -54,7 +49,7 @@ class AccountRepo(
                 if (response.isSuccess()) {
                     response.data?.let { accountModel ->
                         viewModel.onLoginSuccess()
-                        saveAccountData2Sp(accountModel)
+                        saveAccountData2DB(accountModel)
                     } ?: let {
                         viewModel.onLoginFailed("登录异常，用户数据为空")
                     }
@@ -77,7 +72,7 @@ class AccountRepo(
                 if (response.isSuccess()) {
                     response.data?.let { accountModel ->
                         viewModel.onLoginSuccess()
-                        saveAccountData2Sp(accountModel)
+                        saveAccountData2DB(accountModel)
                     } ?: let {
                         viewModel.onLoginFailed("登录异常，用户数据为空")
                     }
@@ -112,17 +107,37 @@ class AccountRepo(
         )
     }
 
-    private fun saveAccountData2Sp(accountModel: AccountModel) {
-        SharedPreferencesHelper.putString(SP_ACCOUNT_DATA_KEY, GsonUtils.toJson(accountModel))
-        SharedPreferencesHelper.putString(SP_ACCOUNT_TOKEN_KEY, accountModel.token ?: "")
-        SharedPreferencesHelper.putString(SP_ACCOUNT_NAME_KEY, accountModel.userName ?: "")
-        SharedPreferencesHelper.putString(SP_ACCOUNT_PHONE_KEY, accountModel.phoneNum)
-        SharedPreferencesHelper.putString(SP_ACCOUNT_USERID_KEY, accountModel.userId)
-        SharedPreferencesHelper.putInt(SP_ACCOUNT_GOLD_COUNT_KEY, accountModel.goldCount ?: 0)
-        SharedPreferencesHelper.putInt(SP_ACCOUNT_GRADE_KEY, accountModel.grade ?: 0)
-        SharedPreferencesHelper.putInt(SP_ACCOUNT_USER_TYPE_KEY, accountModel.userType ?: 0)
-        SharedPreferencesHelper.putInt(SP_ACCOUNT_TOTAL_PLAN_KEY, accountModel.totalPlan ?: 0)
-        SharedPreferencesHelper.putInt(SP_ACCOUNT_TOTAL_DESIRE_KEY, accountModel.totalDesire ?: 0)
+    private fun saveAccountData2DB(accountModel: AccountModel) {
+        // 保存用户数据到数据库
+        accountDb.insertAccountData(
+            AccountDataDescriptor(
+                userId = accountModel.userId,
+                userName = accountModel.userName,
+                userPortrait = accountModel.userPortrait,
+                phoneNumber = accountModel.phoneNum,
+                token = accountModel.token,
+                desc = accountModel.desc,
+                sex = accountModel.sex,
+                address = accountModel.address,
+                grade = accountModel.grade,
+                userType = accountModel.userType
+            )
+        )
+        saveAccountData2MMKV(accountModel)
+    }
+
+    /**
+     * 更新userId\token到MMKV
+     */
+    private fun saveAccountData2MMKV(accountModel: AccountModel) {
+        AccountMMKVRepository.userId = accountModel.userId
+        AccountMMKVRepository.userName = accountModel.userName
+        AccountMMKVRepository.token = accountModel.token
+        AccountMMKVRepository.goldCount = accountModel.goldCount
+
+        PlanMMKVRepository.planCount = accountModel.totalPlan
+
+        DesireMMKVRepository.desireCount = accountModel.totalDesire
     }
 
     private suspend fun loginByPassword(

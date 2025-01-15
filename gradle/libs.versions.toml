@@ -55,6 +55,8 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastoreVersion" }
 livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "livedataKtxVersion" }
 startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "startupVersion"}
+kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlin"}
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin"}
 
 # lifecycle
 androidx-lifecycle-process = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "androidxlifecycleprocessVersion" }
@@ -88,6 +90,7 @@ github-bumptech-glide = { group = "com.github.bumptech.glide", name = "glide", v
 github-bumptech-glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glideVersion" }
 codelocator-core = { group = "com.bytedance.tools.codelocator", name = "codelocator-core", version.ref = "codelocatorCoreVersion" }
 github-datetimepicker = { group = "com.github.loper7", name = "DateTimePicker", version.ref = "dateTimePickerVersion" }
+wcdb-room = { group = "com.tencent.wcdb", name = "room", version = "1.1-19"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

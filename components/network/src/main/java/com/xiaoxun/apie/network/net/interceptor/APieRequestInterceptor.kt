@@ -1,6 +1,6 @@
 package com.xiaoxun.apie.network.net.interceptor
 
-import com.xiaoxun.apie.common.utils.account.AccountManager
+import com.xiaoxun.apie.common.manager.account.AccountManager
 import com.xiaoxun.apie.network.net.intf.IAPieNetReqInfo
 import okhttp3.Interceptor
 import okhttp3.Response

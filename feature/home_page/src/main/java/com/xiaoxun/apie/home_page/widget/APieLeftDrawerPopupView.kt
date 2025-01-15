@@ -9,9 +9,10 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.lxj.xpopup.core.DrawerPopupView
 import com.xiaoxun.apie.common.HOME_SETTING_ACTIVITY_PATH
 import com.xiaoxun.apie.common.R
-import com.xiaoxun.apie.common.utils.APieLog
-import com.xiaoxun.apie.common.utils.SharedPreferencesHelper
-import com.xiaoxun.apie.common.utils.account.AccountManager
+import com.xiaoxun.apie.common.manager.account.AccountManager
+import com.xiaoxun.apie.common.repo.AccountMMKVRepository
+import com.xiaoxun.apie.common.repo.DesireMMKVRepository
+import com.xiaoxun.apie.common.repo.PlanMMKVRepository
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.home_page.fragment.setting.APieGroupManagerFragment
 import com.xiaoxun.apie.home_page.fragment.setting.APieSoundEffectsFragment
@@ -57,9 +58,9 @@ class APieLeftDrawerPopupView @JvmOverloads constructor(
         settingIcon.setDebouncingClickListener {
             ARouter.getInstance().build(HOME_SETTING_ACTIVITY_PATH).navigation()
         }
-        totalPlanNum.text = SharedPreferencesHelper.getInt(SharedPreferencesHelper.SP_ACCOUNT_TOTAL_PLAN_KEY, 0).toString()
-        totalDesireNum.text = SharedPreferencesHelper.getInt(SharedPreferencesHelper.SP_ACCOUNT_TOTAL_DESIRE_KEY, 0).toString()
-        totalGoldNum.text = SharedPreferencesHelper.getInt(SharedPreferencesHelper.SP_ACCOUNT_GOLD_COUNT_KEY, 0).toString()
+        totalPlanNum.text = PlanMMKVRepository.planCount.toString()
+        totalDesireNum.text = DesireMMKVRepository.desireCount.toString()
+        totalGoldNum.text = AccountMMKVRepository.goldCount.toString()
 
         soundEffectsSetting.setDebouncingClickListener {
             (context as? FragmentActivity)?.supportFragmentManager?.let {

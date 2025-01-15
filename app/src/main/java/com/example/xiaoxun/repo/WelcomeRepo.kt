@@ -2,7 +2,7 @@ package com.example.xiaoxun.repo
 
 import com.example.xiaoxun.viewmodel.CheckLoginStatus
 import com.example.xiaoxun.viewmodel.WelcomeViewModel
-import com.xiaoxun.apie.common.utils.account.AccountManager
+import com.xiaoxun.apie.common.manager.account.AccountManager
 
 class WelcomeRepo(private val viewModel: WelcomeViewModel) {
 

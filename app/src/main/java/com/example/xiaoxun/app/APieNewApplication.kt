@@ -31,7 +31,7 @@ class APieNewApplication : APieBaseApplication() {
 
         initDataCache(this)
         initDataLoader()
-        initSharedPreferences(this)
+        //initSharedPreferences(this)
         initARouter(this)
     }
 

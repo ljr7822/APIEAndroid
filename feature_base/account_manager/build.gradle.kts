@@ -1,12 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.jetbrains.kotlin.kapt)
 }
 
 android {
-    namespace = "com.xiaoxun.apie.account"
+    namespace = "com.xiaoxun.apie.account_manager"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -14,12 +13,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-    }
-
-    kapt {
-        arguments {
-            arg("AROUTER_MODULE_NAME", project.name)
-        }
     }
 
     buildTypes {
@@ -38,26 +31,17 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
+
     implementation(project(":components:common"))
-    implementation(project(":components:common_model"))
-    implementation(project(":components:data_loader"))
-    implementation(project(":feature_base:apie_data_loader"))
-    implementation(project(":feature_base:account_manager"))
-    implementation(libs.codelocator.core)
-    implementation(libs.alibaba.arouter.api)
-    kapt(libs.alibaba.arouter.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.reactivex.rxjava2.rxandroid)
-    implementation(libs.reactivex.rxjava2.rxjava)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.rxjava2)
+    kapt(libs.androidx.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -3,6 +3,8 @@ package com.xiaoxun.apie.common.db
 import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.tencent.wcdb.database.SQLiteCipherSpec
+import com.tencent.wcdb.room.db.WCDBOpenHelperFactory
 import java.util.concurrent.ConcurrentHashMap
 
 /**
@@ -30,6 +32,21 @@ object APieDatabaseHolder {
 
             if (config.allowedMainThread()) {
                 builder.allowMainThreadQueries()
+            }
+
+            // 数据库加密
+            if (config.passphrase() != null) {
+
+                val cipherSpec = SQLiteCipherSpec()
+                    .setPageSize(1024)
+                    .setKDFIteration(64000)
+
+                val factory: WCDBOpenHelperFactory = WCDBOpenHelperFactory()
+                    .passphrase(config.passphrase())
+                    .cipherSpec(cipherSpec)
+                    .writeAheadLoggingEnabled(config.setWALEnabled())
+
+                builder.openHelperFactory(factory)
             }
 
             config.migrations()?.let {

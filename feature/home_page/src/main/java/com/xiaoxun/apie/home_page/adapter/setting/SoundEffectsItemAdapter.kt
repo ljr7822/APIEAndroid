@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.xiaoxun.apie.common.R
+import com.xiaoxun.apie.common.repo.SettingMMKVRepository
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_SOUND_EFFECTS_CLICK_DELETE_ID_KEY
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_SOUND_EFFECTS_CLICK_DONE_ID_KEY
@@ -27,23 +28,25 @@ class SoundEffectsItemAdapter(
 
     private var items: MutableList<SoundEffectsInfo> = mutableListOf()
 
-    private var spKey = ""
+    private var mmkvType: SettingInfoType? = null
 
     init {
         if (itemMaps.containsKey(SettingInfoType.PLAN_DONE_SOUND_EFFECTS)) {
             items = itemMaps[SettingInfoType.PLAN_DONE_SOUND_EFFECTS]!!
-            // 初始化时从 SharedPreferences 获取保存的 id 并找到对应的 position
-            spKey = SP_ACCOUNT_SOUND_EFFECTS_CLICK_DONE_ID_KEY
+            mmkvType = SettingInfoType.PLAN_DONE_SOUND_EFFECTS
         } else if (itemMaps.containsKey(SettingInfoType.PLAN_RESET_SOUND_EFFECTS)) {
             items = itemMaps[SettingInfoType.PLAN_RESET_SOUND_EFFECTS]!!
-            // 初始化时从 SharedPreferences 获取保存的 id 并找到对应的 position
-            spKey = SP_ACCOUNT_SOUND_EFFECTS_CLICK_RESET_ID_KEY
+            mmkvType = SettingInfoType.PLAN_RESET_SOUND_EFFECTS
         } else {
             items = itemMaps[SettingInfoType.PLAN_DELETE_SOUND_EFFECTS]!!
-            // 初始化时从 SharedPreferences 获取保存的 id 并找到对应的 position
-            spKey = SP_ACCOUNT_SOUND_EFFECTS_CLICK_DELETE_ID_KEY
+            mmkvType = SettingInfoType.PLAN_DELETE_SOUND_EFFECTS
         }
-        val savedId = SharedPreferencesHelper.getInt(spKey, -1)
+        val savedId = when(mmkvType) {
+            SettingInfoType.PLAN_DONE_SOUND_EFFECTS -> SettingMMKVRepository.planDoneSoundEffectsId
+            SettingInfoType.PLAN_RESET_SOUND_EFFECTS -> SettingMMKVRepository.planResetSoundEffectsId
+            SettingInfoType.PLAN_DELETE_SOUND_EFFECTS -> SettingMMKVRepository.planDeleteSoundEffectsId
+            else -> 0
+        }
         selectedPosition = items.indexOfFirst { it.soundInfo.soundId == savedId }
     }
 
@@ -82,10 +85,12 @@ class SoundEffectsItemAdapter(
             val realPosition = holder.adapterPosition
             if (realPosition != selectedPosition) {
                 updateSelectedPosition(realPosition)
-                SharedPreferencesHelper.putInt(
-                    spKey,
-                    item.soundInfo.soundId
-                )
+                when(mmkvType) {
+                    SettingInfoType.PLAN_DONE_SOUND_EFFECTS -> SettingMMKVRepository.planDoneSoundEffectsId = item.soundInfo.soundId
+                    SettingInfoType.PLAN_RESET_SOUND_EFFECTS -> SettingMMKVRepository.planResetSoundEffectsId = item.soundInfo.soundId
+                    SettingInfoType.PLAN_DELETE_SOUND_EFFECTS -> SettingMMKVRepository.planDeleteSoundEffectsId = item.soundInfo.soundId
+                    else -> 0
+                }
                 APieSoundPoolHelper.playBuiltIn(item.soundInfo)
             }
         }

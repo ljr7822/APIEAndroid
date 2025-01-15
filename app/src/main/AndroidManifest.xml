@@ -27,6 +27,9 @@
             <meta-data
                 android:name="com.xiaoxun.apie.common.datastore.DataStoreInitializer"
                 android:value="androidx.startup" />
+<!--            <meta-data-->
+<!--                android:name="com.xiaoxun.apie.common.mmkv.MMKVInitializer"-->
+<!--                android:value="androidx.startup" />-->
         </provider>
         <activity
             android:name=".APieWelcomeActivity"

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xiaoxun.apie.common.base.fragment.APieBaseBottomSheetDialogFragment
+import com.xiaoxun.apie.common.repo.SettingMMKVRepository
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_SOUND_EFFECTS_DELETE_PLAN_SWITCH_KEY
 import com.xiaoxun.apie.common.utils.SharedPreferencesHelper.SP_ACCOUNT_SOUND_EFFECTS_DONE_PLAN_SWITCH_KEY
@@ -50,10 +51,7 @@ class APieSoundEffectsFragment :
                 leftText = "打卡音效",
                 desc = "开启后，打卡将会触发音效，选择自己喜欢的音效吧～",
                 isShowSwitch = true,
-                switchIsCheck = SharedPreferencesHelper.getBoolean(
-                    SP_ACCOUNT_SOUND_EFFECTS_DONE_PLAN_SWITCH_KEY,
-                    false
-                ),
+                switchIsCheck = SettingMMKVRepository.planDoneSoundEffectsSwitch,
                 soundEffectsInfoList = mutableMapOf(
                     SettingInfoType.PLAN_DONE_SOUND_EFFECTS to mutableListOf(
                         SoundEffectsInfo(SoundInfo.WATER_DROPLETS),
@@ -71,10 +69,7 @@ class APieSoundEffectsFragment :
                 leftText = "撤销打卡音效",
                 desc = "开启后，撤销打卡将会触发音效～",
                 isShowSwitch = true,
-                switchIsCheck = SharedPreferencesHelper.getBoolean(
-                    SP_ACCOUNT_SOUND_EFFECTS_RESET_PLAN_SWITCH_KEY,
-                    false
-                ),
+                switchIsCheck = SettingMMKVRepository.planResetSoundEffectsSwitch,
                 soundEffectsInfoList = mutableMapOf(
                     SettingInfoType.PLAN_RESET_SOUND_EFFECTS to mutableListOf(
                         SoundEffectsInfo(SoundInfo.WATER_DROPLETS),
@@ -92,10 +87,7 @@ class APieSoundEffectsFragment :
                 leftText = "删除任务音效",
                 desc = "开启后，删除任务将会触发音效～",
                 isShowSwitch = true,
-                switchIsCheck = SharedPreferencesHelper.getBoolean(
-                    SP_ACCOUNT_SOUND_EFFECTS_DELETE_PLAN_SWITCH_KEY,
-                    false
-                ),
+                switchIsCheck = SettingMMKVRepository.planDeleteSoundEffectsSwitch,
                 soundEffectsInfoList = mutableMapOf(
                     SettingInfoType.PLAN_DELETE_SOUND_EFFECTS to mutableListOf(
                         SoundEffectsInfo(SoundInfo.WATER_DROPLETS),
@@ -121,20 +113,9 @@ class APieSoundEffectsFragment :
                 isChecked: Boolean
             ) {
                 when (settingInfoType) {
-                    SettingInfoType.PLAN_DONE_SOUND_EFFECTS -> SharedPreferencesHelper.putBoolean(
-                        SP_ACCOUNT_SOUND_EFFECTS_DONE_PLAN_SWITCH_KEY,
-                        isChecked
-                    )
-
-                    SettingInfoType.PLAN_RESET_SOUND_EFFECTS -> SharedPreferencesHelper.putBoolean(
-                        SP_ACCOUNT_SOUND_EFFECTS_RESET_PLAN_SWITCH_KEY,
-                        isChecked
-                    )
-
-                    SettingInfoType.PLAN_DELETE_SOUND_EFFECTS -> SharedPreferencesHelper.putBoolean(
-                        SP_ACCOUNT_SOUND_EFFECTS_DELETE_PLAN_SWITCH_KEY,
-                        isChecked
-                    )
+                    SettingInfoType.PLAN_DONE_SOUND_EFFECTS -> SettingMMKVRepository.planDoneSoundEffectsSwitch = isChecked
+                    SettingInfoType.PLAN_RESET_SOUND_EFFECTS -> SettingMMKVRepository.planResetSoundEffectsSwitch = isChecked
+                    SettingInfoType.PLAN_DELETE_SOUND_EFFECTS -> SettingMMKVRepository.planDeleteSoundEffectsSwitch = isChecked
                 }
             }
         })

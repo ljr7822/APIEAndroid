@@ -3,21 +3,11 @@ package com.xiaoxun.apie.common.utils
 import android.content.Context
 import android.content.SharedPreferences
 
+@Deprecated("Use MMKV instead")
 object SharedPreferencesHelper {
 
     private const val PREF_NAME = "APIE_SHARED_PREFERENCES"
     private lateinit var sharedPreferences: SharedPreferences
-
-    const val SP_ACCOUNT_DATA_KEY = "sp_account_data_key"
-    const val SP_ACCOUNT_TOKEN_KEY = "sp_account_token_key"
-    const val SP_ACCOUNT_NAME_KEY = "sp_account_name_key"
-    const val SP_ACCOUNT_PHONE_KEY = "sp_account_phone_key"
-    const val SP_ACCOUNT_USERID_KEY = "sp_account_userId_key"
-    const val SP_ACCOUNT_GOLD_COUNT_KEY = "sp_account_gold_count_key"
-    const val SP_ACCOUNT_GRADE_KEY = "sp_account_grade_key"
-    const val SP_ACCOUNT_USER_TYPE_KEY = "sp_account_user_type_key"
-    const val SP_ACCOUNT_TOTAL_PLAN_KEY = "sp_account_total_plan_key"
-    const val SP_ACCOUNT_TOTAL_DESIRE_KEY = "sp_account_total_desire_key"
     // 打卡
     const val SP_ACCOUNT_SOUND_EFFECTS_DONE_PLAN_SWITCH_KEY = "sp_account_sound_effects_done_plan_switch_key"
     const val SP_ACCOUNT_SOUND_EFFECTS_CLICK_DONE_ID_KEY = "sp_account_sound_effects_click_done_id_key"

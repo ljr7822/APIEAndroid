@@ -1,7 +1,7 @@
 package com.xiaoxun.apie.network.net
 
 import com.xiaoxun.apie.common.config.APieConfig
-import com.xiaoxun.apie.common.utils.account.AccountManager
+import com.xiaoxun.apie.common.manager.account.AccountManager
 import com.xiaoxun.apie.network.net.config.ClientConfig
 import com.xiaoxun.apie.network.net.factory.APieGsonFactory
 import com.xiaoxun.apie.network.net.factory.OkHttpClientFactory

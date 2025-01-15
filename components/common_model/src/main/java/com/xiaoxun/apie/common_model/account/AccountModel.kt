@@ -35,29 +35,29 @@ data class AccountModel(
     @SerializedName("userId")
     var userId: String = "",
     @SerializedName("userName")
-    val userName: String? = "",
+    val userName: String = "",
     @SerializedName("userPortrait")
     val userPortrait: String? = "",
     @SerializedName("phoneNum")
     var phoneNum: String = "",
     @SerializedName("token")
-    var token: String? = "",
+    var token: String = "",
     @SerializedName("desc")
     val desc: String? = "",
     @SerializedName("sex")
-    val sex: Int? = null,
+    val sex: Int = 0,
     @SerializedName("address")
     var address: String = "",
     @SerializedName("school")
     val school: String? = "",
     @SerializedName("grade")
-    val grade: Int? = null,
+    val grade: Int = 0,
     @SerializedName("goldCount")
-    val goldCount: Int? = null,
+    val goldCount: Int = 0,
     @SerializedName("userType")
-    val userType: Int? = null,
+    val userType: Int = 0,
     @SerializedName("totalPlan")
-    val totalPlan: Int? = null,
+    val totalPlan: Int = 0,
     @SerializedName("totalDesire")
-    val totalDesire: Int? = null,
+    val totalDesire: Int = 0,
 ) : Parcelable

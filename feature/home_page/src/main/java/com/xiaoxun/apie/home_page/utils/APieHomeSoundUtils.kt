@@ -1,6 +1,6 @@
 package com.xiaoxun.apie.home_page.utils
 
-import com.xiaoxun.apie.common.utils.SharedPreferencesHelper
+import com.xiaoxun.apie.common.repo.SettingMMKVRepository
 import com.xiaoxun.apie.common.utils.sound_pool.APieSoundPoolHelper
 
 /**
@@ -15,27 +15,21 @@ object APieHomeSoundUtils {
         when (scene) {
             SceneType.PLAN_DONE_CLICK -> {
                 if (getPlanDoneClickSoundStatus()) {
-                    val soundInfoId = SharedPreferencesHelper.getInt(
-                        SharedPreferencesHelper.SP_ACCOUNT_SOUND_EFFECTS_CLICK_DONE_ID_KEY, 6
-                    )
+                    val soundInfoId = SettingMMKVRepository.planDoneSoundEffectsId
                     APieSoundPoolHelper.playSoundInfoById(soundInfoId)
                 }
             }
 
             SceneType.PLAN_RESET_CLICK -> {
                 if (getPlanResetClickSoundStatus()) {
-                    val soundInfoId = SharedPreferencesHelper.getInt(
-                        SharedPreferencesHelper.SP_ACCOUNT_SOUND_EFFECTS_CLICK_RESET_ID_KEY, 6
-                    )
+                    val soundInfoId = SettingMMKVRepository.planResetSoundEffectsId
                     APieSoundPoolHelper.playSoundInfoById(soundInfoId)
                 }
             }
 
             SceneType.PLAN_DELETE_CLICK -> {
                 if (getPlanDeleteClickSoundStatus()) {
-                    val soundInfoId = SharedPreferencesHelper.getInt(
-                        SharedPreferencesHelper.SP_ACCOUNT_SOUND_EFFECTS_CLICK_DELETE_ID_KEY, 6
-                    )
+                    val soundInfoId = SettingMMKVRepository.planDeleteSoundEffectsId
                     APieSoundPoolHelper.playSoundInfoById(soundInfoId)
                 }
             }
@@ -47,30 +41,21 @@ object APieHomeSoundUtils {
  * 打卡音效开关
  */
 private fun getPlanDoneClickSoundStatus(): Boolean {
-    return SharedPreferencesHelper.getBoolean(
-        SharedPreferencesHelper.SP_ACCOUNT_SOUND_EFFECTS_DONE_PLAN_SWITCH_KEY,
-        false
-    )
+    return SettingMMKVRepository.planDoneSoundEffectsSwitch
 }
 
 /**
  * 撤销打卡音效开关
  */
 private fun getPlanResetClickSoundStatus(): Boolean {
-    return SharedPreferencesHelper.getBoolean(
-        SharedPreferencesHelper.SP_ACCOUNT_SOUND_EFFECTS_RESET_PLAN_SWITCH_KEY,
-        false
-    )
+    return SettingMMKVRepository.planResetSoundEffectsSwitch
 }
 
 /**
  * 删除任务音效开关
  */
 private fun getPlanDeleteClickSoundStatus(): Boolean {
-    return SharedPreferencesHelper.getBoolean(
-        SharedPreferencesHelper.SP_ACCOUNT_SOUND_EFFECTS_DELETE_PLAN_SWITCH_KEY,
-        false
-    )
+    return SettingMMKVRepository.planDeleteSoundEffectsSwitch
 }
 
 enum class SceneType {

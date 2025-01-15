@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.InputType
 import android.text.method.PasswordTransformationMethod
+import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.xiaoxun.apie.account.R
@@ -203,7 +204,7 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
      * 验证码登录
      */
     private fun loginBySmsCode(phoneNum: String, smsCode: String) {
-        GlobalScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch(Dispatchers.Main) {
             repo.startLoginBySmsCode(phoneNum, smsCode)
         }
     }
@@ -212,7 +213,7 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
      * 密码登录
      */
     private fun loginByPassword(phoneNum: String, password: String) {
-        GlobalScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch(Dispatchers.Main) {
             repo.startLoginByPassword(phoneNum, password)
         }
     }
@@ -221,7 +222,7 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
      * 发送验证码
      */
     private fun sendSmsCode(phoneNum: String, userId: String = "99678322425856") {
-        GlobalScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch(Dispatchers.Main) {
             repo.getSmsCode(phoneNum, userId)
         }
     }
