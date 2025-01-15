@@ -24,7 +24,7 @@ class APieLoadingDialog(context: Context, enableDelayShow: Boolean = true) :
         setCancelable(false)
 //        val containerView: LottieAnimationView? = findViewById(R.id.redLoadingDialogView)
         val loadingView: APieLoadingView? = findViewById(R.id.loadingView)
-        loadingView.show()
+        loadingView?.show()
 //        if (loadingShowDelay > 0) {
 //            containerView?.postDelayed({
 //                //不能用isShowing，可能还未完全显示，返回false导致无法显示
