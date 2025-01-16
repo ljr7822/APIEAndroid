@@ -8,6 +8,8 @@ interface IIndexDesireRepo {
 
     suspend fun loadDesireList(userId: String?, manualRefresh: Boolean = false)
 
+    suspend fun exchangeDesire(exchangeDesireId: String)
+
     /**
      * 在生命周期结束时清理订阅
      */

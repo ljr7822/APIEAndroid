@@ -12,6 +12,9 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.xiaoxun.apie.common.base.fragment.APieBaseBindingFragment
 import com.xiaoxun.apie.common.repo.AccountMMKVRepository
 import com.xiaoxun.apie.common.ui.APieLoadingDialog
+import com.xiaoxun.apie.common.ui.APieStyleExitTip
+import com.xiaoxun.apie.common.ui.APieStyleExitTip.Companion.APIE_EXCHANGE_DESIRE_KEY
+import com.xiaoxun.apie.common.utils.APieVibrateTool
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common_model.home_page.desire.DesireModel
 import com.xiaoxun.apie.gold_manage.service.GoldService
@@ -19,6 +22,7 @@ import com.xiaoxun.apie.home_page.adapter.desire.APieDesireAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexDesireFragmentBinding
 import com.xiaoxun.apie.home_page.repo.desire.IIndexDesireRepo
 import com.xiaoxun.apie.home_page.repo.desire.IndexDesireRepoImpl
+import com.xiaoxun.apie.home_page.viewmodel.CommonLoadingState
 import com.xiaoxun.apie.home_page.viewmodel.GenericViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.IndexDesireViewModel
 import com.xiaoxun.apie.home_page.viewmodel.LoadDesireListState
@@ -45,7 +49,7 @@ class APieIndexDesireFragment : APieBaseBindingFragment<LayoutApieIndexDesireFra
 
     private val goldService: GoldService by lazy { GoldService() }
 
-    private val repo: IIndexDesireRepo by lazy { IndexDesireRepoImpl(viewModel) }
+    private val repo: IIndexDesireRepo by lazy { IndexDesireRepoImpl(viewModel, goldService) }
 
     private val desireAdapter: APieDesireAdapter by lazy { APieDesireAdapter() }
 
@@ -105,9 +109,7 @@ class APieIndexDesireFragment : APieBaseBindingFragment<LayoutApieIndexDesireFra
         }
         desireAdapter.setItemClickListener(object : APieDesireAdapter.ItemClickListener {
             override fun onItemBuyClick(position: Int, desireModel: DesireModel) {
-                lifecycleScope.launch {
-                    // TODO:购买
-                }
+                showExchangeDesireDialog(desireModel)
             }
 
             override fun onItemDataAnalysisClick(position: Int, desireModel: DesireModel) {
@@ -135,17 +137,19 @@ class APieIndexDesireFragment : APieBaseBindingFragment<LayoutApieIndexDesireFra
     }
 
     private fun initObserver() {
-        viewModel.loadDesireListState.observe(viewLifecycleOwner) { state ->
+        viewModel.commonLoadingState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                LoadDesireListState.START -> loadingDialog.show()
-                LoadDesireListState.SUCCESS -> {
+                CommonLoadingState.START -> loadingDialog.show()
+                CommonLoadingState.SUCCESS -> {
                     loadingDialog.dismiss()
                     refreshLayout?.finishRefresh(100)
                 }
-                LoadDesireListState.FAILED -> {
+
+                CommonLoadingState.FAILED -> {
                     loadingDialog.dismiss()
                     refreshLayout?.finishRefresh(100)
                 }
+
                 else -> {}
             }
         }
@@ -168,5 +172,23 @@ class APieIndexDesireFragment : APieBaseBindingFragment<LayoutApieIndexDesireFra
             .isViewMode(true)
             .asCustom(APieLeftDrawerPopupView(hostActivity))
             .show()
+    }
+
+    private fun showExchangeDesireDialog(desireModel: DesireModel) {
+        // 兑换心愿弹窗
+        APieStyleExitTip.show(
+            activity = hostActivity,
+            key = APIE_EXCHANGE_DESIRE_KEY,
+            actionCallback = {
+                APieVibrateTool.device(50)
+                lifecycleScope.launch {
+                    repo.exchangeDesire(desireModel.desireId)
+                }
+            }
+        )
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        repo.onCleared()
     }
 }

@@ -15,6 +15,7 @@ enum class APieUrl(val url: String) {
     ACCOUNT_REGISTER(ACCOUNT_REGISTER_URL),
     CREATE_DESIRE(CREATE_DESIRE_URL),
     GET_DESIRE_BY_USER_ID(GET_DESIRE_BY_USER_ID_URL),
+    EXCHANGE_DESIRE(EXCHANGE_DESIRE_URL),
 }
 
 internal const val ACCOUNT_LOGIN_PASSWORD_URL = "/user/loginByPassword"
@@ -32,3 +33,4 @@ internal const val ACCOUNT_REGISTER_URL = "/user/loginByPassword"
 
 internal const val CREATE_DESIRE_URL = "/desire/create"
 internal const val GET_DESIRE_BY_USER_ID_URL = "/desire/queryAllDesire/{userId}"
+internal const val EXCHANGE_DESIRE_URL = "/desire/exchangeDesire/{desireId}"

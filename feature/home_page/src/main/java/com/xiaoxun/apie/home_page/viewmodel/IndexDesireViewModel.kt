@@ -3,7 +3,6 @@ package com.xiaoxun.apie.home_page.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.xiaoxun.apie.common.base.viewmodel.APieBaseViewModel
 import com.xiaoxun.apie.common_model.home_page.desire.DesireModel
-import com.xiaoxun.apie.common_model.home_page.desire.DesireRespModel
 
 class IndexDesireViewModel : APieBaseViewModel() {
 
@@ -11,6 +10,10 @@ class IndexDesireViewModel : APieBaseViewModel() {
     // 列表滚动状态
     private var _listScrolling = MutableLiveData<Boolean>()
     val listScrolling get() = _listScrolling
+
+    // 通用的loading状态
+    private var _commonLoadingState = MutableLiveData<CommonLoadingState>()
+    val commonLoadingState get() = _commonLoadingState
 
     // 创建心愿状态
     private var _createDesireState = MutableLiveData<CreateDesireState>()
@@ -25,6 +28,7 @@ class IndexDesireViewModel : APieBaseViewModel() {
     private var _currentDesireList = MutableLiveData<MutableList<DesireModel>>()
     val currentDesireList get() = _currentDesireList
 
+    // ********************************************* 方法 *********************************************
     fun updateListScrolling(isScrolling: Boolean) {
         if (_listScrolling.value == isScrolling) return
         _listScrolling.value = isScrolling
@@ -32,28 +36,59 @@ class IndexDesireViewModel : APieBaseViewModel() {
 
     fun onCreateDesireStart() {
         _createDesireState.value = CreateDesireState.START
+        showLoadingStart()
     }
 
     fun onCreateDesireSuccess(data: DesireModel) {
         _createDesireState.value = CreateDesireState.SUCCESS
+        showLoadingSuccess()
         updateOrInsertDesire(data)
     }
 
     fun onCreateDesireFailed(error: String) {
         _createDesireState.value = CreateDesireState.FAILED
+        showLoadingFailed()
     }
 
     fun onLoadDesireListStart() {
         _loadDesireListState.value = LoadDesireListState.START
+        showLoadingStart()
     }
 
     fun onLoadDesireListSuccess(desireList: MutableList<DesireModel>) {
         _loadDesireListState.value = LoadDesireListState.SUCCESS
         _currentDesireList.value = desireList
+        showLoadingSuccess()
     }
 
     fun onLoadDesireListFailed(error: String) {
         _loadDesireListState.value = LoadDesireListState.FAILED
+        showLoadingFailed()
+    }
+
+    fun onExchangeDesireStart() {
+        showLoadingStart()
+    }
+
+    fun onExchangeDesireSuccess(data: DesireModel) {
+        showLoadingSuccess()
+        updateOrInsertDesire(data)
+    }
+
+    fun onExchangeDesireFailed(error: String) {
+        showLoadingFailed()
+    }
+
+    fun showLoadingStart() {
+        _commonLoadingState.value = CommonLoadingState.START
+    }
+
+    fun showLoadingSuccess() {
+        _commonLoadingState.value = CommonLoadingState.SUCCESS
+    }
+
+    fun showLoadingFailed() {
+        _commonLoadingState.value = CommonLoadingState.FAILED
     }
 
     /**
@@ -70,7 +105,6 @@ class IndexDesireViewModel : APieBaseViewModel() {
             // 插入新数据
             currentList.add(0, resp) // 可按需求改变插入位置，比如插入到列表顶部
         }
-
         _currentDesireList.value = currentList
     }
 }

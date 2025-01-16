@@ -24,6 +24,7 @@ class APieStyleExitTip(
         const val APIE_RESECT_PLAN_COUNT_KEY = "APIE_RESECT_PLAN_COUNT_KEY"
         const val APIE_DELETE_PLAN_KEY = "APIE_DELETE_PLAN_KEY"
         const val APIE_DELETE_GROUP_KEY = "APIE_DELETE_GROUP_KEY"
+        const val APIE_EXCHANGE_DESIRE_KEY = "APIE_EXCHANGE_DESIRE_KEY"
 
 
         fun show(
@@ -35,6 +36,7 @@ class APieStyleExitTip(
             if (key != APIE_RESECT_PLAN_COUNT_KEY
                 && key != APIE_DELETE_PLAN_KEY
                 && key != APIE_DELETE_GROUP_KEY
+                && key != APIE_EXCHANGE_DESIRE_KEY
             ) return
             if (Looper.getMainLooper() != Looper.myLooper()) {
                 Handler(Looper.getMainLooper()).post {
@@ -59,6 +61,7 @@ class APieStyleExitTip(
             APIE_RESECT_PLAN_COUNT_KEY -> R.string.apie_plan_item_reset_count_tip
             APIE_DELETE_PLAN_KEY -> R.string.apie_plan_item_delete_tip
             APIE_DELETE_GROUP_KEY -> R.string.apie_setting_group_manager_item_delete_tip
+            APIE_EXCHANGE_DESIRE_KEY -> R.string.apie_apie_exchange_desire_tip
             else -> R.string.app_name
         }
 
@@ -66,6 +69,7 @@ class APieStyleExitTip(
         if (key == APIE_RESECT_PLAN_COUNT_KEY
             || key == APIE_DELETE_PLAN_KEY
             || key == APIE_DELETE_GROUP_KEY
+            || key == APIE_EXCHANGE_DESIRE_KEY
         ) {
             binding.styleSelectBtn.visibility = View.GONE
             binding.styleNoHint.visibility = View.GONE
