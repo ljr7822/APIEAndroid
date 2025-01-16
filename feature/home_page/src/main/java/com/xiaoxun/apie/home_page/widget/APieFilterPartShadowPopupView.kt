@@ -11,9 +11,9 @@ import com.lxj.xpopup.impl.PartShadowPopupView
 import com.xiaoxun.apie.common.R
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
+import com.xiaoxun.apie.home_page.viewmodel.GenericViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.PlanStatus
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
-import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.PlanListType
 
 class APieFilterPartShadowPopupView @JvmOverloads constructor(
@@ -24,9 +24,7 @@ class APieFilterPartShadowPopupView @JvmOverloads constructor(
 ) : PartShadowPopupView(context) {
 
     private val viewModel: IndexHomeViewModel by lazy {
-        ViewModelProvider(context as APieBaseBindingActivity<*>, IndexHomeViewModelFactory()).get(
-            IndexHomeViewModel::class.java
-        )
+        ViewModelProvider(context as APieBaseBindingActivity<*>, GenericViewModelFactory { IndexHomeViewModel() })[IndexHomeViewModel::class.java]
     }
 
     // 状态过滤

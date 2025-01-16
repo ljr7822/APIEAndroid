@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.home_page.repo
+package com.xiaoxun.apie.home_page.repo.home
 
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.group.UpdateGroupRequestBody
@@ -12,7 +12,7 @@ interface IIndexHomeRepo {
      * 计划类型筛选
      * @param planType 计划类型
      */
-    suspend fun loadPlanByType(planType: PlanListType)
+    suspend fun loadPlanByType(planType: PlanListType, manualRefresh: Boolean = false)
 
     /**
      * 筛选时使用加载计划列表

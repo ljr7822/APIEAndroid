@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.home_page.repo
+package com.xiaoxun.apie.home_page.repo.home
 
 import com.xiaoxun.apie.apie_data_loader.DataLoaderManager
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlan
@@ -23,6 +23,7 @@ import com.xiaoxun.apie.common_model.home_page.plan.PlanRespModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
 import com.xiaoxun.apie.data_loader.utils.CacheStrategy
 import com.xiaoxun.apie.gold_manage.service.GoldService
+import com.xiaoxun.apie.home_page.repo.ExecuteResultDelegate
 import com.xiaoxun.apie.home_page.viewmodel.CompletedCountOptType
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
 import com.xiaoxun.apie.home_page.viewmodel.PlanListType
@@ -33,15 +34,21 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlin.coroutines.resume
 
-class IndexHomeRepo(private val viewModel: IndexHomeViewModel, private val goldService: GoldService? = null) : IIndexHomeRepo {
+class IndexHomeRepoImpl(
+    private val viewModel: IndexHomeViewModel,
+    private val goldService: GoldService? = null
+) :
+    IIndexHomeRepo, ExecuteResultDelegate {
     companion object {
         private const val TAG = "IndexHomeRepo"
     }
 
-    private val disposables = CompositeDisposable()
+    override val disposables = CompositeDisposable()
 
-    override suspend fun loadPlanByType(planType: PlanListType) {
-        viewModel.loadPlanListStart()
+    override suspend fun loadPlanByType(planType: PlanListType, manualRefresh: Boolean) {
+        if (manualRefresh.not()) {
+            viewModel.loadPlanListStart()
+        }
         innerLoadPlanList().fold(
             onSuccess = {
                 it.data?.let { resp ->
@@ -75,7 +82,7 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel, private val goldS
     }
 
     override suspend fun loadPlanDetail(planId: String) {
-
+        // TODO: xiaoxun 待实现
     }
 
     override suspend fun createPlan(createPlanRequestBody: CreatePlanRequestBody) {
@@ -224,8 +231,9 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel, private val goldS
             DataLoaderManager.instance.createPlanGroup(
                 CreatePlanGroup(
                     CreatePlanGroupRequestBody(
-                    groupName = groupName,
-                    createUserId = AccountManager.getUserId())
+                        groupName = groupName,
+                        createUserId = AccountManager.getUserId()
+                    )
                 ),
                 CacheStrategy.FORCE_NET
             )
@@ -269,45 +277,5 @@ class IndexHomeRepo(private val viewModel: IndexHomeViewModel, private val goldS
                 CacheStrategy.FORCE_NET
             )
         }
-    }
-
-    /**
-     * 用于执行 RxJava 的网络请求并返回结果
-     */
-    protected suspend fun <T> executeResult(
-        block: () -> Observable<T>
-    ): Result<T> = singleSuspendCoroutine { continuation ->
-        val disposable = block.invoke()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { result ->
-                    continuation.resume(Result.success(result))
-                },
-                { error ->
-                    continuation.resume(Result.failure(error))
-                }
-            )
-        disposables.add(disposable)
-    }
-
-    /**
-     * 用于执行 RxJava 的网络请求，没有返回结果
-     */
-    protected suspend fun executeNoResult(
-        block: () -> Observable<Any>
-    ): Result<Unit> = singleSuspendCoroutine { continuation ->
-        val disposable = block.invoke()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    continuation.resume(Result.success(Unit))
-                },
-                { error ->
-                    continuation.resume(Result.failure(error))
-                }
-            )
-        disposables.add(disposable)
     }
 }

@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.enums.PopupPosition
+import com.scwang.smart.refresh.header.MaterialHeader
+import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.xiaoxun.apie.common.base.fragment.APieBaseBindingFragment
+import com.xiaoxun.apie.common.repo.AccountMMKVRepository
 import com.xiaoxun.apie.common.ui.APieLoadingDialog
 import com.xiaoxun.apie.common.ui.APieStyleExitTip
 import com.xiaoxun.apie.common.utils.APieVibrateTool
@@ -22,13 +25,13 @@ import com.xiaoxun.apie.gold_manage.service.GoldService
 import com.xiaoxun.apie.home_page.adapter.plan.APiePlanAdapter
 import com.xiaoxun.apie.home_page.bean.planModel2PlanModeInfo
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexHomeFragmentBinding
-import com.xiaoxun.apie.home_page.repo.IIndexHomeRepo
-import com.xiaoxun.apie.home_page.repo.IndexHomeRepo
+import com.xiaoxun.apie.home_page.repo.home.IIndexHomeRepo
+import com.xiaoxun.apie.home_page.repo.home.IndexHomeRepoImpl
 import com.xiaoxun.apie.home_page.utils.APieHomeSoundUtils
 import com.xiaoxun.apie.home_page.utils.SceneType
 import com.xiaoxun.apie.home_page.viewmodel.CompletedCountOptType
+import com.xiaoxun.apie.home_page.viewmodel.GenericViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
-import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.LoadPlanListState
 import com.xiaoxun.apie.home_page.viewmodel.PlanListType
 import kotlinx.coroutines.Dispatchers
@@ -41,7 +44,9 @@ class APieIndexHomeFragment :
     }
 
     private val viewModel: IndexHomeViewModel by lazy {
-        ViewModelProvider(hostActivity, IndexHomeViewModelFactory())[IndexHomeViewModel::class.java]
+        ViewModelProvider(
+            hostActivity,
+            GenericViewModelFactory { IndexHomeViewModel() })[IndexHomeViewModel::class.java]
     }
 
     private val topFilterView: APieFilterPartShadowPopupView by lazy {
@@ -50,13 +55,15 @@ class APieIndexHomeFragment :
 
     private val goldService: GoldService by lazy { GoldService() }
 
-    private val repo: IIndexHomeRepo by lazy { IndexHomeRepo(viewModel, goldService) }
+    private val repo: IIndexHomeRepo by lazy { IndexHomeRepoImpl(viewModel, goldService) }
 
     private val adapter: APiePlanAdapter by lazy { APiePlanAdapter() }
 
     private val loadingDialog: APieLoadingDialog by lazy { APieLoadingDialog(hostActivity) }
 
     private var itemClickListener: APiePlanAdapter.ItemClickListener? = null
+
+    private var refreshLayout: RefreshLayout? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -93,8 +100,14 @@ class APieIndexHomeFragment :
         viewModel.loadPlanListState.observe(viewLifecycleOwner) {
             when (it) {
                 LoadPlanListState.START -> loadingDialog.show()
-                LoadPlanListState.SUCCESS -> loadingDialog.dismiss()
-                LoadPlanListState.FAILED -> loadingDialog.dismiss()
+                LoadPlanListState.SUCCESS -> {
+                    loadingDialog.dismiss()
+                    refreshLayout?.finishRefresh(100)
+                }
+                LoadPlanListState.FAILED -> {
+                    loadingDialog.dismiss()
+                    refreshLayout?.finishRefresh(100)
+                }
                 else -> {}
             }
         }
@@ -109,13 +122,20 @@ class APieIndexHomeFragment :
         }
 
         viewModel.currentPlanList.observe(viewLifecycleOwner) { newList ->
-            // 更新数据
-            val oldList = adapter.getItems()
-            if (oldList.isNotEmpty() && (newList.size > oldList.size)) {
-                // 滚动到顶部
-                binding.planRecyclerView.scrollToPosition(0)
+            if (newList.isEmpty()) {
+                binding.planRecyclerView.visibility = View.GONE
+                binding.emptyView.visibility = View.VISIBLE
+            } else {
+                binding.planRecyclerView.visibility = View.VISIBLE
+                binding.emptyView.visibility = View.GONE
+                // 更新数据
+                val oldList = adapter.getItems()
+                if (oldList.isNotEmpty() && (newList.size > oldList.size)) {
+                    // 滚动到顶部
+                    binding.planRecyclerView.scrollToPosition(0)
+                }
+                adapter.updateData(newList)
             }
-            adapter.updateData(newList)
         }
 
         // 根据状态进行筛选
@@ -134,8 +154,20 @@ class APieIndexHomeFragment :
     }
 
     private fun initRecyclerView() {
+        binding.refreshLayout.apply {
+            val header = MaterialHeader(activity).apply {
+                setProgressBackgroundColorSchemeResource(com.xiaoxun.apie.common.R.color.apie_color_white)
+                setColorSchemeResources(com.xiaoxun.apie.common.R.color.apie_color_6F94F4)
+            }
+            setRefreshHeader(header)
+            setOnRefreshListener { refresh ->
+                refreshLayout = refresh
+                lifecycleScope.launch {
+                    repo.loadPlanByType(PlanListType.ALL_PLAN, true)
+                }
+            }
+        }
         binding.planRecyclerView.layoutManager = LinearLayoutManager(context)
-//        binding.planRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.planRecyclerView.adapter = adapter
         binding.planRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {

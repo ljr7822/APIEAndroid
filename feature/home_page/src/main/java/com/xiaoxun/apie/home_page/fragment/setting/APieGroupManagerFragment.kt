@@ -20,12 +20,12 @@ import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import com.xiaoxun.apie.home_page.adapter.setting.APieGroupManagerAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieGroupManagerSettingFragmentBinding
 import com.xiaoxun.apie.home_page.dialog.APieCreateGroupDialog
-import com.xiaoxun.apie.home_page.repo.IIndexHomeRepo
-import com.xiaoxun.apie.home_page.repo.IndexHomeRepo
+import com.xiaoxun.apie.home_page.repo.home.IIndexHomeRepo
+import com.xiaoxun.apie.home_page.repo.home.IndexHomeRepoImpl
 import com.xiaoxun.apie.home_page.viewmodel.CreatePlanGroupState
 import com.xiaoxun.apie.home_page.viewmodel.DeletePlanGroupState
+import com.xiaoxun.apie.home_page.viewmodel.GenericViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
-import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.LoadPlanGroupListState
 import kotlinx.coroutines.launch
 
@@ -35,12 +35,10 @@ class APieGroupManagerFragment :
     ) {
 
     private val viewModel: IndexHomeViewModel by lazy {
-        ViewModelProvider(context as APieBaseBindingActivity<*>, IndexHomeViewModelFactory()).get(
-            IndexHomeViewModel::class.java
-        )
+        ViewModelProvider(context as APieBaseBindingActivity<*>, GenericViewModelFactory { IndexHomeViewModel() })[IndexHomeViewModel::class.java]
     }
 
-    private val repo: IIndexHomeRepo by lazy { IndexHomeRepo(viewModel) }
+    private val repo: IIndexHomeRepo by lazy { IndexHomeRepoImpl(viewModel) }
 
     private val groupAdapter: APieGroupManagerAdapter by lazy { APieGroupManagerAdapter() }
 

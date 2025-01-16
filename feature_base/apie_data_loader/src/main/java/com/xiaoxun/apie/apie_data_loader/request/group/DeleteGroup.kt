@@ -12,7 +12,7 @@ class DeleteGroup (
     private val groupId: String
 ) : APieRequestParams<DeleteGroupRespModel>() {
     override fun apiService(version: String): Observable<BaseResponse<DeleteGroupRespModel>>? {
-        return APieApiManager.getPlanAPIService().deleteGroup(groupId)
+        return APieApiManager.getGroupAPIService().deleteGroup(groupId)
     }
 
     override fun dataType(): String {

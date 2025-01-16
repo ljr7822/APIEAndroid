@@ -1,9 +1,7 @@
-package com.xiaoxun.apie.home_page.adapter
+package com.xiaoxun.apie.home_page.adapter.plan
 
 import android.annotation.SuppressLint
-import android.graphics.PorterDuff
 import android.graphics.Typeface
-import android.text.Selection
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.MainThread
 import androidx.recyclerview.widget.RecyclerView
-import com.xiaoxun.apie.common.ui.GlideCircleImageView
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.show
 import com.xiaoxun.apie.home_page.R

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/home_gb"
+    tools:background="@color/apieTheme_colorBlack">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/apie_theme_dimension_80"
+        android:layout_marginStart="@dimen/apie_theme_dimension_12"
+        android:layout_marginTop="@dimen/apie_theme_dimension_4"
+        android:layout_marginEnd="@dimen/apie_theme_dimension_12"
+        android:layout_marginBottom="@dimen/apie_theme_dimension_4"
+        app:cardBackgroundColor="@color/apie_color_white"
+        app:cardCornerRadius="@dimen/apie_theme_dimension_8"
+        app:cardElevation="0.5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/rightDoingIcon"
+                android:layout_width="@dimen/apie_theme_dimension_25"
+                android:layout_height="@dimen/apie_theme_dimension_25"
+                android:background="@drawable/apie_plan_item_doing2_right_icon"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.xiaoxun.apie.common.ui.GlideCircleImageView
+                android:id="@+id/coverImageView"
+                android:layout_width="@dimen/apie_theme_dimension_50"
+                android:layout_height="@dimen/apie_theme_dimension_50"
+                android:layout_marginStart="@dimen/apie_theme_text_12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/apie_theme_dimension_12"
+                android:layout_marginTop="@dimen/apie_theme_dimension_15"
+                android:layout_marginEnd="@dimen/apie_theme_dimension_12"
+                android:gravity="start"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toStartOf="@+id/desireBuyLayout"
+                app:layout_constraintStart_toEndOf="@+id/coverImageView"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/desireTitleView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="买SU7送粉丝"
+                    android:textColor="@color/apieTheme_colorBlack"
+                    android:textSize="@dimen/apie_theme_text_14" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/apie_theme_dimension_12"
+                android:layout_marginEnd="@dimen/apie_theme_dimension_12"
+                android:layout_marginBottom="@dimen/apie_theme_dimension_15"
+                android:gravity="start"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/desireBuyLayout"
+                app:layout_constraintStart_toEndOf="@+id/coverImageView">
+
+                <!-- 金币数据-->
+                <LinearLayout
+                    android:id="@+id/goldLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_6">
+
+                    <ImageView
+                        android:id="@+id/goldIcon"
+                        android:layout_width="@dimen/apie_theme_dimension_14"
+                        android:layout_height="@dimen/apie_theme_dimension_14"
+                        android:background="@drawable/apie_plan_gold_icon" />
+
+                    <TextView
+                        android:id="@+id/goldValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/apie_theme_dimension_3"
+                        android:text="1"
+                        android:textSize="@dimen/apie_theme_text_10" />
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/desireSoldScheduleLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_8"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.xiaoxun.apie.common.ui.APieCircularProgressView
+                        android:id="@+id/desireSoldProgress"
+                        android:layout_width="@dimen/apie_theme_dimension_14"
+                        android:layout_height="@dimen/apie_theme_dimension_14"
+                        app:animDuration="200"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:paintCheckMarkColor="@color/apie_color_97B4FF"
+                        app:paintProgressColor="@color/apie_color_6F94F4"
+                        app:strokeWidth="2dp" />
+
+                    <TextView
+                        android:id="@+id/desireSoldProgressTip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/apie_theme_dimension_5"
+                        android:text="0/5"
+                        android:textSize="@dimen/apie_theme_text_9"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/desireSoldProgress"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/desireSoldOutIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/apie_plan_item_done_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/desireBuyLayout"
+                android:layout_width="@dimen/apie_theme_dimension_60"
+                android:layout_height="@dimen/apie_theme_dimension_40"
+                android:layout_marginTop="@dimen/apie_theme_dimension_5"
+                android:layout_marginEnd="@dimen/apie_theme_dimension_12"
+                android:layout_marginBottom="@dimen/apie_theme_dimension_5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/apie_desire_buy_btn_bg"
+                    android:gravity="center"
+                    android:text="兑换"
+                    android:textColor="@color/apie_color_white"
+                    android:textSize="@dimen/apie_theme_text_15" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/maskingLayer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/apie_theme_dimension_80"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/apieTheme_colorWhite_alpha_60"
+            app:cardCornerRadius="@dimen/apie_theme_dimension_8"
+            app:cardElevation="0dp"
+            tools:visibility="gone">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/apie_theme_dimension_25"
+                    android:layout_height="@dimen/apie_theme_dimension_25"
+                    android:background="@drawable/apie_plan_item_done2_right_icon"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/desireMenuLayer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/apie_theme_dimension_80"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/apie_color_97B4FF_alpha_90"
+            app:cardCornerRadius="@dimen/apie_theme_dimension_8"
+            app:cardElevation="0dp"
+            tools:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/dataAnalysisIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/apie_plan_item_menu_data_icon" />
+
+                <ImageView
+                    android:id="@+id/resetIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_25"
+                    android:background="@drawable/apie_plan_item_menu_resect_icon" />
+
+                <ImageView
+                    android:id="@+id/visibilityIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_25"
+                    android:background="@drawable/apie_plan_item_menu_hide_icon"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/editIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_25"
+                    android:background="@drawable/apie_plan_item_menu_edit_icon" />
+
+                <ImageView
+                    android:id="@+id/deleteIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_25"
+                    android:background="@drawable/apie_plan_item_menu_delete_icon" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

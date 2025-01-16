@@ -16,10 +16,10 @@ import com.xiaoxun.apie.home_page.fragment.APieCreateFragment
 import com.xiaoxun.apie.home_page.fragment.APieIndexDesireFragment
 import com.xiaoxun.apie.home_page.fragment.APieIndexHomeFragment
 import com.xiaoxun.apie.home_page.fragment.APieIndexMineFragment
-import com.xiaoxun.apie.home_page.repo.IIndexHomeRepo
-import com.xiaoxun.apie.home_page.repo.IndexHomeRepo
+import com.xiaoxun.apie.home_page.repo.home.IIndexHomeRepo
+import com.xiaoxun.apie.home_page.repo.home.IndexHomeRepoImpl
+import com.xiaoxun.apie.home_page.viewmodel.GenericViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
-import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
@@ -35,14 +35,14 @@ class APieIndexActivity :
     private var coroutineJob: Job? = null
 
     private val viewModel: IndexHomeViewModel by lazy {
-        ViewModelProvider(this@APieIndexActivity, IndexHomeViewModelFactory()).get(
-            IndexHomeViewModel::class.java
-        )
+        ViewModelProvider(
+            this@APieIndexActivity,
+            GenericViewModelFactory { IndexHomeViewModel() })[IndexHomeViewModel::class.java]
     }
 
     private val goldService: GoldService by lazy { GoldService() }
 
-    private val repo: IIndexHomeRepo by lazy { IndexHomeRepo(viewModel, goldService) }
+    private val repo: IIndexHomeRepo by lazy { IndexHomeRepoImpl(viewModel, goldService) }
 
     override fun createAdapter(): APieViewPagerAdapter {
         return APieViewPagerAdapter(this, mFragmentList)

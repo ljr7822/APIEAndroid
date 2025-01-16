@@ -31,6 +31,19 @@ enum class DeletePlanGroupState {
     FAILED
 }
 
+enum class CreateDesireState {
+    INIT_STATUS,
+    START,
+    SUCCESS,
+    FAILED
+}
+
+enum class LoadDesireListState {
+    START,
+    SUCCESS,
+    FAILED
+}
+
 /**
  * 1、单次计划，即只有一次的计划(次数(planFrequency)=1)
  * 2、每日计划，即每天都要完成的计划(次数(planFrequency)可自定义)
