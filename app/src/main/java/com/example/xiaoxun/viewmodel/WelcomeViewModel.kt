@@ -13,7 +13,7 @@ class WelcomeViewModel: APieBaseViewModel() {
 
     fun updateLoginStatus(status: CheckLoginStatus) {
         if (_loginStatus.value == status) return
-        _loginStatus.value = status
+        _loginStatus.postValue(status)
     }
 
     fun isNotLogin(): Boolean {

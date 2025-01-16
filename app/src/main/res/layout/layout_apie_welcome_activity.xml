@@ -31,6 +31,7 @@
         app:layout_constraintVertical_bias="0.29" />
 
     <LinearLayout
+        android:id="@+id/loginBtnLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/apie_theme_dimension_100"
         android:layout_marginBottom="@dimen/apie_theme_dimension_100"
@@ -64,15 +65,6 @@
                 app:layout_constraintStart_toStartOf="@+id/goLoginLayout"
                 app:layout_constraintTop_toTopOf="@+id/goLoginLayout" />
 
-            <com.xiaoxun.apie.common.ui.APieLoadingView
-                android:id="@+id/checkLoginLoadingView"
-                android:layout_width="@dimen/apie_theme_dimension_20"
-                android:layout_height="@dimen/apie_theme_dimension_20"
-                app:layout_constraintBottom_toBottomOf="@+id/goLoginLayout"
-                app:layout_constraintEnd_toEndOf="@+id/goLoginLayout"
-                app:layout_constraintStart_toStartOf="@+id/goLoginLayout"
-                app:layout_constraintTop_toTopOf="@+id/goLoginLayout" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -88,6 +80,19 @@
             app:layout_constraintTop_toBottomOf="@+id/goLoginLayout" />
 
     </LinearLayout>
+
+    <com.xiaoxun.apie.common.ui.APieLoadingView
+        android:id="@+id/checkLoginLoadingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:loading_view_radius="@dimen/apie_theme_dimension_12"
+        app:loading_view_paint_width="@dimen/apie_theme_dimension_2"
+        app:loading_view_color="@color/apie_color_6F94F4"
+        app:layout_constraintBottom_toBottomOf="@+id/loginBtnLayout"
+        app:layout_constraintEnd_toEndOf="@+id/loginBtnLayout"
+        app:layout_constraintStart_toStartOf="@+id/loginBtnLayout"
+        app:layout_constraintTop_toTopOf="@+id/loginBtnLayout" />
+
     <LinearLayout
         android:id="@+id/logoLayout"
         android:layout_width="wrap_content"

@@ -13,6 +13,4 @@ interface IAccountRepo {
     suspend fun getSmsCode(phoneNum: String, userId: String)
 
     fun onCleared()
-
-
 }

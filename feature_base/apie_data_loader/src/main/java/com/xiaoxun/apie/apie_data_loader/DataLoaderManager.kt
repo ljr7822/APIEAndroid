@@ -6,6 +6,7 @@ import com.xiaoxun.apie.apie_data_loader.request.account.login.password.LoginByP
 import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySmsCodeRequest
 import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlans
 import com.xiaoxun.apie.apie_data_loader.request.account.sms.SendSmsCode
+import com.xiaoxun.apie.apie_data_loader.request.account.user.QueryUser
 import com.xiaoxun.apie.apie_data_loader.request.desire.CreateDesire
 import com.xiaoxun.apie.apie_data_loader.request.desire.ExchangeDesire
 import com.xiaoxun.apie.apie_data_loader.request.desire.LoadDesire
@@ -80,6 +81,14 @@ class DataLoaderManager private constructor() {
     fun sendSmsCode(sendSmsCode: SendSmsCode, cacheStrategy: CacheStrategy): Observable<BaseResponse<SmsCodeModel>> {
         val loader = buildDataLoader<SmsCodeModel>(APieUrl.ACCOUNT_SEND_SMS_CODE.name)
         return loader?.getData(sendSmsCode, cacheStrategy) ?: Observable.error(Exception("loader is null"))
+    }
+
+    /**
+     * 查询用户的基本信息
+     */
+    fun getUserInfo(queryUser: QueryUser, cacheStrategy: CacheStrategy): Observable<BaseResponse<AccountModel>> {
+        val loader = buildDataLoader<AccountModel>(APieUrl.ACCOUNT_GET_USER_INFO.name)
+        return loader?.getData(queryUser, cacheStrategy) ?: Observable.error(Exception("loader is null"))
     }
 
     /**

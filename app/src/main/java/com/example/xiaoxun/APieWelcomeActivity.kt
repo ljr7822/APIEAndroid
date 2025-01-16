@@ -1,6 +1,7 @@
 package com.example.xiaoxun
 
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.xiaoxun.databinding.LayoutApieWelcomeActivityBinding
@@ -12,10 +13,13 @@ import com.xiaoxun.apie.common.APP_WELCOME_ACTIVITY_PATH
 import com.xiaoxun.apie.common.APP_XX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.HOME_INDEX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
+import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.AndroidUtils
 import com.xiaoxun.apie.common.utils.alphaHide
 import com.xiaoxun.apie.common.utils.alphaShow
+import com.xiaoxun.apie.common.utils.hide
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
+import com.xiaoxun.apie.common.utils.show
 
 @Route(path = APP_WELCOME_ACTIVITY_PATH)
 class APieWelcomeActivity : APieBaseBindingActivity<LayoutApieWelcomeActivityBinding>(
@@ -24,7 +28,7 @@ class APieWelcomeActivity : APieBaseBindingActivity<LayoutApieWelcomeActivityBin
 
     private val viewModel: WelcomeViewModel by lazy { WelcomeViewModel() }
 
-    private val repo: WelcomeRepo by lazy { WelcomeRepo(viewModel) }
+    private val repo: WelcomeRepo by lazy { WelcomeRepo(this, this, viewModel) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,16 +64,19 @@ class APieWelcomeActivity : APieBaseBindingActivity<LayoutApieWelcomeActivityBin
             when(it) {
                 CheckLoginStatus.Start -> {
                     binding.checkLoginLoadingView.show()
-                    binding.goLoginTip.alphaHide(200)
+                    binding.goLoginLayout.hide()
+                    binding.skipLogin.hide()
                 }
                 CheckLoginStatus.Login -> {
+                    APieLog.d("ljrxxx", "当前线程=${Thread.currentThread().name}")
                     binding.checkLoginLoadingView.hide()
                     ARouter.getInstance().build(HOME_INDEX_ACTIVITY_PATH).navigation()
                     this.finish()
                 }
                 CheckLoginStatus.NotLogin -> {
                     binding.checkLoginLoadingView.hide()
-                    binding.goLoginTip.alphaShow(200)
+                    binding.goLoginLayout.show()
+                    binding.skipLogin.show()
                 }
                 else -> {}
             }

@@ -4,6 +4,8 @@ enum class APieUrl(val url: String) {
     ACCOUNT_LOGIN_PASSWORD(ACCOUNT_LOGIN_PASSWORD_URL),
     ACCOUNT_LOGIN_SMS_CODE(ACCOUNT_LOGIN_SMS_CODE_URL),
     ACCOUNT_SEND_SMS_CODE(ACCOUNT_SEND_SMS_CODE_URL),
+    ACCOUNT_GET_USER_INFO(ACCOUNT_GET_USER_INFO_URL),
+
     ACCOUNT_GET_ALL_PLAN_BY_USER_ID(ACCOUNT_GET_ALL_PLAN_BY_USER_ID_URL),
     GET_ALL_PLAN_GROUP_BY_USER_ID(GET_ALL_PLAN_GROUP_BY_USER_ID_URL),
     CREATE_PLAN(CREATE_PLAN_URL),
@@ -13,6 +15,7 @@ enum class APieUrl(val url: String) {
     DELETE_GROUP(DELETE_GROUP_URL),
     UPDATE_GROUP(UPDATE_GROUP_URL),
     ACCOUNT_REGISTER(ACCOUNT_REGISTER_URL),
+
     CREATE_DESIRE(CREATE_DESIRE_URL),
     GET_DESIRE_BY_USER_ID(GET_DESIRE_BY_USER_ID_URL),
     EXCHANGE_DESIRE(EXCHANGE_DESIRE_URL),
@@ -21,6 +24,8 @@ enum class APieUrl(val url: String) {
 internal const val ACCOUNT_LOGIN_PASSWORD_URL = "/user/loginByPassword"
 internal const val ACCOUNT_LOGIN_SMS_CODE_URL = "/user/loginBySmsCode"
 internal const val ACCOUNT_SEND_SMS_CODE_URL = "/sms/sendSMSCode/{phoneNum}/{userId}"
+internal const val ACCOUNT_GET_USER_INFO_URL = "/user/queryUser/{userId}"
+
 internal const val ACCOUNT_GET_ALL_PLAN_BY_USER_ID_URL = "/plan/queryAllPlan/{userId}"
 internal const val GET_ALL_PLAN_GROUP_BY_USER_ID_URL = "/planGroup/queryAllGroup/{userId}"
 internal const val CREATE_PLAN_URL = "/plan/create"
