@@ -19,6 +19,7 @@ import com.xiaoxun.apie.home_page.fragment.APieIndexMineFragment
 import com.xiaoxun.apie.home_page.repo.home.IIndexHomeRepo
 import com.xiaoxun.apie.home_page.repo.home.IndexHomeRepoImpl
 import com.xiaoxun.apie.home_page.viewmodel.GenericViewModelFactory
+import com.xiaoxun.apie.home_page.viewmodel.IndexDesireViewModel
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -34,15 +35,21 @@ class APieIndexActivity :
 
     private var coroutineJob: Job? = null
 
-    private val viewModel: IndexHomeViewModel by lazy {
+    private val homeViewModel: IndexHomeViewModel by lazy {
         ViewModelProvider(
             this@APieIndexActivity,
             GenericViewModelFactory { IndexHomeViewModel() })[IndexHomeViewModel::class.java]
     }
 
+    private val desireViewModel: IndexDesireViewModel by lazy {
+        ViewModelProvider(
+            this@APieIndexActivity,
+            GenericViewModelFactory { IndexDesireViewModel() })[IndexDesireViewModel::class.java]
+    }
+
     private val goldService: GoldService by lazy { GoldService() }
 
-    private val repo: IIndexHomeRepo by lazy { IndexHomeRepoImpl(viewModel, goldService) }
+    private val repo: IIndexHomeRepo by lazy { IndexHomeRepoImpl(homeViewModel, goldService) }
 
     override fun createAdapter(): APieViewPagerAdapter {
         return APieViewPagerAdapter(this, mFragmentList)
@@ -57,12 +64,15 @@ class APieIndexActivity :
     override fun initializeView() {
         super.initializeView()
         binding.createBtn.setDebouncingClickListener {
-            APieCreateFragment(repo, viewModel).show(supportFragmentManager, "create_plan")
+            APieCreateFragment(repo, homeViewModel).show(supportFragmentManager, "create_plan")
         }
     }
 
     private fun initObserver() {
-        observe(viewModel.listScrolling) {
+        observe(homeViewModel.listScrolling) {
+            startFloatBtnAnim(it)
+        }
+        observe(desireViewModel.listScrolling) {
             startFloatBtnAnim(it)
         }
     }
