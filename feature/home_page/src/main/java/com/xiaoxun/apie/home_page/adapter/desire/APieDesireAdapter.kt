@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.xiaoxun.apie.common.ui.APieCircularProgressView
-import com.xiaoxun.apie.common.ui.GlideCircleImageView
+import com.xiaoxun.apie.common.ui.easy_glide.GlideCircleImageView
 import com.xiaoxun.apie.common.utils.hide
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.show

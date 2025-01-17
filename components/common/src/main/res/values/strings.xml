@@ -10,6 +10,9 @@
 
     <string name="apie_common_style_dialog_no_hint_txt">下次不再提示</string>
 
+    <string name="easy_glide_save_succss">保存图片成功</string>
+    <string name="easy_glide_save_failed">保存失败</string>
+
     <string name="login_phone_zone_code">手机区号：</string>
     <string name="login_phone_code_prefix">+%1$s</string>
     <string name="login_top_bar_skip_tip">跳过</string>

@@ -12,6 +12,8 @@ import com.xiaoxun.apie.common.navbar.APieNavBarItem
 import com.xiaoxun.apie.common.navbar.APieNavBarLayout
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.UIUtils
+import com.xiaoxun.apie.common.utils.alphaHide
+import com.xiaoxun.apie.common.utils.alphaShow
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.toast.APieToast
 import com.xiaoxun.apie.gold_manage.service.GoldService
@@ -168,6 +170,11 @@ class APieIndexActivity :
                 ) {
                     APieLog.d(TAG, "currentPosition: $currentPosition, previousPosition: $previousPosition")
                     selectedTabIndex = currentPosition
+                    if (currentPosition == APieConfig.MINE_PAGE_INDEX) {
+                        binding.createBtn.alphaHide(200)
+                    } else {
+                        binding.createBtn.alphaShow(100)
+                    }
                 }
 
                 override fun onItemSameTabClick(

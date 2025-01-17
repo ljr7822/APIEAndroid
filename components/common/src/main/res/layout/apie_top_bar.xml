@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.xiaoxun.apie.common.ui.GlideCircleImageView
+        <com.xiaoxun.apie.common.ui.easy_glide.GlideCircleImageView
             android:id="@+id/avatarImageView"
             android:layout_width="@dimen/apie_theme_dimension_30"
             android:layout_height="@dimen/apie_theme_dimension_30"

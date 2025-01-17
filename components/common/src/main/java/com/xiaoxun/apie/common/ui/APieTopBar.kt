@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.xiaoxun.apie.common.R
+import com.xiaoxun.apie.common.ui.easy_glide.GlideCircleImageView
 
 class APieTopBar @JvmOverloads constructor(
     context: Context,

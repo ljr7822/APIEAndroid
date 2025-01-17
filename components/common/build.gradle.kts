@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.rxjava2)
     implementation(libs.reactivex.rxjava2.rxandroid)
+    implementation("com.squareup.okhttp3:okhttp:4.7.0")
     implementation(libs.tencent.mmkv)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.geyifeng.immersionbar)

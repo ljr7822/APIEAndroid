@@ -4,10 +4,15 @@ import com.xiaoxun.apie.common.mmkv.MMKVOwner
 
 private const val ACCOUNT_MMKV_NAME = "account_mmkv_store"
 object AccountMMKVRepository: MMKVOwner(mmapID = ACCOUNT_MMKV_NAME) {
-    var userName by mmkvString()
+    var userName by mmkvString("APPLE PIE")
     var userId by mmkvString()
+    var userAvatar by mmkvString()
+    var userDesc by mmkvString("")
     var token by mmkvString()
     var goldCount by mmkvInt(0)
+    var sex by mmkvInt(0)
+    var address by mmkvString("")
+    var school by mmkvString("")
 }
 
 private const val DESIRE_MMKV_NAME = "desire_mmkv_store"

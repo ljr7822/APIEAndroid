@@ -109,8 +109,13 @@ class WelcomeRepo(
     private fun saveAccountData2MMKV(accountModel: AccountModel) {
         AccountMMKVRepository.userId = accountModel.userId
         AccountMMKVRepository.userName = accountModel.userName
+        AccountMMKVRepository.userAvatar = accountModel.userPortrait ?: ""
+        AccountMMKVRepository.userDesc = accountModel.desc ?: ""
         AccountMMKVRepository.token = accountModel.token
         AccountMMKVRepository.goldCount = accountModel.goldCount
+        AccountMMKVRepository.sex = accountModel.sex
+        AccountMMKVRepository.address = accountModel.address
+        AccountMMKVRepository.school = accountModel.school ?: ""
         PlanMMKVRepository.planCount = accountModel.totalPlan
         DesireMMKVRepository.desireCount = accountModel.totalDesire
     }

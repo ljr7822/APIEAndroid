@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.common.ui
+package com.xiaoxun.apie.common.ui.easy_glide
 
 import android.content.Context
 import android.util.AttributeSet

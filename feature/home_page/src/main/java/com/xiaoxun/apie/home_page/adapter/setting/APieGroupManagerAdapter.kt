@@ -8,11 +8,9 @@ import androidx.annotation.MainThread
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.xiaoxun.apie.common.R
-import com.xiaoxun.apie.common.ui.GlideCircleImageView
+import com.xiaoxun.apie.common.ui.easy_glide.GlideCircleImageView
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
-import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
-import com.xiaoxun.apie.home_page.adapter.plan.APiePlanDiffCallback
 
 class APieGroupManagerAdapter(
     private val items: MutableList<PlanGroupModel> = mutableListOf()
