@@ -1,7 +1,6 @@
 package com.example.xiaoxun
 
 import android.os.Bundle
-import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.xiaoxun.databinding.LayoutApieWelcomeActivityBinding
@@ -15,8 +14,6 @@ import com.xiaoxun.apie.common.HOME_INDEX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.AndroidUtils
-import com.xiaoxun.apie.common.utils.alphaHide
-import com.xiaoxun.apie.common.utils.alphaShow
 import com.xiaoxun.apie.common.utils.hide
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.show
@@ -68,7 +65,7 @@ class APieWelcomeActivity : APieBaseBindingActivity<LayoutApieWelcomeActivityBin
                     binding.skipLogin.hide()
                 }
                 CheckLoginStatus.Login -> {
-                    APieLog.d("ljrxxx", "当前线程=${Thread.currentThread().name}")
+                    APieLog.d(TAG, "校验登录通过, 当前线程=${Thread.currentThread().name}")
                     binding.checkLoginLoadingView.hide()
                     ARouter.getInstance().build(HOME_INDEX_ACTIVITY_PATH).navigation()
                     this.finish()

@@ -9,6 +9,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
@@ -24,6 +25,10 @@ class APieNavBarLayout @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr), OnPageChangeListener {
+    companion object {
+        private const val TAG = "APieNavBarLayout"
+    }
+
     private var titleTextBold = false //文字加粗
     private var titleTextSize = 12 //文字大小 默认为12sp
     private var titleNormalColor = 0 //描述文本的默认显示颜色
@@ -53,17 +58,31 @@ class APieNavBarLayout @JvmOverloads constructor(
     private val mItemViews: MutableList<APieNavBarItem> = ArrayList()
     private var mCurrentItem = 0 //当前条目的索引
     private var mSmoothScroll = false
-
-    //相同tab点击是否回调
     private var mSameTabClickCallBack = false
 
     private var mViewPager2: ViewPager2? = null
-
     private val mLlTab: LinearLayout
+
+    private var onItemSelectedListener: OnItemSelectedListener? = null
+    private var mOnPageChangeInterceptor: OnPageChangeInterceptor? = null
+
+    init {
+        val ta = context.obtainStyledAttributes(attrs, R.styleable.BottomBarLayout)
+        initAttrs(ta, context)
+        mLlTab = LinearLayout(context)
+        mLlTab.orientation = LinearLayout.HORIZONTAL
+        if (barBackground != null) {
+            mLlTab.background = barBackground
+        } else {
+            mLlTab.setBackgroundColor(UIUtils.getColor(context, R.color.tab_gb))
+        }
+        addView(mLlTab)
+        ta.recycle()
+    }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        APieLog.d("bottomBarLayout", "width: $measuredWidth height: $barHeight")
+        APieLog.d(TAG, "width: $measuredWidth height: $barHeight")
         val params = LayoutParams(measuredWidth, barHeight)
         params.gravity = Gravity.BOTTOM
         mLlTab.layoutParams = params
@@ -152,15 +171,13 @@ class APieNavBarLayout @JvmOverloads constructor(
                 position: Int,
                 positionOffset: Float,
                 positionOffsetPixels: Int
-            ) {
-            }
+            ) {}
 
             override fun onPageSelected(position: Int) {
                 handlePageSelected(position)
             }
 
-            override fun onPageScrollStateChanged(state: Int) {
-            }
+            override fun onPageScrollStateChanged(state: Int) {}
         })
     }
 
@@ -202,13 +219,21 @@ class APieNavBarLayout @JvmOverloads constructor(
         for (i in tabData.indices) {
             val itemData = tabData[i]
             val normalIcon =
-                if (!TextUtils.isEmpty(itemData.lottieJson)) null else if (itemData.normalIcon != null) itemData.normalIcon else context.resources.getDrawable(
-                    itemData.normalIconResId
-                )
+                if (!TextUtils.isEmpty(itemData.lottieJson)) {
+                    null
+                } else if (itemData.normalIcon != null) {
+                    itemData.normalIcon
+                } else {
+                    ContextCompat.getDrawable(context, itemData.normalIconResId)
+                }
             val selectedIcon =
-                if (!TextUtils.isEmpty(itemData.lottieJson)) null else if (itemData.selectedIcon != null) itemData.selectedIcon else context.resources.getDrawable(
-                    itemData.selectedIconResId
-                )
+                if (!TextUtils.isEmpty(itemData.lottieJson)) {
+                    null
+                } else if (itemData.selectedIcon != null){
+                    itemData.selectedIcon
+                } else {
+                    ContextCompat.getDrawable(context, itemData.selectedIconResId)
+                }
             val iconWidth = if (itemData.iconWidth == 0) this.iconWidth else itemData.iconWidth
             val iconHeight = if (itemData.iconHeight == 0) this.iconHeight else itemData.iconHeight
             val item = createBottomBarItem(
@@ -222,7 +247,7 @@ class APieNavBarLayout @JvmOverloads constructor(
             addItem(item)
         }
 
-        //如果开启凸起 且是 其他tab总数是偶数
+        // 如果开启凸起 且是 其他tab总数是偶数
         if (floatEnable && tabData.size % 2 == 0) {
             val item =
                 createBottomBarItem(floatIcon, floatIcon, "", floatIconWidth, floatIconHeight, "")
@@ -241,7 +266,7 @@ class APieNavBarLayout @JvmOverloads constructor(
         }
 
         val position = if (index != -1) index else mItemViews.size - 1
-        APieLog.d("bottomBarLayout", "position: $position")
+        APieLog.d(TAG, "position: $position")
 
         var view: View = item
         val layoutParams = LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT)
@@ -293,13 +318,7 @@ class APieNavBarLayout @JvmOverloads constructor(
         mItemViews[position].refreshTab(true)
         val prePos = mCurrentItem
         mCurrentItem = position //记录当前位置
-        if (onItemSelectedListener != null) {
-            onItemSelectedListener!!.onItemSelected(
-                getBottomItem(mCurrentItem),
-                prePos,
-                mCurrentItem
-            )
-        }
+        onItemSelectedListener?.onItemSelected(getBottomItem(mCurrentItem), prePos, mCurrentItem)
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -310,35 +329,6 @@ class APieNavBarLayout @JvmOverloads constructor(
     }
 
     override fun onPageScrollStateChanged(state: Int) {
-    }
-
-    private inner class MyOnClickListener(private val currentIndex: Int) : OnClickListener {
-        override fun onClick(v: View) {
-            //点击时判断是否需要拦截跳转
-            if (mOnPageChangeInterceptor != null && mOnPageChangeInterceptor!!.onIntercepted(
-                    currentIndex
-                )
-            ) {
-                return
-            }
-            if (currentIndex == mCurrentItem) {
-                //如果还是同个页签，判断是否要回调
-                onItemSelectedListener?.let {
-                    if (mSameTabClickCallBack) {
-                        it.onItemSelected(getBottomItem(currentIndex), mCurrentItem, currentIndex)
-                    }
-                }
-            } else {
-                mViewPager2?.let {
-                    it.setCurrentItem(currentIndex, mSmoothScroll)
-                    return
-                }
-                onItemSelectedListener?.let {
-                    it.onItemSelected(getBottomItem(currentIndex), mCurrentItem, currentIndex)
-                }
-                updateTabState(currentIndex)
-            }
-        }
     }
 
     private fun updateTabState(position: Int) {
@@ -417,49 +407,86 @@ class APieNavBarLayout @JvmOverloads constructor(
             }
         }
 
+    /**
+     * 设置是否开启滑动
+     */
     fun setSmoothScroll(smoothScroll: Boolean) {
         this.mSmoothScroll = smoothScroll
     }
 
+    /**
+     * 获取底部导航栏的item
+     */
     fun getBottomItem(position: Int): APieNavBarItem {
         return mItemViews[position]
     }
 
-    private var onItemSelectedListener: OnItemSelectedListener? = null
-
-    interface OnItemSelectedListener {
-        fun onItemSelected(
-            APieNavBarItem: APieNavBarItem?,
-            previousPosition: Int,
-            currentPosition: Int
-        )
-    }
-
+    /**
+     * 设置底部导航栏选中监听
+     */
     fun setOnItemSelectedListener(onItemSelectedListener: OnItemSelectedListener?) {
         this.onItemSelectedListener = onItemSelectedListener
     }
 
-    private var mOnPageChangeInterceptor: OnPageChangeInterceptor? = null
-
-    init {
-        val ta = context.obtainStyledAttributes(attrs, R.styleable.BottomBarLayout)
-        initAttrs(ta, context)
-        mLlTab = LinearLayout(context)
-        mLlTab.orientation = LinearLayout.HORIZONTAL
-        if (barBackground != null) {
-            mLlTab.background = barBackground
-        } else {
-            mLlTab.setBackgroundColor(UIUtils.getColor(context, R.color.tab_gb))
-        }
-        addView(mLlTab)
-        ta.recycle()
+    /**
+     * 滑动拦截
+     */
+    fun setOnPageChangeInterceptor(onPageChangedInterceptor: OnPageChangeInterceptor?) {
+        this.mOnPageChangeInterceptor = onPageChangedInterceptor
     }
 
-    fun setOnPageChangeInterceptor(onPageChangedInterceptor: OnPageChangeInterceptor?) {
-        mOnPageChangeInterceptor = onPageChangedInterceptor
+    /**
+     * 同一个item是否支持多次点击
+     */
+    fun setSameTabClickCallBack(sameTabClickCallBack: Boolean) {
+        this.mSameTabClickCallBack = sameTabClickCallBack
+    }
+
+    private inner class MyOnClickListener(private val currentIndex: Int) : OnClickListener {
+        override fun onClick(v: View) {
+            // 点击时判断是否需要拦截跳转
+            if (mOnPageChangeInterceptor != null && mOnPageChangeInterceptor!!.onIntercepted(
+                    currentIndex
+                )
+            ) {
+                return
+            }
+            if (currentIndex == mCurrentItem) {
+                //如果还是同个页签，判断是否要回调
+                onItemSelectedListener?.let {
+                    if (mSameTabClickCallBack) {
+                        it.onItemSameTabClick(getBottomItem(currentIndex), mCurrentItem)
+                    }
+                }
+            } else {
+                mViewPager2?.let {
+                    it.setCurrentItem(currentIndex, mSmoothScroll)
+                    return
+                }
+                onItemSelectedListener?.onItemSelected(
+                    getBottomItem(currentIndex),
+                    mCurrentItem,
+                    currentIndex
+                )
+                updateTabState(currentIndex)
+            }
+        }
     }
 
     interface OnPageChangeInterceptor {
         fun onIntercepted(position: Int): Boolean
+    }
+
+    interface OnItemSelectedListener {
+        fun onItemSelected(
+            aPieNavBarItem: APieNavBarItem?,
+            previousPosition: Int,
+            currentPosition: Int
+        )
+
+        fun onItemSameTabClick(
+            aPieNavBarItem: APieNavBarItem?,
+            currentPosition: Int
+        )
     }
 }

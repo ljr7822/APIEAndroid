@@ -3,12 +3,17 @@ package com.xiaoxun.apie.home_page.activity
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.xiaoxun.apie.common.HOME_INDEX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.activity.APieBaseViewPagerActivity
 import com.xiaoxun.apie.common.config.APieConfig
+import com.xiaoxun.apie.common.navbar.APieNavBarItem
+import com.xiaoxun.apie.common.navbar.APieNavBarLayout
+import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.UIUtils
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
+import com.xiaoxun.apie.common.utils.toast.APieToast
 import com.xiaoxun.apie.gold_manage.service.GoldService
 import com.xiaoxun.apie.home_page.adapter.APieViewPagerAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexActivityBinding
@@ -22,7 +27,6 @@ import com.xiaoxun.apie.home_page.viewmodel.GenericViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.IndexDesireViewModel
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -32,6 +36,8 @@ class APieIndexActivity :
     APieBaseViewPagerActivity<LayoutApieIndexActivityBinding, APieViewPagerAdapter>(
         LayoutApieIndexActivityBinding::inflate
     ) {
+
+    private var selectedTabIndex = 0
 
     private var coroutineJob: Job? = null
 
@@ -64,7 +70,11 @@ class APieIndexActivity :
     override fun initializeView() {
         super.initializeView()
         binding.createBtn.setDebouncingClickListener {
-            APieCreateFragment(repo, homeViewModel).show(supportFragmentManager, "create_plan")
+            if (selectedTabIndex == APieConfig.HOME_PAGE_INDEX) {
+                APieCreateFragment(repo, homeViewModel).show(supportFragmentManager, "create_plan")
+            } else if (selectedTabIndex == APieConfig.DESIRE_PAGE_INDEX) {
+                APieToast.showDialog("创建心愿")
+            }
         }
     }
 
@@ -88,7 +98,7 @@ class APieIndexActivity :
             // 取消之前的任务（如果存在）
             coroutineJob?.cancel()
             // 启动新的协程任务
-            coroutineJob = GlobalScope.launch(Dispatchers.Main) {
+            coroutineJob = lifecycleScope.launch(Dispatchers.Main) {
                 delay(1500L)
                 binding.createBtn.animate()
                     .translationX(translationX)
@@ -146,7 +156,28 @@ class APieIndexActivity :
                 }
             }
         }
-        mNavBarLayout?.setData(getNavTabData())
-        mNavBarLayout?.setViewPager(mVpContent)
+        mNavBarLayout?.apply {
+            setData(getNavTabData())
+            setViewPager(mVpContent)
+            setSameTabClickCallBack(true)
+            setOnItemSelectedListener(object : APieNavBarLayout.OnItemSelectedListener {
+                override fun onItemSelected(
+                    aPieNavBarItem: APieNavBarItem?,
+                    previousPosition: Int,
+                    currentPosition: Int
+                ) {
+                    APieLog.d(TAG, "currentPosition: $currentPosition, previousPosition: $previousPosition")
+                    selectedTabIndex = currentPosition
+                }
+
+                override fun onItemSameTabClick(
+                    aPieNavBarItem: APieNavBarItem?,
+                    currentPosition: Int
+                ) {
+                    APieLog.d(TAG, "onItemSameTabClick: $currentPosition")
+                    // TODO:连续点击同一个tab
+                }
+            })
+        }
     }
 }

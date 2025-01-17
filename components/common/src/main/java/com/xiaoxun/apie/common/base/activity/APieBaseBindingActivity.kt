@@ -16,6 +16,11 @@ abstract class APieBaseBindingActivity<VB : ViewBinding>(
 ) : AppCompatActivity() {
 
     /**
+     * TAG 标记，用于日志记录或调试
+     */
+    protected val TAG: String by lazy { this::class.java.simpleName }
+
+    /**
      * 是否开启沉浸式
      */
     private var enableImmersive: Boolean = true
