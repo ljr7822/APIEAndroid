@@ -1,17 +1,15 @@
 package com.xiaoxun.apie.home_page.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import com.lxj.xpopup.XPopup
 import com.xiaoxun.apie.common.base.fragment.APieBaseBindingFragment
-import com.xiaoxun.apie.common.ui.easy_glide.APieEasyGlide.loadImageWithTransformation
+import com.xiaoxun.apie.common.ui.easy_glide.APieEasyImage.loadImageWithTransformation
 import com.xiaoxun.apie.common.ui.easy_glide.transformation.CircleWithBorderTransformation
 import com.xiaoxun.apie.common.R
 import com.xiaoxun.apie.common.repo.AccountMMKVRepository
 import com.xiaoxun.apie.common.repo.DesireMMKVRepository
 import com.xiaoxun.apie.common.repo.PlanMMKVRepository
-import com.xiaoxun.apie.common.ui.easy_glide.transformation.BlurTransformation
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexMineFragmentBinding
 import com.xiaoxun.apie.home_page.widget.APieLeftDrawerPopupView

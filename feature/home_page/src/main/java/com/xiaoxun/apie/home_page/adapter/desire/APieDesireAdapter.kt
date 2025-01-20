@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.xiaoxun.apie.common.ui.APieCircularProgressView
-import com.xiaoxun.apie.common.ui.easy_glide.GlideCircleImageView
+import com.xiaoxun.apie.common.ui.easy_glide.APieEasyImage.loadRoundCornerImage
 import com.xiaoxun.apie.common.utils.hide
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.show
@@ -36,7 +36,7 @@ class APieDesireAdapter : RecyclerView.Adapter<APieDesireAdapter.ViewHolder>() {
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val coverImageView: GlideCircleImageView = view.findViewById(R.id.coverImageView)
+        val coverImageView: ImageView = view.findViewById(R.id.coverImageView)
         val desireTitleView: TextView = view.findViewById(R.id.desireTitleView)
         val goldValue: TextView = view.findViewById(R.id.goldValue)
         val desireSoldScheduleLayout: View = view.findViewById(R.id.desireSoldScheduleLayout)
@@ -66,7 +66,7 @@ class APieDesireAdapter : RecyclerView.Adapter<APieDesireAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        holder.coverImageView.loadImage(item.desireIcon, 20)
+        holder.coverImageView.loadRoundCornerImage(holder.itemView.context, item.desireIcon)
         holder.desireTitleView.text = item.desireName
         holder.goldValue.text = item.desirePrice.toString()
         bindPlanSchedule(holder, item)

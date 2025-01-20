@@ -10,7 +10,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
-    <com.xiaoxun.apie.common.ui.easy_glide.GlideCircleImageView
+    <ImageView
         android:id="@+id/groupIcon"
         android:layout_width="@dimen/apie_theme_dimension_18"
         android:layout_height="@dimen/apie_theme_dimension_18"

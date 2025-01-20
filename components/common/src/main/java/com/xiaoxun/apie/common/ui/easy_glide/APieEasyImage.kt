@@ -3,14 +3,10 @@ package com.xiaoxun.apie.common.ui.easy_glide
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.media.MediaScannerConnection
-import android.os.Environment
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
-import android.webkit.MimeTypeMap
 import android.widget.ImageView
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
@@ -23,17 +19,11 @@ import com.bumptech.glide.util.Preconditions
 import com.xiaoxun.apie.common.R
 import com.xiaoxun.apie.common.ui.easy_glide.config.GlideConfigImpl
 import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
-import io.reactivex.ObservableOnSubscribe
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import com.xiaoxun.apie.common.ui.easy_glide.progress.*
 import com.xiaoxun.apie.common.ui.easy_glide.transformation.*
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 
-object APieEasyGlide {
+object APieEasyImage {
 
     var placeHolderImageView = R.color.apieTheme_colorTransparent
     var circlePlaceholderImageView = R.color.apieTheme_colorTransparent
@@ -42,7 +32,7 @@ object APieEasyGlide {
      * 加载本地图片
      *
      * @param context
-     * @param drawableId
+     * @param drawableId 本地图片资源id
      */
 
     @JvmStatic
@@ -57,6 +47,9 @@ object APieEasyGlide {
         )
     }
 
+    /**
+     * 加载网络图片
+     */
     @JvmStatic
     @JvmOverloads
     fun ImageView.loadImage(
@@ -84,9 +77,6 @@ object APieEasyGlide {
 
     /**
      * 加载本地图片
-     * @param context
-     * @param resizeX
-     * @param resizeY
      */
     @JvmStatic
     @JvmOverloads
@@ -112,6 +102,9 @@ object APieEasyGlide {
         )
     }
 
+    /**
+     * 加载圆形图片
+     */
     @JvmStatic
     @JvmOverloads
     fun ImageView.loadCircleImage(
@@ -133,6 +126,9 @@ object APieEasyGlide {
         )
     }
 
+    /**
+     * 加载灰度图片
+     */
     @JvmStatic
     @JvmOverloads
     fun ImageView.loadGrayImage(
@@ -154,6 +150,9 @@ object APieEasyGlide {
         )
     }
 
+    /**
+     * 加载模糊图片
+     */
     @JvmStatic
     @JvmOverloads
     fun ImageView.loadBlurImage(
@@ -176,12 +175,15 @@ object APieEasyGlide {
         )
     }
 
+    /**
+     * 加载圆角图片
+     */
     @JvmStatic
     @JvmOverloads
     fun ImageView.loadRoundCornerImage(
         context: Context,
         url: String?,
-        radius: Int = 40,
+        radius: Int = 20,
         margin: Int = 0,
         @DrawableRes placeHolder: Int = placeHolderImageView
     ) {
@@ -199,6 +201,9 @@ object APieEasyGlide {
         )
     }
 
+    /**
+     * 加载带边框的圆形图片
+     */
     @JvmStatic
     @JvmOverloads
     fun ImageView.loadCircleWithBorderImage(
@@ -222,6 +227,9 @@ object APieEasyGlide {
         )
     }
 
+    /**
+     * 加载带边框的图片
+     */
     @JvmStatic
     @JvmOverloads
     fun ImageView.loadBorderImage(
@@ -277,9 +285,6 @@ object APieEasyGlide {
 
     /**
      * 预加载
-     *
-     * @param context
-     * @param url
      */
     @JvmStatic
     fun preloadImage(context: Context, url: String?) {
@@ -393,65 +398,5 @@ object APieEasyGlide {
     @JvmStatic
     fun clearImage(context: Context, imageView: ImageView) {
         Glide.get(context).requestManagerRetriever[context].clear(imageView)
-    }
-
-    /**
-     * 下载图片，并在媒体库中显示
-     * @param context
-     * @param imgUrl
-     */
-    @SuppressLint("CheckResult")
-    @JvmStatic
-    fun downloadImageToGallery(context: Context, imgUrl: String?) {
-        val extension = MimeTypeMap.getFileExtensionFromUrl(imgUrl)
-        Observable.create(ObservableOnSubscribe { emitter: ObservableEmitter<File?> ->
-            // Glide提供了一个download() 接口来获取缓存的图片文件，
-            // 但是前提必须要设置diskCacheStrategy方法的缓存策略为
-            // DiskCacheStrategy.ALL或者DiskCacheStrategy.SOURCE，
-            // 还有download()方法需要在子线程里进行
-            val file = Glide.with(context).download(imgUrl).submit().get()
-            val fileParentPath =
-                Environment.getExternalStorageDirectory().absolutePath + "/easyGlide/Image"
-            val appDir = File(fileParentPath)
-            if (!appDir.exists()) {
-                appDir.mkdirs()
-            }
-            //获得原文件流
-            val fis = FileInputStream(file)
-            //保存的文件名
-            val fileName = "easyGlide_" + System.currentTimeMillis() + "." + extension
-            //目标文件
-            val targetFile = File(appDir, fileName)
-            //输出文件流
-            val fos = FileOutputStream(targetFile)
-            // 缓冲数组
-            val b = ByteArray(1024 * 8)
-            while (fis.read(b) != -1) {
-                fos.write(b)
-            }
-            fos.flush()
-            fis.close()
-            fos.close()
-            //扫描媒体库
-            val mimeTypes = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
-            MediaScannerConnection.scanFile(
-                context,
-                arrayOf(targetFile.absolutePath),
-                arrayOf(mimeTypes),
-                null
-            )
-            emitter.onNext(targetFile)
-        }).subscribeOn(Schedulers.io()) //发送事件在io线程
-            .observeOn(AndroidSchedulers.mainThread()) //最后切换主线程提示结果
-            .subscribe({
-                Toast.makeText(
-                    context,
-                    R.string.easy_glide_save_succss,
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            ) {
-                Toast.makeText(context, R.string.easy_glide_save_failed, Toast.LENGTH_SHORT).show()
-            }
     }
 }

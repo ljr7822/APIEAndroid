@@ -35,7 +35,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.xiaoxun.apie.common.ui.easy_glide.GlideCircleImageView
+            <ImageView
                 android:id="@+id/coverImageView"
                 android:layout_width="@dimen/apie_theme_dimension_50"
                 android:layout_height="@dimen/apie_theme_dimension_50"
@@ -66,7 +66,7 @@
                     android:textColor="@color/apieTheme_colorBlack"
                     android:textSize="@dimen/apie_theme_text_14" />
 
-                <com.xiaoxun.apie.common.ui.easy_glide.GlideCircleImageView
+                <ImageView
                     android:id="@+id/planTypeIcon"
                     android:layout_width="@dimen/apie_theme_dimension_14"
                     android:layout_height="@dimen/apie_theme_dimension_14"

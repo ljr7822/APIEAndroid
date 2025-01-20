@@ -10,7 +10,8 @@ import androidx.annotation.MainThread
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.xiaoxun.apie.common.ui.APieCircularProgressView
-import com.xiaoxun.apie.common.ui.easy_glide.GlideCircleImageView
+import com.xiaoxun.apie.common.ui.easy_glide.APieEasyImage.loadImage
+import com.xiaoxun.apie.common.ui.easy_glide.APieEasyImage.loadRoundCornerImage
 import com.xiaoxun.apie.common.utils.hide
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.show
@@ -68,7 +69,7 @@ class APiePlanAdapter : RecyclerView.Adapter<APiePlanAdapter.ViewHolder>() {
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val coverImageView: GlideCircleImageView = view.findViewById(R.id.coverImageView)
+        val coverImageView: ImageView = view.findViewById(R.id.coverImageView)
         val planTitleView: TextView = view.findViewById(R.id.planTitleView)
         val planGroupName: TextView = view.findViewById(R.id.planGroupName)
         val planEditView: ImageView = view.findViewById(R.id.planEdit)
@@ -91,7 +92,7 @@ class APiePlanAdapter : RecyclerView.Adapter<APiePlanAdapter.ViewHolder>() {
 
         val maskingLayer: View = view.findViewById(R.id.maskingLayer)
         val goldValue: TextView = view.findViewById(R.id.goldValue)
-        val planTypeIcon: GlideCircleImageView = view.findViewById(R.id.planTypeIcon)
+        val planTypeIcon: ImageView = view.findViewById(R.id.planTypeIcon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -105,7 +106,7 @@ class APiePlanAdapter : RecyclerView.Adapter<APiePlanAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.planTitleView.text = item.planName
-        holder.coverImageView.loadImage(item.planIcon, 20)
+        holder.coverImageView.loadRoundCornerImage(holder.itemView.context, item.planIcon)
         holder.goldValue.text = item.planAward.toString()
         holder.planGroupName.text = item.planGroupModel.groupName
         bindPlanSchedule(holder, item)
@@ -179,7 +180,7 @@ class APiePlanAdapter : RecyclerView.Adapter<APiePlanAdapter.ViewHolder>() {
             }
         }
 
-        holder.planTypeIcon.loadImage(typeIcon, 1)
+        holder.planTypeIcon.loadImage(holder.itemView.context, typeIcon)
     }
 
     private fun bindItemClick(holder: ViewHolder, position: Int, item: PlanModel) {

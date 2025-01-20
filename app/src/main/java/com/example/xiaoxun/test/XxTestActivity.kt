@@ -8,6 +8,9 @@ import com.xiaoxun.apie.account_manager.repo.AccountDBRepository
 import com.xiaoxun.apie.account_manager.repo.AccountDataDescriptor
 import com.xiaoxun.apie.common.APP_XX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
+import com.xiaoxun.apie.common.ui.easy_glide.APieEasyImage.loadImage
+import com.xiaoxun.apie.common.ui.easy_glide.progress.OnProgressListener
+import com.xiaoxun.apie.common.utils.APieImageDownloadUtils
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.ThreadUtil
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
@@ -23,6 +26,7 @@ class XxTestActivity : APieBaseBindingActivity<LayoutXxTestActivityBinding>(
     private val db: AccountDBRepository by lazy {
         AccountDBRepository(this)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -73,7 +77,7 @@ class XxTestActivity : APieBaseBindingActivity<LayoutXxTestActivityBinding>(
                 .subscribe({
                     binding.data.text = it.toString()
                 }, {
-                    APieLog.e("ljrxxx",it.message.toString())
+                    APieLog.e("ljrxxx", it.message.toString())
                 })
         }
 
@@ -84,7 +88,7 @@ class XxTestActivity : APieBaseBindingActivity<LayoutXxTestActivityBinding>(
                 .subscribe({
                     binding.data.text = it
                 }, {
-                    APieLog.e("ljrxxx",it.message.toString())
+                    APieLog.e("ljrxxx", it.message.toString())
                 })
         }
 
@@ -95,8 +99,32 @@ class XxTestActivity : APieBaseBindingActivity<LayoutXxTestActivityBinding>(
                 .subscribe({
                     binding.data.text = it
                 }, {
-                    APieLog.e("ljrxxx",it.message.toString())
+                    APieLog.e("ljrxxx", it.message.toString())
                 })
+        }
+
+        binding.loadImage.loadImage(
+            context = this,
+            url = "https://imqingliao.oss-cn-beijing.aliyuncs.com/avatar/202403/7f445054bc976a26ecaa7ea7be0d1726.jpg",
+            onProgressListener = object : OnProgressListener {
+                override fun onProgress(
+                    isComplete: Boolean,
+                    percentage: Int,
+                    bytesRead: Long,
+                    totalBytes: Long
+                ) {
+                    APieLog.d(
+                        "ljrxxx",
+                        "onProgress: $percentage, totalBytes: $totalBytes, bytesRead: $bytesRead"
+                    )
+                }
+            })
+
+        binding.downloadImageToGallery.setDebouncingClickListener {
+            APieImageDownloadUtils.downloadImageToGallery(
+                this,
+                "https://imqingliao.oss-cn-beijing.aliyuncs.com/avatar/202403/7f445054bc976a26ecaa7ea7be0d1726.jpg"
+            )
         }
     }
 }

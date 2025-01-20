@@ -8,7 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.xiaoxun.apie.common.R
-import com.xiaoxun.apie.common.ui.easy_glide.GlideCircleImageView
+import com.xiaoxun.apie.common.ui.easy_glide.APieEasyImage.loadImage
 
 class APieTopBar @JvmOverloads constructor(
     context: Context,
@@ -20,7 +20,7 @@ class APieTopBar @JvmOverloads constructor(
     val titleTextView: TextView
     val leftIconView: ImageView
     val rightIconView: ImageView
-    val avatarImageView: GlideCircleImageView
+    val avatarImageView: ImageView
 
     init {
         orientation = HORIZONTAL
@@ -67,10 +67,10 @@ class APieTopBar @JvmOverloads constructor(
     }
 
     fun setAvatar(url: String) {
-        avatarImageView.loadImage(url)
+        avatarImageView.loadImage(context, url)
     }
 
     fun setAvatar(resourceId: Int) {
-        avatarImageView.loadImage(resourceId)
+        avatarImageView.loadImage(context, resourceId)
     }
 }

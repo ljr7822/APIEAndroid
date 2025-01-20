@@ -63,6 +63,8 @@ dependencies {
     implementation(project(":feature_base:apie_data_loader"))
     implementation(project(":components:data_loader"))
     implementation(project(":feature_base:account_manager"))
+    implementation(libs.github.bumptech.glide)
+    kapt(libs.github.bumptech.glide.compiler)
     implementation(libs.alibaba.arouter.api)
     implementation(libs.codelocator.core)
     kapt(libs.alibaba.arouter.compiler)

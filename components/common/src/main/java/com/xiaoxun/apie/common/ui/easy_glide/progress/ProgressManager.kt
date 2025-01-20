@@ -1,6 +1,7 @@
 package com.xiaoxun.apie.common.ui.easy_glide.progress
 
 import android.text.TextUtils
+import com.xiaoxun.apie.common.utils.APieLog
 import okhttp3.Call
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -30,6 +31,7 @@ object ProgressManager {
             if (onProgressListener != null) {
                 val percentage = (bytesRead * 1f / totalBytes * 100f).toInt()
                 val isComplete = percentage >= 100
+                APieLog.d("ProgressManager", "onProgress: $percentage, totalBytes: $totalBytes, bytesRead: $bytesRead")
                 onProgressListener.onProgress(isComplete, percentage, bytesRead, totalBytes)
                 if (isComplete) {
                     removeListener(url)

@@ -3,12 +3,13 @@ package com.xiaoxun.apie.home_page.adapter.setting
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.MainThread
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.xiaoxun.apie.common.R
-import com.xiaoxun.apie.common.ui.easy_glide.GlideCircleImageView
+import com.xiaoxun.apie.common.ui.easy_glide.APieEasyImage.loadImage
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 
@@ -44,7 +45,7 @@ class APieGroupManagerAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val groupName: TextView = view.findViewById(R.id.groupName)
-        val groupIcon: GlideCircleImageView = view.findViewById(R.id.groupIcon)
+        val groupIcon: ImageView = view.findViewById(R.id.groupIcon)
         val groupEditTv: TextView = view.findViewById(R.id.groupEditTv)
         val groupDeleteTv: TextView = view.findViewById(R.id.groupDeleteTv)
     }
@@ -61,9 +62,9 @@ class APieGroupManagerAdapter(
         val item = items[position]
         holder.groupName.text = item.groupName
         if (item.groupIcon.isEmpty().not()) {
-            holder.groupIcon.loadImage(item.groupIcon, 1)
+            holder.groupIcon.loadImage(holder.itemView.context, item.groupIcon)
         } else {
-            holder.groupIcon.loadImage(R.drawable.apie_setting_group_manager_item_def_icon, 1)
+            holder.groupIcon.loadImage(holder.itemView.context, R.drawable.apie_setting_group_manager_item_def_icon)
         }
         holder.groupEditTv.setDebouncingClickListener {
             val realPosition = holder.adapterPosition
