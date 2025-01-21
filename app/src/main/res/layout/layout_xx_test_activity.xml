@@ -5,62 +5,76 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/apie_theme_dimension_50"
-    android:gravity="center"
     android:background="@color/white"
+    android:gravity="center"
+    android:paddingHorizontal="40dp"
     android:orientation="vertical">
+
     <ImageView
         android:id="@+id/loadImage"
         android:layout_width="@dimen/apie_theme_dimension_100"
-        android:layout_height="@dimen/apie_theme_dimension_100"/>
+        android:layout_height="@dimen/apie_theme_dimension_100" />
 
     <TextView
         android:id="@+id/data"
         android:layout_width="match_parent"
-        android:text="@string/app_name"
-        android:gravity="center"
         android:layout_height="@dimen/apie_theme_dimension_100"
-        android:textColor="@color/apieTheme_colorBlack"/>
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/apieTheme_colorBlack" />
 
     <Button
         android:id="@+id/getData"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="getData" />
 
     <Button
         android:id="@+id/saveData"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="saveData" />
 
     <Button
         android:id="@+id/insert"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="insert"/>
+        android:text="insert" />
 
     <Button
         android:id="@+id/find"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="find"/>
+        android:text="find" />
 
     <Button
         android:id="@+id/findTokenByUserId"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="findTokenByUserId"/>
+        android:text="findTokenByUserId" />
 
     <Button
         android:id="@+id/findTokenByPhoneNum"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="findTokenByPhoneNum"/>
+        android:text="findTokenByPhoneNum" />
 
     <Button
         android:id="@+id/downloadImageToGallery"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="downloadImageToGallery"/>
+        android:text="downloadImageToGallery" />
+
+    <Button
+        android:id="@+id/pick_media_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选择媒体" />
+
+    <Button
+        android:id="@+id/requestPermission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="权限" />
 
 </LinearLayout>

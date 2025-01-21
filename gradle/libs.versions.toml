@@ -42,6 +42,8 @@ datastoreVersion = "1.0.0"
 livedataKtxVersion = "2.3.1"
 startupVersion = '1.1.0'
 refreshVersion = '3.0.0-alpha'
+easypermissionsVersion = '1.0.0'
+okhttpVersion = '4.7.0'
 
 # 需要注意的是，如果名称中有“-”，在Gradle构建脚本中引用时必须将其改成“.”，例如：androidx-core-ktx 调用时需要改成 androidx.core.ktx
 [libraries]
@@ -95,6 +97,8 @@ wcdb-room = { group = "com.tencent.wcdb", name = "room", version = "1.1-19"}
 refresh-layout-kernel = { group = "io.github.scwang90", name = "refresh-layout-kernel", version.ref = "refreshVersion"} #核心必须依赖
 refresh-header-classics = { group = "io.github.scwang90", name = "refresh-header-classics", version.ref = "refreshVersion"} #经典刷新头
 refresh-header-material = { group = "io.github.scwang90", name = "refresh-header-material", version.ref = "refreshVersion"} #谷歌刷新头
+easypermissions = { group = "com.vmadalin", name = "easypermissions-ktx", version.ref = "easypermissionsVersion"}
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttpVersion"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

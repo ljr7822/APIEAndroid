@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/apie_setting_fragment_bg"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/apie_theme_dimension_40"
+        android:layout_marginTop="@dimen/apie_theme_dimension_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/closeIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/apie_theme_dimension_12"
+            android:background="@drawable/apie_top_bar_close_icon"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/layoutTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择媒体类型"
+            android:textColor="@color/apieTheme_colorBlack"
+            android:textSize="@dimen/apie_theme_text_15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/confirmIcon"
+            app:layout_constraintStart_toEndOf="@+id/closeIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/confirmIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/apie_theme_dimension_12"
+            android:background="@drawable/apie_top_bar_confirm_icon"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginHorizontal="@dimen/apie_theme_dimension_12"
+        android:background="@color/apieTheme_colorGrayLevel5" />
+
+
+    <TextView
+        android:id="@+id/openAlbum"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/apie_theme_dimension_45"
+        android:layout_marginVertical="@dimen/apie_theme_dimension_4"
+        android:gravity="center"
+        android:text="相册"
+        android:textColor="@color/apieTheme_colorBlack"
+        android:textSize="@dimen/apie_theme_text_14" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginHorizontal="@dimen/apie_theme_dimension_12"
+        android:background="@color/apieTheme_colorGrayLevel5" />
+
+    <TextView
+        android:id="@+id/openCamera"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/apie_theme_dimension_45"
+        android:layout_marginVertical="@dimen/apie_theme_dimension_4"
+        android:gravity="center"
+        android:text="拍摄"
+        android:textColor="@color/apieTheme_colorBlack"
+        android:textSize="@dimen/apie_theme_text_14" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginHorizontal="@dimen/apie_theme_dimension_12"
+        android:background="@color/apieTheme_colorGrayLevel5" />
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/apie_theme_dimension_45"
+        android:layout_marginVertical="@dimen/apie_theme_dimension_4"
+        android:layout_marginBottom="@dimen/apie_theme_dimension_20"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/apieTheme_colorBlack_alpha_60"
+        android:textSize="@dimen/apie_theme_text_14" />
+
+</LinearLayout>
