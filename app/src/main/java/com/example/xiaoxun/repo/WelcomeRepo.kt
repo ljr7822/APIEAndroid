@@ -131,7 +131,6 @@ class WelcomeRepo(
                 userType = accountModel.userType
             )
         )
-        saveAccountData2MMKV(accountModel)
     }
 
     /**

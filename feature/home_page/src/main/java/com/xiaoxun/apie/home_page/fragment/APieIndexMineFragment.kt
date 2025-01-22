@@ -19,8 +19,11 @@ import com.xiaoxun.apie.common_model.home_page.mine.MineSettingItemType
 import com.xiaoxun.apie.home_page.adapter.mine.APieMineSettingAdapter
 import com.xiaoxun.apie.home_page.adapter.mine.SettingRepo
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexMineFragmentBinding
+import com.xiaoxun.apie.home_page.fragment.setting.APieEditProfileFragment
 import com.xiaoxun.apie.home_page.fragment.setting.APieGroupManagerFragment
 import com.xiaoxun.apie.home_page.fragment.setting.APieSoundEffectsFragment
+import com.xiaoxun.apie.home_page.repo.mine.MineRepo
+import com.xiaoxun.apie.home_page.viewmodel.IndexMineViewModel
 import com.xiaoxun.apie.home_page.widget.APieLeftDrawerPopupView
 
 /**
@@ -33,6 +36,10 @@ class APieIndexMineFragment :
     }
 
     private val mineSettingAdapter: APieMineSettingAdapter by lazy { APieMineSettingAdapter() }
+
+    private val viewModel: IndexMineViewModel by lazy { IndexMineViewModel() }
+
+    private val repo: MineRepo by lazy { MineRepo(hostActivity, viewModel) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,7 +67,7 @@ class APieIndexMineFragment :
             CircleWithBorderTransformation(0, 0)
         )
 
-        if (AccountMMKVRepository.sex == 0) {
+        if (AccountMMKVRepository.sex == 1) {
             binding.sexIcon.setImageResource(R.drawable.apie_mine_male_icon)
         } else {
             binding.sexIcon.setImageResource(R.drawable.apie_mine_female_icon)
@@ -96,7 +103,8 @@ class APieIndexMineFragment :
             layoutManager = LinearLayoutManager(context)
         }
 
-        mineSettingAdapter.setOnItemClickListener(object : APieMineSettingAdapter.OnItemClickListener {
+        mineSettingAdapter.setOnItemClickListener(object :
+            APieMineSettingAdapter.OnItemClickListener {
             override fun itemClick(position: Int, item: MineSettingInfo) {
                 onItemClick(position, item)
             }
@@ -107,37 +115,58 @@ class APieIndexMineFragment :
         when (item.mineSettingItemAction) {
             MineSettingItemAction.ACTION_EDIT_PROFILE -> {
                 // 编辑资料
+                (context as? FragmentActivity)?.supportFragmentManager?.let {
+                    APieEditProfileFragment(viewModel, repo).show(
+                        it,
+                        APieEditProfileFragment::class.java.simpleName
+                    )
+                }
             }
+
             MineSettingItemAction.ACTION_ACCOUNT_SETTING -> {
                 // 账号设置
             }
+
             MineSettingItemAction.ACTION_NOTIFY_SETTING -> {
                 // 通知设置
             }
+
             MineSettingItemAction.ACTION_DATA_ANALYSIS -> {
                 // 数据分析
             }
+
             MineSettingItemAction.ACTION_SOUND_EFFECTS -> {
                 // 音效设置
                 (context as? FragmentActivity)?.supportFragmentManager?.let {
-                    APieSoundEffectsFragment().show(it, APieSoundEffectsFragment::class.java.simpleName)
+                    APieSoundEffectsFragment().show(
+                        it,
+                        APieSoundEffectsFragment::class.java.simpleName
+                    )
                 }
             }
+
             MineSettingItemAction.ACTION_GROUP_MANAGER -> {
                 // 分组管理
                 (context as? FragmentActivity)?.supportFragmentManager?.let {
-                    APieGroupManagerFragment().show(it, APieGroupManagerFragment::class.java.simpleName)
+                    APieGroupManagerFragment().show(
+                        it,
+                        APieGroupManagerFragment::class.java.simpleName
+                    )
                 }
             }
+
             MineSettingItemAction.ACTION_LIST_STYLE -> {
                 // 列表风格
             }
+
             MineSettingItemAction.ACTION_STORAGE -> {
                 // 存储
             }
+
             MineSettingItemAction.ACTION_ABOUT -> {
                 // 关于
             }
+
             MineSettingItemAction.ACTION_LOGOUT -> {
                 // 退出登录
             }

@@ -50,6 +50,7 @@ dependencies {
     implementation(project(":components:data_loader"))
     implementation(project(":feature_base:apie_data_loader"))
     implementation(project(":feature_base:gold_manage"))
+    implementation(project(":feature_base:account_manager"))
     implementation(libs.github.bumptech.glide)
     kapt(libs.github.bumptech.glide.compiler)
     implementation(libs.refresh.layout.kernel)
