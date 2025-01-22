@@ -1,25 +1,26 @@
 package com.xiaoxun.apie.home_page.activity
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.xiaoxun.apie.common.HOME_INDEX_ACTIVITY_PATH
+import com.xiaoxun.apie.common.album.APieAlbumPickerHelper
 import com.xiaoxun.apie.common.base.activity.APieBaseViewPagerActivity
 import com.xiaoxun.apie.common.config.APieConfig
 import com.xiaoxun.apie.common.navbar.APieNavBarItem
 import com.xiaoxun.apie.common.navbar.APieNavBarLayout
+import com.xiaoxun.apie.common.upload.APieUploadHelper
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.UIUtils
 import com.xiaoxun.apie.common.utils.alphaHide
 import com.xiaoxun.apie.common.utils.alphaShow
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
-import com.xiaoxun.apie.common.utils.toast.APieToast
 import com.xiaoxun.apie.gold_manage.service.GoldService
 import com.xiaoxun.apie.home_page.adapter.APieViewPagerAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexActivityBinding
-import com.xiaoxun.apie.home_page.fragment.APieCreateFragment
 import com.xiaoxun.apie.home_page.fragment.APieIndexDesireFragment
 import com.xiaoxun.apie.home_page.fragment.APieIndexHomeFragment
 import com.xiaoxun.apie.home_page.fragment.APieIndexMineFragment
@@ -42,6 +43,21 @@ class APieIndexActivity :
     private var selectedTabIndex = 0
 
     private var coroutineJob: Job? = null
+
+    private val mediaPickerLauncher = APieAlbumPickerHelper.registerPicker(
+        this,
+        null,
+        object : APieAlbumPickerHelper.MediaPickerCallback {
+            override fun onMediaSelected(uris: List<Uri>) {
+                // 处理选中的媒体
+                APieLog.d("ljrxxx", "onMediaSelected: $uris")
+                APieUploadHelper.uploadImage(this@APieIndexActivity, uris[0])
+            }
+
+            override fun onCanceled() {
+                // 用户取消选择
+            }
+        })
 
     private val homeViewModel: IndexHomeViewModel by lazy {
         ViewModelProvider(
@@ -72,11 +88,26 @@ class APieIndexActivity :
     override fun initializeView() {
         super.initializeView()
         binding.createBtn.setDebouncingClickListener {
-            if (selectedTabIndex == APieConfig.HOME_PAGE_INDEX) {
-                APieCreateFragment(repo, homeViewModel).show(supportFragmentManager, "create_plan")
-            } else if (selectedTabIndex == APieConfig.DESIRE_PAGE_INDEX) {
-                APieToast.showDialog("创建心愿")
-            }
+//            if (selectedTabIndex == APieConfig.HOME_PAGE_INDEX) {
+//                APieCreateFragment(repo, homeViewModel).show(supportFragmentManager, "create_plan")
+//            } else if (selectedTabIndex == APieConfig.DESIRE_PAGE_INDEX) {
+//                APieToast.showDialog("创建心愿")
+//            }
+            openPhotoPicker()
+        }
+    }
+
+    /**
+     * 打开图片选择器
+     */
+    private fun openPhotoPicker() {
+        mediaPickerLauncher?.let {
+            APieAlbumPickerHelper.showPickerDialog(
+                fragmentManager = supportFragmentManager,
+                launcher = it,
+                mediaType = "image/*",
+                allowMultiple = false
+            )
         }
     }
 

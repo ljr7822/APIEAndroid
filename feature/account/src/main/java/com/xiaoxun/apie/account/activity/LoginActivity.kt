@@ -140,6 +140,10 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
                     binding.submitTip.show()
                     binding.submitLoading.hide()
                     ARouter.getInstance().build(HOME_INDEX_ACTIVITY_PATH).navigation();
+                    // 登录成功后初始化下载token
+                    lifecycleScope.launch {
+                        repo.getSTSToken()
+                    }
                 }
                 LoadingState.Failed -> {
                     APieToast.showDialog(pair.second.message)

@@ -38,7 +38,7 @@
 <!--                android:value="androidx.startup" />-->
         </provider>
         <activity
-            android:name=".test.XxTestActivity"
+            android:name=".APieWelcomeActivity"
             android:launchMode="singleTop"
             android:exported="true">
             <intent-filter>
@@ -81,7 +81,7 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity
-            android:name=".APieWelcomeActivity"
+            android:name=".test.XxTestActivity"
             android:launchMode="singleTask"
             android:screenOrientation="behind"
             android:theme="@style/Theme.Xiaoxun"

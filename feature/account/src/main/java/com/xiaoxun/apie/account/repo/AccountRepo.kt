@@ -9,12 +9,17 @@ import com.xiaoxun.apie.apie_data_loader.request.account.login.password.LoginByP
 import com.xiaoxun.apie.apie_data_loader.request.account.login.password.LoginByPasswordRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySmsCodeRequest
 import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySmsCodeRequestBody
-import com.xiaoxun.apie.apie_data_loader.request.account.sms.SendSmsCode
+import com.xiaoxun.apie.apie_data_loader.request.account.sms.STSTokenParams
+import com.xiaoxun.apie.apie_data_loader.request.account.sms.SendSmsCodeParams
 import com.xiaoxun.apie.common.repo.AccountMMKVRepository
+import com.xiaoxun.apie.common.repo.AliyunMMKVRepository
 import com.xiaoxun.apie.common.repo.DesireMMKVRepository
+import com.xiaoxun.apie.common.repo.ExecuteResultDelegate
 import com.xiaoxun.apie.common.repo.PlanMMKVRepository
+import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.coroutine.singleSuspendCoroutine
 import com.xiaoxun.apie.common_model.account.AccountModel
+import com.xiaoxun.apie.common_model.sms.STSTokenModel
 import com.xiaoxun.apie.common_model.sms.SmsCodeModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
 import com.xiaoxun.apie.data_loader.utils.CacheStrategy
@@ -27,9 +32,13 @@ import kotlin.coroutines.resume
 class AccountRepo(
     private val activity: AppCompatActivity,
     private val viewModel: AccountViewModel
-) : IAccountRepo {
+) : IAccountRepo, ExecuteResultDelegate {
 
-    private val disposables = CompositeDisposable()
+    companion object {
+        private const val TAG = "AccountRepo"
+    }
+
+    override val disposables = CompositeDisposable()
 
     private val accountDb: AccountDBRepository by lazy { AccountDBRepository(activity) }
 
@@ -107,6 +116,22 @@ class AccountRepo(
         )
     }
 
+    override suspend fun getSTSToken() {
+        innerGetSTSToken().fold(
+            onSuccess = {
+                it.data?.let { resp ->
+                    APieLog.d(TAG, "getSTSToken: $resp")
+                    saveAliyunData2MMKV(resp)
+                } ?: let {
+                    APieLog.e(TAG, "getSTSToken failed: data is null")
+                }
+            },
+            onFailure = {
+                APieLog.e(TAG, "getSTSToken failed: $it")
+            }
+        )
+    }
+
     private fun saveAccountData2DB(accountModel: AccountModel) {
         // 保存用户数据到数据库
         accountDb.insertAccountData(
@@ -142,6 +167,12 @@ class AccountRepo(
         PlanMMKVRepository.planCount = accountModel.totalPlan
         DesireMMKVRepository.desireCount = accountModel.totalDesire
     }
+    private fun saveAliyunData2MMKV(stsTokenModel: STSTokenModel) {
+        AliyunMMKVRepository.securityToken = stsTokenModel.securityToken
+        AliyunMMKVRepository.accessKeyId = stsTokenModel.accessKeyId
+        AliyunMMKVRepository.accessKeySecret = stsTokenModel.accessKeySecret
+    }
+
 
     private suspend fun loginByPassword(
         phoneNum: String,
@@ -173,49 +204,18 @@ class AccountRepo(
     ): Result<BaseResponse<SmsCodeModel>> {
         return executeResult {
             DataLoaderManager.instance.sendSmsCode(
-                SendSmsCode(phoneNum, userId),
+                SendSmsCodeParams(phoneNum, userId),
                 CacheStrategy.FORCE_NET
             )
         }
     }
 
-    /**
-     * 用于执行 RxJava 的网络请求并返回结果
-     */
-    protected suspend fun <T> executeResult(
-        block: () -> Observable<T>
-    ): Result<T> = singleSuspendCoroutine { continuation ->
-        val disposable = block.invoke()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { result ->
-                    continuation.resume(Result.success(result))
-                },
-                { error ->
-                    continuation.resume(Result.failure(error))
-                }
+    private suspend fun innerGetSTSToken(): Result<BaseResponse<STSTokenModel>> {
+        return executeResult {
+            DataLoaderManager.instance.getSTSToken(
+                STSTokenParams(AccountMMKVRepository.userId ?: ""),
+                CacheStrategy.FORCE_NET
             )
-        disposables.add(disposable)
-    }
-
-    /**
-     * 用于执行 RxJava 的网络请求，没有返回结果
-     */
-    protected suspend fun executeNoResult(
-        block: () -> Observable<Any>
-    ): Result<Unit> = singleSuspendCoroutine { continuation ->
-        val disposable = block.invoke()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                    continuation.resume(Result.success(Unit))
-                },
-                { error ->
-                    continuation.resume(Result.failure(error))
-                }
-            )
-        disposables.add(disposable)
+        }
     }
 }

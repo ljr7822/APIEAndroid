@@ -44,6 +44,7 @@ startupVersion = '1.1.0'
 refreshVersion = '3.0.0-alpha'
 easypermissionsVersion = '1.0.0'
 okhttpVersion = '4.7.0'
+aliyunossVersion = '2.9.21'
 
 # 需要注意的是，如果名称中有“-”，在Gradle构建脚本中引用时必须将其改成“.”，例如：androidx-core-ktx 调用时需要改成 androidx.core.ktx
 [libraries]
@@ -99,6 +100,7 @@ refresh-header-classics = { group = "io.github.scwang90", name = "refresh-header
 refresh-header-material = { group = "io.github.scwang90", name = "refresh-header-material", version.ref = "refreshVersion"} #谷歌刷新头
 easypermissions = { group = "com.vmadalin", name = "easypermissions-ktx", version.ref = "easypermissionsVersion"}
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttpVersion"}
+aliyun-oss = { group = "com.aliyun.dpa", name = "oss-android-sdk", version.ref = "aliyunossVersion"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

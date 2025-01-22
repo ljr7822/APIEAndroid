@@ -12,5 +12,8 @@ interface IAccountRepo {
 
     suspend fun getSmsCode(phoneNum: String, userId: String)
 
+    /** 获取阿里云sts token */
+    suspend fun getSTSToken()
+
     fun onCleared()
 }

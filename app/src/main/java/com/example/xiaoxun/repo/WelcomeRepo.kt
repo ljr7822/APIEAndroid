@@ -8,17 +8,19 @@ import com.example.xiaoxun.viewmodel.WelcomeViewModel
 import com.xiaoxun.apie.account_manager.repo.AccountDBRepository
 import com.xiaoxun.apie.account_manager.repo.AccountDataDescriptor
 import com.xiaoxun.apie.apie_data_loader.DataLoaderManager
+import com.xiaoxun.apie.apie_data_loader.request.account.sms.STSTokenParams
 import com.xiaoxun.apie.apie_data_loader.request.account.user.QueryUser
 import com.xiaoxun.apie.common.manager.account.AccountManager
 import com.xiaoxun.apie.common.repo.AccountMMKVRepository
+import com.xiaoxun.apie.common.repo.AliyunMMKVRepository
 import com.xiaoxun.apie.common.repo.DesireMMKVRepository
 import com.xiaoxun.apie.common.repo.PlanMMKVRepository
 import com.xiaoxun.apie.common.utils.APieLog
-import com.xiaoxun.apie.common.utils.ThreadUtil
 import com.xiaoxun.apie.common_model.account.AccountModel
+import com.xiaoxun.apie.common_model.sms.STSTokenModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
 import com.xiaoxun.apie.data_loader.utils.CacheStrategy
-import com.xiaoxun.apie.home_page.repo.ExecuteResultDelegate
+import com.xiaoxun.apie.common.repo.ExecuteResultDelegate
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
 
@@ -42,15 +44,19 @@ class WelcomeRepo(
         if (AccountManager.isLogin()) {
             // 异步获取用户信息
             scope.launch {
-                AccountMMKVRepository.userId ?.let {
+                AccountMMKVRepository.userId?.let {
                     getUserInfo(it)
+                    getSTSToken()
                 } ?: let {
-                    APieLog.e(TAG,"checkLoginStatus failed: userId 为空，当前线程=${Thread.currentThread().name}")
+                    APieLog.e(
+                        TAG,
+                        "checkLoginStatus failed: userId 为空，当前线程=${Thread.currentThread().name}"
+                    )
                     viewModel.updateLoginStatus(CheckLoginStatus.NotLogin)
                 }
             }
         } else {
-            APieLog.e(TAG,"checkLoginStatus 失败，当前线程=${Thread.currentThread().name}")
+            APieLog.e(TAG, "checkLoginStatus 失败，当前线程=${Thread.currentThread().name}")
             viewModel.updateLoginStatus(CheckLoginStatus.NotLogin)
         }
     }
@@ -64,13 +70,29 @@ class WelcomeRepo(
                     saveAccountData2MMKV(resp)
                     viewModel.updateLoginStatus(CheckLoginStatus.Login)
                 } ?: let {
-                    APieLog.e(TAG,"getUserInfo failed: data is null")
+                    APieLog.e(TAG, "getUserInfo failed: data is null")
                     viewModel.updateLoginStatus(CheckLoginStatus.NotLogin)
                 }
             },
             onFailure = {
-                APieLog.e(TAG,"getUserInfo failed: $it")
+                APieLog.e(TAG, "getUserInfo failed: $it")
                 viewModel.updateLoginStatus(CheckLoginStatus.NotLogin)
+            }
+        )
+    }
+
+    override suspend fun getSTSToken() {
+        innerGetSTSToken().fold(
+            onSuccess = {
+                it.data?.let { resp ->
+                    APieLog.d(TAG, "getSTSToken: $resp")
+                    saveAliyunData2MMKV(resp)
+                } ?: let {
+                    APieLog.e(TAG, "getSTSToken failed: data is null")
+                }
+            },
+            onFailure = {
+                APieLog.e(TAG, "getSTSToken failed: $it")
             }
         )
     }
@@ -79,6 +101,15 @@ class WelcomeRepo(
         return executeResult {
             DataLoaderManager.instance.getUserInfo(
                 QueryUser(userId),
+                CacheStrategy.FORCE_NET
+            )
+        }
+    }
+
+    private suspend fun innerGetSTSToken(): Result<BaseResponse<STSTokenModel>> {
+        return executeResult {
+            DataLoaderManager.instance.getSTSToken(
+                STSTokenParams(AccountMMKVRepository.userId ?: ""),
                 CacheStrategy.FORCE_NET
             )
         }
@@ -118,6 +149,12 @@ class WelcomeRepo(
         AccountMMKVRepository.school = accountModel.school ?: ""
         PlanMMKVRepository.planCount = accountModel.totalPlan
         DesireMMKVRepository.desireCount = accountModel.totalDesire
+    }
+
+    private fun saveAliyunData2MMKV(stsTokenModel: STSTokenModel) {
+        AliyunMMKVRepository.securityToken = stsTokenModel.securityToken
+        AliyunMMKVRepository.accessKeyId = stsTokenModel.accessKeyId
+        AliyunMMKVRepository.accessKeySecret = stsTokenModel.accessKeySecret
     }
 
     override fun onCleared() {

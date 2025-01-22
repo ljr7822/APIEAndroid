@@ -2,6 +2,8 @@ package com.xiaoxun.apie.home_page.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.lxj.xpopup.XPopup
 import com.xiaoxun.apie.common.base.fragment.APieBaseBindingFragment
 import com.xiaoxun.apie.common.ui.easy_glide.APieEasyImage.loadImageWithTransformation
@@ -11,7 +13,14 @@ import com.xiaoxun.apie.common.repo.AccountMMKVRepository
 import com.xiaoxun.apie.common.repo.DesireMMKVRepository
 import com.xiaoxun.apie.common.repo.PlanMMKVRepository
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
+import com.xiaoxun.apie.common_model.home_page.mine.MineSettingInfo
+import com.xiaoxun.apie.common_model.home_page.mine.MineSettingItemAction
+import com.xiaoxun.apie.common_model.home_page.mine.MineSettingItemType
+import com.xiaoxun.apie.home_page.adapter.mine.APieMineSettingAdapter
+import com.xiaoxun.apie.home_page.adapter.mine.SettingRepo
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexMineFragmentBinding
+import com.xiaoxun.apie.home_page.fragment.setting.APieGroupManagerFragment
+import com.xiaoxun.apie.home_page.fragment.setting.APieSoundEffectsFragment
 import com.xiaoxun.apie.home_page.widget.APieLeftDrawerPopupView
 
 /**
@@ -23,6 +32,8 @@ class APieIndexMineFragment :
         const val TEST_FLAG: String = "test_flag"
     }
 
+    private val mineSettingAdapter: APieMineSettingAdapter by lazy { APieMineSettingAdapter() }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -33,6 +44,7 @@ class APieIndexMineFragment :
         initAvatarView()
         initUserInfo()
         initUserDataInfo()
+        initRecyclerView()
     }
 
     private fun initTopBarMenu() {
@@ -75,5 +87,60 @@ class APieIndexMineFragment :
             .isViewMode(true)
             .asCustom(APieLeftDrawerPopupView(hostActivity))
             .show()
+    }
+
+    private fun initRecyclerView() {
+        mineSettingAdapter.replayData(SettingRepo.buildSettingList())
+        binding.mineSettingRecyclerView.apply {
+            adapter = mineSettingAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+
+        mineSettingAdapter.setOnItemClickListener(object : APieMineSettingAdapter.OnItemClickListener {
+            override fun itemClick(position: Int, item: MineSettingInfo) {
+                onItemClick(position, item)
+            }
+        })
+    }
+
+    private fun onItemClick(position: Int, item: MineSettingInfo) {
+        when (item.mineSettingItemAction) {
+            MineSettingItemAction.ACTION_EDIT_PROFILE -> {
+                // 编辑资料
+            }
+            MineSettingItemAction.ACTION_ACCOUNT_SETTING -> {
+                // 账号设置
+            }
+            MineSettingItemAction.ACTION_NOTIFY_SETTING -> {
+                // 通知设置
+            }
+            MineSettingItemAction.ACTION_DATA_ANALYSIS -> {
+                // 数据分析
+            }
+            MineSettingItemAction.ACTION_SOUND_EFFECTS -> {
+                // 音效设置
+                (context as? FragmentActivity)?.supportFragmentManager?.let {
+                    APieSoundEffectsFragment().show(it, APieSoundEffectsFragment::class.java.simpleName)
+                }
+            }
+            MineSettingItemAction.ACTION_GROUP_MANAGER -> {
+                // 分组管理
+                (context as? FragmentActivity)?.supportFragmentManager?.let {
+                    APieGroupManagerFragment().show(it, APieGroupManagerFragment::class.java.simpleName)
+                }
+            }
+            MineSettingItemAction.ACTION_LIST_STYLE -> {
+                // 列表风格
+            }
+            MineSettingItemAction.ACTION_STORAGE -> {
+                // 存储
+            }
+            MineSettingItemAction.ACTION_ABOUT -> {
+                // 关于
+            }
+            MineSettingItemAction.ACTION_LOGOUT -> {
+                // 退出登录
+            }
+        }
     }
 }

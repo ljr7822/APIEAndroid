@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- 定义按钮按下时的图片 -->
-    <item android:drawable="@color/apieTheme_colorGrayLevel6" android:state_pressed="true"/>
+    <item android:drawable="@color/apieTheme_colorWhite" android:state_pressed="true"/>
     <!-- 定义按钮默认的图片 -->
     <item android:drawable="@color/apieTheme_colorWhite"/>
 

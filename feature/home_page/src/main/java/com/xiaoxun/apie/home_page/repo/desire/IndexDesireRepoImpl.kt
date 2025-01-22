@@ -5,13 +5,12 @@ import com.xiaoxun.apie.apie_data_loader.request.desire.CreateDesire
 import com.xiaoxun.apie.apie_data_loader.request.desire.CreateDesireRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.desire.ExchangeDesire
 import com.xiaoxun.apie.apie_data_loader.request.desire.LoadDesire
-import com.xiaoxun.apie.common_model.home_page.desire.CommonDesireRespModel
 import com.xiaoxun.apie.common_model.home_page.desire.DesireModel
 import com.xiaoxun.apie.common_model.home_page.desire.DesireRespModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
 import com.xiaoxun.apie.data_loader.utils.CacheStrategy
 import com.xiaoxun.apie.gold_manage.service.GoldService
-import com.xiaoxun.apie.home_page.repo.ExecuteResultDelegate
+import com.xiaoxun.apie.common.repo.ExecuteResultDelegate
 import com.xiaoxun.apie.home_page.viewmodel.IndexDesireViewModel
 import io.reactivex.disposables.CompositeDisposable
 

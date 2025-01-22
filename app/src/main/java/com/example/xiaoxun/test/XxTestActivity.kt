@@ -12,11 +12,11 @@ import com.xiaoxun.apie.common.album.APieAlbumPickerHelper
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 import com.xiaoxun.apie.common.ui.easy_glide.APieEasyImage.loadImage
 import com.xiaoxun.apie.common.ui.easy_glide.progress.OnProgressListener
+import com.xiaoxun.apie.common.upload.APieUploadHelper
 import com.xiaoxun.apie.common.utils.APieImageDownloadUtils
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.ThreadUtil
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
-import com.xiaoxun.apie.common.utils.toast.APieToast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
@@ -37,6 +37,7 @@ class XxTestActivity : APieBaseBindingActivity<LayoutXxTestActivityBinding>(
             override fun onMediaSelected(uris: List<Uri>) {
                 // 处理选中的媒体
                 APieLog.d("ljrxxx", "onMediaSelected: $uris")
+                APieUploadHelper.uploadImage(this@XxTestActivity, uris[0])
             }
 
             override fun onCanceled() {

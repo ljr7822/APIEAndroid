@@ -7,5 +7,8 @@ interface IWelcomeRepo {
     /** 获取用户信息 */
     suspend fun getUserInfo(userId: String)
 
+    /** 获取阿里云sts token */
+    suspend fun getSTSToken()
+
     fun onCleared()
 }

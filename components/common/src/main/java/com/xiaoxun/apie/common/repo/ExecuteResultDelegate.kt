@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.home_page.repo
+package com.xiaoxun.apie.common.repo
 
 import com.xiaoxun.apie.common.utils.coroutine.singleSuspendCoroutine
 import io.reactivex.Observable

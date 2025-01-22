@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines)
     implementation(libs.google.code.gson)
     implementation(libs.kotlin.reflect)
+    implementation(libs.aliyun.oss)
     api(libs.datastore)
     api(libs.livedata.ktx)
     api(libs.startup)

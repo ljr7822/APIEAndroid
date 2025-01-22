@@ -10,7 +10,7 @@ import io.reactivex.Observable
 /**
  * 发送验证码请求
  */
-class SendSmsCode(
+class SendSmsCodeParams(
     private val phoneNum: String,
     private val userId: String
 ) : APieRequestParams<SmsCodeModel>() {

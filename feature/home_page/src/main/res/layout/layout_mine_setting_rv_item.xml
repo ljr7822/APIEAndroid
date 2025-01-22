@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/planFrequencyItemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/apie_theme_dimension_50"
+        android:layout_marginTop="@dimen/apie_theme_dimension_4"
+        android:layout_marginBottom="@dimen/apie_theme_dimension_4"
+        android:background="@drawable/apie_mine_data_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/leftIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/apie_theme_dimension_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/apie_mine_edit_icon" />
+
+        <TextView
+            android:id="@+id/itemTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/apie_theme_dimension_16"
+            android:text="编辑资料"
+            android:textColor="@color/apieTheme_colorBlack"
+            android:textSize="@dimen/apie_theme_text_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/leftIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/apie_theme_dimension_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/apie_color_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/rightIcon"
+                android:layout_width="@dimen/apie_theme_dimension_18"
+                android:layout_height="@dimen/apie_theme_dimension_18"
+                android:layout_gravity="end"
+                android:background="@drawable/apie_mine_right_back_icon" />
+
+            <TextView
+                android:id="@+id/itemTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="113.03G"
+                android:textColor="@color/apieTheme_colorBlack_alpha_40"
+                android:textSize="@dimen/apie_theme_text_12"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <com.xiaoxun.apie.common.ui.APieSwitch
+                android:id="@+id/switchCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/apie_view_common_white_to_gray"
+                android:thumb="@drawable/apie_setting_new_switch_thumb"
+                app:track="@drawable/apie_setting_new_switch_common_track"
+                app:switchMinWidth="@dimen/apie_theme_dimension_40" />
+
+        </FrameLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

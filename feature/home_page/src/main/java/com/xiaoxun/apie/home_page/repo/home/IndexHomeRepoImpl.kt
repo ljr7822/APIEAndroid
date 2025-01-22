@@ -1,7 +1,6 @@
 package com.xiaoxun.apie.home_page.repo.home
 
 import com.xiaoxun.apie.apie_data_loader.DataLoaderManager
-import com.xiaoxun.apie.apie_data_loader.request.account.user.QueryUser
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlan
 import com.xiaoxun.apie.apie_data_loader.request.group.CreatePlanGroup
 import com.xiaoxun.apie.apie_data_loader.request.group.CreatePlanGroupRequestBody
@@ -14,8 +13,6 @@ import com.xiaoxun.apie.apie_data_loader.request.group.UpdateGroupRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.plan.UpdatePlanCompletedCount
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.manager.account.AccountManager
-import com.xiaoxun.apie.common.utils.coroutine.singleSuspendCoroutine
-import com.xiaoxun.apie.common_model.account.AccountModel
 import com.xiaoxun.apie.common_model.home_page.group.DeleteGroupRespModel
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupRespModel
@@ -25,16 +22,12 @@ import com.xiaoxun.apie.common_model.home_page.plan.PlanRespModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
 import com.xiaoxun.apie.data_loader.utils.CacheStrategy
 import com.xiaoxun.apie.gold_manage.service.GoldService
-import com.xiaoxun.apie.home_page.repo.ExecuteResultDelegate
+import com.xiaoxun.apie.common.repo.ExecuteResultDelegate
 import com.xiaoxun.apie.home_page.viewmodel.CompletedCountOptType
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
 import com.xiaoxun.apie.home_page.viewmodel.PlanListType
 import com.xiaoxun.apie.home_page.viewmodel.PlanStatus
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import kotlin.coroutines.resume
 
 class IndexHomeRepoImpl(
     private val viewModel: IndexHomeViewModel,
