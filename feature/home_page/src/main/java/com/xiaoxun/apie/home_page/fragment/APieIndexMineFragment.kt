@@ -4,18 +4,25 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.launcher.ARouter
 import com.lxj.xpopup.XPopup
+import com.xiaoxun.apie.common.APP_WELCOME_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.fragment.APieBaseBindingFragment
 import com.xiaoxun.apie.common.ui.easy_glide.APieEasyImage.loadImageWithTransformation
 import com.xiaoxun.apie.common.ui.easy_glide.transformation.CircleWithBorderTransformation
 import com.xiaoxun.apie.common.R
+import com.xiaoxun.apie.common.manager.account.AccountManager
 import com.xiaoxun.apie.common.repo.AccountMMKVRepository
 import com.xiaoxun.apie.common.repo.DesireMMKVRepository
 import com.xiaoxun.apie.common.repo.PlanMMKVRepository
+import com.xiaoxun.apie.common.ui.APieLoadingDialog
+import com.xiaoxun.apie.common.ui.APieStyleExitTip
+import com.xiaoxun.apie.common.ui.APieStyleExitTip.Companion.APIE_CACHE_APP_CACHE_KEY
+import com.xiaoxun.apie.common.ui.APieStyleExitTip.Companion.APIE_LOGIN_OUT_APP_KEY
+import com.xiaoxun.apie.common.utils.ThreadUtil
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common_model.home_page.mine.MineSettingInfo
 import com.xiaoxun.apie.common_model.home_page.mine.MineSettingItemAction
-import com.xiaoxun.apie.common_model.home_page.mine.MineSettingItemType
 import com.xiaoxun.apie.home_page.adapter.mine.APieMineSettingAdapter
 import com.xiaoxun.apie.home_page.adapter.mine.SettingRepo
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexMineFragmentBinding
@@ -34,6 +41,8 @@ class APieIndexMineFragment :
     companion object {
         const val TEST_FLAG: String = "test_flag"
     }
+
+    private val loadingDialog: APieLoadingDialog by lazy { APieLoadingDialog(hostActivity) }
 
     private val mineSettingAdapter: APieMineSettingAdapter by lazy { APieMineSettingAdapter() }
 
@@ -161,6 +170,7 @@ class APieIndexMineFragment :
 
             MineSettingItemAction.ACTION_STORAGE -> {
                 // 存储
+                logout(APIE_CACHE_APP_CACHE_KEY)
             }
 
             MineSettingItemAction.ACTION_ABOUT -> {
@@ -169,7 +179,24 @@ class APieIndexMineFragment :
 
             MineSettingItemAction.ACTION_LOGOUT -> {
                 // 退出登录
+                logout(APIE_LOGIN_OUT_APP_KEY)
             }
         }
+    }
+
+    private fun logout(key: String) {
+        APieStyleExitTip.show(
+            activity = hostActivity,
+            key = key,
+            actionCallback = {
+                loadingDialog.show()
+                AccountManager.logout()
+                ThreadUtil.runOnMainThreadDelay({
+                    loadingDialog.dismiss()
+                    hostActivity.finish()
+                    ARouter.getInstance().build(APP_WELCOME_ACTIVITY_PATH).navigation()
+                }, 500)
+            }
+        )
     }
 }

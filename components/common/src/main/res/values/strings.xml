@@ -72,6 +72,8 @@
     <string name="apie_create_plan_group_name_hint">填写分组名称（限5字数）</string>
 
     <string name="apie_apie_exchange_desire_tip">心愿兑换将扣除账户金币，是否兑换？</string>
+    <string name="apie_apie_clean_app_cache_tip">删除应用缓存会清空登录状态，是否清空？</string>
+    <string name="apie_apie_login_out_app_tip">确定退出登录？</string>
 
 
 </resources>

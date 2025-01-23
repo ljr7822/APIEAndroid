@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.xiaoxun.apie.common.R
 import com.xiaoxun.apie.common.databinding.ApieCommonStyleExitTipBinding
@@ -25,6 +24,8 @@ class APieStyleExitTip(
         const val APIE_DELETE_PLAN_KEY = "APIE_DELETE_PLAN_KEY"
         const val APIE_DELETE_GROUP_KEY = "APIE_DELETE_GROUP_KEY"
         const val APIE_EXCHANGE_DESIRE_KEY = "APIE_EXCHANGE_DESIRE_KEY"
+        const val APIE_CACHE_APP_CACHE_KEY = "APIE_CACHE_APP_CACHE_KEY"
+        const val APIE_LOGIN_OUT_APP_KEY = "APIE_LOGIN_OUT_APP_KEY"
 
 
         fun show(
@@ -37,6 +38,8 @@ class APieStyleExitTip(
                 && key != APIE_DELETE_PLAN_KEY
                 && key != APIE_DELETE_GROUP_KEY
                 && key != APIE_EXCHANGE_DESIRE_KEY
+                && key != APIE_CACHE_APP_CACHE_KEY
+                && key != APIE_LOGIN_OUT_APP_KEY
             ) return
             if (Looper.getMainLooper() != Looper.myLooper()) {
                 Handler(Looper.getMainLooper()).post {
@@ -62,6 +65,8 @@ class APieStyleExitTip(
             APIE_DELETE_PLAN_KEY -> R.string.apie_plan_item_delete_tip
             APIE_DELETE_GROUP_KEY -> R.string.apie_setting_group_manager_item_delete_tip
             APIE_EXCHANGE_DESIRE_KEY -> R.string.apie_apie_exchange_desire_tip
+            APIE_CACHE_APP_CACHE_KEY -> R.string.apie_apie_clean_app_cache_tip
+            APIE_LOGIN_OUT_APP_KEY -> R.string.apie_apie_login_out_app_tip
             else -> R.string.app_name
         }
 
@@ -70,6 +75,8 @@ class APieStyleExitTip(
             || key == APIE_DELETE_PLAN_KEY
             || key == APIE_DELETE_GROUP_KEY
             || key == APIE_EXCHANGE_DESIRE_KEY
+            || key == APIE_CACHE_APP_CACHE_KEY
+            || key == APIE_LOGIN_OUT_APP_KEY
         ) {
             binding.styleSelectBtn.visibility = View.GONE
             binding.styleNoHint.visibility = View.GONE

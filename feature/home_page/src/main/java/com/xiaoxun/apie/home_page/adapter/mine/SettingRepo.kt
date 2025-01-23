@@ -4,6 +4,7 @@ import com.xiaoxun.apie.common_model.home_page.mine.MineSettingInfo
 import com.xiaoxun.apie.common.R
 import com.xiaoxun.apie.common.base.APieBaseApplication
 import com.xiaoxun.apie.common.utils.AndroidUtils
+import com.xiaoxun.apie.common.utils.cache.APieCacheUtils
 import com.xiaoxun.apie.common_model.home_page.mine.MineSettingItemAction
 import com.xiaoxun.apie.common_model.home_page.mine.MineSettingItemType
 
@@ -79,8 +80,8 @@ object SettingRepo {
                     MineSettingItemAction.ACTION_STORAGE,
                     R.drawable.apie_mine_cache_icon,
                     "存储空间",
-                    MineSettingItemType.ITEM_TYPE_NORMAL,
-                    ""
+                    MineSettingItemType.ITEM_TYPE_TIP,
+                    APieCacheUtils.getCacheAndFilesSize(APieBaseApplication.application())
                 )
             )
             add(

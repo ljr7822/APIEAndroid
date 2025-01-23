@@ -20,7 +20,7 @@ object APieConfig {
 
     const val PHONE_NUMBER_MAX_LENGTH = 11
 
-    const val API_URL: String = "http://10.31.153.14:8090"
+    const val API_URL: String = "http://10.31.200.110:8090"
 
     /**
      * tab的名称
