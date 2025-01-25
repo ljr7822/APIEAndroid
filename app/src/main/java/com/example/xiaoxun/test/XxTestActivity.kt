@@ -4,10 +4,13 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.xiaoxun.databinding.LayoutXxTestActivityBinding
 import com.xiaoxun.apie.account_manager.repo.AccountDBRepository
 import com.xiaoxun.apie.account_manager.repo.AccountDataDescriptor
+import com.xiaoxun.apie.common.ACCOUNT_LOGIN_ACTIVITY_PATH
 import com.xiaoxun.apie.common.APP_XX_ACTIVITY_PATH
+import com.xiaoxun.apie.common.APP_XX_VIEWPAGER_ACTIVITY_PATH
 import com.xiaoxun.apie.common.album.APieAlbumPickerHelper
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 import com.xiaoxun.apie.common.ui.easy_glide.APieEasyImage.loadImage
@@ -150,7 +153,7 @@ class XxTestActivity : APieBaseBindingActivity<LayoutXxTestActivityBinding>(
         }
 
         binding.requestPermission.setDebouncingClickListener {
-
+            ARouter.getInstance().build(APP_XX_VIEWPAGER_ACTIVITY_PATH).navigation()
         }
     }
 
