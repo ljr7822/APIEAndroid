@@ -10,6 +10,8 @@ interface IIndexDesireRepo {
 
     suspend fun exchangeDesire(exchangeDesireId: String)
 
+    suspend fun loadDesireGroupList(userId: String)
+
     /**
      * 在生命周期结束时清理订阅
      */

@@ -6,7 +6,7 @@ enum class LoadPlanListState {
     FAILED
 }
 
-enum class LoadPlanGroupListState {
+enum class LoadGroupListState {
     START,
     SUCCESS,
     FAILED

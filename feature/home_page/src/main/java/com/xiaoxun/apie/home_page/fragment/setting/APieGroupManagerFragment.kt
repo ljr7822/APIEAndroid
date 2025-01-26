@@ -26,7 +26,7 @@ import com.xiaoxun.apie.home_page.viewmodel.CreatePlanGroupState
 import com.xiaoxun.apie.home_page.viewmodel.DeletePlanGroupState
 import com.xiaoxun.apie.home_page.viewmodel.GenericViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
-import com.xiaoxun.apie.home_page.viewmodel.LoadPlanGroupListState
+import com.xiaoxun.apie.home_page.viewmodel.LoadGroupListState
 import kotlinx.coroutines.launch
 
 class APieGroupManagerFragment :
@@ -88,9 +88,9 @@ class APieGroupManagerFragment :
 
         viewModel.loadPlanGroupListState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                LoadPlanGroupListState.START -> loadGroupStart()
-                LoadPlanGroupListState.SUCCESS -> loadGroupSuccess()
-                LoadPlanGroupListState.FAILED -> loadGroupError()
+                LoadGroupListState.START -> loadGroupStart()
+                LoadGroupListState.SUCCESS -> loadGroupSuccess()
+                LoadGroupListState.FAILED -> loadGroupError()
                 else -> {}
             }
         }

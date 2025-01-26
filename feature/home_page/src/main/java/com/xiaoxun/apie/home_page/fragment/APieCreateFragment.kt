@@ -30,7 +30,7 @@ import com.xiaoxun.apie.home_page.dialog.APieCreateGroupDialog
 import com.xiaoxun.apie.home_page.repo.home.IIndexHomeRepo
 import com.xiaoxun.apie.home_page.viewmodel.CreatePlanState
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
-import com.xiaoxun.apie.home_page.viewmodel.LoadPlanGroupListState
+import com.xiaoxun.apie.home_page.viewmodel.LoadGroupListState
 import com.xiaoxun.apie.home_page.viewmodel.PlanListType
 import com.xiaoxun.apie.home_page.viewmodel.TimeRangeType
 import kotlinx.coroutines.launch
@@ -212,11 +212,11 @@ class APieCreateFragment(
         viewModel.selectTimeRange.observe(viewLifecycleOwner) { handleSelectTimeRangeChange(it) }
     }
 
-    private fun handleGroupLoadState(state: LoadPlanGroupListState) {
+    private fun handleGroupLoadState(state: LoadGroupListState) {
         when (state) {
-            LoadPlanGroupListState.START -> loadPlanGroupStart()
-            LoadPlanGroupListState.SUCCESS -> loadPlanGroupSuccess()
-            LoadPlanGroupListState.FAILED -> loadPlanGroupFailed()
+            LoadGroupListState.START -> loadPlanGroupStart()
+            LoadGroupListState.SUCCESS -> loadPlanGroupSuccess()
+            LoadGroupListState.FAILED -> loadPlanGroupFailed()
         }
     }
 

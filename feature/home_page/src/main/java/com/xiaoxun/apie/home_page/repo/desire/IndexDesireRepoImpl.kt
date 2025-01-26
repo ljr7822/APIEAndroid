@@ -5,12 +5,14 @@ import com.xiaoxun.apie.apie_data_loader.request.desire.CreateDesire
 import com.xiaoxun.apie.apie_data_loader.request.desire.CreateDesireRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.desire.ExchangeDesire
 import com.xiaoxun.apie.apie_data_loader.request.desire.LoadDesire
+import com.xiaoxun.apie.apie_data_loader.request.desire.LoadDesireGroupRequest
 import com.xiaoxun.apie.common_model.home_page.desire.DesireModel
 import com.xiaoxun.apie.common_model.home_page.desire.DesireRespModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
 import com.xiaoxun.apie.data_loader.utils.CacheStrategy
 import com.xiaoxun.apie.gold_manage.service.GoldService
 import com.xiaoxun.apie.common.repo.ExecuteResultDelegate
+import com.xiaoxun.apie.common_model.home_page.desire.group.DesireGroupRespModel
 import com.xiaoxun.apie.home_page.viewmodel.IndexDesireViewModel
 import io.reactivex.disposables.CompositeDisposable
 
@@ -76,6 +78,22 @@ class IndexDesireRepoImpl(
         )
     }
 
+    override suspend fun loadDesireGroupList(userId: String) {
+        indexDesireViewModel.onLoadDesireGroupListStart()
+        innerLoadDesireGroupList(userId).fold(
+            onSuccess = {
+                it.data?.let { resp ->
+                    indexDesireViewModel.onLoadDesireGroupListSuccess(resp.desireGroupList.toMutableList())
+                } ?: let {
+                    indexDesireViewModel.onLoadDesireGroupListFailed("data is null.")
+                }
+            },
+            onFailure = {
+                indexDesireViewModel.onLoadDesireGroupListFailed(it.message.toString())
+            }
+        )
+    }
+
     private suspend fun innerCreateDesire(createDesireRequestBody: CreateDesireRequestBody): Result<BaseResponse<DesireModel>> {
         return executeResult {
             DataLoaderManager.instance.createDesire(
@@ -98,6 +116,15 @@ class IndexDesireRepoImpl(
         return executeResult {
             DataLoaderManager.instance.exchangeDesire(
                 ExchangeDesire(desireId),
+                CacheStrategy.FORCE_NET
+            )
+        }
+    }
+
+    private suspend fun innerLoadDesireGroupList(userId: String): Result<BaseResponse<DesireGroupRespModel>> {
+        return executeResult {
+            DataLoaderManager.instance.loadDesireGroupListByUserId(
+                LoadDesireGroupRequest(userId),
                 CacheStrategy.FORCE_NET
             )
         }

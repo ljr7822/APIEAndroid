@@ -3,6 +3,8 @@ package com.xiaoxun.apie.home_page.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.xiaoxun.apie.common.base.viewmodel.APieBaseViewModel
 import com.xiaoxun.apie.common_model.home_page.desire.DesireModel
+import com.xiaoxun.apie.common_model.home_page.desire.group.DesireGroupModel
+import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 
 class IndexDesireViewModel : APieBaseViewModel() {
 
@@ -23,10 +25,18 @@ class IndexDesireViewModel : APieBaseViewModel() {
     private var _loadDesireListState = MutableLiveData<LoadDesireListState>()
     val loadDesireListState get() = _loadDesireListState
 
+    // 加载心愿分组列表状态
+    private var _loadDesireGroupListState = MutableLiveData<LoadGroupListState>()
+    val loadDesireGroupListState get() = _loadDesireGroupListState
+
     // ********************************************* 数据 *********************************************
     // 当前显示的心愿列表数据
     private var _currentDesireList = MutableLiveData<MutableList<DesireModel>>()
     val currentDesireList get() = _currentDesireList
+
+    // 心愿分组列表
+    private var _desireGroupList = MutableLiveData<MutableList<DesireGroupModel>>()
+    val desireGroupList get() = _desireGroupList
 
     // ********************************************* 方法 *********************************************
     fun updateListScrolling(isScrolling: Boolean) {
@@ -77,6 +87,19 @@ class IndexDesireViewModel : APieBaseViewModel() {
 
     fun onExchangeDesireFailed(error: String) {
         showLoadingFailed()
+    }
+
+    fun onLoadDesireGroupListStart() {
+        _loadDesireGroupListState.value = LoadGroupListState.START
+    }
+
+    fun onLoadDesireGroupListSuccess(newPlanGroupList: MutableList<DesireGroupModel>) {
+        _loadDesireGroupListState.value = LoadGroupListState.SUCCESS
+        _desireGroupList.value = newPlanGroupList
+    }
+
+    fun onLoadDesireGroupListFailed(error: String) {
+        _loadDesireGroupListState.value = LoadGroupListState.FAILED
     }
 
     fun showLoadingStart() {

@@ -2,7 +2,6 @@ package com.xiaoxun.apie.home_page.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.xiaoxun.apie.common.base.viewmodel.APieBaseViewModel
-import com.xiaoxun.apie.common.ui.APieLoadingDialog
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
 
@@ -17,7 +16,7 @@ class IndexHomeViewModel : APieBaseViewModel() {
     val loadPlanListState get() = _loadPlanListState
 
     // 加载计划分组列表状态
-    private var _loadPlanGroupListState = MutableLiveData<LoadPlanGroupListState>()
+    private var _loadPlanGroupListState = MutableLiveData<LoadGroupListState>()
     val loadPlanGroupListState get() = _loadPlanGroupListState
 
     // 创建计划分状态
@@ -105,16 +104,16 @@ class IndexHomeViewModel : APieBaseViewModel() {
     }
 
     fun loadPlanGroupListStart() {
-        _loadPlanGroupListState.value = LoadPlanGroupListState.START
+        _loadPlanGroupListState.value = LoadGroupListState.START
     }
 
     fun loadPlanGroupListSuccess(newPlanGroupList: MutableList<PlanGroupModel>) {
-        _loadPlanGroupListState.value = LoadPlanGroupListState.SUCCESS
+        _loadPlanGroupListState.value = LoadGroupListState.SUCCESS
         _planGroupList.value = newPlanGroupList
     }
 
     fun loadPlanGroupListFailed(error: String) {
-        _loadPlanGroupListState.value = LoadPlanGroupListState.FAILED
+        _loadPlanGroupListState.value = LoadGroupListState.FAILED
     }
 
     fun createPlanGroupStart() {
