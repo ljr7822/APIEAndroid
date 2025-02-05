@@ -9,6 +9,7 @@ import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlans
 import com.xiaoxun.apie.apie_data_loader.request.account.sms.SendSmsCodeParams
 import com.xiaoxun.apie.apie_data_loader.request.account.user.QueryUser
 import com.xiaoxun.apie.apie_data_loader.request.desire.CreateDesire
+import com.xiaoxun.apie.apie_data_loader.request.desire.CreateDesireGroup
 import com.xiaoxun.apie.apie_data_loader.request.desire.ExchangeDesire
 import com.xiaoxun.apie.apie_data_loader.request.desire.LoadDesire
 import com.xiaoxun.apie.apie_data_loader.request.desire.LoadDesireGroupRequest
@@ -21,6 +22,7 @@ import com.xiaoxun.apie.apie_data_loader.request.plan.UpdatePlanCompletedCount
 import com.xiaoxun.apie.common_model.account.AccountModel
 import com.xiaoxun.apie.common_model.home_page.desire.DesireModel
 import com.xiaoxun.apie.common_model.home_page.desire.DesireRespModel
+import com.xiaoxun.apie.common_model.home_page.desire.group.DesireGroupModel
 import com.xiaoxun.apie.common_model.home_page.desire.group.DesireGroupRespModel
 import com.xiaoxun.apie.common_model.home_page.group.DeleteGroupRespModel
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
@@ -254,6 +256,18 @@ class DataLoaderManager private constructor() {
     ): Observable<BaseResponse<DesireGroupRespModel>> {
         val loader = buildDataLoader<DesireGroupRespModel>(APieUrl.GET_DESIRE_GROUP_BY_USER_ID.name)
         return loader?.getData(loadDesireGroupRequest, cacheStrategy)
+            ?: Observable.error(Exception("loader is null"))
+    }
+
+    /**
+     * 创建心愿分组
+     */
+    fun createDesireGroup(
+        createDesireGroup: CreateDesireGroup,
+        cacheStrategy: CacheStrategy
+    ): Observable<BaseResponse<DesireGroupModel>> {
+        val loader = buildDataLoader<DesireGroupModel>(APieUrl.CREATE_DESIRE_GROUP.name)
+        return loader?.getData(createDesireGroup, cacheStrategy)
             ?: Observable.error(Exception("loader is null"))
     }
 }

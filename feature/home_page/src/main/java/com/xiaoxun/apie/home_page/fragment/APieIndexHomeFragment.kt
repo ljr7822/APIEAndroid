@@ -12,7 +12,6 @@ import com.lxj.xpopup.enums.PopupPosition
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.xiaoxun.apie.common.base.fragment.APieBaseBindingFragment
-import com.xiaoxun.apie.common.repo.AccountMMKVRepository
 import com.xiaoxun.apie.common.ui.APieLoadingDialog
 import com.xiaoxun.apie.common.ui.APieStyleExitTip
 import com.xiaoxun.apie.common.utils.APieVibrateTool
@@ -25,6 +24,7 @@ import com.xiaoxun.apie.gold_manage.service.GoldService
 import com.xiaoxun.apie.home_page.adapter.plan.APiePlanAdapter
 import com.xiaoxun.apie.home_page.bean.planModel2PlanModeInfo
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexHomeFragmentBinding
+import com.xiaoxun.apie.home_page.fragment.plan.APieCreateFragment
 import com.xiaoxun.apie.home_page.repo.home.IIndexHomeRepo
 import com.xiaoxun.apie.home_page.repo.home.IndexHomeRepoImpl
 import com.xiaoxun.apie.home_page.utils.APieHomeSoundUtils

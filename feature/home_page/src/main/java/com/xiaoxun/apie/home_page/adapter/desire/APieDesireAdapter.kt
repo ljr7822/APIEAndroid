@@ -22,6 +22,9 @@ class APieDesireAdapter : RecyclerView.Adapter<APieDesireAdapter.ViewHolder>() {
     private var itemClickListener: ItemClickListener? = null
     private var currentlySelectedPosition: Int? = null // 当前显示 menuLayer 的位置
 
+    fun getItems(): List<DesireModel> {
+        return items
+    }
     fun setItemClickListener(listener: ItemClickListener?) {
         itemClickListener = listener
     }

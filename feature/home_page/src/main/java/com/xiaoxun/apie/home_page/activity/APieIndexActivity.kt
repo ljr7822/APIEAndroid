@@ -21,9 +21,14 @@ import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.gold_manage.service.GoldService
 import com.xiaoxun.apie.home_page.adapter.APieViewPagerAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexActivityBinding
+import com.xiaoxun.apie.home_page.fragment.plan.APieCreateFragment
 import com.xiaoxun.apie.home_page.fragment.APieIndexDesireFragment
 import com.xiaoxun.apie.home_page.fragment.APieIndexHomeFragment
 import com.xiaoxun.apie.home_page.fragment.APieIndexMineFragment
+import com.xiaoxun.apie.home_page.fragment.APieIndexStorageFragment
+import com.xiaoxun.apie.home_page.fragment.desire.APieCreateDesireFragment
+import com.xiaoxun.apie.home_page.repo.desire.IIndexDesireRepo
+import com.xiaoxun.apie.home_page.repo.desire.IndexDesireRepoImpl
 import com.xiaoxun.apie.home_page.repo.home.IIndexHomeRepo
 import com.xiaoxun.apie.home_page.repo.home.IndexHomeRepoImpl
 import com.xiaoxun.apie.home_page.viewmodel.GenericViewModelFactory
@@ -73,7 +78,9 @@ class APieIndexActivity :
 
     private val goldService: GoldService by lazy { GoldService() }
 
-    private val repo: IIndexHomeRepo by lazy { IndexHomeRepoImpl(homeViewModel, goldService) }
+    private val planRepo: IIndexHomeRepo by lazy { IndexHomeRepoImpl(homeViewModel, goldService) }
+
+    private val desireRepo: IIndexDesireRepo by lazy { IndexDesireRepoImpl(desireViewModel, goldService) }
 
     override fun createAdapter(): APieViewPagerAdapter {
         return APieViewPagerAdapter(this, mFragmentList)
@@ -88,12 +95,12 @@ class APieIndexActivity :
     override fun initializeView() {
         super.initializeView()
         binding.createBtn.setDebouncingClickListener {
-//            if (selectedTabIndex == APieConfig.HOME_PAGE_INDEX) {
-//                APieCreateFragment(repo, homeViewModel).show(supportFragmentManager, "create_plan")
-//            } else if (selectedTabIndex == APieConfig.DESIRE_PAGE_INDEX) {
-//                APieToast.showDialog("创建心愿")
-//            }
-            openPhotoPicker()
+            if (selectedTabIndex == APieConfig.HOME_PAGE_INDEX) {
+                APieCreateFragment(planRepo, homeViewModel).show(supportFragmentManager, "create_plan")
+            } else if (selectedTabIndex == APieConfig.DESIRE_PAGE_INDEX) {
+                APieCreateDesireFragment(desireRepo, desireViewModel).show(supportFragmentManager, "create_desire")
+            }
+//            openPhotoPicker()
         }
     }
 
@@ -172,6 +179,15 @@ class APieIndexActivity :
 
                 APieConfig.DESIRE_PAGE_INDEX -> {
                     val fragment = APieIndexDesireFragment().apply {
+                        arguments = Bundle().apply {
+                            putString(APieIndexDesireFragment.TEST_FLAG, tabName)
+                        }
+                    }
+                    mFragmentList.add(fragment)
+                }
+
+                APieConfig.STORAGE_PAGE_INDEX -> {
+                    val fragment = APieIndexStorageFragment().apply {
                         arguments = Bundle().apply {
                             putString(APieIndexDesireFragment.TEST_FLAG, tabName)
                         }

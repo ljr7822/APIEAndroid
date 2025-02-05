@@ -3,25 +3,26 @@ package com.xiaoxun.apie.common_model.home_page.group
 import android.os.Parcelable
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
+import com.xiaoxun.apie.common_model.home_page.base.IBaseGroupModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Keep
 data class PlanGroupModel(
     @SerializedName("groupId")
-    val groupId: String = "",
+    override val groupId: String = "",
     @SerializedName("createUserId")
-    val createUserId: String = "",
+    override val createUserId: String = "",
     @SerializedName("groupName")
-    val groupName: String = "",
+    override val groupName: String = "",
     @SerializedName("groupIcon")
-    val groupIcon: String = "",
+    override val groupIcon: String = "",
     @SerializedName("groupWeight")
-    val groupWeight: String = "",
+    override val groupWeight: String = "",
     @SerializedName("visibleStatus")
-    val visibleStatus: String = "",
+    override val visibleStatus: String = "",
     @SerializedName("createat")
     val createat: String = "",
     @SerializedName("updateat")
     val updateat: String = "",
-): Parcelable
+) : Parcelable, IBaseGroupModel

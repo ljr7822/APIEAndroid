@@ -11,7 +11,7 @@ class CreatePlanGroup(
     private val createPlanGroupRequestBody: CreatePlanGroupRequestBody
 ) : APieRequestParams<PlanGroupModel>() {
     override fun apiService(version: String): Observable<BaseResponse<PlanGroupModel>>? {
-        return APieApiManager.getGroupAPIService().createGroup(createPlanGroupRequestBody)
+        return APieApiManager.getPlanGroupAPIService().createGroup(createPlanGroupRequestBody)
     }
 
     override fun dataType(): String {

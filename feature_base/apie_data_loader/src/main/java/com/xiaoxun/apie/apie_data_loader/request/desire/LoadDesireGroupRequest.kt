@@ -12,7 +12,7 @@ class LoadDesireGroupRequest(
     private val userId: String
 ) : APieRequestParams<DesireGroupRespModel>() {
     override fun apiService(version: String): Observable<BaseResponse<DesireGroupRespModel>>? {
-        return APieApiManager.getDesireAPIService().getAllPlanGroupByUserId(userId)
+        return APieApiManager.getDesireGroupAPIService().getAllDesireGroupByUserId(userId)
     }
 
     override fun dataType(): String {

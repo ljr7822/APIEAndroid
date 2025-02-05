@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/feature/account" />
             <option value="$PROJECT_DIR$/feature/home_page" />
             <option value="$PROJECT_DIR$/feature_base" />
+            <option value="$PROJECT_DIR$/feature_base/account_manager" />
             <option value="$PROJECT_DIR$/feature_base/apie_data_loader" />
             <option value="$PROJECT_DIR$/feature_base/apie_network" />
             <option value="$PROJECT_DIR$/feature_base/gold_manage" />

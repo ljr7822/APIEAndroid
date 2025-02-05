@@ -154,8 +154,21 @@ class APieIndexDesireFragment : APieBaseBindingFragment<LayoutApieIndexDesireFra
             }
         }
 
-        viewModel.currentDesireList.observe(viewLifecycleOwner) {
-            desireAdapter.updateData(it)
+        viewModel.currentDesireList.observe(viewLifecycleOwner) { newList ->
+            if (newList.isEmpty()) {
+                binding.desireRecyclerView.visibility = View.GONE
+                binding.emptyView.visibility = View.VISIBLE
+            } else {
+                binding.desireRecyclerView.visibility = View.VISIBLE
+                binding.emptyView.visibility = View.GONE
+                // 更新数据
+                val oldList = desireAdapter.getItems()
+                if (oldList.isNotEmpty() && (newList.size > oldList.size)) {
+                    // 滚动到顶部
+                    binding.desireRecyclerView.scrollToPosition(0)
+                }
+                desireAdapter.updateData(newList)
+            }
         }
     }
 

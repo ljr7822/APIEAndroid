@@ -10,22 +10,23 @@ import androidx.annotation.MainThread
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
+import com.xiaoxun.apie.common_model.home_page.base.IBaseGroupModel
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
 import com.xiaoxun.apie.home_page.R
 import com.xiaoxun.apie.home_page.adapter.plan.APiePlanDiffCallback
 
 class APieGroupAdapter(
-    private val items: MutableList<PlanGroupModel> = mutableListOf(),
-    val itemClick: (Int, PlanGroupModel) -> Unit = { _, _ -> } // 返回选中项的 position 和对应的数据项
+    private val items: MutableList<IBaseGroupModel> = mutableListOf(),
+    val itemClick: (Int, IBaseGroupModel) -> Unit = { _, _ -> } // 返回选中项的 position 和对应的数据项
 ) : RecyclerView.Adapter<APieGroupAdapter.ViewHolder>() {
 
     private var selectedPosition: Int = -1 // 记录当前选中的位置
 
-    fun getItems(): List<PlanGroupModel> = items
+    fun getItems(): List<IBaseGroupModel> = items
 
     // 更新数据的方法
-    fun updateData(newList: List<PlanGroupModel>) {
+    fun updateData(newList: List<IBaseGroupModel>) {
         // 获取之前选中的数据项
         val diffCallback = APieGroupDiffCallback(items, newList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
@@ -35,7 +36,7 @@ class APieGroupAdapter(
     }
 
     @MainThread
-    fun replayData(newData: List<PlanGroupModel>) {
+    fun replayData(newData: List<IBaseGroupModel>) {
         items.clear()
         items.addAll(newData)
         notifyDataSetChanged()

@@ -28,7 +28,4 @@ interface APiDesireService {
     /** 兑换心愿 */
     @GET(EXCHANGE_DESIRE_URL)
     fun exchangeDesire(@Path("desireId") desireId: String): Observable<BaseResponse<DesireModel>>
-
-    @POST(GET_DESIRE_GROUP_BY_USER_ID_URL)
-    fun getAllPlanGroupByUserId(@Path("userId") userId: String): Observable<BaseResponse<DesireGroupRespModel>>
 }

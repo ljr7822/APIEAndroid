@@ -2,16 +2,20 @@ package com.xiaoxun.apie.home_page.repo.desire
 
 import com.xiaoxun.apie.apie_data_loader.DataLoaderManager
 import com.xiaoxun.apie.apie_data_loader.request.desire.CreateDesire
+import com.xiaoxun.apie.apie_data_loader.request.desire.CreateDesireGroup
+import com.xiaoxun.apie.apie_data_loader.request.desire.CreateDesireGroupRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.desire.CreateDesireRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.desire.ExchangeDesire
 import com.xiaoxun.apie.apie_data_loader.request.desire.LoadDesire
 import com.xiaoxun.apie.apie_data_loader.request.desire.LoadDesireGroupRequest
+import com.xiaoxun.apie.common.manager.account.AccountManager
 import com.xiaoxun.apie.common_model.home_page.desire.DesireModel
 import com.xiaoxun.apie.common_model.home_page.desire.DesireRespModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
 import com.xiaoxun.apie.data_loader.utils.CacheStrategy
 import com.xiaoxun.apie.gold_manage.service.GoldService
 import com.xiaoxun.apie.common.repo.ExecuteResultDelegate
+import com.xiaoxun.apie.common_model.home_page.desire.group.DesireGroupModel
 import com.xiaoxun.apie.common_model.home_page.desire.group.DesireGroupRespModel
 import com.xiaoxun.apie.home_page.viewmodel.IndexDesireViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -78,9 +82,9 @@ class IndexDesireRepoImpl(
         )
     }
 
-    override suspend fun loadDesireGroupList(userId: String) {
+    override suspend fun loadDesireGroupList() {
         indexDesireViewModel.onLoadDesireGroupListStart()
-        innerLoadDesireGroupList(userId).fold(
+        innerLoadDesireGroupList().fold(
             onSuccess = {
                 it.data?.let { resp ->
                     indexDesireViewModel.onLoadDesireGroupListSuccess(resp.desireGroupList.toMutableList())
@@ -90,6 +94,22 @@ class IndexDesireRepoImpl(
             },
             onFailure = {
                 indexDesireViewModel.onLoadDesireGroupListFailed(it.message.toString())
+            }
+        )
+    }
+
+    override suspend fun createDesireGroup(desireGroupName: String) {
+        indexDesireViewModel.showLoadingStart()
+        innerCreateDesireGroup(desireGroupName).fold(
+            onSuccess = {
+                it.data?.let { resp ->
+                    indexDesireViewModel.createDesireGroupSuccess(resp)
+                } ?: let {
+                    indexDesireViewModel.showLoadingFailed()
+                }
+            },
+            onFailure = {
+                indexDesireViewModel.showLoadingFailed()
             }
         )
     }
@@ -121,10 +141,24 @@ class IndexDesireRepoImpl(
         }
     }
 
-    private suspend fun innerLoadDesireGroupList(userId: String): Result<BaseResponse<DesireGroupRespModel>> {
+    private suspend fun innerLoadDesireGroupList(): Result<BaseResponse<DesireGroupRespModel>> {
         return executeResult {
             DataLoaderManager.instance.loadDesireGroupListByUserId(
-                LoadDesireGroupRequest(userId),
+                LoadDesireGroupRequest(AccountManager.getUserId()),
+                CacheStrategy.FORCE_NET
+            )
+        }
+    }
+
+    private suspend fun innerCreateDesireGroup(desireGroupName: String): Result<BaseResponse<DesireGroupModel>> {
+        return executeResult {
+            DataLoaderManager.instance.createDesireGroup(
+                CreateDesireGroup(
+                    CreateDesireGroupRequestBody(
+                        desireGroupName = desireGroupName,
+                        createUserId = AccountManager.getUserId()
+                    )
+                ),
                 CacheStrategy.FORCE_NET
             )
         }

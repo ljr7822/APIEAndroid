@@ -6,75 +6,75 @@
 
     <declare-styleable name="BottomBarLayout">
         <!--设置bar的高度-->
-        <attr name="barHeight" format="dimension"/>
+        <attr name="barHeight" format="dimension" />
         <!--设置bar的背景-->
-        <attr name="barBackground" format="reference"/>
+        <attr name="barBackground" format="reference" />
 
         <!--是否中间图标凸起-->
-        <attr name="floatEnable" format="boolean"/>
+        <attr name="floatEnable" format="boolean" />
         <!--设置凸起按钮距离底部间距-->
-        <attr name="floatMarginBottom" format="dimension"/>
+        <attr name="floatMarginBottom" format="dimension" />
 
         <!--float图标-->
-        <attr name="floatIcon" format="reference"/>
+        <attr name="floatIcon" format="reference" />
         <!--float图标的宽度-->
-        <attr name="floatIconWidth" format="dimension"/>
+        <attr name="floatIconWidth" format="dimension" />
         <!--float图标的高度-->
-        <attr name="floatIconHeight" format="dimension"/>
+        <attr name="floatIconHeight" format="dimension" />
 
         <!--是否开启viewPager的滑动-->
-        <attr name="smoothScroll" format="boolean"/>
+        <attr name="smoothScroll" format="boolean" />
         <!--是否相同tab点击回调-->
-        <attr name="sameTabClickCallBack" format="boolean"/>
+        <attr name="sameTabClickCallBack" format="boolean" />
 
         <!--文字大小-->
-        <attr name="itemTextSize" format="dimension"/>
+        <attr name="itemTextSize" format="dimension" />
         <!--文字加粗-->
-        <attr name="itemTextBold" format="boolean"/>
+        <attr name="itemTextBold" format="boolean" />
         <!--默认状态下的文字颜色-->
-        <attr name="textColorNormal" format="color"/>
+        <attr name="textColorNormal" format="color" />
         <!--选中状态下的文字颜色-->
-        <attr name="textColorSelected" format="color"/>
+        <attr name="textColorSelected" format="color" />
 
         <!--文字和图标的顶部距离-->
-        <attr name="itemMarginTop" format="dimension"/>
+        <attr name="itemMarginTop" format="dimension" />
 
         <!--设置图标的宽度-->
-        <attr name="iconWidth" format="dimension"/>
+        <attr name="iconWidth" format="dimension" />
         <!--设置图标的高度-->
-        <attr name="iconHeight" format="dimension"/>
+        <attr name="iconHeight" format="dimension" />
 
         <!--设置BottomBarItem的padding-->
-        <attr name="itemPadding" format="dimension"/>
+        <attr name="itemPadding" format="dimension" />
 
         <!--设置未读数字体大小-->
-        <attr name="unreadTextSize" format="dimension"/>
+        <attr name="unreadTextSize" format="dimension" />
         <!--设置未读数字体颜色-->
-        <attr name="unreadTextColor" format="reference"/>
+        <attr name="unreadTextColor" format="reference" />
         <!--设置未读数背景色-->
-        <attr name="unreadTextBg" format="reference"/>
+        <attr name="unreadTextBg" format="reference" />
 
         <!--设置提示消息字体大小-->
-        <attr name="msgTextSize" format="dimension"/>
+        <attr name="msgTextSize" format="dimension" />
         <!--设置提示消息字体颜色-->
-        <attr name="msgTextColor" format="reference"/>
+        <attr name="msgTextColor" format="reference" />
         <!--设置提示消息背景-->
-        <attr name="msgTextBg" format="reference"/>
+        <attr name="msgTextBg" format="reference" />
 
         <!--设置提示点背景-->
-        <attr name="notifyPointBg" format="reference"/>
+        <attr name="notifyPointBg" format="reference" />
 
         <!--设置未读数组阈值 大于阈值的数字将显示为 n+ n为设置的阈值-->
-        <attr name="unreadThreshold" format="integer"/>
+        <attr name="unreadThreshold" format="integer" />
 
     </declare-styleable>
 
     <!-- 自定义loadingview的自定义属性-->
     <declare-styleable name="APieLoadingView" tools:ignore="ResourceName">
-        <attr name="loading_view_radius" format="dimension|reference"/>
-        <attr name="loading_view_paint_width" format="dimension|reference"/>
-        <attr name="loading_view_anim_duration" format="integer"/>
-        <attr name="loading_view_color" format="color"/>
+        <attr name="loading_view_radius" format="dimension|reference" />
+        <attr name="loading_view_paint_width" format="dimension|reference" />
+        <attr name="loading_view_anim_duration" format="integer" />
+        <attr name="loading_view_color" format="color" />
     </declare-styleable>
 
     <declare-styleable name="APieTopBarView">
@@ -83,8 +83,8 @@
         <attr name="leftIconRes" format="reference" />
         <attr name="rightIconRes" format="reference" />
         <attr name="avatarIcon" format="reference" />
-        <attr name="leftIconEnable" format="boolean"/>
-        <attr name="rightIconEnable" format="boolean"/>
+        <attr name="leftIconEnable" format="boolean" />
+        <attr name="rightIconEnable" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="ScrollFloatingButton">
@@ -109,29 +109,36 @@
     </declare-styleable>
 
     <declare-styleable name="CircleProgressView">
-        <attr name="cpv_progressNormalColor" format="color"/>
-        <attr name="cpv_progressReachColor" format="color"/>
-        <attr name="cpv_progressTextColor" format="color"/>
-        <attr name="cpv_progressTextSize" format="dimension"/>
-        <attr name="cpv_progressTextOffset" format="dimension"/>
-        <attr name="cpv_progressNormalSize" format="dimension"/>
-        <attr name="cpv_progressReachSize" format="dimension"/>
-        <attr name="cpv_radius" format="dimension"/>
-        <attr name="cpv_progressTextVisible" format="boolean"/>
-        <attr name="cpv_progressStartArc" format="integer"/>
-        <attr name="cpv_progressTextSkewX" format="dimension"/>
-        <attr name="cpv_progressTextPrefix" format="string"/>
-        <attr name="cpv_progressTextSuffix" format="string"/>
-        <attr name="cpv_innerBackgroundColor" format="color"/>
+        <attr name="cpv_progressNormalColor" format="color" />
+        <attr name="cpv_progressReachColor" format="color" />
+        <attr name="cpv_progressTextColor" format="color" />
+        <attr name="cpv_progressTextSize" format="dimension" />
+        <attr name="cpv_progressTextOffset" format="dimension" />
+        <attr name="cpv_progressNormalSize" format="dimension" />
+        <attr name="cpv_progressReachSize" format="dimension" />
+        <attr name="cpv_radius" format="dimension" />
+        <attr name="cpv_progressTextVisible" format="boolean" />
+        <attr name="cpv_progressStartArc" format="integer" />
+        <attr name="cpv_progressTextSkewX" format="dimension" />
+        <attr name="cpv_progressTextPrefix" format="string" />
+        <attr name="cpv_progressTextSuffix" format="string" />
+        <attr name="cpv_innerBackgroundColor" format="color" />
         <attr name="cpv_progressStyle" format="enum">
-            <enum name="Normal" value="0"/>
-            <enum name="FillInner" value="1"/>
-            <enum name="FillInnerArc" value="2"/>
+            <enum name="Normal" value="0" />
+            <enum name="FillInner" value="1" />
+            <enum name="FillInnerArc" value="2" />
         </attr>
-        <attr name="cpv_innerProgressColor" format="color"/>
-        <attr name="cpv_innerPadding" format="dimension"/>
-        <attr name="cpv_outerColor" format="color"/>
-        <attr name="cpv_outerSize" format="dimension"/>
-        <attr name="cpv_reachCapRound" format="boolean"/>
+        <attr name="cpv_innerProgressColor" format="color" />
+        <attr name="cpv_innerPadding" format="dimension" />
+        <attr name="cpv_outerColor" format="color" />
+        <attr name="cpv_outerSize" format="dimension" />
+        <attr name="cpv_reachCapRound" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="NumberStepperView">
+        <attr name="defaultNumber" format="integer"/>
+        <attr name="step" format="integer"/>
+        <attr name="editTextColor" format="color"/>
+        <attr name="editTextSize" format="dimension"/>
     </declare-styleable>
 </resources>

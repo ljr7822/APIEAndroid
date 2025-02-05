@@ -11,7 +11,7 @@ class LoadPlanGroups(
     private val userId: String
 ) : APieRequestParams<PlanGroupRespModel>() {
     override fun apiService(version: String): Observable<BaseResponse<PlanGroupRespModel>>? {
-        return APieApiManager.getGroupAPIService().getAllPlanGroupByUserId(userId)
+        return APieApiManager.getPlanGroupAPIService().getAllPlanGroupByUserId(userId)
     }
 
     override fun dataType(): String {

@@ -68,12 +68,22 @@
     <string name="apie_plan_item_delete_tip">计划删除后，获得的金币也会删除，是否要删除这个计划？</string>
     <string name="apie_setting_group_manager_item_delete_tip">删除分组后，原先分组下的计划会划分到默认分组，且该分组不可恢复，是否要删除这个分组？</string>
 
-    <string name="apie_create_plan_group_title">创建分组</string>
+    <string name="apie_create_plan_group_title">创建计划分组</string>
     <string name="apie_create_plan_group_name_hint">填写分组名称（限5字数）</string>
 
     <string name="apie_apie_exchange_desire_tip">心愿兑换将扣除账户金币，是否兑换？</string>
     <string name="apie_apie_clean_app_cache_tip">删除应用缓存会清空登录状态，是否清空？</string>
     <string name="apie_apie_login_out_app_tip">确定退出登录？</string>
+
+    <string name="apie_create_desire_group_title">创建心愿分组</string>
+    <string name="apie_create_desire_title">创建心愿</string>
+    <string name="apie_create_desire_reedit_title">编辑心愿</string>
+    <string name="apie_create_desire_name_hint">在这里填写心愿名称（限20字数）</string>
+    <string name="apie_create_desire_frequency_tip">心愿频次:</string>
+    <string name="apie_create_desire_group_tip">心愿分组:</string>
+    <string name="apie_create_desire_price_title">心愿价格:</string>
+    <string name="apie_create_desire_validity_time_tip">心愿兑换周期:</string>
+    <string name="apie_create_desire_desc_tip">心愿描述（选填）:</string>
 
 
 </resources>

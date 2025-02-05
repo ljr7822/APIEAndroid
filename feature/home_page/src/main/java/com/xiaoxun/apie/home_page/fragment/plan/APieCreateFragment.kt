@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.home_page.fragment
+package com.xiaoxun.apie.home_page.fragment.plan
 
 import android.os.Bundle
 import android.view.View
@@ -21,6 +21,7 @@ import com.xiaoxun.apie.common.manager.account.AccountManager
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.toFormatList
 import com.xiaoxun.apie.common.utils.toast.APieToast
+import com.xiaoxun.apie.common_model.home_page.base.IBaseGroupModel
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import com.xiaoxun.apie.home_page.adapter.plan.APiePlanFrequencyAdapter
 import com.xiaoxun.apie.home_page.adapter.group.APieGroupAdapter
@@ -57,7 +58,7 @@ class APieCreateFragment(
     private val loadingDialog: APieLoadingDialog by lazy { APieLoadingDialog(requireContext()) }
 
     private var selectedFrequency: PlanListType? = null
-    private var selectedGroup: PlanGroupModel? = null
+    private var selectedGroup: IBaseGroupModel? = null
 
     companion object {
         private const val TAG = "APieCreateFragment"
@@ -77,8 +78,8 @@ class APieCreateFragment(
             viewModel.updateSelectPlanFrequency(it.getPlanListTypeByPlanType())
             viewModel.updateSelectPlanGroup(it.belongGroupId)
             binding.frequencyCountEdit.setText(it.planFrequency.toString())
-            binding.awardCountEdit.setText(it.planAward.toString())
-            binding.deductCountEdit.setText(it.planPunish.toString())
+            binding.awardCountEdit.setDefaultNumber(it.planAward)
+            binding.deductCountEdit.setDefaultNumber(it.planPunish)
             viewModel.updateSelectTimeRange(
                 TimeRangeType.START_TIME,
                 Pair(it.planStartTime, DateTimeUtils.conversionTime(it.planStartTime, "yyyy-MM-dd"))
@@ -319,8 +320,8 @@ class APieCreateFragment(
             planType = selectedFrequency?.type ?: PlanListType.SINGLE_PLAN.type, // 默认是单次计划
             belongGroupId = selectedGroup?.groupId ?: "",
             planFrequency = binding.frequencyCountEdit.text.toString().toIntOrNull() ?: 1, // 计划频率
-            planAward = binding.awardCountEdit.text.toString().toIntOrNull() ?: 1,// 奖励派币数量
-            planPunish = binding.deductCountEdit.text.toString().toIntOrNull() ?: 0,// 扣除派币数量
+            planAward = binding.awardCountEdit.getNumber(),// 奖励派币数量
+            planPunish = binding.deductCountEdit.getNumber(),// 扣除派币数量
             planWeight = 10,
             createUserId = AccountManager.getUserId(),
             planStartTime = viewModel.getSelectStartTime() ?: 0,
@@ -332,7 +333,7 @@ class APieCreateFragment(
 
     // 计算这个任务最大的金币数量
     private fun getPlanTotalGoldCount(): Int {
-        val awardCount = binding.awardCountEdit.text.toString().toIntOrNull() ?: 1
+        val awardCount = binding.awardCountEdit.getNumber().toString().toIntOrNull() ?: 1
         val frequencyCount = binding.frequencyCountEdit.text.toString().toIntOrNull() ?: 1
 
         val startTime = viewModel.getSelectStartTime() ?: 0
@@ -448,7 +449,7 @@ class APieCreateFragment(
 //            APieToast.showDialog("计划频率不能为空")
 //            return false
 //        }
-        val award = binding.awardCountEdit.text.toString()
+        val award = binding.awardCountEdit.getNumber().toString()
         if (award.isEmpty()) {
             APieToast.showDialog("奖励派币数量不能为空")
             return true

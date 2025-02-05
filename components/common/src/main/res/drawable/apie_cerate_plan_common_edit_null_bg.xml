@@ -11,5 +11,5 @@
     <!-- 边框 -->
     <stroke
         android:width="0.6dp"
-        android:color="@color/apieTheme_colorBlack_alpha_10" />
+        android:color="@color/apieTheme_colorTransparent" />
 </shape>

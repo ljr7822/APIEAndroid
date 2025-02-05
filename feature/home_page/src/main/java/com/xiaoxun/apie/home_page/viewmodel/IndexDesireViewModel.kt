@@ -38,6 +38,14 @@ class IndexDesireViewModel : APieBaseViewModel() {
     private var _desireGroupList = MutableLiveData<MutableList<DesireGroupModel>>()
     val desireGroupList get() = _desireGroupList
 
+    // 记录选择的时间区间
+    private var _selectTimeRange = MutableLiveData<HashMap<TimeRangeType, Pair<Long, String>>>()
+    val selectTimeRange get() = _selectTimeRange
+
+    // 创建选中的心愿分组
+    private var _selectDesireGroup = MutableLiveData<String>()
+    val selectDesireGroup get() = _selectDesireGroup
+
     // ********************************************* 方法 *********************************************
     fun updateListScrolling(isScrolling: Boolean) {
         if (_listScrolling.value == isScrolling) return
@@ -114,6 +122,21 @@ class IndexDesireViewModel : APieBaseViewModel() {
         _commonLoadingState.value = CommonLoadingState.FAILED
     }
 
+    fun updateSelectDesireGroup(desireGroupId: String) {
+        _selectDesireGroup.value = desireGroupId
+    }
+
+    fun createDesireGroupSuccess(groupModel: DesireGroupModel) {
+        _commonLoadingState.value = CommonLoadingState.SUCCESS
+        insertGroup(groupModel)
+    }
+
+    private fun insertGroup(groupModel: DesireGroupModel) {
+        val currentList = _desireGroupList.value ?: mutableListOf()
+        currentList.add(0, groupModel)
+        _desireGroupList.value = currentList
+    }
+
     /**
      * 更新或插入心愿
      */
@@ -129,5 +152,21 @@ class IndexDesireViewModel : APieBaseViewModel() {
             currentList.add(0, resp) // 可按需求改变插入位置，比如插入到列表顶部
         }
         _currentDesireList.value = currentList
+    }
+
+    fun updateSelectTimeRange(timeRangeType: TimeRangeType, timeRange: Pair<Long, String>) {
+        val timeRangeMap = _selectTimeRange.value ?: hashMapOf()
+        timeRangeMap[timeRangeType] = timeRange
+        _selectTimeRange.value = timeRangeMap
+    }
+
+    fun getSelectStopTime(): Long? {
+        val timeRangeMap = _selectTimeRange.value ?: hashMapOf()
+        return timeRangeMap[TimeRangeType.STOP_TIME]?.first
+    }
+
+    fun getSelectStartTime(): Long? {
+        val timeRangeMap = _selectTimeRange.value ?: hashMapOf()
+        return timeRangeMap[TimeRangeType.START_TIME]?.first
     }
 }

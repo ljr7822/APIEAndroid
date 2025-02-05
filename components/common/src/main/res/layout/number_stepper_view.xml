@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/apie_theme_dimension_40"
+    android:background="@drawable/apie_number_stepper_btn_bg"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/btn_decrease"
+        android:layout_width="@dimen/apie_theme_dimension_35"
+        android:layout_height="@dimen/apie_theme_dimension_40"
+        android:background="@drawable/apie_number_stepper_btn_bg"
+        android:gravity="center"
+        android:text="-"
+        android:textColor="@color/apieTheme_colorBlack"
+        android:textSize="@dimen/apie_theme_text_16" />
+
+    <EditText
+        android:id="@+id/et_number"
+        android:layout_width="@dimen/apie_theme_dimension_45"
+        android:layout_height="@dimen/apie_theme_dimension_40"
+        android:background="@null"
+        android:gravity="center"
+        android:inputType="number"
+        android:textCursorDrawable="@drawable/apie_custom_common_cursor"
+        android:text="1"
+        android:textSize="@dimen/apie_theme_text_16" />
+
+
+    <TextView
+        android:id="@+id/btn_increase"
+        android:layout_width="@dimen/apie_theme_dimension_35"
+        android:layout_height="@dimen/apie_theme_dimension_40"
+        android:background="@drawable/apie_number_stepper_btn_bg"
+        android:gravity="center"
+        android:text="+"
+        android:textColor="@color/apieTheme_colorBlack"
+        android:textSize="@dimen/apie_theme_text_16"
+        />
+
+</LinearLayout>
