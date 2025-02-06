@@ -19,6 +19,12 @@
     <color name="unreadTextColor">#00ff00</color>
     <color name="msgTextColor">#00ff00</color>
 
+    <color name="apie_color_4d6bfe">#4d6bfe</color>
+    <color name="apie_color_6b84fc">#6b84fc</color>
+    <color name="apie_color_6b84fc_10">#1A6B84FC</color>
+    <color name="apie_color_6b84fc_15">#266B84FC</color>
+    <color name="apie_color_6b84fc_20">#336B84FC</color>
+
     <color name="apie_color_4770DC">#4770DC</color>
     <color name="apie_color_6F94F4">#6F94F4</color>
     <color name="apie_color_6F94F4_alpha_10">#1A6F94F4</color>

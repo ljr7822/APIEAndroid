@@ -738,7 +738,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/apie_create_plan_cancel_btn_tip"
-                android:textColor="@color/apie_color_97B4FF"
+                android:textColor="@color/apie_color_6b84fc"
                 android:textSize="@dimen/apie_theme_text_16"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

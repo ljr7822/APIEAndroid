@@ -18,6 +18,7 @@ import com.xiaoxun.apie.common.utils.UIUtils
 import com.xiaoxun.apie.common.utils.alphaHide
 import com.xiaoxun.apie.common.utils.alphaShow
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
+import com.xiaoxun.apie.common.utils.toast.APieToast
 import com.xiaoxun.apie.gold_manage.service.GoldService
 import com.xiaoxun.apie.home_page.adapter.APieViewPagerAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexActivityBinding
@@ -95,12 +96,18 @@ class APieIndexActivity :
     override fun initializeView() {
         super.initializeView()
         binding.createBtn.setDebouncingClickListener {
-            if (selectedTabIndex == APieConfig.HOME_PAGE_INDEX) {
-                APieCreateFragment(planRepo, homeViewModel).show(supportFragmentManager, "create_plan")
-            } else if (selectedTabIndex == APieConfig.DESIRE_PAGE_INDEX) {
-                APieCreateDesireFragment(desireRepo, desireViewModel).show(supportFragmentManager, "create_desire")
+            when(selectedTabIndex) {
+                APieConfig.HOME_PAGE_INDEX -> {
+                    APieCreateFragment(planRepo, homeViewModel).show(supportFragmentManager, "create_plan")
+                }
+                APieConfig.DESIRE_PAGE_INDEX -> {
+                    APieCreateDesireFragment(desireRepo, desireViewModel).show(supportFragmentManager, "create_desire")
+                }
+                APieConfig.STORAGE_PAGE_INDEX -> {
+                    APieToast.showDialog( "创建一个物品")
+                }
+                else -> {}
             }
-//            openPhotoPicker()
         }
     }
 

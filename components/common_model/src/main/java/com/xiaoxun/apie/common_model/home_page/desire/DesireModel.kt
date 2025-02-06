@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import java.util.Date
 
 /**
  * {
@@ -58,5 +59,11 @@ data class DesireModel(
     // 心愿兑换数
     @SerializedName("desireExchangeCount")
     val desireExchangeCount: Int = 0,
+    // 创建时间
+    @SerializedName("createat")
+    val createat: Date,
+    // 更新时间
+    @SerializedName("updateat")
+    val updateat: Date
 
 ) : Parcelable

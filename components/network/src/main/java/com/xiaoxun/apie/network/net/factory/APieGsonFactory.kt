@@ -17,7 +17,7 @@ object APieGsonFactory {
     val gson: Gson by lazy {
         // 配置全局gson格式
         GsonBuilder() // 设置时间格式
-            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS") // 设置过滤器，数据库级别的model不进行转换
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX") // 添加 XXX 解析时区
             .setExclusionStrategies(DBFlowExclusionStrategy())
             .create()
     }

@@ -5,6 +5,7 @@ import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import kotlinx.parcelize.Parcelize
+import java.util.Date
 
 /**
  * 计划类型(planType)，计划有以下几种：
@@ -64,10 +65,10 @@ data class PlanModel(
     val createUserId: String = "",
     // 计划创建时间
     @SerializedName("createat")
-    val createat: String = "",
+    val createat: Date,
     // 计划更新时间
     @SerializedName("updateat")
-    val updateat: String = "",
+    val updateat: Date,
     // 计划开始时间
     @SerializedName("planStartTime")
     val planStartTime: Long = 0,

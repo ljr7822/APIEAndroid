@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.common_model.home_page.group
+package com.xiaoxun.apie.common_model.home_page.storage
 
 import android.os.Parcelable
 import androidx.annotation.Keep
@@ -9,21 +9,21 @@ import java.util.Date
 
 @Parcelize
 @Keep
-data class PlanGroupModel(
-    @SerializedName("groupId")
+data class StorageGroupModel(
+    @SerializedName("desireGroupId")
     override val groupId: String = "",
     @SerializedName("createUserId")
     override val createUserId: String = "",
-    @SerializedName("groupName")
+    @SerializedName("desireGroupName")
     override val groupName: String = "",
-    @SerializedName("groupIcon")
+    @SerializedName("desireGroupIcon")
     override val groupIcon: String = "",
-    @SerializedName("groupWeight")
+    @SerializedName("desireGroupWeight")
     override val groupWeight: String = "",
     @SerializedName("visibleStatus")
     override val visibleStatus: String = "",
     @SerializedName("createat")
-    val createat: Date,
+    val createat: Date? = null,
     @SerializedName("updateat")
-    val updateat: Date,
+    val updateat: Date? = null,
 ) : Parcelable, IBaseGroupModel

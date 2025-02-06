@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/apieTheme_colorTransparent"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+    <TextView
+        android:id="@+id/storageGroupName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/apie_storage_group_def_btn_bg"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/apie_theme_dimension_12"
+        android:paddingVertical="@dimen/apie_theme_dimension_5"
+        android:layout_marginHorizontal="@dimen/apie_theme_dimension_4"
+        android:text="默认"
+        android:textColor="@color/apieTheme_colorBlack_alpha_90"
+        android:textSize="@dimen/apie_theme_text_13"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
