@@ -28,6 +28,7 @@ import com.xiaoxun.apie.home_page.fragment.APieIndexHomeFragment
 import com.xiaoxun.apie.home_page.fragment.APieIndexMineFragment
 import com.xiaoxun.apie.home_page.fragment.APieIndexStorageFragment
 import com.xiaoxun.apie.home_page.fragment.desire.APieCreateDesireFragment
+import com.xiaoxun.apie.home_page.fragment.storage.APieCreateThingFragment
 import com.xiaoxun.apie.home_page.repo.desire.IIndexDesireRepo
 import com.xiaoxun.apie.home_page.repo.desire.IndexDesireRepoImpl
 import com.xiaoxun.apie.home_page.repo.home.IIndexHomeRepo
@@ -35,6 +36,7 @@ import com.xiaoxun.apie.home_page.repo.home.IndexHomeRepoImpl
 import com.xiaoxun.apie.home_page.viewmodel.GenericViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.IndexDesireViewModel
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
+import com.xiaoxun.apie.home_page.viewmodel.IndexStorageViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -50,20 +52,20 @@ class APieIndexActivity :
 
     private var coroutineJob: Job? = null
 
-    private val mediaPickerLauncher = APieAlbumPickerHelper.registerPicker(
-        this,
-        null,
-        object : APieAlbumPickerHelper.MediaPickerCallback {
-            override fun onMediaSelected(uris: List<Uri>) {
-                // 处理选中的媒体
-                APieLog.d("ljrxxx", "onMediaSelected: $uris")
-                APieUploadHelper.uploadImage(this@APieIndexActivity, uris[0])
-            }
-
-            override fun onCanceled() {
-                // 用户取消选择
-            }
-        })
+//    private val mediaPickerLauncher = APieAlbumPickerHelper.registerPicker(
+//        this,
+//        null,
+//        object : APieAlbumPickerHelper.MediaPickerCallback {
+//            override fun onMediaSelected(uris: List<Uri>) {
+//                // 处理选中的媒体
+//                APieLog.d("ljrxxx", "onMediaSelected: $uris")
+//                APieUploadHelper.uploadImage(this@APieIndexActivity, uris[0])
+//            }
+//
+//            override fun onCanceled() {
+//                // 用户取消选择
+//            }
+//        })
 
     private val homeViewModel: IndexHomeViewModel by lazy {
         ViewModelProvider(
@@ -75,6 +77,12 @@ class APieIndexActivity :
         ViewModelProvider(
             this@APieIndexActivity,
             GenericViewModelFactory { IndexDesireViewModel() })[IndexDesireViewModel::class.java]
+    }
+
+    private val storageViewModel: IndexStorageViewModel by lazy {
+        ViewModelProvider(
+            this@APieIndexActivity,
+            GenericViewModelFactory { IndexStorageViewModel() })[IndexStorageViewModel::class.java]
     }
 
     private val goldService: GoldService by lazy { GoldService() }
@@ -104,26 +112,26 @@ class APieIndexActivity :
                     APieCreateDesireFragment(desireRepo, desireViewModel).show(supportFragmentManager, "create_desire")
                 }
                 APieConfig.STORAGE_PAGE_INDEX -> {
-                    APieToast.showDialog( "创建一个物品")
+                    APieCreateThingFragment(storageViewModel).show(supportFragmentManager, "create_thing")
                 }
                 else -> {}
             }
         }
     }
 
-    /**
-     * 打开图片选择器
-     */
-    private fun openPhotoPicker() {
-        mediaPickerLauncher?.let {
-            APieAlbumPickerHelper.showPickerDialog(
-                fragmentManager = supportFragmentManager,
-                launcher = it,
-                mediaType = "image/*",
-                allowMultiple = false
-            )
-        }
-    }
+//    /**
+//     * 打开图片选择器
+//     */
+//    private fun openPhotoPicker() {
+//        mediaPickerLauncher?.let {
+//            APieAlbumPickerHelper.showPickerDialog(
+//                fragmentManager = supportFragmentManager,
+//                launcher = it,
+//                mediaType = "image/*",
+//                allowMultiple = false
+//            )
+//        }
+//    }
 
     private fun initObserver() {
         observe(homeViewModel.listScrolling) {

@@ -38,7 +38,7 @@ data class ThingItemModel(
     val thingDesc: String = "",
     // 物品购买时间
     @SerializedName("buyAt")
-    val buyAt: String = "",
+    val buyAt: Date? = null,
     // 物品创建时间
     @SerializedName("createAt")
     val createAt: Date? = null,
@@ -47,7 +47,7 @@ data class ThingItemModel(
     val updateAt: Date? = null,
     // 物品保修期
     @SerializedName("warrantyPeriod")
-    val warrantyPeriod: String = "",
+    val warrantyPeriod: Date? = null,
 ) : Parcelable
 
 @Parcelize

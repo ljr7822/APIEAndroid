@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.activity.result.ActivityResultLauncher
+import androidx.fragment.app.FragmentManager
 import com.xiaoxun.apie.common.base.fragment.APieBaseBottomSheetDialogFragment
 import com.xiaoxun.apie.common.databinding.LayoutApieAlbumSelectFragmentBinding
 import com.xiaoxun.apie.common.utils.UIUtils
@@ -13,18 +14,20 @@ import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 
 class APieAlbumPickerDialogFragment(
     private var mediaType: String = DEF_MEDIA_TYPE,
-    private var allowMultiple: Boolean = false,
-    private var launcher: ActivityResultLauncher<Intent>
-) :
-    APieBaseBottomSheetDialogFragment<LayoutApieAlbumSelectFragmentBinding>(
-        LayoutApieAlbumSelectFragmentBinding::inflate
-    ) {
+    private var allowMultiple: Boolean = false
+) : APieBaseBottomSheetDialogFragment<LayoutApieAlbumSelectFragmentBinding>(
+    LayoutApieAlbumSelectFragmentBinding::inflate
+) {
 
     companion object {
         const val TAG = "APieAlbumPickerDialogFragment"
         const val DEF_MEDIA_TYPE = "image/*"
-    }
 
+        fun show(fragmentManager: FragmentManager, mediaType: String = DEF_MEDIA_TYPE, allowMultiple: Boolean = false) {
+            APieAlbumPickerDialogFragment(mediaType, allowMultiple)
+                .show(fragmentManager, TAG)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableCancel = true
@@ -42,20 +45,12 @@ class APieAlbumPickerDialogFragment(
     private fun initView() {
         binding.openAlbum.setDebouncingClickListener {
             dismiss()
-            APieAlbumPickerHelper.openGallery(
-                context = requireContext(),
-                launcher = launcher,
-                mediaType = mediaType,
-                allowMultiple = allowMultiple
-            )
+            APieAlbumPickerHelper.openGallery(mediaType, allowMultiple)
         }
 
         binding.openCamera.setDebouncingClickListener {
             dismiss()
-            APieAlbumPickerHelper.openCamera(
-                context = requireContext(),
-                launcher = launcher
-            )
+            APieAlbumPickerHelper.openCamera(requireContext())
         }
 
         binding.cancel.setDebouncingClickListener {

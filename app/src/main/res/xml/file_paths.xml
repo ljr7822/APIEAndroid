@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- 对应 Context.getFilesDir() 路径 -->
+    <files-path
+        name="material"
+        path="xiaoxun/material/" />
+</paths>

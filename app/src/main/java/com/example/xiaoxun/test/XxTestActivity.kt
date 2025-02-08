@@ -33,20 +33,20 @@ class XxTestActivity : APieBaseBindingActivity<LayoutXxTestActivityBinding>(
         AccountDBRepository(this)
     }
 
-    private val mediaPickerLauncher = APieAlbumPickerHelper.registerPicker(
-        this,
-        null,
-        object : APieAlbumPickerHelper.MediaPickerCallback {
-            override fun onMediaSelected(uris: List<Uri>) {
-                // 处理选中的媒体
-                APieLog.d("ljrxxx", "onMediaSelected: $uris")
-                APieUploadHelper.uploadImage(this@XxTestActivity, uris[0])
-            }
-
-            override fun onCanceled() {
-                // 用户取消选择
-            }
-        })
+//    private val mediaPickerLauncher = APieAlbumPickerHelper.registerPicker(
+//        this,
+//        null,
+//        object : APieAlbumPickerHelper.MediaPickerCallback {
+//            override fun onMediaSelected(uris: List<Uri>) {
+//                // 处理选中的媒体
+//                APieLog.d("ljrxxx", "onMediaSelected: $uris")
+//                APieUploadHelper.uploadImage(this@XxTestActivity, uris[0])
+//            }
+//
+//            override fun onCanceled() {
+//                // 用户取消选择
+//            }
+//        })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -161,13 +161,13 @@ class XxTestActivity : APieBaseBindingActivity<LayoutXxTestActivityBinding>(
      * 打开图片选择器
      */
     private fun openPhotoPicker() {
-        mediaPickerLauncher?.let {
-            APieAlbumPickerHelper.showPickerDialog(
-                fragmentManager = supportFragmentManager,
-                launcher = it,
-                mediaType = "image/*",
-                allowMultiple = false
-            )
-        }
+//        mediaPickerLauncher?.let {
+//            APieAlbumPickerHelper.showPickerDialog(
+//                fragmentManager = supportFragmentManager,
+//                launcher = it,
+//                mediaType = "image/*",
+//                allowMultiple = false
+//            )
+//        }
     }
 }

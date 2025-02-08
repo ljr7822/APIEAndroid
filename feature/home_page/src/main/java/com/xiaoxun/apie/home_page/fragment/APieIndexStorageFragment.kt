@@ -84,8 +84,6 @@ class APieIndexStorageFragment : APieBaseBindingFragment<LayoutApieIndexStorageF
                 thingName = "小米11",
                 thingPrice = 3999f,
                 thingTags = mutableListOf(),
-                buyAt = "2021-01-01",
-                warrantyPeriod = "2021-01-01",
                 thingStatus = 1,
                 useDays = 100
             ),
@@ -95,8 +93,6 @@ class APieIndexStorageFragment : APieBaseBindingFragment<LayoutApieIndexStorageF
                 thingName = "小米11",
                 thingPrice = 3999f,
                 thingTags = mutableListOf(),
-                buyAt = "2021-01-01",
-                warrantyPeriod = "2021-01-01",
                 thingStatus = 1,
                 useDays = 100
             ),
@@ -106,8 +102,6 @@ class APieIndexStorageFragment : APieBaseBindingFragment<LayoutApieIndexStorageF
                 thingName = "小米11",
                 thingPrice = 3999f,
                 thingTags = mutableListOf(),
-                buyAt = "2021-01-01",
-                warrantyPeriod = "2021-01-01",
                 thingStatus = 1,
                 useDays = 100
             ),
@@ -117,8 +111,6 @@ class APieIndexStorageFragment : APieBaseBindingFragment<LayoutApieIndexStorageF
                 thingName = "小米11",
                 thingPrice = 3999f,
                 thingTags = mutableListOf(),
-                buyAt = "2021-01-01",
-                warrantyPeriod = "2021-01-01",
                 thingStatus = 1,
                 useDays = 100
             ),
@@ -128,8 +120,6 @@ class APieIndexStorageFragment : APieBaseBindingFragment<LayoutApieIndexStorageF
                 thingName = "小米11",
                 thingPrice = 3999f,
                 thingTags = mutableListOf(),
-                buyAt = "2021-01-01",
-                warrantyPeriod = "2021-01-01",
                 thingStatus = 1,
                 useDays = 100
             ),
@@ -139,8 +129,6 @@ class APieIndexStorageFragment : APieBaseBindingFragment<LayoutApieIndexStorageF
                 thingName = "小米11",
                 thingPrice = 3999f,
                 thingTags = mutableListOf(),
-                buyAt = "2021-01-01",
-                warrantyPeriod = "2021-01-01",
                 thingStatus = 1,
                 useDays = 100
             ),
@@ -150,8 +138,6 @@ class APieIndexStorageFragment : APieBaseBindingFragment<LayoutApieIndexStorageF
                 thingName = "小米11",
                 thingPrice = 3999f,
                 thingTags = mutableListOf(),
-                buyAt = "2021-01-01",
-                warrantyPeriod = "2021-01-01",
                 thingStatus = 1,
                 useDays = 100
             )
