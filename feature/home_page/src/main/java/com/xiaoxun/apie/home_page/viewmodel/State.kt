@@ -44,6 +44,12 @@ enum class LoadDesireListState {
     FAILED
 }
 
+enum class LoadThingListState {
+    START,
+    SUCCESS,
+    FAILED
+}
+
 enum class CommonLoadingState {
     START,
     SUCCESS,

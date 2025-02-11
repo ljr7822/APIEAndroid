@@ -7,11 +7,13 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
 object DateTimeUtils {
     const val EMPTY_STRING: String = ""
     const val FORMAT_TYPE_YMD = "yyyy-MM-dd"
+    const val FORMAT_TYPE_YMD_STYLE = "yyyy/MM/dd"
     const val FORMAT_TYPE_YMDHMS = "yyyy-MM-dd HH:mm:ss"
 
     fun conversionTime(time: String, format: String = FORMAT_TYPE_YMD): Long? {
@@ -31,6 +33,10 @@ object DateTimeUtils {
 
     fun conversionTime(time: Long, format: String = FORMAT_TYPE_YMD): String {
         return DateFormat.format(format, time).toString()
+    }
+
+    fun formatDate(dataTime: Date, format: String = FORMAT_TYPE_YMD_STYLE): String? {
+        return SimpleDateFormat(format, Locale.getDefault()).format(dataTime)
     }
 
     fun getWeekName(time: Long): String {

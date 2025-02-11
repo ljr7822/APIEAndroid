@@ -85,6 +85,7 @@
     <string name="apie_create_desire_validity_time_tip">心愿兑换周期:</string>
     <string name="apie_create_desire_desc_tip">心愿描述（选填）:</string>
 
+    <string name="apie_create_thing_group_title">创建物品分组</string>
     <string name="apie_create_thing_title">创建我的物品</string>
     <string name="apie_create_thing_reedit_title">编辑我的物品</string>
     <string name="apie_create_thing_name_hint">在这里填写物品名称（限20字数）</string>

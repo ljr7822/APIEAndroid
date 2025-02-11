@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xiaoxun.apie.common_model.home_page.storage.StorageStatusModel
 import com.xiaoxun.apie.home_page.R
-import com.xiaoxun.apie.home_page.adapter.storage.StorageGroupAdapter.ViewHolder
 
 class StorageStatusAdapter(
     private val items: MutableList<StorageStatusModel> = mutableListOf(),
@@ -63,7 +62,7 @@ class StorageStatusAdapter(
             holder.statusName.setTextColor(holder.itemView.context.getColor(com.xiaoxun.apie.common.R.color.apie_color_4d6bfe))
         } else {
             holder.statusName.setBackgroundResource(com.xiaoxun.apie.common.R.drawable.apie_storage_group_def_btn_bg)
-            holder.statusName.setTextColor(holder.itemView.context.getColor(com.xiaoxun.apie.common.R.color.apieTheme_colorBlack))
+            holder.statusName.setTextColor(holder.itemView.context.getColor(com.xiaoxun.apie.common.R.color.apieTheme_colorBlack_alpha_40))
         }
     }
 }

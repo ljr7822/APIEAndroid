@@ -59,13 +59,11 @@ class APiePlanFrequencyAdapter(
     private fun setSelectedPosition(holder: ViewHolder, position: Int) {
         if (position == selectedPosition) {
             holder.planFrequencyItemLayout.setBackgroundResource(R.drawable.apie_frequency_plan_selected_bg)
-            holder.planFrequencyName.setTextColor(holder.itemView.context.getColor(com.xiaoxun.apie.common.R.color.apie_color_6F94F4_alpha_90))
-            holder.planFrequencyName.setTypeface(null, Typeface.BOLD)
+            holder.planFrequencyName.setTextColor(holder.itemView.context.getColor(com.xiaoxun.apie.common.R.color.apie_color_4d6bfe))
             setSelectPlanTypeIcon(holder, items[position], true)
         } else {
             holder.planFrequencyItemLayout.setBackgroundResource(R.drawable.apie_frequenct_plan_normal_bg)
             holder.planFrequencyName.setTextColor(holder.itemView.context.getColor(com.xiaoxun.apie.common.R.color.apieTheme_colorBlack_alpha_30))
-            holder.planFrequencyName.setTypeface(null, Typeface.NORMAL) // 正常字体
             setSelectPlanTypeIcon(holder, items[position], false)
         }
     }

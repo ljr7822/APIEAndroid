@@ -6,7 +6,7 @@
     <solid android:color="@color/apieTheme_colorTransparent" />
 
     <!-- 圆角半径 -->
-    <corners android:radius="@dimen/apie_theme_dimension_8" />
+    <corners android:radius="@dimen/apie_theme_dimension_6" />
 
     <!-- 边框 -->
     <stroke

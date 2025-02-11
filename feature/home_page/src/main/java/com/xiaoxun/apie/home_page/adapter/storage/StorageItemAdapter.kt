@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.xiaoxun.apie.common.ui.easy_glide.APieEasyImage.loadRoundCornerImage
+import com.xiaoxun.apie.common_model.home_page.desire.DesireModel
 import com.xiaoxun.apie.common_model.home_page.storage.ThingItemModel
 import com.xiaoxun.apie.home_page.R
+import com.xiaoxun.apie.home_page.adapter.desire.APieDesireDiffCallback
 
 class StorageItemAdapter(
     private val items: MutableList<ThingItemModel> = mutableListOf(),
@@ -18,10 +21,19 @@ class StorageItemAdapter(
 
     fun getItems(): List<ThingItemModel> = items
 
-    fun updateData(newList: List<ThingItemModel>) {
+    fun resectData(newList: List<ThingItemModel>) {
         items.clear()
         items.addAll(newList)
         notifyDataSetChanged()
+    }
+
+    // 更新数据的方法
+    fun updateData(newList: List<ThingItemModel>) {
+        val diffCallback = StorageDiffCallback(items, newList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        items.clear()
+        items.addAll(newList)
+        diffResult.dispatchUpdatesTo(this)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -54,12 +66,12 @@ class StorageItemAdapter(
         holder.coverImageView.loadRoundCornerImage(holder.itemView.context, item.thingIcon)
         holder.thingName.text = item.thingName
         holder.priceTv.text = "¥${item.thingPrice}"
-        holder.averagePrice.text = item.thingPrice.toString()
-        holder.thingTagName.text = "数码手机"
-        holder.buyDateTv.text = "2025/01/01"
-        holder.warrantyStatusTv.text = "过保"
-        holder.useStatusTv.text = "使用中"
-        holder.useDays.text = item.useDays.toString()
+        holder.averagePrice.text = "¥${item.getAveragePrice()}/天"
+        holder.thingTagName.text = item.thingGroupBean.groupName
+        holder.buyDateTv.text = item.getBuyAtDesc()
+        holder.warrantyStatusTv.text = item.checkWarrantyStatus()
+        holder.useStatusTv.text = item.getThingStatusDesc()
+        holder.useDays.text = item.daysSince().toString()
         holder.itemView.setOnClickListener {
             itemClick(position, item)
         }

@@ -23,6 +23,10 @@ enum class APieUrl(val url: String) {
     GET_DESIRE_GROUP_BY_USER_ID(GET_DESIRE_GROUP_BY_USER_ID_URL),
     EXCHANGE_DESIRE(EXCHANGE_DESIRE_URL),
     CREATE_DESIRE_GROUP(CREATE_DESIRE_GROUP_URL),
+
+    GET_THING_GROUPS(GET_THING_GROUPS_URL),
+    CREATE_THING_GROUP(CREATE_THING_GROUP_URL),
+    GET_THING_LIST(GET_THING_LIST_URL),
 }
 
 internal const val ACCOUNT_LOGIN_PASSWORD_URL = "/user/loginByPassword"
@@ -46,3 +50,7 @@ internal const val GET_DESIRE_BY_USER_ID_URL = "/desire/queryAllDesire/{userId}"
 internal const val EXCHANGE_DESIRE_URL = "/desire/exchangeDesire/{desireId}"
 internal const val GET_DESIRE_GROUP_BY_USER_ID_URL = "/desireGroup/queryGroup/{userId}"
 internal const val CREATE_DESIRE_GROUP_URL = "/desireGroup/create"
+
+internal const val GET_THING_GROUPS_URL = "/thingGroup/queryAllGroup/{userId}"
+internal const val CREATE_THING_GROUP_URL = "/thingGroup/create"
+internal const val GET_THING_LIST_URL = "/thing/queryAllThing/{userId}"

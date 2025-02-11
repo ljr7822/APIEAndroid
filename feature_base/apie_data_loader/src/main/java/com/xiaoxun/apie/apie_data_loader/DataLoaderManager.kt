@@ -19,6 +19,9 @@ import com.xiaoxun.apie.apie_data_loader.request.group.DeleteGroup
 import com.xiaoxun.apie.apie_data_loader.request.plan.DeletePlan
 import com.xiaoxun.apie.apie_data_loader.request.group.LoadPlanGroups
 import com.xiaoxun.apie.apie_data_loader.request.plan.UpdatePlanCompletedCount
+import com.xiaoxun.apie.apie_data_loader.request.thing.CreateThingGroup
+import com.xiaoxun.apie.apie_data_loader.request.thing.LoadThingGroupRequest
+import com.xiaoxun.apie.apie_data_loader.request.thing.LoadThings
 import com.xiaoxun.apie.common_model.account.AccountModel
 import com.xiaoxun.apie.common_model.home_page.desire.DesireModel
 import com.xiaoxun.apie.common_model.home_page.desire.DesireRespModel
@@ -30,6 +33,9 @@ import com.xiaoxun.apie.common_model.home_page.group.PlanGroupRespModel
 import com.xiaoxun.apie.common_model.home_page.plan.DeletePlanRespModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanRespModel
+import com.xiaoxun.apie.common_model.home_page.storage.ThingRespModel
+import com.xiaoxun.apie.common_model.home_page.storage.group.ThingGroupModel
+import com.xiaoxun.apie.common_model.home_page.storage.group.ThingGroupRespModel
 import com.xiaoxun.apie.common_model.sms.STSTokenModel
 import com.xiaoxun.apie.common_model.sms.SmsCodeModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
@@ -269,5 +275,40 @@ class DataLoaderManager private constructor() {
         val loader = buildDataLoader<DesireGroupModel>(APieUrl.CREATE_DESIRE_GROUP.name)
         return loader?.getData(createDesireGroup, cacheStrategy)
             ?: Observable.error(Exception("loader is null"))
+    }
+
+    /**
+     * 获取物品分组
+     */
+    fun loadThingGroups(
+        loadThingGroupRequest: LoadThingGroupRequest,
+        cacheStrategy: CacheStrategy
+    ): Observable<BaseResponse<ThingGroupRespModel>> {
+        val loader = buildDataLoader<ThingGroupRespModel>(APieUrl.GET_THING_GROUPS.name)
+        return loader?.getData(loadThingGroupRequest, cacheStrategy)
+            ?: error()
+    }
+
+    /**
+     * 创建物品分组
+     */
+    fun createThingGroup(
+        createThingGroup: CreateThingGroup,
+        cacheStrategy: CacheStrategy
+    ): Observable<BaseResponse<ThingGroupModel>> {
+        val loader = buildDataLoader<ThingGroupModel>(APieUrl.CREATE_THING_GROUP.name)
+        return loader?.getData(createThingGroup, cacheStrategy)
+            ?: Observable.error(Exception("loader is null"))
+    }
+
+    /**
+     * 获取物品列表
+     */
+    fun loadThingList(
+        loadThings: LoadThings,
+        cacheStrategy: CacheStrategy
+    ): Observable<BaseResponse<ThingRespModel>> {
+        val loader = buildDataLoader<ThingRespModel>(APieUrl.GET_THING_LIST.name)
+        return loader?.getData(loadThings, cacheStrategy) ?: Observable.error(Exception("loader is null"))
     }
 }

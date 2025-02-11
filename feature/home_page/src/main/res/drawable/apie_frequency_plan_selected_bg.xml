@@ -3,13 +3,13 @@
     android:shape="rectangle">
 
     <!-- 背景颜色 -->
-    <solid android:color="@color/apie_color_97B4FF_alpha_20" />
+    <solid android:color="@color/apieTheme_colorTransparent" />
 
     <!-- 圆角半径 -->
-    <corners android:radius="@dimen/apie_theme_dimension_5" />
+    <corners android:radius="@dimen/apie_theme_dimension_6" />
 
     <!-- 边框 -->
     <stroke
-        android:width="0.5dp"
-        android:color="@color/apie_color_6F94F4" />
+        android:width="1dp"
+        android:color="@color/apie_color_4d6bfe" />
 </shape>

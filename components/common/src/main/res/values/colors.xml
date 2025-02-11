@@ -20,6 +20,8 @@
     <color name="msgTextColor">#00ff00</color>
 
     <color name="apie_color_4d6bfe">#4d6bfe</color>
+    <color name="apie_color_4d6bfe_10">#1A4D6BFE</color>
+    <color name="apie_color_4d6bfe_30">#4D4D6BFE</color>
     <color name="apie_color_6b84fc">#6b84fc</color>
     <color name="apie_color_6b84fc_10">#1A6B84FC</color>
     <color name="apie_color_6b84fc_15">#266B84FC</color>

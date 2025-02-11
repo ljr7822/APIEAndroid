@@ -3,8 +3,12 @@ package com.xiaoxun.apie.common_model.home_page.storage
 import android.os.Parcelable
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
+import com.xiaoxun.apie.common.utils.DateTimeUtils
+import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
+import com.xiaoxun.apie.common_model.home_page.storage.group.ThingGroupModel
 import kotlinx.parcelize.Parcelize
 import java.util.Date
+import java.util.concurrent.TimeUnit
 
 @Parcelize
 @Keep
@@ -18,6 +22,12 @@ data class ThingItemModel(
     // 物品主人id
     @SerializedName("createUserId")
     val createUserId: String = "",
+    // 物品分组id
+    @SerializedName("belongGroupId")
+    val belongGroupId: String = "",
+    // 物品所在分组信息
+    @SerializedName("thingGroupBean")
+    val thingGroupBean: ThingGroupModel,
     // 物品价格
     @SerializedName("thingPrice")
     val thingPrice: Float = 0f,
@@ -48,7 +58,44 @@ data class ThingItemModel(
     // 物品保修期
     @SerializedName("warrantyPeriod")
     val warrantyPeriod: Date? = null,
-) : Parcelable
+) : Parcelable {
+
+    fun getThingStatusDesc(): String {
+        return when (thingStatus) {
+            1 -> "使用中"
+            2 -> "已退役"
+            3 -> "已损坏"
+            4 -> "已丢失"
+            5 -> "吃灰中"
+            6 -> "已售出"
+            else -> "未知状态"
+        }
+    }
+
+    fun getBuyAtDesc(): String {
+        return buyAt?.let {
+            DateTimeUtils.formatDate(it)
+        } ?: ""
+    }
+
+    fun checkWarrantyStatus(): String {
+        return warrantyPeriod?.let {
+            if (Date().after(it)) "过保" else "在保"
+        } ?: "未知"
+    }
+
+    fun daysSince(): Long {
+        return buyAt?.let {
+            val diffInMillis = Date().time - it.time // 当前时间 - 购买时间
+            TimeUnit.MILLISECONDS.toDays(diffInMillis) // 转换为天数
+        } ?: 0
+    }
+
+    fun getAveragePrice(): String {
+        val averagePrice = thingPrice / daysSince()
+        return averagePrice.toString()
+    }
+}
 
 @Parcelize
 @Keep

@@ -10,7 +10,7 @@ import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common_model.home_page.base.IBaseGroupModel
 
 /**
- * 资产fz组适配器
+ * 资产分组适配器
  */
 class StorageGroupAdapter(
     private val items: MutableList<IBaseGroupModel> = mutableListOf(),

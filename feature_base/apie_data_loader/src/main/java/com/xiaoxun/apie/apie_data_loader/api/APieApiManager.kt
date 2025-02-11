@@ -6,6 +6,8 @@ import com.xiaoxun.apie.apie_data_loader.service.APieAccountService
 import com.xiaoxun.apie.apie_data_loader.service.APieDesireGroupService
 import com.xiaoxun.apie.apie_data_loader.service.APiePlanGroupService
 import com.xiaoxun.apie.apie_data_loader.service.APiePlanService
+import com.xiaoxun.apie.apie_data_loader.service.APieThingGroupService
+import com.xiaoxun.apie.apie_data_loader.service.APieThingService
 
 object APieApiManager {
     /**
@@ -39,6 +41,10 @@ object APieApiManager {
     fun getDesireAPIService(): APiDesireService = getOrCreate(APiDesireService::class.java, ApiGateway.EDITH)
 
     fun getDesireGroupAPIService(): APieDesireGroupService = getOrCreate(APieDesireGroupService::class.java, ApiGateway.EDITH)
+
+    fun getThingGroupAPIService(): APieThingGroupService = getOrCreate(APieThingGroupService::class.java, ApiGateway.EDITH)
+
+    fun getThingService(): APieThingService = getOrCreate(APieThingService::class.java, ApiGateway.EDITH)
 }
 
 sealed class ApiGateway {

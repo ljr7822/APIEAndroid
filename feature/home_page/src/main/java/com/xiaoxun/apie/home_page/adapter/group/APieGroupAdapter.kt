@@ -59,12 +59,10 @@ class APieGroupAdapter(
         holder.planFrequencyName.text = item.groupName
         if (position == selectedPosition) {
             holder.planFrequencyName.setBackgroundResource(R.drawable.apie_frequency_plan_selected_bg)
-            holder.planFrequencyName.setTextColor(holder.itemView.context.getColor(com.xiaoxun.apie.common.R.color.apie_color_6F94F4))
-            holder.planFrequencyName.setTypeface(null, Typeface.BOLD)
+            holder.planFrequencyName.setTextColor(holder.itemView.context.getColor(com.xiaoxun.apie.common.R.color.apie_color_4d6bfe))
         } else {
-            holder.planFrequencyName.setBackgroundResource(R.drawable.apie_frequenct_plan_normal_bg)
+            holder.planFrequencyName.setBackgroundResource(com.xiaoxun.apie.common.R.drawable.apie_storage_group_def_btn_bg)
             holder.planFrequencyName.setTextColor(holder.itemView.context.getColor(com.xiaoxun.apie.common.R.color.apieTheme_colorBlack_alpha_40))
-            holder.planFrequencyName.setTypeface(null, Typeface.NORMAL)
         }
         holder.planFrequencyName.setDebouncingClickListener {
             val realPosition = holder.adapterPosition
