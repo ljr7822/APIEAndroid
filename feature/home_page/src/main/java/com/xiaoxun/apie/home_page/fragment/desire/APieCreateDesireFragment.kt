@@ -12,6 +12,7 @@ import com.xiaoxun.apie.common.base.fragment.APieBaseBottomSheetDialogFragment
 import com.xiaoxun.apie.common.manager.account.AccountManager
 import com.xiaoxun.apie.common.ui.APieLoadingDialog
 import com.xiaoxun.apie.common.utils.DateTimeUtils
+import com.xiaoxun.apie.common.utils.UIUtils
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.toast.APieToast
 import com.xiaoxun.apie.common_model.home_page.base.IBaseGroupModel
@@ -52,6 +53,12 @@ class APieCreateDesireFragment(
 
     private val loadingDialog: APieLoadingDialog by lazy { APieLoadingDialog(requireContext()) }
 
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        enableCancel = true
+//        super.onCreate(savedInstanceState)
+//        val screenHeight = UIUtils.getScreenRealHeight(requireContext())
+//        peekHeight = screenHeight / 2
+//    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initData()
@@ -177,11 +184,11 @@ class APieCreateDesireFragment(
 
     private fun initBottomView() {
         if (isReedit) {
-            binding.title.setText(R.string.apie_create_desire_reedit_title)
+            binding.topBar.title.setText(R.string.apie_create_desire_reedit_title)
             binding.cancelBtnTip.setText(com.xiaoxun.apie.common.R.string.apie_create_plan_reedit_cancel_btn_tip)
             binding.submitBtnTip.setText(com.xiaoxun.apie.common.R.string.apie_create_plan_reedit_submit_btn_tip)
         } else {
-            binding.title.setText(R.string.apie_create_desire_title)
+            binding.topBar.title.setText(R.string.apie_create_desire_title)
             binding.cancelBtnTip.setText(com.xiaoxun.apie.common.R.string.apie_create_plan_cancel_btn_tip)
             binding.submitBtnTip.setText(com.xiaoxun.apie.common.R.string.apie_create_plan_submit_btn_tip)
         }

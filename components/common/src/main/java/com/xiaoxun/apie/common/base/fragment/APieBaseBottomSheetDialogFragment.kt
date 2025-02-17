@@ -24,6 +24,8 @@ abstract class APieBaseBottomSheetDialogFragment<VB : ViewBinding>(
 
     protected var enableCancel = false
 
+    protected var isHideable = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isCancelable = enableCancel
@@ -53,8 +55,8 @@ abstract class APieBaseBottomSheetDialogFragment<VB : ViewBinding>(
             val screenHeight = UIUtils.getScreenRealHeight(requireContext())
             behavior.peekHeight = peekHeight ?: (screenHeight - 100.dp)
             layoutParams.height = layoutHeight ?: (screenHeight - 100.dp)
-            behavior.isHideable = false
-
+            behavior.isHideable = isHideable
+            behavior.skipCollapsed = isHideable
             behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onStateChanged(bottomSheet: View, newState: Int) {}
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}

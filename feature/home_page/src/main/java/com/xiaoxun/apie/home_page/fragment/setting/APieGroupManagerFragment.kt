@@ -48,6 +48,7 @@ class APieGroupManagerFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableCancel = true
+        isHideable = true
         super.onCreate(savedInstanceState)
         val screenHeight = UIUtils.getScreenRealHeight(requireContext())
         peekHeight = screenHeight / 2
@@ -107,7 +108,8 @@ class APieGroupManagerFragment :
 
     private fun initView() {
         initRecyclerView()
-        binding.addGroupIcon.setDebouncingClickListener {
+        binding.topBar.title.text = getString(R.string.apie_group_manager_title)
+        binding.topBar.title.setDebouncingClickListener {
             val dialog = APieCreateGroupDialog(
                 titleRes = R.string.apie_create_plan_group_title,
                 context = requireContext(),

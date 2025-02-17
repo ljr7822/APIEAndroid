@@ -14,6 +14,7 @@ import com.xiaoxun.apie.common.ui.easy_glide.APieEasyImage.loadRoundCornerImage
 import com.xiaoxun.apie.common.upload.APieUploadHelper
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.DateTimeUtils
+import com.xiaoxun.apie.common.utils.UIUtils
 import com.xiaoxun.apie.common.utils.dp
 import com.xiaoxun.apie.common.utils.hide
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
@@ -23,7 +24,6 @@ import com.xiaoxun.apie.common_model.home_page.storage.StorageStatusModel
 import com.xiaoxun.apie.common_model.home_page.thing.CreateThingInfo
 import com.xiaoxun.apie.home_page.adapter.SpaceItemDecoration
 import com.xiaoxun.apie.home_page.adapter.group.APieGroupAdapter
-import com.xiaoxun.apie.home_page.adapter.storage.StorageGroupAdapter
 import com.xiaoxun.apie.home_page.adapter.storage.StorageStatusAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieCreateThingFragmentBinding
 import com.xiaoxun.apie.home_page.dialog.APieCreateGroupDialog
@@ -64,7 +64,10 @@ class APieCreateThingFragment(
     private lateinit var groupAdapter: APieGroupAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //enableCancel = true
         super.onCreate(savedInstanceState)
+        //val screenHeight = UIUtils.getScreenRealHeight(requireContext())
+        //peekHeight = screenHeight / 2
         APieAlbumPickerHelper.register(this, object : APieAlbumPickerHelper.MediaPickerCallback {
             override fun onMediaSelected(
                 source: APieAlbumPickerHelper.MediaSource,
@@ -97,6 +100,7 @@ class APieCreateThingFragment(
     }
 
     private fun initView() {
+        binding.topBar.title.text = getString(R.string.apie_create_thing_title)
         initGroupView()
         initThingIconView()
         initStatusView()
