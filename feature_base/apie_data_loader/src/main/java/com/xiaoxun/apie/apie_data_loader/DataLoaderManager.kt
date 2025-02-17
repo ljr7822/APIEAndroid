@@ -19,6 +19,7 @@ import com.xiaoxun.apie.apie_data_loader.request.group.DeleteGroup
 import com.xiaoxun.apie.apie_data_loader.request.plan.DeletePlan
 import com.xiaoxun.apie.apie_data_loader.request.group.LoadPlanGroups
 import com.xiaoxun.apie.apie_data_loader.request.plan.UpdatePlanCompletedCount
+import com.xiaoxun.apie.apie_data_loader.request.thing.CreateThing
 import com.xiaoxun.apie.apie_data_loader.request.thing.CreateThingGroup
 import com.xiaoxun.apie.apie_data_loader.request.thing.LoadThingGroupRequest
 import com.xiaoxun.apie.apie_data_loader.request.thing.LoadThings
@@ -33,6 +34,7 @@ import com.xiaoxun.apie.common_model.home_page.group.PlanGroupRespModel
 import com.xiaoxun.apie.common_model.home_page.plan.DeletePlanRespModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanRespModel
+import com.xiaoxun.apie.common_model.home_page.storage.ThingItemModel
 import com.xiaoxun.apie.common_model.home_page.storage.ThingRespModel
 import com.xiaoxun.apie.common_model.home_page.storage.group.ThingGroupModel
 import com.xiaoxun.apie.common_model.home_page.storage.group.ThingGroupRespModel
@@ -309,6 +311,19 @@ class DataLoaderManager private constructor() {
         cacheStrategy: CacheStrategy
     ): Observable<BaseResponse<ThingRespModel>> {
         val loader = buildDataLoader<ThingRespModel>(APieUrl.GET_THING_LIST.name)
-        return loader?.getData(loadThings, cacheStrategy) ?: Observable.error(Exception("loader is null"))
+        return loader?.getData(loadThings, cacheStrategy)
+            ?: Observable.error(Exception("loader is null"))
+    }
+
+    /**
+     * 创建一个物品
+     */
+    fun createThing(
+        createThing: CreateThing,
+        cacheStrategy: CacheStrategy
+    ): Observable<BaseResponse<ThingItemModel>> {
+        val loader = buildDataLoader<ThingItemModel>(APieUrl.CREATE_THING.name)
+        return loader?.getData(createThing, cacheStrategy)
+            ?: Observable.error(Exception("loader is null"))
     }
 }

@@ -2,6 +2,7 @@ package com.xiaoxun.apie.home_page.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.xiaoxun.apie.common.base.viewmodel.APieBaseViewModel
+import com.xiaoxun.apie.common_model.home_page.base.IBaseGroupModel
 import com.xiaoxun.apie.common_model.home_page.desire.DesireModel
 import com.xiaoxun.apie.common_model.home_page.desire.group.DesireGroupModel
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
@@ -23,6 +24,9 @@ class IndexStorageViewModel: APieBaseViewModel() {
     private var _loadThingListState = MutableLiveData<LoadThingListState>()
     val loadThingListState get() = _loadThingListState
 
+    // 创建物品状态
+    private var _createThingState = MutableLiveData<CreateThingState>()
+    val createThingState get() = _createThingState
     // ********************************************* 数据 *********************************************
     // 事物图标URL
     private val _thingIconUrl: MutableLiveData<String> = MutableLiveData()
@@ -36,9 +40,21 @@ class IndexStorageViewModel: APieBaseViewModel() {
     private var _currentThingList = MutableLiveData<MutableList<ThingItemModel>>()
     val currentThingList get() = _currentThingList
 
+    // 当前选中的分组
+    private var _selectThingGroup = MutableLiveData<IBaseGroupModel>()
+    val selectThingGroup get() = _selectThingGroup
+
+    // 记录选择的时间区间
+    private var _selectTimeRange = MutableLiveData<HashMap<TimeRangeType, Pair<Long, String>>>()
+    val selectTimeRange get() = _selectTimeRange
+
     // ********************************************* 方法 *********************************************
     fun updateThingIconUrl(url: String) {
         _thingIconUrl.value = url
+    }
+
+    fun updateSelectThingGroup(group: IBaseGroupModel) {
+        _selectThingGroup.value = group
     }
 
     fun showLoadingStart() {
@@ -91,5 +107,51 @@ class IndexStorageViewModel: APieBaseViewModel() {
     fun onLoadThingListFailed(error: String) {
         _loadThingListState.value = LoadThingListState.FAILED
         showLoadingFailed()
+    }
+
+    fun onCreateThingStart() {
+        _createThingState.value = CreateThingState.START
+    }
+
+    fun onCreateThingSuccess(thingItemModel: ThingItemModel) {
+        _createThingState.value = CreateThingState.SUCCESS
+        updateOrInsertThing(thingItemModel)
+    }
+
+    fun onCreateThingFailed(error: String) {
+        _createThingState.value = CreateThingState.FAILED
+    }
+
+    /**
+     * 更新或插入心愿
+     */
+    private fun updateOrInsertThing(thingItemModel: ThingItemModel) {
+        val currentList = _currentThingList.value ?: mutableListOf()
+        val indexToUpdate = currentList.indexOfFirst { it.thingId == thingItemModel.thingId }
+
+        if (indexToUpdate != -1) {
+            // 更新现有数据
+            currentList[indexToUpdate] = thingItemModel
+        } else {
+            // 插入新数据
+            currentList.add(0, thingItemModel) // 可按需求改变插入位置，比如插入到列表顶部
+        }
+        _currentThingList.value = currentList
+    }
+
+    fun updateSelectTimeRange(timeRangeType: TimeRangeType, timeRange: Pair<Long, String>) {
+        val timeRangeMap = _selectTimeRange.value ?: hashMapOf()
+        timeRangeMap[timeRangeType] = timeRange
+        _selectTimeRange.value = timeRangeMap
+    }
+
+    fun getSelectStopTime(): Long? {
+        val timeRangeMap = _selectTimeRange.value ?: hashMapOf()
+        return timeRangeMap[TimeRangeType.STOP_TIME]?.first
+    }
+
+    fun getSelectStartTime(): Long? {
+        val timeRangeMap = _selectTimeRange.value ?: hashMapOf()
+        return timeRangeMap[TimeRangeType.START_TIME]?.first
     }
 }

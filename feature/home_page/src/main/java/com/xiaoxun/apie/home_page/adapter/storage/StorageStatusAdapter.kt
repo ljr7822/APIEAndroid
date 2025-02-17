@@ -25,6 +25,14 @@ class StorageStatusAdapter(
         notifyDataSetChanged()
     }
 
+    fun getSelectedStatus(): StorageStatusModel? {
+        return if (selectedPosition != -1) {
+            items[selectedPosition]
+        } else {
+            null
+        }
+    }
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val statusLayout: View = view.findViewById(R.id.useStatusLayout)
         val statusName: TextView = view.findViewById(R.id.useStatusText)

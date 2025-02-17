@@ -646,7 +646,7 @@
 
 
                                 <TextView
-                                    android:id="@+id/stopTime"
+                                    android:id="@+id/thingWarranty"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:paddingStart="@dimen/apie_theme_dimension_5"

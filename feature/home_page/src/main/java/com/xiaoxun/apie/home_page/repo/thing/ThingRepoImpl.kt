@@ -1,15 +1,19 @@
 package com.xiaoxun.apie.home_page.repo.thing
 
 import com.xiaoxun.apie.apie_data_loader.DataLoaderManager
+import com.xiaoxun.apie.apie_data_loader.request.thing.CreateThing
 import com.xiaoxun.apie.apie_data_loader.request.thing.CreateThingGroup
 import com.xiaoxun.apie.apie_data_loader.request.thing.CreateThingGroupRequestBody
+import com.xiaoxun.apie.apie_data_loader.request.thing.CreateThingRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.thing.LoadThingGroupRequest
 import com.xiaoxun.apie.apie_data_loader.request.thing.LoadThings
 import com.xiaoxun.apie.common.manager.account.AccountManager
 import com.xiaoxun.apie.common.repo.ExecuteResultDelegate
+import com.xiaoxun.apie.common_model.home_page.storage.ThingItemModel
 import com.xiaoxun.apie.common_model.home_page.storage.ThingRespModel
 import com.xiaoxun.apie.common_model.home_page.storage.group.ThingGroupModel
 import com.xiaoxun.apie.common_model.home_page.storage.group.ThingGroupRespModel
+import com.xiaoxun.apie.common_model.home_page.thing.CreateThingInfo
 import com.xiaoxun.apie.data_loader.data.BaseResponse
 import com.xiaoxun.apie.data_loader.utils.CacheStrategy
 import com.xiaoxun.apie.home_page.viewmodel.IndexStorageViewModel
@@ -70,6 +74,22 @@ class ThingRepoImpl(
         )
     }
 
+    override suspend fun createThing(createThingInfo: CreateThingInfo) {
+        thingViewModel.onCreateThingStart()
+        innerCreateThing(createThingInfo).fold(
+            onSuccess = {
+                it.data?.let { resp ->
+                    thingViewModel.onCreateThingSuccess(resp)
+                } ?: let {
+                    thingViewModel.onCreateThingFailed("data is null.")
+                }
+            },
+            onFailure = {
+                thingViewModel.onCreateThingFailed(it.message.toString())
+            }
+        )
+    }
+
     private suspend fun innerLoadThingGroups(): Result<BaseResponse<ThingGroupRespModel>> {
         return executeResult {
             DataLoaderManager.instance.loadThingGroups(
@@ -98,6 +118,27 @@ class ThingRepoImpl(
                     )
                 ),
                 CacheStrategy.FORCE_NET
+            )
+        }
+    }
+
+    private suspend fun innerCreateThing(createThingInfo: CreateThingInfo): Result<BaseResponse<ThingItemModel>> {
+        return executeResult {
+            DataLoaderManager.instance.createThing(
+                CreateThing(
+                    CreateThingRequestBody(
+                        thingName = createThingInfo.thingName,
+                        createUserId = AccountManager.getUserId(),
+                        belongGroupId = createThingInfo.belongGroupId,
+                        thingPrice = createThingInfo.thingPrice,
+                        thingTags = createThingInfo.thingTags,
+                        thingIcon = createThingInfo.thingIcon,
+                        thingStatus = createThingInfo.thingStatus,
+                        thingDesc = createThingInfo.thingDesc,
+                        buyAt = createThingInfo.buyAt,
+                        warrantyPeriod = createThingInfo.warrantyPeriod
+                    )
+                ), CacheStrategy.FORCE_NET
             )
         }
     }

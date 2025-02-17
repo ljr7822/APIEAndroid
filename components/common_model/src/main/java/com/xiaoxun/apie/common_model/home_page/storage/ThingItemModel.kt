@@ -3,6 +3,7 @@ package com.xiaoxun.apie.common_model.home_page.storage
 import android.os.Parcelable
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
+import com.xiaoxun.apie.common.utils.APieCurrencyUtils
 import com.xiaoxun.apie.common.utils.DateTimeUtils
 import com.xiaoxun.apie.common_model.home_page.storage.group.ThingGroupModel
 import kotlinx.parcelize.Parcelize
@@ -98,7 +99,8 @@ data class ThingItemModel(
 
 
     fun getAveragePriceString(): String {
-        return "${String.format(Locale.getDefault(), "%,.2f", getAveragePrice())}/天"
+        val averagePrice = APieCurrencyUtils.priceFormatting(price = getAveragePrice().toDouble())
+        return "$averagePrice/天"
     }
 }
 

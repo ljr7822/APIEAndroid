@@ -69,6 +69,10 @@ object DateTimeUtils {
             UnitType.YEAR -> (diffMillis / (1000 * 60 * 60 * 24 * 365)).toInt()
         }
     }
+
+    fun timestampToDate(timeStamp: Long): Date {
+        return Date(timeStamp)
+    }
 }
 
 /**
