@@ -72,7 +72,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/soundEffectsRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:overScrollMode="never"/>
     </androidx.cardview.widget.CardView>
 
 

@@ -76,6 +76,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/groupManagerRecyclerView"
                 android:layout_width="match_parent"
+                android:overScrollMode="never"
                 android:layout_marginTop="@dimen/apie_theme_dimension_10"
                 android:layout_marginBottom="@dimen/apie_theme_dimension_10"
                 android:layout_height="match_parent" />
