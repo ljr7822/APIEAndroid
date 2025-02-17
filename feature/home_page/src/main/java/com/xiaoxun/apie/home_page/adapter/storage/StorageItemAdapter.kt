@@ -9,10 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.xiaoxun.apie.common.ui.easy_glide.APieEasyImage.loadRoundCornerImage
-import com.xiaoxun.apie.common_model.home_page.desire.DesireModel
+import com.xiaoxun.apie.common.utils.APieCurrencyUtils
 import com.xiaoxun.apie.common_model.home_page.storage.ThingItemModel
 import com.xiaoxun.apie.home_page.R
-import com.xiaoxun.apie.home_page.adapter.desire.APieDesireDiffCallback
 
 class StorageItemAdapter(
     private val items: MutableList<ThingItemModel> = mutableListOf(),
@@ -43,6 +42,8 @@ class StorageItemAdapter(
         val averagePrice: TextView = view.findViewById(R.id.averagePrice)
         val thingTagLayout: View = view.findViewById(R.id.thingTagLayout)
         val thingTagName: TextView = view.findViewById(R.id.thingTagName)
+        val thingGroupLayout: View = view.findViewById(R.id.thingGroupLayout)
+        val thingGroupName: TextView = view.findViewById(R.id.thingGroupName)
         val buyDateTv: TextView = view.findViewById(R.id.buyDateTv)
         val warrantyStatusLayout: View = view.findViewById(R.id.warrantyStatusLayout)
         val warrantyStatusTv: TextView = view.findViewById(R.id.warrantyStatusTv)
@@ -65,9 +66,9 @@ class StorageItemAdapter(
         val item = items[position]
         holder.coverImageView.loadRoundCornerImage(holder.itemView.context, item.thingIcon)
         holder.thingName.text = item.thingName
-        holder.priceTv.text = "¥${item.thingPrice}"
-        holder.averagePrice.text = "¥${item.getAveragePrice()}/天"
-        holder.thingTagName.text = item.thingGroupBean.groupName
+        holder.priceTv.text = APieCurrencyUtils.priceFormatting(price = item.thingPrice.toDouble())
+        holder.averagePrice.text = item.getAveragePriceString()
+        holder.thingGroupName.text = item.thingGroupBean.groupName
         holder.buyDateTv.text = item.getBuyAtDesc()
         holder.warrantyStatusTv.text = item.checkWarrantyStatus()
         holder.useStatusTv.text = item.getThingStatusDesc()

@@ -1,6 +1,7 @@
 package com.xiaoxun.apie.common.config
 
 import com.xiaoxun.apie.common.navbar.TabData
+import com.xiaoxun.apie.common.utils.CurrencyType
 
 /**
  * 应用基础配置类
@@ -22,6 +23,8 @@ object APieConfig {
     private const val MINE_TAB_LOTTIE_JSON = "mine.json"
 
     const val PHONE_NUMBER_MAX_LENGTH = 11
+
+    private var DEF_CURRENCY_TYPE = CurrencyType.RMB
 
     const val API_URL: String = "http://10.31.165.137:8090"
 
@@ -65,5 +68,13 @@ object APieConfig {
                 )
             )
         }
+    }
+
+    fun setCurrencyType(currencyType: CurrencyType) {
+        DEF_CURRENCY_TYPE = currencyType
+    }
+
+    fun getCurrencyType(): CurrencyType {
+        return DEF_CURRENCY_TYPE
     }
 }

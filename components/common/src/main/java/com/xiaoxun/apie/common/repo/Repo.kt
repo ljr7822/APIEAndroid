@@ -13,6 +13,8 @@ object AccountMMKVRepository : MMKVOwner(mmapID = ACCOUNT_MMKV_NAME) {
     var sex by mmkvInt(0)
     var address by mmkvString("")
     var school by mmkvString("")
+    var thingCount by mmkvInt(0)
+    var totalThingPrice by mmkvDouble(0.0)
 }
 
 private const val DESIRE_MMKV_NAME = "desire_mmkv_store"

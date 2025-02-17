@@ -146,6 +146,8 @@ class WelcomeRepo(
         AccountMMKVRepository.sex = accountModel.sex
         AccountMMKVRepository.address = accountModel.address
         AccountMMKVRepository.school = accountModel.school ?: ""
+        AccountMMKVRepository.totalThingPrice = accountModel.thingCard?.totalThingPrice ?: 0.0
+        AccountMMKVRepository.thingCount = accountModel.thingCard?.totalThingCount ?: 0
         PlanMMKVRepository.planCount = accountModel.totalPlan
         DesireMMKVRepository.desireCount = accountModel.totalDesire
     }

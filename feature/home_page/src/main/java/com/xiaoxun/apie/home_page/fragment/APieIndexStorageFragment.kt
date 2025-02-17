@@ -6,7 +6,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xiaoxun.apie.common.base.fragment.APieBaseBindingFragment
+import com.xiaoxun.apie.common.repo.AccountMMKVRepository
 import com.xiaoxun.apie.common.ui.APieLoadingDialog
+import com.xiaoxun.apie.common.utils.APieCurrencyUtils
+import com.xiaoxun.apie.common.utils.DateTimeUtils
+import com.xiaoxun.apie.common_model.home_page.storage.ThingItemModel
 import com.xiaoxun.apie.home_page.adapter.storage.StorageGroupAdapter
 import com.xiaoxun.apie.home_page.adapter.storage.StorageItemAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexStorageFragmentBinding
@@ -50,19 +54,30 @@ class APieIndexStorageFragment : APieBaseBindingFragment<LayoutApieIndexStorageF
     }
 
     private fun initData() {
-       viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
-           repo.loadThingGroups(ThingGroupSource.INDEX_PAGE)
-           repo.loadThingList()
-       }
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+            repo.loadThingGroups(ThingGroupSource.INDEX_PAGE)
+            repo.loadThingList()
+        }
     }
 
     private fun initView() {
         initRecycleView()
+        initMineCardView()
     }
 
-    private fun initObserver(){
+    private fun initMineCardView() {
+        binding.assetsCount.text = APieCurrencyUtils.priceFormatting(price = AccountMMKVRepository.totalThingPrice)
+        binding.assetsCountCount.text = AccountMMKVRepository.thingCount.toString()
+        binding.timeTv.text = DateTimeUtils.formatDate()
+    }
+
+    private fun initObserver() {
         // 通用loading状态
-        storageViewModel.commonLoadingState.observe(viewLifecycleOwner) { handleCommonLoadingState(it) }
+        storageViewModel.commonLoadingState.observe(viewLifecycleOwner) {
+            handleCommonLoadingState(
+                it
+            )
+        }
 
         // 物品分组列表
         storageViewModel.thingGroupList.observe(viewLifecycleOwner) { newList ->
@@ -90,7 +105,16 @@ class APieIndexStorageFragment : APieBaseBindingFragment<LayoutApieIndexStorageF
                 }
                 storageItemAdapter.updateData(newList)
             }
+
+            // 更新卡片数据
+            updateCostCard(newList)
         }
+    }
+
+    private fun updateCostCard(thingList: List<ThingItemModel>) {
+        val dailyCost = thingList.sumOf { it.getAveragePrice().toDouble() }
+        binding.todayCostCount.text = APieCurrencyUtils.priceFormatting(price = dailyCost)
+        binding.predictCostCount.text = APieCurrencyUtils.priceFormatting(price = dailyCost)
     }
 
     private fun handleCommonLoadingState(state: CommonLoadingState) {

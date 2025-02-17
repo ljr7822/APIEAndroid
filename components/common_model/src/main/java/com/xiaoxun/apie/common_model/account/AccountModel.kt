@@ -25,7 +25,11 @@ import kotlinx.parcelize.Parcelize
  *         "goldCount": 9999,
  *         "userType": 10,
  *         "totalPlan": null,
- *         "totalDesire": null
+ *         "totalDesire": null,
+ *         "thingCard": {
+ *             "totalThingPrice": 3699.0,
+ *             "totalThingCount": 1
+ *         }
  *     }
  * }
  */
@@ -60,4 +64,15 @@ data class AccountModel(
     val totalPlan: Int = 0,
     @SerializedName("totalDesire")
     val totalDesire: Int = 0,
+    @SerializedName("thingCard")
+    val thingCard: ThingCard? = null
 ) : Parcelable
+
+@Parcelize
+@Keep
+data class ThingCard(
+    @SerializedName("totalThingPrice")
+    val totalThingPrice: Double = 0.0,
+    @SerializedName("totalThingCount")
+    val totalThingCount: Int = 0
+): Parcelable

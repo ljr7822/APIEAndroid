@@ -1,7 +1,6 @@
 package com.xiaoxun.apie.common.utils
 
 import android.text.format.DateFormat
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -35,7 +34,7 @@ object DateTimeUtils {
         return DateFormat.format(format, time).toString()
     }
 
-    fun formatDate(dataTime: Date, format: String = FORMAT_TYPE_YMD_STYLE): String? {
+    fun formatDate(dataTime: Date = Date(), format: String = FORMAT_TYPE_YMD_STYLE): String? {
         return SimpleDateFormat(format, Locale.getDefault()).format(dataTime)
     }
 

@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/apie_theme_dimension_12"
                     android:layout_marginTop="@dimen/apie_theme_dimension_7"
-                    android:text="¥89888"
+                    android:text="- - - -"
                     android:textColor="@color/apie_color_white"
                     android:textSize="@dimen/apie_theme_text_22"
                     app:layout_constraintStart_toStartOf="parent"
@@ -131,7 +131,7 @@
                                 android:id="@+id/todayCostCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="¥1000.43"
+                                android:text="- - - -"
                                 android:textColor="@color/apie_color_white"
                                 android:textSize="@dimen/apie_theme_text_15"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -144,7 +144,7 @@
                                 android:layout_marginTop="@dimen/apie_theme_dimension_5"
                                 android:text="今日成本"
                                 android:textColor="@color/apieTheme_colorWhite_alpha_80"
-                                android:textSize="@dimen/apie_theme_text_9"
+                                android:textSize="@dimen/apie_theme_text_10"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/todayCostCount" />
@@ -162,11 +162,21 @@
                                 android:id="@+id/assetsCountCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="18台"
+                                android:text="- -"
                                 android:textColor="@color/apie_color_white"
                                 android:textSize="@dimen/apie_theme_text_15"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="台"
+                                android:textColor="@color/apie_color_white"
+                                android:textSize="@dimen/apie_theme_text_15"
+                                android:layout_marginStart="@dimen/apie_theme_dimension_3"
+                                app:layout_constraintStart_toEndOf="@+id/assetsCountCount"
+                                app:layout_constraintTop_toTopOf="parent"/>
 
                             <TextView
                                 android:id="@+id/assetsCountTitle"
@@ -175,7 +185,7 @@
                                 android:layout_marginTop="@dimen/apie_theme_dimension_5"
                                 android:text="资产数量"
                                 android:textColor="@color/apieTheme_colorWhite_alpha_80"
-                                android:textSize="@dimen/apie_theme_text_9"
+                                android:textSize="@dimen/apie_theme_text_10"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/assetsCountCount" />
@@ -193,7 +203,7 @@
                                 android:id="@+id/predictCostCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="¥8978.23"
+                                android:text="- - - -"
                                 android:textColor="@color/apie_color_white"
                                 android:textSize="@dimen/apie_theme_text_15"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -204,7 +214,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/apie_theme_dimension_5"
-                                android:text="预计每日成本"
+                                android:text="总日均"
                                 android:textColor="@color/apieTheme_colorWhite_alpha_80"
                                 android:textSize="@dimen/apie_theme_text_10"
                                 app:layout_constraintBottom_toBottomOf="parent"

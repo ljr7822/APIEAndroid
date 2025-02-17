@@ -4,10 +4,10 @@ import android.os.Parcelable
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import com.xiaoxun.apie.common.utils.DateTimeUtils
-import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import com.xiaoxun.apie.common_model.home_page.storage.group.ThingGroupModel
 import kotlinx.parcelize.Parcelize
 import java.util.Date
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 @Parcelize
@@ -91,9 +91,14 @@ data class ThingItemModel(
         } ?: 0
     }
 
-    fun getAveragePrice(): String {
-        val averagePrice = thingPrice / daysSince()
-        return averagePrice.toString()
+    fun getAveragePrice(): Float {
+        val days = daysSince().coerceAtLeast(1) // 避免除以 0
+        return thingPrice / days
+    }
+
+
+    fun getAveragePriceString(): String {
+        return "${String.format(Locale.getDefault(), "%,.2f", getAveragePrice())}/天"
     }
 }
 

@@ -64,6 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:visibility="gone"
                     android:layout_marginStart="@dimen/apie_theme_dimension_5"
                     app:cardCornerRadius="@dimen/apie_theme_dimension_3"
                     app:cardElevation="@dimen/apie_theme_dimension_0">
@@ -133,76 +134,109 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <HorizontalScrollView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/apie_theme_dimension_12"
-                android:layout_marginTop="@dimen/apie_theme_dimension_5"
-                android:layout_marginEnd="@dimen/apie_theme_dimension_12"
-                android:layout_marginBottom="@dimen/apie_theme_dimension_10"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/cardView"
                 app:layout_constraintStart_toEndOf="@+id/coverImageView"
+                android:layout_marginStart="@dimen/apie_theme_dimension_12"
+                android:layout_marginTop="@dimen/apie_theme_dimension_5"
+                android:layout_marginEnd="@dimen/apie_theme_dimension_12"
+                android:scrollbars="none"
+                android:overScrollMode="never"
+                android:layout_marginBottom="@dimen/apie_theme_dimension_10"
                 app:layout_constraintTop_toBottomOf="@+id/priceLayout">
 
-                <TextView
-                    android:id="@+id/buyDateTv"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="2025/02/06"
-                    android:textColor="@color/apieTheme_colorBlack_alpha_50"
-                    android:textSize="@dimen/apie_theme_text_12"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/warrantyStatusLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/apie_theme_dimension_5"
-                    app:cardCornerRadius="@dimen/apie_theme_dimension_3"
-                    app:cardElevation="@dimen/apie_theme_dimension_0"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/buyDateTv"
-                    app:layout_constraintTop_toTopOf="parent">
+                    >
 
                     <TextView
-                        android:id="@+id/warrantyStatusTv"
+                        android:id="@+id/buyDateTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/apieTheme_colorBlack_alpha_5"
-                        android:paddingHorizontal="@dimen/apie_theme_dimension_4"
-                        android:paddingVertical="@dimen/apie_theme_dimension_1"
-                        android:text="在保"
+                        android:text="2025/02/06"
                         android:textColor="@color/apieTheme_colorBlack_alpha_50"
-                        android:textSize="@dimen/apie_theme_text_10" />
-                </androidx.cardview.widget.CardView>
+                        android:textSize="@dimen/apie_theme_text_12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/useStatusLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/apie_theme_dimension_5"
-                    app:cardCornerRadius="@dimen/apie_theme_dimension_3"
-                    app:cardElevation="@dimen/apie_theme_dimension_0"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/warrantyStatusLayout"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/useStatusTv"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/thingGroupLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/apieTheme_colorGreen50"
-                        android:paddingHorizontal="@dimen/apie_theme_dimension_4"
-                        android:paddingVertical="@dimen/apie_theme_dimension_1"
-                        android:text="使用中"
-                        android:textColor="@color/apieTheme_colorGreen400"
-                        android:textSize="@dimen/apie_theme_text_10" />
-                </androidx.cardview.widget.CardView>
+                        android:layout_marginStart="@dimen/apie_theme_dimension_5"
+                        app:cardCornerRadius="@dimen/apie_theme_dimension_3"
+                        app:cardElevation="@dimen/apie_theme_dimension_0"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/buyDateTv"
+                        app:layout_constraintTop_toTopOf="parent">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                            android:id="@+id/thingGroupName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/apie_color_6b84fc_10"
+                            android:paddingHorizontal="@dimen/apie_theme_dimension_4"
+                            android:paddingVertical="@dimen/apie_theme_dimension_1"
+                            android:text="数码"
+                            android:textColor="@color/apie_color_4d6bfe"
+                            android:textSize="@dimen/apie_theme_text_10" />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/warrantyStatusLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/apie_theme_dimension_5"
+                        app:cardCornerRadius="@dimen/apie_theme_dimension_3"
+                        app:cardElevation="@dimen/apie_theme_dimension_0"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/thingGroupLayout"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/warrantyStatusTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/apieTheme_colorBlack_alpha_5"
+                            android:paddingHorizontal="@dimen/apie_theme_dimension_4"
+                            android:paddingVertical="@dimen/apie_theme_dimension_1"
+                            android:text="在保"
+
+                            android:textColor="@color/apieTheme_colorBlack_alpha_50"
+                            android:textSize="@dimen/apie_theme_text_10" />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/useStatusLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/apie_theme_dimension_5"
+                        app:cardCornerRadius="@dimen/apie_theme_dimension_3"
+                        app:cardElevation="@dimen/apie_theme_dimension_0"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/warrantyStatusLayout"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/useStatusTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/apieTheme_colorGreen50"
+                            android:paddingHorizontal="@dimen/apie_theme_dimension_4"
+                            android:paddingVertical="@dimen/apie_theme_dimension_1"
+                            android:text="使用中"
+                            android:textColor="@color/apieTheme_colorGreen400"
+                            android:textSize="@dimen/apie_theme_text_10" />
+                    </androidx.cardview.widget.CardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </HorizontalScrollView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
