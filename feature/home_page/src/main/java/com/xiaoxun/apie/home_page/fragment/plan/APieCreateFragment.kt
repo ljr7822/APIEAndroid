@@ -170,7 +170,7 @@ class APieCreateFragment(
         binding.planFrequencyRv.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = frequencyAdapter
-            addItemDecoration(SpaceItemDecoration())
+            //addItemDecoration(SpaceItemDecoration())
         }
     }
 
@@ -183,7 +183,7 @@ class APieCreateFragment(
         binding.planGroupRv.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
-            addItemDecoration(SpaceItemDecoration())
+            //addItemDecoration(SpaceItemDecoration())
         }
     }
 

@@ -289,9 +289,7 @@
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/apie_theme_dimension_10"
                                 android:layout_marginTop="@dimen/apie_theme_dimension_5"
-                                android:layout_marginEnd="@dimen/apie_theme_dimension_10"
                                 android:layout_marginBottom="@dimen/apie_theme_dimension_5"
                                 android:orientation="horizontal">
 

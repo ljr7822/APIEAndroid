@@ -126,7 +126,7 @@ class APieCreateThingFragment(
         binding.thingGroupRv.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
-            addItemDecoration(SpaceItemDecoration())
+            //addItemDecoration(SpaceItemDecoration())
         }
         binding.createGroupLayout.setDebouncingClickListener {
             val dialog = APieCreateGroupDialog(

@@ -4,6 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginHorizontal="@dimen/apie_theme_dimension_5"
     android:id="@+id/planFrequencyItemLayout"
     android:background="@color/apieTheme_colorTransparent">
 
@@ -29,8 +30,8 @@
        android:gravity="center"
        android:paddingEnd="@dimen/apie_theme_dimension_6"
        android:text="单次"
-       android:textColor="@color/apieTheme_colorBlack_alpha_50"
-       android:textSize="@dimen/apie_theme_text_12"
+       android:textColor="@color/apieTheme_colorGrayLevel1_alpha_60"
+       android:textSize="@dimen/apie_theme_text_13"
        app:layout_constraintBottom_toBottomOf="parent"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toEndOf="@+id/planTypeIcon"

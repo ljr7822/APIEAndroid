@@ -96,6 +96,8 @@
     <string name="apie_create_thing_desc_tip">物品描述（选填）:</string>
     <string name="apie_create_thing_price_tip">物品价格:</string>
 
+    <string name="apie_create_thing_appendix_tip">附加图片:</string>
+
     <string name="apie_group_manager_title">分组管理</string>
 
 

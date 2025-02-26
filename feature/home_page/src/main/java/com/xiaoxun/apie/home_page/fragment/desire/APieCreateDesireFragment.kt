@@ -147,7 +147,7 @@ class APieCreateDesireFragment(
         binding.desireGroupRv.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = groupAdapter
-            addItemDecoration(SpaceItemDecoration())
+            //addItemDecoration(SpaceItemDecoration())
         }
     }
 

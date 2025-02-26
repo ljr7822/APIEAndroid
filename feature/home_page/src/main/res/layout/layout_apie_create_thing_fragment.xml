@@ -190,9 +190,7 @@
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/apie_theme_dimension_10"
                                 android:layout_marginTop="@dimen/apie_theme_dimension_5"
-                                android:layout_marginEnd="@dimen/apie_theme_dimension_10"
                                 android:layout_marginBottom="@dimen/apie_theme_dimension_5"
                                 android:orientation="horizontal">
 
@@ -365,7 +363,6 @@
                                     android:layout_width="match_parent"
                                     android:overScrollMode="never"
                                     android:layout_height="match_parent" />
-
 
                             </LinearLayout>
 
@@ -685,7 +682,7 @@
                             <EditText
                                 android:id="@+id/thingDescEdit"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/apie_theme_dimension_120"
+                                android:layout_height="@dimen/apie_theme_dimension_90"
                                 android:background="@drawable/apie_cerate_plan_common_edit_null_bg"
                                 android:gravity="start"
                                 android:hint="在这里填写这个物品的描述或备注"
@@ -705,6 +702,71 @@
 
 
                 </LinearLayout>
+
+                <!-- 物品附件-->
+                <LinearLayout
+                    android:id="@+id/appendixLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_16"
+                    android:layout_marginTop="@dimen/apie_theme_dimension_15"
+                    android:layout_marginEnd="@dimen/apie_theme_dimension_16"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/desireDescLayout"
+                    tools:layout_editor_absoluteX="16dp">
+
+                    <!-- 标题-->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/thingAppendixTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/apie_create_thing_appendix_tip"
+                            android:textColor="@color/apieTheme_colorBlack"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/thingAppendixIcon"
+                            android:layout_width="@dimen/apie_theme_dimension_16"
+                            android:layout_height="@dimen/apie_theme_dimension_16"
+                            android:layout_marginStart="@dimen/apie_theme_dimension_4"
+                            android:layout_marginTop="@dimen/apie_theme_dimension_2"
+                            android:background="@drawable/apie_create_plan_frequency_tip_icon"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/thingAppendixTitle"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/apie_theme_dimension_8"
+                        app:cardBackgroundColor="@color/apieTheme_colorGrayLevel1_alpha_4"
+                        app:cardCornerRadius="@dimen/apie_theme_dimension_8"
+                        app:cardElevation="@dimen/apie_theme_dimension_0"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/createGroupLayout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_height="@dimen/apie_theme_dimension_60">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/appendixRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </LinearLayout>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
