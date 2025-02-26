@@ -181,6 +181,18 @@ class IndexStorageViewModel: APieBaseViewModel() {
         _currentThingList.value = currentList
     }
 
+    /**
+     * 通过planId移除一个计划
+     */
+    private fun removeThing(thingId: String) {
+        val currentList = _currentThingList.value ?: mutableListOf()
+        val removeThing = currentList.find { it.thingId == thingId }
+        if (removeThing != null) {
+            currentList.remove(removeThing)
+        }
+        _currentThingList.value = currentList
+    }
+
     fun updateSelectTimeRange(timeRangeType: TimeRangeType, timeRange: Pair<Long, String>) {
         val timeRangeMap = _selectTimeRange.value ?: hashMapOf()
         timeRangeMap[timeRangeType] = timeRange
@@ -203,5 +215,14 @@ class IndexStorageViewModel: APieBaseViewModel() {
 
     fun thingAppendixUrlSize(): Int {
         return _thingAppendixUrls.value?.size ?: 0
+    }
+
+    fun deleteThingSuccess(thingId: String) {
+        showLoadingSuccess()
+        removeThing(thingId)
+    }
+
+    fun deletePlanFailed(error: String) {
+        showLoadingFailed()
     }
 }

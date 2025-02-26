@@ -21,6 +21,7 @@ import com.xiaoxun.apie.apie_data_loader.request.group.LoadPlanGroups
 import com.xiaoxun.apie.apie_data_loader.request.plan.UpdatePlanCompletedCount
 import com.xiaoxun.apie.apie_data_loader.request.thing.CreateThing
 import com.xiaoxun.apie.apie_data_loader.request.thing.CreateThingGroup
+import com.xiaoxun.apie.apie_data_loader.request.thing.DeleteThing
 import com.xiaoxun.apie.apie_data_loader.request.thing.LoadThingGroupRequest
 import com.xiaoxun.apie.apie_data_loader.request.thing.LoadThings
 import com.xiaoxun.apie.common_model.account.AccountModel
@@ -38,6 +39,7 @@ import com.xiaoxun.apie.common_model.home_page.storage.ThingItemModel
 import com.xiaoxun.apie.common_model.home_page.storage.ThingRespModel
 import com.xiaoxun.apie.common_model.home_page.storage.group.ThingGroupModel
 import com.xiaoxun.apie.common_model.home_page.storage.group.ThingGroupRespModel
+import com.xiaoxun.apie.common_model.home_page.thing.DeleteThingRespModel
 import com.xiaoxun.apie.common_model.sms.STSTokenModel
 import com.xiaoxun.apie.common_model.sms.SmsCodeModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
@@ -324,6 +326,18 @@ class DataLoaderManager private constructor() {
     ): Observable<BaseResponse<ThingItemModel>> {
         val loader = buildDataLoader<ThingItemModel>(APieUrl.CREATE_THING.name)
         return loader?.getData(createThing, cacheStrategy)
+            ?: Observable.error(Exception("loader is null"))
+    }
+
+    /**
+     * 删除一个物品
+     */
+    fun deleteThing(
+        deleteThing: DeleteThing,
+        cacheStrategy: CacheStrategy
+    ): Observable<BaseResponse<DeleteThingRespModel>> {
+        val loader = buildDataLoader<DeleteThingRespModel>(APieUrl.DELETE_THING.name)
+        return loader?.getData(deleteThing, cacheStrategy)
             ?: Observable.error(Exception("loader is null"))
     }
 }

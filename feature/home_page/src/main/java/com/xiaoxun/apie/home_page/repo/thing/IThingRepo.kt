@@ -11,6 +11,8 @@ interface IThingRepo {
     suspend fun createThingGroup(groupName: String)
 
     suspend fun createThing(createThingInfo: CreateThingInfo)
+
+    suspend fun deleteThing(thingId: String)
 }
 
 enum class ThingGroupSource {

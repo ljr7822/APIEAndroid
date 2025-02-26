@@ -28,6 +28,7 @@ enum class APieUrl(val url: String) {
     CREATE_THING_GROUP(CREATE_THING_GROUP_URL),
     GET_THING_LIST(GET_THING_LIST_URL),
     CREATE_THING(CREATE_THING_URL),
+    DELETE_THING(DELETE_THING_URL),
 }
 
 internal const val ACCOUNT_LOGIN_PASSWORD_URL = "/user/loginByPassword"
@@ -56,3 +57,4 @@ internal const val GET_THING_GROUPS_URL = "/thingGroup/queryAllGroup/{userId}"
 internal const val CREATE_THING_GROUP_URL = "/thingGroup/create"
 internal const val GET_THING_LIST_URL = "/thing/queryAllThing/{userId}"
 internal const val CREATE_THING_URL = "/thing/create"
+internal const val DELETE_THING_URL = "/thing/deleteThing/{thingId}"

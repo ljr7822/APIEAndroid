@@ -118,7 +118,7 @@ class APieCreateThingFragment(
     }
 
     private fun initDateSelectView() {
-        binding.buyTime.text =  getCurrentTimeStr()
+        binding.buyTime.text = "请选择"
         binding.thingWarranty.text = "请选择"
         binding.buyTime.setDebouncingClickListener {
             showSelectDayView(TimeRangeType.START_TIME, viewModel.getSelectStartTime() ?: 0)

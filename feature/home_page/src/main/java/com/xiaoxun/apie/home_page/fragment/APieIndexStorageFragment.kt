@@ -147,6 +147,9 @@ class APieIndexStorageFragment : APieBaseBindingFragment<LayoutApieIndexStorageF
             override fun onItemDeleteClick(position: Int, thingItemModel: ThingItemModel) {
                 // 删除事件
                 APieToast.showDialog("删除物品${thingItemModel.thingName}")
+                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+                    repo.deleteThing(thingItemModel.thingId)
+                }
             }
         })
 

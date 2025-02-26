@@ -5,6 +5,7 @@ import com.xiaoxun.apie.apie_data_loader.request.thing.CreateThing
 import com.xiaoxun.apie.apie_data_loader.request.thing.CreateThingGroup
 import com.xiaoxun.apie.apie_data_loader.request.thing.CreateThingGroupRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.thing.CreateThingRequestBody
+import com.xiaoxun.apie.apie_data_loader.request.thing.DeleteThing
 import com.xiaoxun.apie.apie_data_loader.request.thing.LoadThingGroupRequest
 import com.xiaoxun.apie.apie_data_loader.request.thing.LoadThings
 import com.xiaoxun.apie.common.manager.account.AccountManager
@@ -14,6 +15,7 @@ import com.xiaoxun.apie.common_model.home_page.storage.ThingRespModel
 import com.xiaoxun.apie.common_model.home_page.storage.group.ThingGroupModel
 import com.xiaoxun.apie.common_model.home_page.storage.group.ThingGroupRespModel
 import com.xiaoxun.apie.common_model.home_page.thing.CreateThingInfo
+import com.xiaoxun.apie.common_model.home_page.thing.DeleteThingRespModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
 import com.xiaoxun.apie.data_loader.utils.CacheStrategy
 import com.xiaoxun.apie.home_page.viewmodel.IndexStorageViewModel
@@ -90,6 +92,20 @@ class ThingRepoImpl(
         )
     }
 
+    override suspend fun deleteThing(thingId: String) {
+        thingViewModel.showLoadingStart()
+        innerDeleteThing(thingId).fold(
+            onSuccess = {
+                it.data?.let { resp ->
+                    thingViewModel.deleteThingSuccess(resp.thingId)
+                }
+            },
+            onFailure = {
+                thingViewModel.deletePlanFailed(it.message.toString())
+            }
+        )
+    }
+
     private suspend fun innerLoadThingGroups(): Result<BaseResponse<ThingGroupRespModel>> {
         return executeResult {
             DataLoaderManager.instance.loadThingGroups(
@@ -140,6 +156,15 @@ class ThingRepoImpl(
                         thingAppendixList = createThingInfo.thingAppendixList
                     )
                 ), CacheStrategy.FORCE_NET
+            )
+        }
+    }
+
+    private suspend fun innerDeleteThing(thingId: String): Result<BaseResponse<DeleteThingRespModel>> {
+        return executeResult {
+            DataLoaderManager.instance.deleteThing(
+                DeleteThing(thingId),
+                CacheStrategy.FORCE_NET
             )
         }
     }
