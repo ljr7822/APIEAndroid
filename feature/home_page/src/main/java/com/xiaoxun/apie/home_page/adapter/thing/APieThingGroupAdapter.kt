@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.home_page.adapter.storage
+package com.xiaoxun.apie.home_page.adapter.thing
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +12,10 @@ import com.xiaoxun.apie.common_model.home_page.base.IBaseGroupModel
 /**
  * 资产分组适配器
  */
-class StorageGroupAdapter(
+class APieThingGroupAdapter(
     private val items: MutableList<IBaseGroupModel> = mutableListOf(),
     val itemClick: (Int, IBaseGroupModel) -> Unit = { _, _ -> } // 返回选中项的 position 和对应的数据项
-) : RecyclerView.Adapter<StorageGroupAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<APieThingGroupAdapter.ViewHolder>() {
 
     private var selectedPosition: Int = -1 // 记录当前选中的位置
 

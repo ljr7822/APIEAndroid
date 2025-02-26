@@ -136,7 +136,8 @@ class ThingRepoImpl(
                         thingStatus = createThingInfo.thingStatus,
                         thingDesc = createThingInfo.thingDesc,
                         buyAt = createThingInfo.buyAt,
-                        warrantyPeriod = createThingInfo.warrantyPeriod
+                        warrantyPeriod = createThingInfo.warrantyPeriod,
+                        thingAppendixList = createThingInfo.thingAppendixList
                     )
                 ), CacheStrategy.FORCE_NET
             )

@@ -9,12 +9,12 @@ import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import com.xiaoxun.apie.common.R
 import com.xiaoxun.apie.common.album.APieAlbumPickerHelper
 import com.xiaoxun.apie.common.base.fragment.APieBaseBottomSheetDialogFragment
+import com.xiaoxun.apie.common.config.APieConfig.THING_APPENDIX_MAX_COUNT
 import com.xiaoxun.apie.common.ui.APieLoadingDialog
 import com.xiaoxun.apie.common.ui.easy_glide.APieEasyImage.loadRoundCornerImage
 import com.xiaoxun.apie.common.upload.APieUploadHelper
 import com.xiaoxun.apie.common.utils.APieLog
 import com.xiaoxun.apie.common.utils.DateTimeUtils
-import com.xiaoxun.apie.common.utils.UIUtils
 import com.xiaoxun.apie.common.utils.dp
 import com.xiaoxun.apie.common.utils.hide
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
@@ -22,14 +22,15 @@ import com.xiaoxun.apie.common.utils.toast.APieToast
 import com.xiaoxun.apie.common_model.home_page.storage.StatusType
 import com.xiaoxun.apie.common_model.home_page.storage.StorageStatusModel
 import com.xiaoxun.apie.common_model.home_page.thing.CreateThingInfo
-import com.xiaoxun.apie.home_page.adapter.SpaceItemDecoration
 import com.xiaoxun.apie.home_page.adapter.group.APieGroupAdapter
-import com.xiaoxun.apie.home_page.adapter.storage.StorageStatusAdapter
+import com.xiaoxun.apie.home_page.adapter.thing.APieThingAppendixAdapter
+import com.xiaoxun.apie.home_page.adapter.thing.APieThingStatusAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieCreateThingFragmentBinding
 import com.xiaoxun.apie.home_page.dialog.APieCreateGroupDialog
 import com.xiaoxun.apie.home_page.repo.thing.IThingRepo
 import com.xiaoxun.apie.home_page.repo.thing.ThingGroupSource
 import com.xiaoxun.apie.home_page.repo.thing.ThingRepoImpl
+import com.xiaoxun.apie.home_page.viewmodel.AddImageSource
 import com.xiaoxun.apie.home_page.viewmodel.CommonLoadingState
 import com.xiaoxun.apie.home_page.viewmodel.CreateThingState
 import com.xiaoxun.apie.home_page.viewmodel.IndexStorageViewModel
@@ -51,17 +52,21 @@ class APieCreateThingFragment(
         private const val TAG = "APieCreateThingFragment"
     }
 
-    private val loadingDialog: APieLoadingDialog by lazy { APieLoadingDialog(requireContext()) }
+    private val loadingDialog: APieLoadingDialog by lazy {
+        APieLoadingDialog(requireContext())
+    }
 
     private val repo: IThingRepo by lazy {
         ThingRepoImpl(viewModel)
     }
 
-    private val statusAdapter: StorageStatusAdapter by lazy {
-        StorageStatusAdapter()
+    private val statusAdapter: APieThingStatusAdapter by lazy {
+        APieThingStatusAdapter()
     }
 
     private lateinit var groupAdapter: APieGroupAdapter
+
+    private lateinit var thingAppendixAdapter: APieThingAppendixAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //enableCancel = true
@@ -75,9 +80,12 @@ class APieCreateThingFragment(
             ) {
                 val uri = uris.firstOrNull() ?: return
                 APieLog.d(TAG, "${source.name} selected: $uri")
-
                 val url = APieUploadHelper.uploadImage(requireActivity(), uri)
-                viewModel.updateThingIconUrl(url)
+                if (viewModel.isAddThingIcon()) {
+                    viewModel.updateThingIconUrl(url)
+                } else {
+                    viewModel.addThingAppendixUrl(url)
+                }
             }
 
             override fun onCanceled(source: APieAlbumPickerHelper.MediaSource) {
@@ -105,6 +113,7 @@ class APieCreateThingFragment(
         initThingIconView()
         initStatusView()
         initDateSelectView()
+        initThingAppendixView()
         initButtonView()
     }
 
@@ -145,6 +154,7 @@ class APieCreateThingFragment(
 
     private fun initThingIconView() {
         binding.thingIcon.setDebouncingClickListener {
+            viewModel.updateCurrentAddImageSource(AddImageSource.THING_ICON)
             openPhotoPicker()
         }
     }
@@ -161,6 +171,31 @@ class APieCreateThingFragment(
         statusAdapter.updateData(status)
         binding.statusRecyclerView.apply {
             adapter = statusAdapter
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        }
+    }
+
+    private fun initThingAppendixView() {
+        thingAppendixAdapter = APieThingAppendixAdapter(
+            context = requireContext(),
+            onAddClick = {
+                if (viewModel.thingAppendixUrlSize() >= THING_APPENDIX_MAX_COUNT) {
+                    APieToast.showDialog("最多只能添加${THING_APPENDIX_MAX_COUNT}张图片")
+                    return@APieThingAppendixAdapter
+                }
+                viewModel.updateCurrentAddImageSource(AddImageSource.THING_APPENDIX)
+                openPhotoPicker()
+            },
+            onItemClick = { position, url ->
+                // 点击预览
+            },
+            onDeleteClick = { position, url ->
+                viewModel.removeThingAppendixUrl(url)
+            }
+        )
+
+        binding.thingAppendixRv.apply {
+            adapter = thingAppendixAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
     }
@@ -200,6 +235,10 @@ class APieCreateThingFragment(
                 CreateThingState.FAILED -> loadingDialog.dismiss()
                 else -> {}
             }
+        }
+
+        viewModel.thingAppendixUrls.observe(viewLifecycleOwner) {
+            thingAppendixAdapter.updateData(it)
         }
     }
 
@@ -354,6 +393,7 @@ class APieCreateThingFragment(
             thingDesc = binding.thingDescEdit.text.toString(),
             buyAt = DateTimeUtils.timestampToDate(viewModel.getSelectStartTime() ?: 0),
             warrantyPeriod = DateTimeUtils.timestampToDate(viewModel.getSelectStopTime() ?: 0),
+            thingAppendixList = viewModel.thingAppendixUrls.value?.toMutableList() ?: mutableListOf()
         )
     }
 }

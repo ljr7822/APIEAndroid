@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.home_page.adapter.storage
+package com.xiaoxun.apie.home_page.adapter.thing
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -13,10 +13,10 @@ import com.xiaoxun.apie.common.utils.APieCurrencyUtils
 import com.xiaoxun.apie.common_model.home_page.storage.ThingItemModel
 import com.xiaoxun.apie.home_page.R
 
-class StorageItemAdapter(
+class APieThingItemAdapter(
     private val items: MutableList<ThingItemModel> = mutableListOf(),
     val itemClick: (Int, ThingItemModel) -> Unit = { _, _ -> } // 返回选中项的 position 和对应的数据项
-) : RecyclerView.Adapter<StorageItemAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<APieThingItemAdapter.ViewHolder>() {
 
     fun getItems(): List<ThingItemModel> = items
 
@@ -28,7 +28,7 @@ class StorageItemAdapter(
 
     // 更新数据的方法
     fun updateData(newList: List<ThingItemModel>) {
-        val diffCallback = StorageDiffCallback(items, newList)
+        val diffCallback = APieThingDiffCallback(items, newList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         items.clear()
         items.addAll(newList)

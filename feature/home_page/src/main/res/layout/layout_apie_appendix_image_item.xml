@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginHorizontal="@dimen/apie_theme_dimension_5"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="@dimen/apie_theme_dimension_50"
+        android:layout_height="@dimen/apie_theme_dimension_50"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/deleteIconLayout"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_width="@dimen/apie_theme_dimension_50"
+        android:layout_height="@dimen/apie_theme_dimension_50"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardElevation="@dimen/apie_theme_dimension_0"
+        app:cardCornerRadius="@dimen/apie_theme_dimension_12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardBackgroundColor="@color/apieTheme_colorWhite_alpha_80"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/deleteIcon"
+            android:layout_width="@dimen/apie_theme_dimension_20"
+            android:layout_height="@dimen/apie_theme_dimension_20"
+            android:layout_gravity="center"
+            android:background="@drawable/apie_thing_appendix_item_delete_icon"/>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

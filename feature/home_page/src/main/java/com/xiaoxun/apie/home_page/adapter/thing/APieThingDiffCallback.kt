@@ -1,10 +1,9 @@
-package com.xiaoxun.apie.home_page.adapter.storage
+package com.xiaoxun.apie.home_page.adapter.thing
 
 import androidx.recyclerview.widget.DiffUtil
-import com.xiaoxun.apie.common_model.home_page.desire.DesireModel
 import com.xiaoxun.apie.common_model.home_page.storage.ThingItemModel
 
-class StorageDiffCallback(
+class APieThingDiffCallback(
     private val oldList: List<ThingItemModel>,
     private val newList: List<ThingItemModel>
 ) : DiffUtil.Callback() {

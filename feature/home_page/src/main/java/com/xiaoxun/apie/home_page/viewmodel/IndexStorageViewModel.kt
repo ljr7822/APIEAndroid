@@ -27,6 +27,11 @@ class IndexStorageViewModel: APieBaseViewModel() {
     // 创建物品状态
     private var _createThingState = MutableLiveData<CreateThingState>()
     val createThingState get() = _createThingState
+
+    // 当前是什么入口添加图片
+    private var _currentAddImageSource = MutableLiveData<AddImageSource>()
+    val currentAddImageSource get() = _currentAddImageSource
+
     // ********************************************* 数据 *********************************************
     // 事物图标URL
     private val _thingIconUrl: MutableLiveData<String> = MutableLiveData()
@@ -48,9 +53,37 @@ class IndexStorageViewModel: APieBaseViewModel() {
     private var _selectTimeRange = MutableLiveData<HashMap<TimeRangeType, Pair<Long, String>>>()
     val selectTimeRange get() = _selectTimeRange
 
+    // 物品附件URL列表
+    private val _thingAppendixUrls: MutableLiveData<MutableList<String>> = MutableLiveData()
+    val thingAppendixUrls: MutableLiveData<MutableList<String>> get() = _thingAppendixUrls
+
+    // ********************************************* 初始化 *********************************************
+    init {
+        _currentAddImageSource.value = AddImageSource.THING_ICON
+    }
+
     // ********************************************* 方法 *********************************************
+    fun updateCurrentAddImageSource(source: AddImageSource) {
+        if (_currentAddImageSource.value == source) {
+            return
+        }
+        _currentAddImageSource.value = source
+    }
+
     fun updateThingIconUrl(url: String) {
         _thingIconUrl.value = url
+    }
+
+    fun addThingAppendixUrl(url: String) {
+        val currentList = _thingAppendixUrls.value ?: mutableListOf()
+        currentList.add(url)
+        _thingAppendixUrls.value = currentList
+    }
+
+    fun removeThingAppendixUrl(url: String) {
+        val currentList = _thingAppendixUrls.value ?: mutableListOf()
+        currentList.remove(url)
+        _thingAppendixUrls.value = currentList
     }
 
     fun updateSelectThingGroup(group: IBaseGroupModel) {
@@ -153,5 +186,13 @@ class IndexStorageViewModel: APieBaseViewModel() {
     fun getSelectStartTime(): Long? {
         val timeRangeMap = _selectTimeRange.value ?: hashMapOf()
         return timeRangeMap[TimeRangeType.START_TIME]?.first
+    }
+
+    fun isAddThingIcon(): Boolean {
+        return _currentAddImageSource.value == AddImageSource.THING_ICON
+    }
+
+    fun thingAppendixUrlSize(): Int {
+        return _thingAppendixUrls.value?.size ?: 0
     }
 }

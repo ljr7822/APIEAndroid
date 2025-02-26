@@ -11,8 +11,8 @@ import com.xiaoxun.apie.common.ui.APieLoadingDialog
 import com.xiaoxun.apie.common.utils.APieCurrencyUtils
 import com.xiaoxun.apie.common.utils.DateTimeUtils
 import com.xiaoxun.apie.common_model.home_page.storage.ThingItemModel
-import com.xiaoxun.apie.home_page.adapter.storage.StorageGroupAdapter
-import com.xiaoxun.apie.home_page.adapter.storage.StorageItemAdapter
+import com.xiaoxun.apie.home_page.adapter.thing.APieThingGroupAdapter
+import com.xiaoxun.apie.home_page.adapter.thing.APieThingItemAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexStorageFragmentBinding
 import com.xiaoxun.apie.home_page.repo.thing.IThingRepo
 import com.xiaoxun.apie.home_page.repo.thing.ThingGroupSource
@@ -43,8 +43,8 @@ class APieIndexStorageFragment : APieBaseBindingFragment<LayoutApieIndexStorageF
         ThingRepoImpl(storageViewModel)
     }
 
-    private val storageGroupAdapter by lazy { StorageGroupAdapter() }
-    private val storageItemAdapter by lazy { StorageItemAdapter() }
+    private val APieThingGroupAdapter by lazy { APieThingGroupAdapter() }
+    private val APieThingItemAdapter by lazy { APieThingItemAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -82,12 +82,12 @@ class APieIndexStorageFragment : APieBaseBindingFragment<LayoutApieIndexStorageF
         // 物品分组列表
         storageViewModel.thingGroupList.observe(viewLifecycleOwner) { newList ->
             // 更新数据
-            val oldList = storageGroupAdapter.getItems()
+            val oldList = APieThingGroupAdapter.getItems()
             if (oldList.isNotEmpty() && (newList.size > oldList.size)) {
                 // 滚动到前面
                 binding.filterRecyclerView.scrollToPosition(0)
             }
-            storageGroupAdapter.updateData(newList)
+            APieThingGroupAdapter.updateData(newList)
         }
 
         storageViewModel.currentThingList.observe(viewLifecycleOwner) { newList ->
@@ -98,12 +98,12 @@ class APieIndexStorageFragment : APieBaseBindingFragment<LayoutApieIndexStorageF
                 binding.storageRecyclerView.visibility = View.VISIBLE
                 binding.emptyView.visibility = View.GONE
                 // 更新数据
-                val oldList = storageItemAdapter.getItems()
+                val oldList = APieThingItemAdapter.getItems()
                 if (oldList.isNotEmpty() && (newList.size > oldList.size)) {
                     // 滚动到顶部
                     binding.storageRecyclerView.scrollToPosition(0)
                 }
-                storageItemAdapter.updateData(newList)
+                APieThingItemAdapter.updateData(newList)
             }
 
             // 更新卡片数据
@@ -127,12 +127,12 @@ class APieIndexStorageFragment : APieBaseBindingFragment<LayoutApieIndexStorageF
 
     private fun initRecycleView() {
         binding.filterRecyclerView.apply {
-            adapter = storageGroupAdapter
+            adapter = APieThingGroupAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
         binding.storageRecyclerView.apply {
-            adapter = storageItemAdapter
+            adapter = APieThingItemAdapter
             layoutManager = LinearLayoutManager(context)
         }
     }

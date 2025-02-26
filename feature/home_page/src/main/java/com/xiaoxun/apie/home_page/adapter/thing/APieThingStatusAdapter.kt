@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.home_page.adapter.storage
+package com.xiaoxun.apie.home_page.adapter.thing
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xiaoxun.apie.common_model.home_page.storage.StorageStatusModel
 import com.xiaoxun.apie.home_page.R
 
-class StorageStatusAdapter(
+class APieThingStatusAdapter(
     private val items: MutableList<StorageStatusModel> = mutableListOf(),
     val itemClick: (Int, StorageStatusModel) -> Unit = { _, _ -> } // 返回选中项的 position 和对应的数据项
-): RecyclerView.Adapter<StorageStatusAdapter.ViewHolder>() {
+): RecyclerView.Adapter<APieThingStatusAdapter.ViewHolder>() {
 
     private var selectedPosition: Int = -1 // 记录当前选中的位置
 

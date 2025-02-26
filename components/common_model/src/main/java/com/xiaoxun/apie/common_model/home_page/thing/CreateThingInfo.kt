@@ -16,5 +16,6 @@ data class CreateThingInfo(
     val thingStatus: Int,
     val thingDesc: String,
     val buyAt: Date,
-    val warrantyPeriod: Date
+    val warrantyPeriod: Date,
+    val thingAppendixList: MutableList<String>
 ): Parcelable

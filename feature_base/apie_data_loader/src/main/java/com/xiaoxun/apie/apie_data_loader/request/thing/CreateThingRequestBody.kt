@@ -19,7 +19,10 @@ import java.util.Date
  *     "thingStatus": 1,
  *     "thingDesc": "大力送给自己的S10",
  *     "buyAt": "2025-02-10T01:53:35.221Z",
- *     "warrantyPeriod": "2025-12-10T13:53:00.852Z"
+ *     "warrantyPeriod": "2025-12-10T13:53:00.852Z",
+ *     "thingAppendixList": [
+ *          "https://imqingliao.oss-cn-beijing.aliyuncs.com/avatar/202403/7f445054bc976a26ecaa7ea7be0d1726.jpg"
+ *     ]
  * }
  */
 @Parcelize
@@ -34,5 +37,6 @@ data class CreateThingRequestBody(
     val thingStatus: Int,
     val thingDesc: String,
     val buyAt: Date,
-    val warrantyPeriod: Date
+    val warrantyPeriod: Date,
+    val thingAppendixList: MutableList<String>
 ): Parcelable

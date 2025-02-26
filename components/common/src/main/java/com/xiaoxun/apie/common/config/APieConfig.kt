@@ -24,6 +24,8 @@ object APieConfig {
 
     const val PHONE_NUMBER_MAX_LENGTH = 11
 
+    const val THING_APPENDIX_MAX_COUNT = 5
+
     private var DEF_CURRENCY_TYPE = CurrencyType.RMB
 
     const val API_URL: String = "http://10.31.165.137:8090"

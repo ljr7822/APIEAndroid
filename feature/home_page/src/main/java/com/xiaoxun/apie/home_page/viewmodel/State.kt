@@ -63,6 +63,11 @@ enum class CreateThingState {
     FAILED
 }
 
+enum class AddImageSource {
+    THING_ICON, // 事物图标
+    THING_APPENDIX // 事物附录
+}
+
 /**
  * 1、单次计划，即只有一次的计划(次数(planFrequency)=1)
  * 2、每日计划，即每天都要完成的计划(次数(planFrequency)可自定义)
