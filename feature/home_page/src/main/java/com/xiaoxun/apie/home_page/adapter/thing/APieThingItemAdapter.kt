@@ -10,15 +10,26 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.xiaoxun.apie.common.ui.easy_glide.APieEasyImage.loadRoundCornerImage
 import com.xiaoxun.apie.common.utils.APieCurrencyUtils
+import com.xiaoxun.apie.common.utils.hide
+import com.xiaoxun.apie.common.utils.setDebouncingClickListener
+import com.xiaoxun.apie.common.utils.show
+import com.xiaoxun.apie.common_model.home_page.desire.DesireModel
 import com.xiaoxun.apie.common_model.home_page.storage.ThingItemModel
 import com.xiaoxun.apie.home_page.R
+import com.xiaoxun.apie.home_page.adapter.desire.APieDesireAdapter.ItemClickListener
 
 class APieThingItemAdapter(
-    private val items: MutableList<ThingItemModel> = mutableListOf(),
-    val itemClick: (Int, ThingItemModel) -> Unit = { _, _ -> } // 返回选中项的 position 和对应的数据项
+    private val items: MutableList<ThingItemModel> = mutableListOf()
 ) : RecyclerView.Adapter<APieThingItemAdapter.ViewHolder>() {
 
+    private var itemClickListener: ItemClickListener? = null
+    private var currentlySelectedPosition: Int? = null // 当前显示 menuLayer 的位置
+
     fun getItems(): List<ThingItemModel> = items
+
+    fun setItemClickListener(listener: ItemClickListener?) {
+        itemClickListener = listener
+    }
 
     fun resectData(newList: List<ThingItemModel>) {
         items.clear()
@@ -51,6 +62,9 @@ class APieThingItemAdapter(
         val useStatusTv: TextView = view.findViewById(R.id.useStatusTv)
         val useDays: TextView = view.findViewById(R.id.useDays)
         val useDaysTitle: TextView = view.findViewById(R.id.useDaysTitle)
+        val thingMenuLayer: View = view.findViewById(R.id.thingMenuLayer)
+        val editIcon: View = view.findViewById(R.id.editIcon)
+        val deleteIcon: View = view.findViewById(R.id.deleteIcon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -73,8 +87,68 @@ class APieThingItemAdapter(
         holder.warrantyStatusTv.text = item.checkWarrantyStatus()
         holder.useStatusTv.text = item.getThingStatusDesc()
         holder.useDays.text = item.daysSince().toString()
-        holder.itemView.setOnClickListener {
-            itemClick(position, item)
+        // 控制 desireMenuLayer 的可见性
+        if (position == currentlySelectedPosition) {
+            holder.thingMenuLayer.show()
+        } else {
+            holder.thingMenuLayer.hide()
         }
+        bindItemClick(holder, position, item)
+    }
+
+    private fun bindItemClick(holder: ViewHolder, position: Int, item: ThingItemModel) {
+        holder.itemView.setDebouncingClickListener {
+            hideDesireMenuLayer()
+        }
+
+        // 蒙层长按
+        holder.thingMenuLayer.setOnLongClickListener {
+            val realPosition = holder.adapterPosition
+            showDesireMenuLayer(realPosition)
+            itemClickListener?.onItemLongClick(realPosition, item)
+            true
+        }
+
+        // item长按
+        holder.itemView.setOnLongClickListener {
+            val realPosition = holder.adapterPosition
+            showDesireMenuLayer(realPosition)
+            itemClickListener?.onItemLongClick(realPosition, item)
+            true
+        }
+
+        holder.editIcon.setDebouncingClickListener {
+            itemClickListener?.onItemEditClick(position, item)
+        }
+
+        holder.deleteIcon.setDebouncingClickListener {
+            itemClickListener?.onItemDeleteClick(position, item)
+        }
+    }
+
+    private fun showDesireMenuLayer(position: Int) {
+        if (currentlySelectedPosition == position) return // 如果已经是当前项，直接返回
+
+        // 记录上一个位置，并更新当前选中位置
+        val previousPosition = currentlySelectedPosition
+        currentlySelectedPosition = position
+
+        // 刷新当前和之前的位置
+        notifyItemChanged(previousPosition ?: -1)
+        notifyItemChanged(position)
+    }
+
+    fun hideDesireMenuLayer() {
+        currentlySelectedPosition?.let {
+            notifyItemChanged(it)
+            currentlySelectedPosition = null
+        }
+    }
+
+    interface ItemClickListener {
+        fun onItemClick(position: Int, thingItemModel: ThingItemModel)
+        fun onItemLongClick(position: Int, thingItemModel: ThingItemModel) {}
+        fun onItemEditClick(position: Int, thingItemModel: ThingItemModel)
+        fun onItemDeleteClick(position: Int, thingItemModel: ThingItemModel)
     }
 }

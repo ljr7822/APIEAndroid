@@ -25,6 +25,7 @@ class APieDesireAdapter : RecyclerView.Adapter<APieDesireAdapter.ViewHolder>() {
     fun getItems(): List<DesireModel> {
         return items
     }
+
     fun setItemClickListener(listener: ItemClickListener?) {
         itemClickListener = listener
     }

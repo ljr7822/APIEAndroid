@@ -293,6 +293,42 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/thingMenuLayer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/apie_color_97B4FF_alpha_90"
+            app:cardCornerRadius="@dimen/apie_theme_dimension_8"
+            app:cardElevation="0dp"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/editIcon"
+                    android:layout_width="@dimen/apie_theme_dimension_30"
+                    android:layout_height="@dimen/apie_theme_dimension_30"
+                    android:background="@drawable/apie_plan_item_menu_edit_icon" />
+
+                <ImageView
+                    android:id="@+id/deleteIcon"
+                    android:layout_width="@dimen/apie_theme_dimension_30"
+                    android:layout_height="@dimen/apie_theme_dimension_30"
+                    android:layout_marginStart="@dimen/apie_theme_dimension_25"
+                    android:background="@drawable/apie_plan_item_menu_delete_icon" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

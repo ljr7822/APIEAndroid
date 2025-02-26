@@ -140,6 +140,9 @@ class APieIndexActivity :
         observe(desireViewModel.listScrolling) {
             startFloatBtnAnim(it)
         }
+        observe(storageViewModel.listScrolling) {
+            startFloatBtnAnim(it)
+        }
     }
 
     private fun startFloatBtnAnim(isScrolling: Boolean) {

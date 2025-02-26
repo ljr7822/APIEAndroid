@@ -32,6 +32,10 @@ class IndexStorageViewModel: APieBaseViewModel() {
     private var _currentAddImageSource = MutableLiveData<AddImageSource>()
     val currentAddImageSource get() = _currentAddImageSource
 
+    // 列表滚动状态
+    private var _listScrolling = MutableLiveData<Boolean>()
+    val listScrolling get() = _listScrolling
+
     // ********************************************* 数据 *********************************************
     // 事物图标URL
     private val _thingIconUrl: MutableLiveData<String> = MutableLiveData()
@@ -63,6 +67,11 @@ class IndexStorageViewModel: APieBaseViewModel() {
     }
 
     // ********************************************* 方法 *********************************************
+    fun updateListScrolling(isScrolling: Boolean) {
+        if (_listScrolling.value == isScrolling) return
+        _listScrolling.value = isScrolling
+    }
+
     fun updateCurrentAddImageSource(source: AddImageSource) {
         if (_currentAddImageSource.value == source) {
             return
