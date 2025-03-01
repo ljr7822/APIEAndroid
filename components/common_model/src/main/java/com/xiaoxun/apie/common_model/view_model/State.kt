@@ -1,4 +1,4 @@
-package com.xiaoxun.apie.home_page.viewmodel
+package com.xiaoxun.apie.common_model.view_model
 
 enum class LoadPlanListState {
     START,

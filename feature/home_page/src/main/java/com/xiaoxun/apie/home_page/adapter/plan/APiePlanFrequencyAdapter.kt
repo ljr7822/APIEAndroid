@@ -1,7 +1,6 @@
 package com.xiaoxun.apie.home_page.adapter.plan
 
 import android.annotation.SuppressLint
-import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.show
 import com.xiaoxun.apie.home_page.R
-import com.xiaoxun.apie.home_page.viewmodel.PlanListType
+import com.xiaoxun.apie.common_model.view_model.PlanListType
 
 class APiePlanFrequencyAdapter(
     private val items: MutableList<PlanListType> = mutableListOf(),

@@ -11,7 +11,7 @@ import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.toast.APieToast
 import com.xiaoxun.apie.home_page.databinding.LayoutApieEditProfileSettingFragmentBinding
 import com.xiaoxun.apie.home_page.repo.mine.MineRepo
-import com.xiaoxun.apie.home_page.viewmodel.CommonLoadingState
+import com.xiaoxun.apie.common_model.view_model.CommonLoadingState
 import com.xiaoxun.apie.home_page.viewmodel.IndexMineViewModel
 import kotlinx.coroutines.launch
 

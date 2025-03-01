@@ -18,6 +18,7 @@ import com.xiaoxun.apie.account.viewmodel.SendSmsCodeStatus
 import com.xiaoxun.apie.common.ACCOUNT_LOGIN_ACTIVITY_PATH
 import com.xiaoxun.apie.common.HOME_INDEX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
+import com.xiaoxun.apie.common.ui.APieLoadingDialog
 import com.xiaoxun.apie.common.ui.formatAsPhoneNumber
 import com.xiaoxun.apie.common.ui.setEditTextMaxInput
 import com.xiaoxun.apie.common.utils.KeyBoardUtils
@@ -28,6 +29,7 @@ import com.xiaoxun.apie.common.utils.hide
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.show
 import com.xiaoxun.apie.common.utils.toast.APieToast
+import com.xiaoxun.apie.common_model.view_model.CommonLoadingState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -40,6 +42,8 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
     companion object {
         private const val COUNTDOWN_TOTAL_MILLIS = 120 * 1000L
     }
+
+    private val loadingDialog: APieLoadingDialog by lazy { APieLoadingDialog(this) }
 
     private val viewModel: AccountViewModel by lazy { AccountViewModel() }
 
@@ -162,6 +166,21 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
                 }
                 SendSmsCodeStatus.SendFailed -> {
                     APieToast.showDialog("验证码发送失败")
+                }
+                else -> {}
+            }
+        }
+
+        observe(viewModel.commonLoginStatus) {
+            when(it) {
+                CommonLoadingState.START -> {
+                    loadingDialog.show()
+                }
+                CommonLoadingState.SUCCESS -> {
+                    loadingDialog.dismiss()
+                }
+                CommonLoadingState.FAILED -> {
+                    loadingDialog.dismiss()
                 }
                 else -> {}
             }

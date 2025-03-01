@@ -19,7 +19,7 @@ import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexStorageFragmentBind
 import com.xiaoxun.apie.home_page.repo.thing.IThingRepo
 import com.xiaoxun.apie.home_page.repo.thing.ThingGroupSource
 import com.xiaoxun.apie.home_page.repo.thing.ThingRepoImpl
-import com.xiaoxun.apie.home_page.viewmodel.CommonLoadingState
+import com.xiaoxun.apie.common_model.view_model.CommonLoadingState
 import com.xiaoxun.apie.home_page.viewmodel.GenericViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.IndexStorageViewModel
 import kotlinx.coroutines.Dispatchers

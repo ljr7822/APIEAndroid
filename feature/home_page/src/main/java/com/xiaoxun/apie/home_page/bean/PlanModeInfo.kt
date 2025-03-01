@@ -1,7 +1,7 @@
 package com.xiaoxun.apie.home_page.bean
 
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
-import com.xiaoxun.apie.home_page.viewmodel.PlanListType
+import com.xiaoxun.apie.common_model.view_model.PlanListType
 
 data class PlanModeInfo(
     val planId: String = "",

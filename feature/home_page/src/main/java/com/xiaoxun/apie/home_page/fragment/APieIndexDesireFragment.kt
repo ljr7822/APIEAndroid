@@ -22,10 +22,9 @@ import com.xiaoxun.apie.home_page.adapter.desire.APieDesireAdapter
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexDesireFragmentBinding
 import com.xiaoxun.apie.home_page.repo.desire.IIndexDesireRepo
 import com.xiaoxun.apie.home_page.repo.desire.IndexDesireRepoImpl
-import com.xiaoxun.apie.home_page.viewmodel.CommonLoadingState
+import com.xiaoxun.apie.common_model.view_model.CommonLoadingState
 import com.xiaoxun.apie.home_page.viewmodel.GenericViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.IndexDesireViewModel
-import com.xiaoxun.apie.home_page.viewmodel.LoadDesireListState
 import com.xiaoxun.apie.home_page.widget.APieLeftDrawerPopupView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

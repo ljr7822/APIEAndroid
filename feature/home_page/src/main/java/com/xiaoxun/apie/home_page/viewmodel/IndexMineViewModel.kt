@@ -3,6 +3,7 @@ package com.xiaoxun.apie.home_page.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.xiaoxun.apie.common.base.viewmodel.APieBaseViewModel
 import com.xiaoxun.apie.common_model.account.AccountModel
+import com.xiaoxun.apie.common_model.view_model.CommonLoadingState
 
 class IndexMineViewModel: APieBaseViewModel()  {
 

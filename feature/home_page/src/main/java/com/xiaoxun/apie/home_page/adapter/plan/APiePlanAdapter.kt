@@ -17,7 +17,7 @@ import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.common.utils.show
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
 import com.xiaoxun.apie.home_page.R
-import com.xiaoxun.apie.home_page.viewmodel.PlanListType
+import com.xiaoxun.apie.common_model.view_model.PlanListType
 
 class APiePlanAdapter : RecyclerView.Adapter<APiePlanAdapter.ViewHolder>() {
     private val items: MutableList<PlanModel> = mutableListOf()

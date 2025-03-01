@@ -22,11 +22,11 @@ import com.xiaoxun.apie.home_page.databinding.LayoutApieGroupManagerSettingFragm
 import com.xiaoxun.apie.home_page.dialog.APieCreateGroupDialog
 import com.xiaoxun.apie.home_page.repo.home.IIndexHomeRepo
 import com.xiaoxun.apie.home_page.repo.home.IndexHomeRepoImpl
-import com.xiaoxun.apie.home_page.viewmodel.CreatePlanGroupState
-import com.xiaoxun.apie.home_page.viewmodel.DeletePlanGroupState
+import com.xiaoxun.apie.common_model.view_model.CreatePlanGroupState
+import com.xiaoxun.apie.common_model.view_model.DeletePlanGroupState
 import com.xiaoxun.apie.home_page.viewmodel.GenericViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
-import com.xiaoxun.apie.home_page.viewmodel.LoadGroupListState
+import com.xiaoxun.apie.common_model.view_model.LoadGroupListState
 import kotlinx.coroutines.launch
 
 class APieGroupManagerFragment :

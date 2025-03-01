@@ -29,11 +29,11 @@ import com.xiaoxun.apie.home_page.repo.home.IIndexHomeRepo
 import com.xiaoxun.apie.home_page.repo.home.IndexHomeRepoImpl
 import com.xiaoxun.apie.home_page.utils.APieHomeSoundUtils
 import com.xiaoxun.apie.home_page.utils.SceneType
-import com.xiaoxun.apie.home_page.viewmodel.CompletedCountOptType
+import com.xiaoxun.apie.common_model.view_model.CompletedCountOptType
 import com.xiaoxun.apie.home_page.viewmodel.GenericViewModelFactory
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
-import com.xiaoxun.apie.home_page.viewmodel.LoadPlanListState
-import com.xiaoxun.apie.home_page.viewmodel.PlanListType
+import com.xiaoxun.apie.common_model.view_model.LoadPlanListState
+import com.xiaoxun.apie.common_model.view_model.PlanListType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

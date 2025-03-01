@@ -12,9 +12,9 @@ import com.xiaoxun.apie.common.R
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
 import com.xiaoxun.apie.common.utils.setDebouncingClickListener
 import com.xiaoxun.apie.home_page.viewmodel.GenericViewModelFactory
-import com.xiaoxun.apie.home_page.viewmodel.PlanStatus
+import com.xiaoxun.apie.common_model.view_model.PlanStatus
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
-import com.xiaoxun.apie.home_page.viewmodel.PlanListType
+import com.xiaoxun.apie.common_model.view_model.PlanListType
 
 class APieFilterPartShadowPopupView @JvmOverloads constructor(
     context: Context,

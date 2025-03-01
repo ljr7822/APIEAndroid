@@ -2,8 +2,12 @@ package com.xiaoxun.apie.account.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.xiaoxun.apie.common.base.viewmodel.APieBaseViewModel
+import com.xiaoxun.apie.common_model.view_model.CommonLoadingState
 
 class AccountViewModel: APieBaseViewModel() {
+
+    private var _commonLoginStatus = MutableLiveData<CommonLoadingState>()
+    val commonLoginStatus get() = _commonLoginStatus
 
     private var _currentLoginWayType = MutableLiveData<LoginWayType>()
     val currentLoginWayType: MutableLiveData<LoginWayType> get() = _currentLoginWayType
@@ -42,10 +46,12 @@ class AccountViewModel: APieBaseViewModel() {
 
     fun sendSmsCodeSuccess() {
         _sendSmsCodeStatus.value = SendSmsCodeStatus.SendSuccess
+        getSmsCodeSuccess()
     }
 
     fun sendSmsCodeFailed() {
         _sendSmsCodeStatus.value = SendSmsCodeStatus.SendFailed
+        getSmsCodeFailed()
     }
 
     fun markLoginLoading() {
@@ -63,6 +69,18 @@ class AccountViewModel: APieBaseViewModel() {
     fun updateInputDoneStatus(isDone: Boolean) {
         if (_inputDoneStatus.value == isDone) return
         _inputDoneStatus.value = isDone
+    }
+
+    fun getSmsCodeStart() {
+        _commonLoginStatus.value = CommonLoadingState.START
+    }
+
+    private fun getSmsCodeSuccess() {
+        _commonLoginStatus.value = CommonLoadingState.SUCCESS
+    }
+
+    private fun getSmsCodeFailed() {
+        _commonLoginStatus.value = CommonLoadingState.FAILED
     }
 }
 

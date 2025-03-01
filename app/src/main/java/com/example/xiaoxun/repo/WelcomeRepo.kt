@@ -31,7 +31,7 @@ class WelcomeRepo(
 ) : IWelcomeRepo, ExecuteResultDelegate {
 
     companion object {
-        private const val TAG = "ljrxxx"
+        private const val TAG = "WelcomeRepo"
     }
 
     private val scope = lifecycleOwner.lifecycleScope

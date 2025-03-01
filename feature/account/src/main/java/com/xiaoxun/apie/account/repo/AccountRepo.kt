@@ -96,6 +96,7 @@ class AccountRepo(
     }
 
     override suspend fun getSmsCode(phoneNum: String, userId: String) {
+        viewModel.getSmsCodeStart()
         val result = innerSmsCode(phoneNum, userId)
         result.fold(
             onSuccess = {

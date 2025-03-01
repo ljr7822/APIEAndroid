@@ -4,6 +4,15 @@ import androidx.lifecycle.MutableLiveData
 import com.xiaoxun.apie.common.base.viewmodel.APieBaseViewModel
 import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
 import com.xiaoxun.apie.common_model.home_page.plan.PlanModel
+import com.xiaoxun.apie.common_model.view_model.CompletedCountOptType
+import com.xiaoxun.apie.common_model.view_model.CreatePlanGroupState
+import com.xiaoxun.apie.common_model.view_model.CreatePlanState
+import com.xiaoxun.apie.common_model.view_model.DeletePlanGroupState
+import com.xiaoxun.apie.common_model.view_model.LoadGroupListState
+import com.xiaoxun.apie.common_model.view_model.LoadPlanListState
+import com.xiaoxun.apie.common_model.view_model.PlanListType
+import com.xiaoxun.apie.common_model.view_model.PlanStatus
+import com.xiaoxun.apie.common_model.view_model.TimeRangeType
 
 class IndexHomeViewModel : APieBaseViewModel() {
 

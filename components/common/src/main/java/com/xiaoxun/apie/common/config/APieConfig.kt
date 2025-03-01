@@ -28,7 +28,7 @@ object APieConfig {
 
     private var DEF_CURRENCY_TYPE = CurrencyType.RMB
 
-    const val API_URL: String = "http://10.31.165.137:8090"
+    const val API_URL: String = "http://192.168.0.67:8090"
 
     /**
      * tab的名称

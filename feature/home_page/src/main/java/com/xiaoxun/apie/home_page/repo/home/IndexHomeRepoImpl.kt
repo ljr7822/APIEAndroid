@@ -23,10 +23,10 @@ import com.xiaoxun.apie.data_loader.data.BaseResponse
 import com.xiaoxun.apie.data_loader.utils.CacheStrategy
 import com.xiaoxun.apie.gold_manage.service.GoldService
 import com.xiaoxun.apie.common.repo.ExecuteResultDelegate
-import com.xiaoxun.apie.home_page.viewmodel.CompletedCountOptType
+import com.xiaoxun.apie.common_model.view_model.CompletedCountOptType
 import com.xiaoxun.apie.home_page.viewmodel.IndexHomeViewModel
-import com.xiaoxun.apie.home_page.viewmodel.PlanListType
-import com.xiaoxun.apie.home_page.viewmodel.PlanStatus
+import com.xiaoxun.apie.common_model.view_model.PlanListType
+import com.xiaoxun.apie.common_model.view_model.PlanStatus
 import io.reactivex.disposables.CompositeDisposable
 
 class IndexHomeRepoImpl(

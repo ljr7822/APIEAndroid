@@ -2,9 +2,9 @@ package com.xiaoxun.apie.home_page.repo.home
 
 import com.xiaoxun.apie.apie_data_loader.request.plan.CreatePlanRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.group.UpdateGroupRequestBody
-import com.xiaoxun.apie.home_page.viewmodel.CompletedCountOptType
-import com.xiaoxun.apie.home_page.viewmodel.PlanListType
-import com.xiaoxun.apie.home_page.viewmodel.PlanStatus
+import com.xiaoxun.apie.common_model.view_model.CompletedCountOptType
+import com.xiaoxun.apie.common_model.view_model.PlanListType
+import com.xiaoxun.apie.common_model.view_model.PlanStatus
 
 interface IIndexHomeRepo {
 

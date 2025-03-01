@@ -4,7 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import com.xiaoxun.apie.common.base.viewmodel.APieBaseViewModel
 import com.xiaoxun.apie.common_model.home_page.desire.DesireModel
 import com.xiaoxun.apie.common_model.home_page.desire.group.DesireGroupModel
-import com.xiaoxun.apie.common_model.home_page.group.PlanGroupModel
+import com.xiaoxun.apie.common_model.view_model.CommonLoadingState
+import com.xiaoxun.apie.common_model.view_model.CreateDesireState
+import com.xiaoxun.apie.common_model.view_model.LoadDesireListState
+import com.xiaoxun.apie.common_model.view_model.LoadGroupListState
+import com.xiaoxun.apie.common_model.view_model.TimeRangeType
 
 class IndexDesireViewModel : APieBaseViewModel() {
 
