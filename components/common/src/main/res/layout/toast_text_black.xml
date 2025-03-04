@@ -38,7 +38,7 @@
             android:gravity="left"
             android:maxLines="2"
             android:textColor="@color/apie_color_white"
-            android:textSize="@dimen/apie_theme_text_13"
+            android:textSize="@dimen/apie_theme_text_14"
             tools:text="真的太好哭了吧这一集" />
 
     </LinearLayout>

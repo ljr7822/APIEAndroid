@@ -82,6 +82,10 @@ class AccountViewModel: APieBaseViewModel() {
     private fun getSmsCodeFailed() {
         _commonLoginStatus.value = CommonLoadingState.FAILED
     }
+
+    fun isSmsLoginWayType(): Boolean {
+        return _currentLoginWayType.value == LoginWayType.SMS_CODE
+    }
 }
 
 data class TipMsg(val message: String = "")

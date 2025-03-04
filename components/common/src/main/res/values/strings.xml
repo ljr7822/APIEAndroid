@@ -25,10 +25,13 @@
     <string name="apie_loading_msg">加载中...</string>
 
     <string name="apie_login_main_title">登录后，体验完整功能</string>
-    <string name="apie_login_sub_title">未注册手机号通过验证将自动注册</string>
+    <string name="apie_login_sms_sub_title">未注册手机号通过验证将自动注册</string>
+    <string name="apie_login_password_sub_title">密码登录仅限于已注册用户</string>
     <string name="apie_login_switch_password_tip">密码登录</string>
     <string name="apie_login_switch_sms_code_tip">验证码登录</string>
     <string name="apie_login_forget_password_tip">忘记密码？</string>
+    <string name="apie_login_cannot_accept_sms_tip">收不到验证码</string>
+    <string name="apie_login_cannot_accept_sms_tip_msg">\t\t短信可能会延迟，若等待一段时间后仍然无法收到短信验证码，你可以通过以下方式检查：\n\t1.检查您的手机是否停机/无网络；\n\t2.检查您的手机号是否输入正确，是否为空号；\n\t3.检查您的验证码短信是否被屏蔽；</string>
     <string name="apie_plan_item_schedule_tip">进度:</string>
 
     <string name="apie_top_filter_resect_btn_text">重置</string>

@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.InputType
 import android.text.method.PasswordTransformationMethod
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.xiaoxun.apie.account.R
 import com.xiaoxun.apie.account.databinding.LayoutApieLoginActivityBinding
+import com.xiaoxun.apie.account.dialog.APieLoginTipDialog
 import com.xiaoxun.apie.account.repo.AccountRepo
 import com.xiaoxun.apie.account.repo.IAccountRepo
 import com.xiaoxun.apie.account.viewmodel.AccountViewModel
@@ -18,6 +20,8 @@ import com.xiaoxun.apie.account.viewmodel.SendSmsCodeStatus
 import com.xiaoxun.apie.common.ACCOUNT_LOGIN_ACTIVITY_PATH
 import com.xiaoxun.apie.common.HOME_INDEX_ACTIVITY_PATH
 import com.xiaoxun.apie.common.base.activity.APieBaseBindingActivity
+import com.xiaoxun.apie.common.config.APieConfig
+import com.xiaoxun.apie.common.manager.account.AccountManager
 import com.xiaoxun.apie.common.ui.APieLoadingDialog
 import com.xiaoxun.apie.common.ui.formatAsPhoneNumber
 import com.xiaoxun.apie.common.ui.setEditTextMaxInput
@@ -100,15 +104,23 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
                 loginBySmsCode(phoneNum, passwordOrCode)
             }
         }
+
+        // 点击忘记密码或点击收不到短信
+        binding.forgetTip.setDebouncingClickListener {
+            if (viewModel.isSmsLoginWayType()) {
+                val dialog = APieLoginTipDialog(this)
+                dialog.show()
+            }
+            if (viewModel.isSmsLoginWayType().not()) {
+                APieToast.showDialog("忘记密码仅能通过验证码登录")
+                viewModel.switchLoginWay()
+            }
+        }
     }
 
     private fun initSwitchWayText() {
-        binding.switchWayText.text =
-            if (viewModel.currentLoginWayType.value == LoginWayType.SMS_CODE) {
-                getString(com.xiaoxun.apie.common.R.string.apie_login_switch_password_tip)
-            } else {
-                getString(com.xiaoxun.apie.common.R.string.apie_login_switch_sms_code_tip)
-            }
+        changeLoginWayTip()
+        changeSubTip()
 
         observe(viewModel.inputDoneStatus) {
             if (it) {
@@ -124,12 +136,8 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
             if (it == null) {
                 return@observe
             }
-
-            binding.switchWayText.text = if (it == LoginWayType.SMS_CODE) {
-                getString(com.xiaoxun.apie.common.R.string.apie_login_switch_password_tip)
-            } else {
-                getString(com.xiaoxun.apie.common.R.string.apie_login_switch_sms_code_tip)
-            }
+            changeLoginWayTip()
+            changeSubTip()
             switchLoginWay(it)
         }
 
@@ -144,7 +152,7 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
                     binding.submitTip.show()
                     binding.submitLoading.hide()
                     ARouter.getInstance().build(HOME_INDEX_ACTIVITY_PATH).navigation();
-                    // 登录成功后初始化下载token
+                    // 登录成功后初始化下token
                     lifecycleScope.launch {
                         repo.getSTSToken()
                     }
@@ -187,6 +195,29 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
         }
     }
 
+    private fun changeLoginWayTip() {
+        binding.switchWayText.text =
+            if (viewModel.isSmsLoginWayType()) {
+                getString(com.xiaoxun.apie.common.R.string.apie_login_switch_password_tip)
+            } else {
+                getString(com.xiaoxun.apie.common.R.string.apie_login_switch_sms_code_tip)
+            }
+        binding.forgetTip.text =
+            if (viewModel.isSmsLoginWayType()) {
+                getString(com.xiaoxun.apie.common.R.string.apie_login_cannot_accept_sms_tip)
+            } else {
+                getString(com.xiaoxun.apie.common.R.string.apie_login_forget_password_tip)
+            }
+    }
+
+    private fun changeSubTip() {
+        binding.loginSubTitle.text = if (viewModel.isSmsLoginWayType()) {
+            getString(com.xiaoxun.apie.common.R.string.apie_login_sms_sub_title)
+        } else {
+            getString(com.xiaoxun.apie.common.R.string.apie_login_password_sub_title)
+        }
+    }
+
     private fun startCountdown() {
         object : CountDownTimer(COUNTDOWN_TOTAL_MILLIS, 1000L) {
             override fun onTick(millisUntilFinished: Long) {
@@ -211,15 +242,15 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
                 getString(com.xiaoxun.apie.common.R.string.login_input_password_hint)
             binding.passwordOrCodeEdit.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
             binding.passwordOrCodeEdit.transformationMethod = PasswordTransformationMethod.getInstance()
-            binding.passwordOrCodeEdit.setEditTextMaxInput(6)
-            binding.loginGetSmsCode.alphaHide(200)
+            binding.passwordOrCodeEdit.setEditTextMaxInput(APieConfig.DEFAULT_PASSWORD_SIZE)
+            binding.loginGetSmsCode.alphaHide(150)
         } else {
             binding.passwordOrCodeIcon.setImageResource(R.drawable.apie_login_code_icon)
             binding.passwordOrCodeEdit.hint =
                 getString(com.xiaoxun.apie.common.R.string.login_input_sms_code_hint)
             binding.passwordOrCodeEdit.inputType = InputType.TYPE_CLASS_NUMBER
-            binding.passwordOrCodeEdit.setEditTextMaxInput(4)
-            binding.loginGetSmsCode.alphaShow(200)
+            binding.passwordOrCodeEdit.setEditTextMaxInput(APieConfig.DEFAULT_SMS_CODE_SIZE)
+            binding.loginGetSmsCode.alphaShow(150)
         }
     }
 
@@ -244,9 +275,9 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
     /**
      * 发送验证码
      */
-    private fun sendSmsCode(phoneNum: String, userId: String = "99678322425856") {
+    private fun sendSmsCode(phoneNum: String) {
         lifecycleScope.launch(Dispatchers.Main) {
-            repo.getSmsCode(phoneNum, userId)
+            repo.getSmsCode(phoneNum, AccountManager.getUserId())
         }
     }
 

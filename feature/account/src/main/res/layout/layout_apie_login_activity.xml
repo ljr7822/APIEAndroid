@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/apie_theme_dimension_10"
-        android:text="@string/apie_login_sub_title"
+        android:text="@string/apie_login_sms_sub_title"
         android:textColor="@color/apieTheme_colorGrayLevel1_alpha_80"
         android:textSize="@dimen/apie_theme_text_13"
         android:textStyle="normal"
@@ -218,7 +218,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/forgetPassword"
+            android:id="@+id/forgetTip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/apie_login_forget_password_tip"
