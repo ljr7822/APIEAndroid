@@ -10,7 +10,7 @@ interface IAccountRepo {
 
     suspend fun startLoginBySmsCode(phoneNum: String, smsCode: String)
 
-    suspend fun getSmsCode(phoneNum: String, userId: String)
+    suspend fun getSmsCode(phoneNum: String)
 
     /** 获取阿里云sts token */
     suspend fun getSTSToken()

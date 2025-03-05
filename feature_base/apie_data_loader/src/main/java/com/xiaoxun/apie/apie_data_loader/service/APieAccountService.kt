@@ -26,7 +26,7 @@ interface APieAccountService {
     fun loginBySmsCode(@Body loginBySmsCodeRequestBody: LoginBySmsCodeRequestBody): Observable<BaseResponse<AccountModel>>
 
     @GET(ACCOUNT_SEND_SMS_CODE_URL)
-    fun sendSmsCode(@Path("phoneNum") phoneNum: String, @Path("userId") userId: String): Observable<BaseResponse<SmsCodeModel>>
+    fun sendSmsCode(@Path("phoneNum") phoneNum: String): Observable<BaseResponse<SmsCodeModel>>
 
     @GET(ACCOUNT_GET_STS_TOKEN_URL)
     fun getSTSToken(): Observable<BaseResponse<STSTokenModel>>

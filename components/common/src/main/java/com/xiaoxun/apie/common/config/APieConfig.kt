@@ -32,7 +32,7 @@ object APieConfig {
 
     const val DEFAULT_PASSWORD_SIZE = 6
 
-    const val API_URL: String = "http://192.168.0.67:8090"
+    const val API_URL: String = "http://10.31.165.137:8090"
 
     /**
      * tab的名称

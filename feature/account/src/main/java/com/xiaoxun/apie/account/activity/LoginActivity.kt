@@ -236,6 +236,7 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
     }
 
     private fun switchLoginWay(loginWayType: LoginWayType) {
+        binding.passwordOrCodeEdit.setText("")
         if (loginWayType == LoginWayType.PASSWORD) {
             binding.passwordOrCodeIcon.setImageResource(R.drawable.apie_login_password_icon)
             binding.passwordOrCodeEdit.hint =
@@ -277,7 +278,7 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
      */
     private fun sendSmsCode(phoneNum: String) {
         lifecycleScope.launch(Dispatchers.Main) {
-            repo.getSmsCode(phoneNum, AccountManager.getUserId())
+            repo.getSmsCode(phoneNum)
         }
     }
 

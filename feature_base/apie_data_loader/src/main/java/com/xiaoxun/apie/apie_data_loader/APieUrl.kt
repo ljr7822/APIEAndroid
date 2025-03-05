@@ -33,7 +33,7 @@ enum class APieUrl(val url: String) {
 
 internal const val ACCOUNT_LOGIN_PASSWORD_URL = "/user/loginByPassword"
 internal const val ACCOUNT_LOGIN_SMS_CODE_URL = "/user/loginBySmsCode"
-internal const val ACCOUNT_SEND_SMS_CODE_URL = "/sms/sendSMSCode/{phoneNum}/{userId}"
+internal const val ACCOUNT_SEND_SMS_CODE_URL = "/sms/sendSMSCode/{phoneNum}/"
 internal const val ACCOUNT_GET_STS_TOKEN_URL = "/permissions/getStsToken"
 internal const val ACCOUNT_GET_USER_INFO_URL = "/user/queryUser/{userId}"
 

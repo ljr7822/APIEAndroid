@@ -11,22 +11,20 @@ import io.reactivex.Observable
  * 发送验证码请求
  */
 class SendSmsCodeParams(
-    private val phoneNum: String,
-    private val userId: String
+    private val phoneNum: String
 ) : APieRequestParams<SmsCodeModel>() {
     override fun apiService(version: String): Observable<BaseResponse<SmsCodeModel>>? {
         return APieApiManager.getAccountAPIService().sendSmsCode(
-            phoneNum = phoneNum,
-            userId = userId
+            phoneNum = phoneNum
         )
     }
 
     override fun dataType(): String {
-        return "${APieUrl.ACCOUNT_SEND_SMS_CODE.name}_${phoneNum}_${userId}"
+        return "${APieUrl.ACCOUNT_SEND_SMS_CODE.name}_${phoneNum}"
     }
 
     override fun getVersion(data: SmsCodeModel): String {
-        return "${APieUrl.ACCOUNT_SEND_SMS_CODE.name}_${phoneNum}_${userId}"
+        return "${APieUrl.ACCOUNT_SEND_SMS_CODE.name}_${phoneNum}"
     }
 
     override fun url(): String {

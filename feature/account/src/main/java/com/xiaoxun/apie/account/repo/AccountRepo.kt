@@ -95,9 +95,9 @@ class AccountRepo(
         )
     }
 
-    override suspend fun getSmsCode(phoneNum: String, userId: String) {
+    override suspend fun getSmsCode(phoneNum: String) {
         viewModel.getSmsCodeStart()
-        val result = innerSmsCode(phoneNum, userId)
+        val result = innerSmsCode(phoneNum)
         result.fold(
             onSuccess = {
                 val response = it
@@ -202,12 +202,11 @@ class AccountRepo(
     }
 
     private suspend fun innerSmsCode(
-        phoneNum: String,
-        userId: String
+        phoneNum: String
     ): Result<BaseResponse<SmsCodeModel>> {
         return executeResult {
             DataLoaderManager.instance.sendSmsCode(
-                SendSmsCodeParams(phoneNum, userId),
+                SendSmsCodeParams(phoneNum),
                 CacheStrategy.FORCE_NET
             )
         }
