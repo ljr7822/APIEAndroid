@@ -275,7 +275,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/apie_theme_dimension_5"
                 android:text="什么数据都没有～"
-                android:textColor="@color/apie_color_6F94F4_alpha_70"
+                android:textColor="@color/apie_color_6b84fc"
                 android:textSize="@dimen/apie_theme_text_13" />
 
         </LinearLayout>
