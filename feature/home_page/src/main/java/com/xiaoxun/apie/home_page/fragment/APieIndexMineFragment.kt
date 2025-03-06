@@ -26,6 +26,7 @@ import com.xiaoxun.apie.common_model.home_page.mine.MineSettingItemAction
 import com.xiaoxun.apie.home_page.adapter.mine.APieMineSettingAdapter
 import com.xiaoxun.apie.home_page.adapter.mine.SettingRepo
 import com.xiaoxun.apie.home_page.databinding.LayoutApieIndexMineFragmentBinding
+import com.xiaoxun.apie.home_page.fragment.setting.APieAccountFragment
 import com.xiaoxun.apie.home_page.fragment.setting.APieEditProfileFragment
 import com.xiaoxun.apie.home_page.fragment.setting.APieGroupManagerFragment
 import com.xiaoxun.apie.home_page.fragment.setting.APieSoundEffectsFragment
@@ -134,6 +135,12 @@ class APieIndexMineFragment :
 
             MineSettingItemAction.ACTION_ACCOUNT_SETTING -> {
                 // 账号设置
+                (context as? FragmentActivity)?.supportFragmentManager?.let {
+                    APieAccountFragment(viewModel, repo).show(
+                        it,
+                        APieAccountFragment::class.java.simpleName
+                    )
+                }
             }
 
             MineSettingItemAction.ACTION_NOTIFY_SETTING -> {

@@ -7,6 +7,7 @@ enum class APieUrl(val url: String) {
     ACCOUNT_GET_STS_TOKEN(ACCOUNT_GET_STS_TOKEN_URL),
     ACCOUNT_GET_PUBLIC_KEY(ACCOUNT_GET_PUBLIC_KEY_URL),
     ACCOUNT_GET_USER_INFO(ACCOUNT_GET_USER_INFO_URL),
+    ACCOUNT_CHANGE_PASSWORD(ACCOUNT_CHANGE_PASSWORD_URL),
 
     ACCOUNT_GET_ALL_PLAN_BY_USER_ID(ACCOUNT_GET_ALL_PLAN_BY_USER_ID_URL),
     GET_ALL_PLAN_GROUP_BY_USER_ID(GET_ALL_PLAN_GROUP_BY_USER_ID_URL),
@@ -38,6 +39,7 @@ internal const val ACCOUNT_SEND_SMS_CODE_URL = "/sms/sendSMSCode/{phoneNum}/"
 internal const val ACCOUNT_GET_STS_TOKEN_URL = "/permissions/getStsToken"
 internal const val ACCOUNT_GET_PUBLIC_KEY_URL = "/permissions/getPublicKey"
 internal const val ACCOUNT_GET_USER_INFO_URL = "/user/queryUser/{userId}"
+internal const val ACCOUNT_CHANGE_PASSWORD_URL = "/user/changePassword"
 
 internal const val ACCOUNT_GET_ALL_PLAN_BY_USER_ID_URL = "/plan/queryAllPlan/{userId}"
 internal const val GET_ALL_PLAN_GROUP_BY_USER_ID_URL = "/planGroup/queryAllGroup/{userId}"

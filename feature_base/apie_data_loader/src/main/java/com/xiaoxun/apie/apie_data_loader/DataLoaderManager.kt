@@ -8,6 +8,7 @@ import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySm
 import com.xiaoxun.apie.apie_data_loader.request.account.sms.STSTokenParams
 import com.xiaoxun.apie.apie_data_loader.request.plan.LoadPlans
 import com.xiaoxun.apie.apie_data_loader.request.account.sms.SendSmsCodeParams
+import com.xiaoxun.apie.apie_data_loader.request.account.user.ChangePasswordParams
 import com.xiaoxun.apie.apie_data_loader.request.account.user.QueryUser
 import com.xiaoxun.apie.apie_data_loader.request.desire.CreateDesire
 import com.xiaoxun.apie.apie_data_loader.request.desire.CreateDesireGroup
@@ -135,6 +136,17 @@ class DataLoaderManager private constructor() {
     ): Observable<BaseResponse<PublicKeyModel>> {
         val loader = buildDataLoader<PublicKeyModel>(APieUrl.ACCOUNT_GET_PUBLIC_KEY.name)
         return loader?.getData(publicKeyParams, cacheStrategy) ?: Observable.error(Exception("loader is null"))
+    }
+
+    /**
+     * 修改密码
+     */
+    fun changePassword(
+        changePasswordParams: ChangePasswordParams,
+        cacheStrategy: CacheStrategy
+    ): Observable<BaseResponse<AccountModel>> {
+        val loader = buildDataLoader<AccountModel>(APieUrl.ACCOUNT_CHANGE_PASSWORD.name)
+        return loader?.getData(changePasswordParams, cacheStrategy) ?: Observable.error(Exception("loader is null"))
     }
 
     /**

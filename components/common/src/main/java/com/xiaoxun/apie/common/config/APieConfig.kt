@@ -30,7 +30,7 @@ object APieConfig {
 
     const val DEFAULT_SMS_CODE_SIZE = 4
 
-    const val DEFAULT_PASSWORD_SIZE = 6
+    const val DEFAULT_PASSWORD_SIZE = 8
 
     const val API_URL: String = "http://10.31.165.137:8090"
 

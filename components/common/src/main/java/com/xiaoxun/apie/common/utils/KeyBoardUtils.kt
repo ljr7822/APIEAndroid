@@ -1,6 +1,7 @@
 package com.xiaoxun.apie.common.utils
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.graphics.Rect
 import android.os.IBinder
@@ -79,6 +80,37 @@ object KeyBoardUtils {
         }
 
     }
+
+    /**
+     * 隐藏软键盘
+     * @param view 当前视图，通常是 Dialog 或 Activity 的根视图
+     */
+    @JvmStatic
+    fun hideKeyboard(view: View?) {
+        if (view == null) return
+
+        try {
+            val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    /**
+     * 隐藏软键盘 (Dialog 专用)
+     * @param dialog 需要隐藏键盘的对话框
+     */
+    @JvmStatic
+    fun hideKeyboardFromDialog(dialog: Dialog) {
+        try {
+            val imm = dialog.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(dialog.window?.decorView?.windowToken, 0)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
 
     /**
      * 点击外部View，隐藏键盘

@@ -1,10 +1,11 @@
 package com.xiaoxun.apie.home_page.repo.mine
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LifecycleOwner
 import com.xiaoxun.apie.account_manager.repo.AccountDBRepository
 import com.xiaoxun.apie.account_manager.repo.AccountDataDescriptor
 import com.xiaoxun.apie.apie_data_loader.DataLoaderManager
+import com.xiaoxun.apie.apie_data_loader.request.account.user.ChangePasswordParams
+import com.xiaoxun.apie.apie_data_loader.request.account.user.ChangePasswordRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.account.user.QueryUser
 import com.xiaoxun.apie.common.repo.AccountMMKVRepository
 import com.xiaoxun.apie.common.repo.DesireMMKVRepository
@@ -15,6 +16,7 @@ import com.xiaoxun.apie.common.utils.toast.APieToast
 import com.xiaoxun.apie.common_model.account.AccountModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
 import com.xiaoxun.apie.data_loader.utils.CacheStrategy
+import com.xiaoxun.apie.home_page.bean.ChangePasswordInfo
 import com.xiaoxun.apie.home_page.viewmodel.IndexMineViewModel
 import io.reactivex.disposables.CompositeDisposable
 
@@ -60,6 +62,30 @@ class MineRepo(
         }
     }
 
+    override suspend fun changePassword(changePasswordInfo: ChangePasswordInfo) {
+        viewModel.onLoadingStart()
+        innerChangePassword(changePasswordInfo).fold(
+            onSuccess = { response ->
+                if (response.isSuccess()) {
+                    response.data?.let {
+                        viewModel.onLoadingSuccess()
+                        saveAccountData2DB(it)
+                        saveAccountData2MMKV(it)
+                        APieToast.showDialog("修改密码成功")
+                    }
+                } else {
+                    viewModel.onLoadingFailed()
+                    APieToast.showDialog("修改密码失败")
+                }
+            },
+            onFailure = { error ->
+                APieToast.showDialog("修改密码失败")
+                viewModel.onLoadingFailed()
+                APieLog.e(TAG, "修改密码失败:${error}")
+            }
+        )
+    }
+
     override fun onCleared() {
         disposables.clear()
     }
@@ -68,6 +94,20 @@ class MineRepo(
         return executeResult {
             DataLoaderManager.instance.getUserInfo(
                 QueryUser(userId),
+                CacheStrategy.FORCE_NET
+            )
+        }
+    }
+
+    private suspend fun innerChangePassword(changePasswordInfo: ChangePasswordInfo): Result<BaseResponse<AccountModel>> {
+        return executeResult {
+            DataLoaderManager.instance.changePassword(
+                changePasswordParams = ChangePasswordParams(
+                    changePasswordRequestBody = ChangePasswordRequestBody(
+                        oldPassword = changePasswordInfo.oldPassword,
+                        newPassword = changePasswordInfo.newPassword
+                    )
+                ),
                 CacheStrategy.FORCE_NET
             )
         }
@@ -96,6 +136,7 @@ class MineRepo(
      */
     private fun saveAccountData2MMKV(accountModel: AccountModel) {
         AccountMMKVRepository.userId = accountModel.userId
+        AccountMMKVRepository.phoneNum = accountModel.phoneNum
         AccountMMKVRepository.userName = accountModel.userName
         AccountMMKVRepository.userAvatar = accountModel.userPortrait ?: ""
         AccountMMKVRepository.userDesc = accountModel.desc ?: ""

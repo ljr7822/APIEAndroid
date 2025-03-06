@@ -27,4 +27,16 @@ class IndexMineViewModel: APieBaseViewModel()  {
     fun onLoadInfoFailed() {
         _commonLoadingState.value = CommonLoadingState.FAILED
     }
+
+    fun onLoadingStart() {
+        _commonLoadingState.value = CommonLoadingState.START
+    }
+
+    fun onLoadingSuccess() {
+        _commonLoadingState.value = CommonLoadingState.SUCCESS
+    }
+
+    fun onLoadingFailed() {
+        _commonLoadingState.value = CommonLoadingState.FAILED
+    }
 }

@@ -6,6 +6,7 @@ private const val ACCOUNT_MMKV_NAME = "account_mmkv_store"
 object AccountMMKVRepository : MMKVOwner(mmapID = ACCOUNT_MMKV_NAME) {
     var userName by mmkvString("APPLE PIE")
     var userId by mmkvString()
+    var phoneNum by mmkvString()
     var userAvatar by mmkvString()
     var userDesc by mmkvString("")
     var token by mmkvString()
