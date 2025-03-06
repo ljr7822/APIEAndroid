@@ -2,6 +2,7 @@ package com.xiaoxun.apie.apie_data_loader
 
 import android.content.Context
 import com.xiaoxun.apie.apie_data_loader.repository.APieDataLoaderRepository
+import com.xiaoxun.apie.apie_data_loader.request.account.key.PublicKeyParams
 import com.xiaoxun.apie.apie_data_loader.request.account.login.password.LoginByPasswordRequest
 import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySmsCodeRequest
 import com.xiaoxun.apie.apie_data_loader.request.account.sms.STSTokenParams
@@ -25,6 +26,7 @@ import com.xiaoxun.apie.apie_data_loader.request.thing.DeleteThing
 import com.xiaoxun.apie.apie_data_loader.request.thing.LoadThingGroupRequest
 import com.xiaoxun.apie.apie_data_loader.request.thing.LoadThings
 import com.xiaoxun.apie.common_model.account.AccountModel
+import com.xiaoxun.apie.common_model.account.PublicKeyModel
 import com.xiaoxun.apie.common_model.home_page.desire.DesireModel
 import com.xiaoxun.apie.common_model.home_page.desire.DesireRespModel
 import com.xiaoxun.apie.common_model.home_page.desire.group.DesireGroupModel
@@ -122,6 +124,17 @@ class DataLoaderManager private constructor() {
         val loader = buildDataLoader<STSTokenModel>(APieUrl.ACCOUNT_GET_STS_TOKEN.name)
         return loader?.getData(stsTokenParams, cacheStrategy)
             ?: Observable.error(Exception("loader is null"))
+    }
+
+    /**
+     * 获取密码公钥
+     */
+    fun getPublicKey(
+        publicKeyParams: PublicKeyParams,
+        cacheStrategy: CacheStrategy
+    ): Observable<BaseResponse<PublicKeyModel>> {
+        val loader = buildDataLoader<PublicKeyModel>(APieUrl.ACCOUNT_GET_PUBLIC_KEY.name)
+        return loader?.getData(publicKeyParams, cacheStrategy) ?: Observable.error(Exception("loader is null"))
     }
 
     /**

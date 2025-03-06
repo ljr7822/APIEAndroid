@@ -55,7 +55,14 @@ class LoginActivity : APieBaseBindingActivity<LayoutApieLoginActivityBinding>(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initData()
         initializeView()
+    }
+
+    private fun initData() {
+        lifecycleScope.launch(Dispatchers.Main) {
+            repo.getPublicKey()
+        }
     }
 
     override fun initializeView() {

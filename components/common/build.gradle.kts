@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.google.code.gson)
     implementation(libs.kotlin.reflect)
     implementation(libs.aliyun.oss)
+    implementation(libs.bcprov.jdk15on)
     api(libs.datastore)
     api(libs.livedata.ktx)
     api(libs.startup)

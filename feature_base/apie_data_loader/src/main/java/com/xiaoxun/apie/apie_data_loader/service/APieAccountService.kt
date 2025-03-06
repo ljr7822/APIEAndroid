@@ -1,5 +1,6 @@
 package com.xiaoxun.apie.apie_data_loader.service
 
+import com.xiaoxun.apie.apie_data_loader.ACCOUNT_GET_PUBLIC_KEY_URL
 import com.xiaoxun.apie.apie_data_loader.ACCOUNT_GET_STS_TOKEN_URL
 import com.xiaoxun.apie.apie_data_loader.ACCOUNT_GET_USER_INFO_URL
 import com.xiaoxun.apie.apie_data_loader.ACCOUNT_LOGIN_PASSWORD_URL
@@ -8,6 +9,7 @@ import com.xiaoxun.apie.apie_data_loader.ACCOUNT_SEND_SMS_CODE_URL
 import com.xiaoxun.apie.apie_data_loader.request.account.login.password.LoginByPasswordRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySmsCodeRequestBody
 import com.xiaoxun.apie.common_model.account.AccountModel
+import com.xiaoxun.apie.common_model.account.PublicKeyModel
 import com.xiaoxun.apie.common_model.sms.STSTokenModel
 import com.xiaoxun.apie.common_model.sms.SmsCodeModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
@@ -30,6 +32,9 @@ interface APieAccountService {
 
     @GET(ACCOUNT_GET_STS_TOKEN_URL)
     fun getSTSToken(): Observable<BaseResponse<STSTokenModel>>
+
+    @GET(ACCOUNT_GET_PUBLIC_KEY_URL)
+    fun getPublicKey(): Observable<BaseResponse<PublicKeyModel>>
 
     @GET(ACCOUNT_GET_USER_INFO_URL)
     fun getUserInfo(@Path("userId") userId: String): Observable<BaseResponse<AccountModel>>

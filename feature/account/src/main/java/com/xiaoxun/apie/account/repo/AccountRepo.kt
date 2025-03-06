@@ -5,6 +5,7 @@ import com.xiaoxun.apie.account.viewmodel.AccountViewModel
 import com.xiaoxun.apie.account_manager.repo.AccountDBRepository
 import com.xiaoxun.apie.account_manager.repo.AccountDataDescriptor
 import com.xiaoxun.apie.apie_data_loader.DataLoaderManager
+import com.xiaoxun.apie.apie_data_loader.request.account.key.PublicKeyParams
 import com.xiaoxun.apie.apie_data_loader.request.account.login.password.LoginByPasswordRequest
 import com.xiaoxun.apie.apie_data_loader.request.account.login.password.LoginByPasswordRequestBody
 import com.xiaoxun.apie.apie_data_loader.request.account.login.smscode.LoginBySmsCodeRequest
@@ -17,17 +18,14 @@ import com.xiaoxun.apie.common.repo.DesireMMKVRepository
 import com.xiaoxun.apie.common.repo.ExecuteResultDelegate
 import com.xiaoxun.apie.common.repo.PlanMMKVRepository
 import com.xiaoxun.apie.common.utils.APieLog
-import com.xiaoxun.apie.common.utils.coroutine.singleSuspendCoroutine
+import com.xiaoxun.apie.common.utils.rsa.PasswordEncryptorUtils
 import com.xiaoxun.apie.common_model.account.AccountModel
+import com.xiaoxun.apie.common_model.account.PublicKeyModel
 import com.xiaoxun.apie.common_model.sms.STSTokenModel
 import com.xiaoxun.apie.common_model.sms.SmsCodeModel
 import com.xiaoxun.apie.data_loader.data.BaseResponse
 import com.xiaoxun.apie.data_loader.utils.CacheStrategy
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import kotlin.coroutines.resume
 
 class AccountRepo(
     private val activity: AppCompatActivity,
@@ -51,7 +49,14 @@ class AccountRepo(
 
     override suspend fun startLoginByPassword(phoneNum: String, password: String) {
         viewModel.markLoginLoading()
-        val result = loginByPassword(phoneNum, password)
+        val encodePassword = AccountMMKVRepository.publicKey?.let {
+            PasswordEncryptorUtils.encrypt(password, it)
+        }?: let {
+            APieLog.e(TAG, "startLoginByPassword failed: publicKey is null")
+            viewModel.onLoginFailed("登录异常，请稍后再试")
+            return
+        }
+        val result = loginByPassword(phoneNum, encodePassword)
         result.fold(
             onSuccess = {
                 val response = it
@@ -129,6 +134,22 @@ class AccountRepo(
             },
             onFailure = {
                 APieLog.e(TAG, "getSTSToken failed: $it")
+            }
+        )
+    }
+
+    override suspend fun getPublicKey() {
+        innerGetPublicKey().fold(
+            onSuccess = {
+                it.data?.let { resp ->
+                    APieLog.d(TAG, "getPublicKey: $resp")
+                    AccountMMKVRepository.publicKey = resp.publicKey
+                } ?: let {
+                    APieLog.e(TAG, "getPublicKey failed: data is null")
+                }
+            },
+            onFailure = {
+                APieLog.e(TAG, "getPublicKey failed: $it")
             }
         )
     }
@@ -216,6 +237,15 @@ class AccountRepo(
         return executeResult {
             DataLoaderManager.instance.getSTSToken(
                 STSTokenParams(AccountMMKVRepository.userId ?: ""),
+                CacheStrategy.FORCE_NET
+            )
+        }
+    }
+
+    private suspend fun innerGetPublicKey(): Result<BaseResponse<PublicKeyModel>> {
+        return executeResult {
+            DataLoaderManager.instance.getPublicKey(
+                PublicKeyParams(),
                 CacheStrategy.FORCE_NET
             )
         }

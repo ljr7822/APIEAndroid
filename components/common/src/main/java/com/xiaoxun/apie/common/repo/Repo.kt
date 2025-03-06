@@ -15,6 +15,7 @@ object AccountMMKVRepository : MMKVOwner(mmapID = ACCOUNT_MMKV_NAME) {
     var school by mmkvString("")
     var thingCount by mmkvInt(0)
     var totalThingPrice by mmkvDouble(0.0)
+    var publicKey by mmkvString()
 }
 
 private const val DESIRE_MMKV_NAME = "desire_mmkv_store"
